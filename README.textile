@@ -1,0 +1,8 @@
+h1. jonpearse.net (v2.1)
+
+This repo will be the code that powers my website ( "jonpearse.net":https://jonpearse.net ). 
+
+I say ‘will be’ as the current live version (from May 2018) contains a lot of semi-proprietary code that was used for the sake of expediency, but that cannot be open-sourced.
+This is a ground-up rewrite that will retain much of the same functionality (+ some improvements) just without any IP issues. I might even get some blog posts out of it, who knows? =)
+
+Source code for the previous version of the site (2013–2018) can be found in "its own repo":https://github.com/jonpearse/jonpearse.net-2013.
