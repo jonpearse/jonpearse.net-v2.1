@@ -17,4 +17,4 @@ development:
   host: localhost
   username:
   password:
-  dataabase:
+  database:
