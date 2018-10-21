@@ -24,7 +24,8 @@ config/database.yml
 /storage/*
 !/storage/.keep
 
-/public/assets
+/public/a
+!/public/a/.keep
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
