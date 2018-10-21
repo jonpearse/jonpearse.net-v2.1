@@ -1,0 +1,14 @@
+!!!
+%html.no-js{ lang: 'en-GB' }
+  = render partial: 'layouts/admin/head'
+  
+  %body.page
+    = render partial: 'layouts/admin/banner'
+    = render partial: 'layouts/admin/nav'
+    
+    %main.page__main
+      = render partial: 'layouts/admin/flashes'
+      
+      .page__content= yield
+  
+    = render partial: 'layouts/admin/js'

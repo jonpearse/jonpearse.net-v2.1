@@ -3,9 +3,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Basic stuff
 gem 'rails',  '~> 5.2.1'
 gem 'mysql2', '~> 0.5.2'
+gem 'haml-rails', '~> 1.0'
+
+# Use devise for user management
+gem 'devise', '~> 4.5'
+gem 'two_factor_authentication', '~> 2.1'
+gem 'rqrcode', '~> 0.10'
+
+# Other useful gems
+gem 'will_paginate', '~> 3.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

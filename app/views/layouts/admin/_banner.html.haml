@@ -1,0 +1,5 @@
+%header.page__banner
+  %h1 Page title
+  
+  - if user_signed_in?
+    = link_to "Log out", destroy_user_session_path, class: 'page__signout'
