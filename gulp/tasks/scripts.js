@@ -32,13 +32,12 @@ const WEBPACK_CONF = {
   },
   module: {
       rules: [
-          { 
-            test: /\.js$/, 
+          {
+            test: /\.js$/,
             use: {
               loader: 'babel-loader',
               options: {
-                presets: [ '@babel/preset-env' ],
-                plugins: [ '@babel/plugin-transform-runtime' ]
+                presets: [ '@babel/preset-env' ]
               }
             }
           },
@@ -67,28 +66,28 @@ const WEBPACK_CONF = {
 function getEntries()
 {
   const oEntries = {};
-  
-  glob( PATHS.compile ).forEach( sF => 
+
+  glob( PATHS.compile ).forEach( sF =>
   {
     const sBase = basename( sF, '.js' );
-    
+
     oEntries[sBase] = sF;
   });
-  
+
   return oEntries;
 }
 
 /**
  * Compiles JS for development.
  */
-gulp.task( 'js', () => 
+gulp.task( 'js', () =>
 {
   // 1. acquire configuration
   const conf   = WEBPACK_CONF;
   conf.devtool = 'inline-source-map';
   conf.mode    = 'development';
   conf.entry   = getEntries();
-  
+
   // 2. build!
   return  gulp.src( PATHS.context )
               .pipe( plumber({ errorHandler }))
@@ -104,7 +103,7 @@ gulp.task( 'js-build', () =>
   // 1. acquire configuration
   const conf = WEBPACK_CONF;
   conf.entry = getEntries();
-  
+
   // 2. build
   return  gulp.src( PATHS.context )
               .pipe( plumber({ errorHandler }))
