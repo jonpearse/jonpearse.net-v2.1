@@ -22,10 +22,21 @@ module Jjp21
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # Autoload some stuff
+    config.autoload_paths += Dir[Rails.root.join( 'app', 'classes', '*.rb' )]
+    config.autoload_paths += Dir[Rails.root.join( 'app', 'renderers', '*.rb' )]
+    
+    # Pull in core extensions
+    Dir[Rails.root.join( 'app', 'core_ext', '**', '*.rb' )].each{ |f| require f }
+
+    # Also allow nested locale files
+    config.i18n.load_path += Dir[Rails.root.join( 'config', 'locales', '**', '*.{rb,yml}' )]
+
+    # Don’t automatically include all helpers: we’ll do this manually
+    config.action_controller.include_all_helpers = false
+
+    # Default the shortlink host to nil
+    config.shortlink_host = nil
 
     # Don't generate system test files.
     config.generators.system_tests = nil
