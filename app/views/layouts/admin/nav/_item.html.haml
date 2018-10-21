@@ -1,0 +1,19 @@
+:ruby
+  top ||= false
+
+  # work out classes
+  css = []
+  css << '-current' if item[:current]
+  css << '-has-sub' if item.key?(:children)
+  css << '-split'   if item.key?(:split)
+
+%li.main-navigation__item{ class: css.join(' ') }
+  %a.main-navigation__link{ href: item[:url], 'data-top-level': top }
+    - if item.key? :icon
+      = icon item[:icon]
+    %span.main-navigation__text= item[:title]
+
+  -# render sub-items as well
+  - if item.key? :children
+    %ul.main-navigation__sub-list
+      = render partial: 'layouts/admin/nav/item', collection: item[:children]
