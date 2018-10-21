@@ -1,0 +1,20 @@
+%meta{ charset: 'utf-8' }
+= csrf_meta_tags
+%meta{ name: :viewport, content: 'width=device-width,initial-scale=1' }
+
+-# Page title
+%title= "#{@page_title} :: jonpearse.net"
+
+-# Header JS-fu
+%script<
+  function sIA(){setTimeout(function(){document.documentElement.classList.remove('no-ix')},50)}
+  if(document.documentElement.classList){document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");}
+
+-# Stylesheets
+= stylesheet_preload_tag( 'site' )
+%style{ media: :screen }= asset_contents( 'critical.css' )
+
+-# No-JS styling
+%noscript<
+  = stylesheet_tag( 'site' )
+  %style{ media: :screen }= asset_contents( 'critical.no-js' )
