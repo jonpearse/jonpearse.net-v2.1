@@ -3,5 +3,5 @@
     = render partial: 'layouts/admin/nav/item', collection: normalise_navigation, locals: { top: true } if user_signed_in?
     %li.main-navigation__item
       %a.main-navigation__link{ href: root_path }
-        = icon 'sign-out-alt'
+        -# = icon 'sign-out-alt'
         %span.main-navigation__text Main website

@@ -26,7 +26,7 @@ module Routable
 
       run_callbacks :slug_generated do
 
-        write_attribute( :slug, to_s( nil ).slugify( 64 ).downcase ) unless to_s( nil ).blank?
+        write_attribute( :slug, to_s.slugify( 64 ).downcase ) unless to_s.blank?
 
       end
 

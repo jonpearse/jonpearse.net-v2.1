@@ -9,7 +9,7 @@
 
 %li.main-navigation__item{ class: css.join(' ') }
   %a.main-navigation__link{ href: item[:url], 'data-top-level': top }
-    - if item.key? :icon
+    -# - if item.key? :icon
       = icon item[:icon]
     %span.main-navigation__text= item[:title]
 

@@ -3,9 +3,9 @@
   route:  dashboard#show
   icon:   tachometer-alt
 
-# - title:  Blog
-#   route:  blog/articles
-#   icon:   book
+- title:  Blog
+  route:  blog/articles
+  icon:   book
 #   children:
 #     - title:  Articles
 #       route:  blog/articles

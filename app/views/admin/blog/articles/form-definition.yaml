@@ -1,0 +1,14 @@
+---
+fields:
+  title: text
+  summary: text
+  masthead: media
+  body:
+    type: text
+    multiline: true
+  categories: tags
+  publishing:
+    type: group
+    fields:
+      published: checkbox
+      published_on: date

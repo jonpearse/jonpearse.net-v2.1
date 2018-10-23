@@ -1,0 +1,17 @@
+%section.content-list
+  = render partial: partial_for( :top )
+
+  -# Content
+  - if @content.empty?
+    = render partial: partial_for( :create_prompt )
+
+  - else
+    %ul.content-list__list
+      - @content.each do |content|
+        %li.content-list__item
+          %article.content-list__content.content-item
+            .content-item__content= render partial: partial_for( :item ), locals: { content: content }
+            %foooter.content-item__actions= render partial: partial_for( :actions ), locals: { content: content }
+
+    %footer.content-list__footer
+      = render partial: partial_for( :pagination )

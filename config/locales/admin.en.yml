@@ -1,0 +1,49 @@
+en:
+  admin:
+    # General prompts for various actions
+    prompts:
+
+      # Various buttons
+      create_button:  New %{model_singular}
+      view_button:    View
+      edit_button:    Edit
+      save_button:    Save
+      destroy_button: Delete
+      confirm_destroy_button: Delete
+      cancel_button:  Cancel
+
+      # Creating a new item because there’s nothing there
+      create_from_none: 'Would you like to <a href="%{url}">create one</a>?'
+
+      # Destruction confirmation string
+      confirm_destroy: Are you sure you wish to delete the %{model_singular} ‘%{title}’
+
+      # Date labels
+      dates:
+        date:
+          label: Date
+          hint: DD
+        month:
+          label: Month
+          hint:  ---------
+        year:
+          label: Year
+          hint: YYYY
+
+    # Status messages
+    status:
+
+      # Listing
+      none: There are no %{model_plural}.
+
+      # creation
+      created: ‘%{title}’ has been saved.
+      create_failed: 'Your new %{model_singular} could not be saved: please check for any errors and try again.'
+
+      # Editing
+      updated: Your changes to ‘%{title}’ have been saved.
+      update_failed: 'There was a problem saving ‘%{title}’: please check for any errors and try again.'
+
+      # Destruction
+      destroyed: ‘%{title}’ has been deleted.
+      destroy_failed: 'Your %{model_singular} ‘%{title}’ could not be deleted: please try again later.'

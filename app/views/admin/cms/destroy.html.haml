@@ -1,0 +1,6 @@
+= form_with model: @form_context, class: 'form form--dialog' do |form|
+  %p= prompt_t( @content, :confirm_destroy, title: @content.to_s )
+
+  .form__buttons
+    %button.btn{ type: :submit, name: :confirm }= prompt_t( @content, :confirm_destroy_button )
+    = link_to prompt_t( @content, :cancel_button ), { action: :index }, class: 'btn btn--primary btn--large'

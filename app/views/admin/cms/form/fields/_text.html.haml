@@ -1,0 +1,16 @@
+:ruby
+
+  # assign some defaults, and get some messaging
+  options = { maxlength: nil, multiline: false, wysiwyg: false }.merge( field )
+  messages = form.object.get_messages_for( field[:field], %i{ blank too_long }).to_json
+
+  # handle WYSIWYG stuff
+  options[:wysiwyg] = false unless options[:multiline]
+
+= render layout: 'admin/cms/form/fields/wrapper', locals: local_assigns do
+  = label_element( local_assigns )
+
+  - if field[:multiline]
+    = form.text_area( field[:field], class: "form__input #{field[:class]}", required: field[:required], data: { messages: messages, behaviour: ( field[:wysiwyg] ? :wysiwyg : nil )})
+  - else
+    = form.text_field( field[:field], class: "form__input #{field[:class]}", required: field[:required], maxlength: field[:maxlength], 'data-messages': messages )

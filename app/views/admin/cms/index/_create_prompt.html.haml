@@ -1,0 +1,5 @@
+%p.content-list__empty
+  = status_t( @model_class, :none )
+
+  - if action_allowed?( :create )
+    = prompt_t( @model_class, :create_from_none, url: url_for( action: :new )).html_safe

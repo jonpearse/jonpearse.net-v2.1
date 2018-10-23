@@ -8,6 +8,17 @@ Rails.application.routes.draw do
 
     root to: 'dashboard#show'
 
+    # Blog stuff
+    scope module: :blog do
+
+      resources :articles, except: [ :show ] do
+        member do
+          get 'destroy', as: :destroy
+        end
+      end
+
+    end
+
   end
 
   # Site namespace
