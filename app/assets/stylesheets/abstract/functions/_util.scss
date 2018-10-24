@@ -1,0 +1,76 @@
+/// Converts a unit-less number to rem. This is similar to the bourbon function of the same name, except it assumes the
+/// input to be in pixels. That is, there is no unit conversion here.
+///
+/// @param  {number} $px    A number in pixels to convert to rems
+@function rem($px)
+{
+  @if type-of($px) != 'number'
+  {
+    $px: to-number($px);
+  }
+  @return ($px / $px-in-rem) * 1rem;
+}
+
+/// Grabs a colour from the $palette variable: this is to ensure we don’t have too many bare colours floating around
+/// the system =)
+///
+/// @param {string} $color  the colour to retrieve from the palette
+@function palette( $color )
+{
+  @if map-has-key($palette, $color)
+  {
+    @return map-get($palette, $color);
+  }
+  @else
+  {
+    @warn 'Attempting to use undefined colour #{color}';
+  }
+}
+
+/// Grabs a colour from the $foreground variable: this is to ensure we don’t have too many bare colours floating around
+/// the system =)
+///
+/// @param {string} $color  the colour to retrieve from the palette
+@function fg( $color )
+{
+  @if map-has-key($foreground, $color)
+  {
+    @return map-get($foreground, $color);
+  }
+  @else
+  {
+    @warn 'Attempting to use undefined colour #{color}';
+  }
+}
+
+/// Grabs a colour from the $background variable: this is to ensure we don’t have too many bare colours floating around
+/// the system =)
+///
+/// @param {string} $color  the colour to retrieve from the palette
+@function bg( $color )
+{
+  @if map-has-key($background, $color)
+  {
+    @return map-get($background, $color);
+  }
+  @else
+  {
+    @warn 'Attempting to use undefined colour #{color}';
+  }
+}
+
+/// Grabs a dimension from the $dimensions variable: this is to ensure we don’t have too many random whitespace values
+/// floating around too much
+///
+/// @param {string} $dim  the dimension to retrieve
+@function dimension( $dim )
+{
+  @if map-has-key($dimensions, $dim)
+  {
+    @return rem(map-get($dimensions, $dim));
+  }
+  @else
+  {
+    @warn 'Attempting to use undefined dimension #{dim}';
+  }
+}

@@ -1,0 +1,77 @@
+/// ==========================================================================
+/// #
+/// # Base-level styles for across the site
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Colourways
+/// ==========================================================================
+:root {
+  // backgrounds
+  --background: #fff;
+  --midground:  #f2f2f2;
+
+  // foregrounds
+  --text:       #333;
+  --smalltext:  #666;
+
+  // links
+  --link:       #E44849;
+
+  // theme colours
+  --accent1_hi: #e96443;
+  --accent1_lo: #904e95;
+  --accent1_tx: #fff;
+  --accent2_hi: #eee;
+  --accent2_lo: #e6e6e6;
+  --accent2_tx: var(--text);
+
+  // boxes + stuff
+  --keyline:    rgba(0, 0, 0, .1);
+  --border:     rgba(0, 0, 0, .3);
+
+  // button ways
+  --button-def-bg: #eee;
+  --button-def-tx: var(--text);
+  --button-pri-bg: var(--accent1_hi);
+  --button-pri-tx: #fff;
+  --button-sec-bg: var(--accent1_lo);
+  --button-sec-tx: #fff;
+
+  // semantic
+  --safe:       #090;
+  --caution:    #FC0;
+  --danger:     #900;
+  --neutral:    #009;
+}
+
+html.dark-mode {
+  --background: #223;
+  --midground:  #444;
+
+  --text:       #ccc;
+  --smalltext:  #aaa;
+}
+
+/// ==========================================================================
+/// # Everything else
+/// ==========================================================================
+html,
+body {
+  background: var(--background);
+  color: var(--text);
+}
+
+/// Set running margins
+/// ==========================================================================
+* { // sass-lint:disable-line no-universal-selectors
+  &:first-child { margin-top: 0; }
+  &:last-child  { margin-bottom: 0; }
+}
+
+/// Basic link styles
+/// ==========================================================================
+a {
+  color: var(--link);
+}

@@ -46,6 +46,9 @@ module AssetHelper
   # [options] _(hash, optional)_ any additional attributes to be set on the tag
   def script_tag( filename, options = {} )
 
+    # blah
+    filename = filename.to_s
+
     # add the extension, if not already present
     filename += '.js' unless filename.end_with?( '.js' )
 
@@ -91,7 +94,7 @@ module AssetHelper
     hostname = config.asset_host || root_url.gsub( /^\//, '' )
 
     # return
-    "#{hostname}/#{Rails.application.config.assets[:url]}/#{versioned_filename_for( filename )}"
+    "#{hostname}/#{Rails.application.config.assets[:url]}/#{versioned_filename_for( filename )}".gsub( /(?<!:)\/\/+/, '/' )
 
   end
 

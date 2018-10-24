@@ -1,0 +1,70 @@
+// ==========================================================================
+// # FONT CONFIGURATION
+// ==========================================================================
+
+/// Generates font-size and line-height properties from a base map of font sizes.
+///
+/// @param  string    $style      the name of the style, loaded from the $fontSizes configuration variable
+/// @param  [number}    $leading    the leading to use for this case. If left blank, uses whatever is configured
+@mixin fsz( $style, $leading: null )
+{
+  @if map-has-key($font-sizes, $style)
+  {
+    // 1. sort a few things out first
+    // a. basics
+    $def:  map-get($font-sizes, $style);
+    $size: map-get($def, 'size');
+
+    // b. if there’s no leading specified, grab it from the definition
+    @if ($leading == null)
+    {
+      $leading: map-get($def, 'leading');
+    }
+
+    // 2. output
+    font-size: rem($size);
+    @if ($leading != null)
+    {
+      // if leading is >7, assume it’s in PX and convert it to percentage of font size
+      @if ($leading > 7)
+      {
+        $leading: $leading / $size;
+      }
+      line-height: $leading;
+    }
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font style #{$style}!';
+  }
+}
+
+/// Generates font-family statements from a base map of font-families.
+///
+/// @param  {string}    $family the name of the family, loaded from the font-families configuration variable
+@mixin ffm( $family )
+{
+  @if map-has-key($font-families, $family)
+  {
+    font-family: ffm($family);
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font family #{$family}';
+  }
+}
+
+/// Generates font-weight statements from a base map of font-weights
+///
+/// @param  {string} $weight    the weight to use, as defined from $fontWeights configuration variable
+@mixin fwt( $weight )
+{
+  @if map-has-key($font-weights, $weight)
+  {
+    font-weight: map-get($font-weights, $weight);
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font weight #{$weight}';
+  }
+}

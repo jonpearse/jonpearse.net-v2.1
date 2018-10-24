@@ -1,17 +1,17 @@
 ---
 - title:  Dashboard
   route:  dashboard#show
-  icon:   tachometer-alt
+  icon:   tachometer
 
 - title:  Blog
   route:  blog/articles
   icon:   book
-#   children:
-#     - title:  Articles
-#       route:  blog/articles
-#     - title:  Categories
-#       route:  blog/categories
-#
+  children:
+    - title:  Articles
+      route:  blog/articles
+    - title:  Categories
+      route:  blog/categories
+
 # - title:  Work
 #   route:  work/projects
 #   icon:   building

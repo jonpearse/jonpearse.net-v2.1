@@ -1,0 +1,76 @@
+/// ==========================================================================
+/// #
+/// # Type functions: mostly map-get wrappers
+/// #
+/// ==========================================================================
+
+/// Extracts the font size for the given height.
+///
+/// @param  string    $style      the name of the style, loaded from the $fontSizes configuration variable
+@function fsz( $style )
+{
+  @if map-has-key($font-sizes, $style)
+  {
+    @return rem(map-get(map-get($font-sizes, $style), 'size'));
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font style #{$style}!';
+  }
+}
+
+/// Extracts the leading for the given height.
+///
+/// @param  string    $style      the name of the style, loaded from the $fontSizes configuration variable
+@function fld( $style )
+{
+  @if map-has-key($font-sizes, $style)
+  {
+    // get stuff
+    $def:  map-get($font-sizes, $style);
+    $size: map-get($def, 'size');
+    $lead: map-get($def, 'leading');
+
+    // convert + normalize
+    @if ($lead > 7)
+    {
+      $lead: $lead / $size;
+    }
+
+    @return $lead;
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font style #{$style}!';
+  }
+}
+
+/// Generates font-family statements from a base map of font-families.
+///
+/// @param  {string}    $family the name of the family, loaded from the font-families configuration variable
+@function ffm( $family )
+{
+  @if map-has-key($font-families, $family)
+  {
+    @return unquote(map-get($font-families, $family));
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font family #{$family}';
+  }
+}
+
+/// Generates font-weight statements from a base map of font-weights
+///
+/// @param  {string} $weight    the weight to use, as defined from $fontWeights configuration variable
+@function fwt( $weight )
+{
+  @if map-has-key($font-weights, $weight)
+  {
+    @return map-get($font-weights, $weight);
+  }
+  @else
+  {
+    @warn 'Trying to use undefined font weight #{$weight}';
+  }
+}

@@ -20,21 +20,21 @@ gulp.task( 'fonts', () =>
 {
   return  gulp.src( PATHS.source )
               .pipe( plumber({ errorHandler }))
-              .pipe( rename( oPath => 
+              .pipe( rename( oPath =>
               {
-                  
-                  const sDir = oPath.dirname.toLowerCase();
+
+                  const sDir  = oPath.dirname.toLowerCase();
                   const sFont = oPath.basename.toLowerCase();
-                  
+
                   // if dir + font are different, prefix things
                   if (sDir !== sFont)
                   {
-                    oPath.basename = `${path.dirname}-${path.basename}`;
+                    oPath.basename = `${oPath.dirname}-${oPath.basename}`;
                   }
-                  
+
                   // always unset the dirname
                   oPath.dirname = '';
-                  
+
               }))
               .pipe( gulp.dest( OUTPUT ));
 });

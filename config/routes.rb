@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # Blog stuff
     scope module: :blog do
 
-      resources :articles, except: [ :show ] do
+      resources :articles, :categories, except: [ :show ] do
         member do
           get 'destroy', as: :destroy
         end

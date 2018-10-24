@@ -34,16 +34,16 @@
  */
 (function()
 {
-  if ( typeof NodeList.prototype.forEach !== 'function' )
-  {
-    NodeList.prototype.forEach = function( fCallback )
+    if ( typeof NodeList.prototype.forEach !== 'function' )
     {
-      for ( let i = 0; i < this.length; i++ )
-      {
-        fCallback( this.item(i), i, this );
-      }
+        NodeList.prototype.forEach = function( fCallback )
+        {
+            for ( let i = 0; i < this.length; i++ )
+            {
+                fCallback( this.item( i ), i, this );
+            }
+        }
     }
-  }
 }());
 
 /**
@@ -51,8 +51,8 @@
  */
 (function()
 {
-  if ( Number.isNaN === undefined)
-  {
-    Number.prototype.isNaN = value => ( typeof value === 'number' ) && isNaN( value );
-  }
+    if ( Number.isNaN === undefined )
+    {
+        Number.prototype.isNaN = value => ( typeof value === 'number' ) && isNaN( value );
+    }
 }());

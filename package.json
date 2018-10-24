@@ -9,7 +9,6 @@
   "dependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-transform-object-assign": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "autoprefixer": "^9.2.1",
     "babel-loader": "^8.0.4",
@@ -35,6 +34,7 @@
     "gulp-svgstore": "^7.0.0",
     "gulp-uglify": "^3.0.1",
     "postcss-critical-css": "^3.0.3",
+    "postcss-short-border-radius": "^3.0.0",
     "postcss-sorting": "^4.0.0",
     "require-dir": "^1.1.0",
     "webpack": "^4.21.0",

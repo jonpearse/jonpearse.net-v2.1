@@ -1,5 +1,5 @@
-%header.page__banner
-  %h1 Page title
-  
+%header.page__banner.banner
+  %h1.banner__title Page title
+
   - if user_signed_in?
-    = link_to "Log out", destroy_user_session_path, class: 'page__signout'
+    = link_to_with_icon "Log out", destroy_user_session_path, 'sign-out', class: 'banner__signout'

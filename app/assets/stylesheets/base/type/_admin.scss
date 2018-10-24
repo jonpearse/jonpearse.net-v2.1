@@ -1,0 +1,62 @@
+/// ==========================================================================
+/// #
+/// # Various typography rules
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Load fonts
+/// ==========================================================================
+@font-face {
+  font-family: 'Lato';
+  font-weight: fwt(normal);
+  src: local('Lato Light'), local('Lato-Light'), url('lato-light.woff2') format('woff2'), url('lato-light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-weight: fwt(semi);
+  src: local('Lato Regular'), local('Lato-regular'), url('lato-regular.woff2') format('woff2'), url('lato-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-weight: fwt(bold);
+  src: local('Lato Bold'), local('Lato-bold'), url('lato-bold.woff2') format('woff2'), url('lato-bold.woff') format('woff');
+}
+
+/// ==========================================================================
+/// # Style Definitions
+/// ==========================================================================
+body,
+input,
+textarea {
+  font: fwt(normal) #{fsz(base)}/#{fld(base)} ffm(base);
+}
+
+/// Paras
+/// ==========================================================================
+p { margin: 1em 0; }
+
+/// Headings
+/// ==========================================================================
+h1 {
+  margin: 0 0 2em;
+
+  font-size: fsz(bigTitle);
+  line-height: fld(bigTitle);
+}
+
+h2 {
+  margin: 2em 0 1em;
+
+  font-size: fsz(secondary);
+  line-height: fld(secondary);
+}
+
+h3 {
+  margin: 1em 0;
+
+  font-size: fsz(tertiary);
+  line-height: fld(tertiary);
+}
