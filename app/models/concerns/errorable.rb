@@ -5,23 +5,35 @@
 module Errorable
   extend ActiveSupport::Concern
 
+  class_methods do
+
+    # Returns whether or not a property on this class is required.
+    def property_required?( property )
+
+      self.validators_on( property ).map( &:class ).include?( ActiveRecord::Validations::PresenceValidator )
+
+    end
+
+  end
+
+
   # Returns whether or not there is an error associated with the provided property
   def has_error?( property )
-    
+
     self.errors[property].present?
-    
+
   end
 
   # Utility function that concatenates all available validation error messages for the provided property.
   def error_messages( property )
-    
+
     unless self.has_error?( property )
       return nil
     end
 
     # shortcut—if the user has entered nothing in a required field, just tell them that: it's pointless to tell them
     # it's required, and in the wrong format...
-    if self.property_required?( property ) && self.send( property ).blank? && ( property != :password )
+    if self.class.property_required?( property ) && self.send( property ).blank? && ( property != :password )
        return self.errors.generate_message( property, :blank )
     end
 
@@ -33,13 +45,6 @@ module Errorable
     end
 
     ret
-  end
-
-  # Helper to find out if a field is required.
-  def property_required?( property )
-
-    self.class.validators_on( property ).map( &:class ).include?( ActiveRecord::Validations::PresenceValidator )
-
   end
 
   # Returns all requested messages for the given property.
