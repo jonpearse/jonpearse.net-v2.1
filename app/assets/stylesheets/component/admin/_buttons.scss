@@ -1,0 +1,101 @@
+/// ==========================================================================
+/// #
+/// # Button styles
+/// #
+/// ==========================================================================
+
+/// Basic buttonness.
+/// ==========================================================================
+.btn {
+  --bg: var(--button-def-bg);
+  --hv: var(--button-def-hv);
+  --fg: var(--button-def-tx);
+  --ht: var(--button-def-ht);
+
+  display: inline-block;
+  padding: .7em 1.4em;
+
+  border-radius: rem(2);
+
+  background: var(--bg);
+  color: var(--fg);
+
+  @include fsz(defaultButton);
+  @include fwt(semi);
+  @include ffm(base);
+  text-decoration: none;
+  text-shadow: rgba(0, 0, 0, .3) 0 1px 1px 0;
+
+  transform: translateY(0);
+
+  transition: background .25s, color .25s, transform .15s;
+
+  &:hover {
+    background: var(--hv);
+    color: var(--ht);
+  }
+  &:active { transform: translateY(rem(2)); }
+
+  // handle icons
+  .svg-icon {
+    margin: -.2em .6em 0 -.1em;
+    font-size: 140%;
+    line-height: 1;
+  }
+
+  & + & { margin-left: 1em; }
+}
+
+/// Icon-only
+/// ==========================================================================
+.btn--icon-only {
+  padding: .7em 1em;
+
+  .svg-icon[class] {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/// Colourways
+/// ==========================================================================
+.btn--primary {
+  --bg: var(--button-pri-bg);
+  --hv: var(--button-pri-hv);
+  --fg: var(--button-pri-tx);
+  --ht: var(--button-pri-ht);
+}
+
+.btn--secondary {
+  --bg: var(--button-sec-bg);
+  --hv: var(--button-sec-hv);
+  --fg: var(--button-sec-tx);
+  --ht: var(--button-sec-ht);
+}
+
+.btn--dangerous {
+  --bg: var(--button-dan-bg);
+  --hv: var(--button-dan-hv);
+  --fg: var(--button-dan-tx);
+  --ht: var(--button-dan-ht);
+
+  box-shadow: inset currentColor 0 0 0 1px;
+}
+
+/// Sizes
+/// ==========================================================================
+.btn--large {
+  padding: .7em 2em;
+  @include fsz(largeButton);
+
+  .svg-icon { margin: -.15em .5em 0 -.1em; }
+}
+
+.btn--smol {
+  padding: .4em 1em .3em;
+  @include fsz(smallButton);
+
+  .svg-icon { margin: -.15em .5em 0 -.1em; }
+
+  &.btn--icon-only { padding: .4em .5em .3em; }
+}

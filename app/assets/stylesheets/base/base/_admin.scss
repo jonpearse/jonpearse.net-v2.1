@@ -11,6 +11,7 @@
   // backgrounds
   --background: #fff;
   --midground:  #f2f2f2;
+  --alt_bg:     rgba(0, 0, 0, .02);
 
   // foregrounds
   --text:       #333;
@@ -20,8 +21,8 @@
   --link:       #E44849;
 
   // theme colours
-  --accent1_hi: #e96443;
-  --accent1_lo: #904e95;
+  --accent1_hi: hsl(12, 79%, 59%);
+  --accent1_lo: hsl(296, 31%, 45%);
   --accent1_tx: #fff;
   --accent2_hi: #eee;
   --accent2_lo: #e6e6e6;
@@ -32,12 +33,25 @@
   --border:     rgba(0, 0, 0, .3);
 
   // button ways
-  --button-def-bg: #eee;
+  --button-def-bg: hsl(0, 0%, 93%);
+  --button-def-hv: hsl(0, 0%, 88%);
   --button-def-tx: var(--text);
+  --button-def-ht: var(--text);
+
   --button-pri-bg: var(--accent1_hi);
+  --button-pri-hv: hsl(12, 79%, 56%);
   --button-pri-tx: #fff;
+  --button-pri-ht: #fff;
+
   --button-sec-bg: var(--accent1_lo);
+  --button-sec-hv: hsl(296, 31%, 43%);
   --button-sec-tx: #fff;
+  --button-sec-ht: #fff;
+
+  --button-dan-bg: var(--background);
+  --button-dan-hv: var(--background);
+  --button-dan-tx: hsl(0, 100%, 30%);
+  --button-dan-ht: hsl(0, 100%, 40%);
 
   // semantic
   --safe:       #090;

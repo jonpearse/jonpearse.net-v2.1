@@ -4,9 +4,6 @@ list:
     - property: title
       template: |
         = link_to( content.to_s, url_for( action: :edit, id: content.id ))
-        %br
-        - content.categories.each do |c|
-          %span.bean= c.to_s
       sortable: false
 
     - property: published_on

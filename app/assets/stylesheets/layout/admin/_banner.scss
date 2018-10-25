@@ -5,11 +5,15 @@
 /// ==========================================================================
 
 .banner {
+  position: relative;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 
   border-bottom: 1px solid var(--keyline);
+
+  box-shadow: rgba(0, 0, 0, .05) 0 0 5px 0;
 }
 
 /// Page title

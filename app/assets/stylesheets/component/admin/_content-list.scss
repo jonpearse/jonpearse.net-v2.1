@@ -1,0 +1,43 @@
+/// ==========================================================================
+/// #
+/// # Content listing component.
+/// #
+/// ==========================================================================
+
+/// Header
+/// ==========================================================================
+.content-list__header {
+  margin: 0 0 rem(30);
+}
+
+/// ==========================================================================
+/// # Content table
+/// ==========================================================================
+.content-table {
+  width: calc(100% + #{rem(60)});
+  margin: 0 rem(-30);
+
+  background: var(--background);
+
+  th,
+  td {
+    padding: rem(15) rem(10);
+    text-align: left;
+    vertical-align: middle;
+
+    &:first-child { padding-left:  rem(30); }
+    &:last-child  { padding-right: rem(30); }
+  }
+
+  th { font-weight: fwt(semi); }
+}
+
+/// Header row
+/// ==========================================================================
+.content-table__header tr:last-child th { border-bottom: 1px solid var(--border); }
+
+/// Body
+/// ==========================================================================
+.content-table__body tr:nth-child(odd) { background: var(--alt_bg); }
+
+.content-table__actions { width: rem(150); }
