@@ -47,10 +47,7 @@ gulp.task( 'sass-build', gulp.series( 'sass', (function realSassBuild()
               .pipe( plumber({ errorHandler }))
               .pipe( postcss([
                 require( 'postcss-sorting' ),
-                require( 'cssnano' )({
-                  safe: true,
-                  autoprefixer: false
-                })
+                require( 'cssnano' )({ autoprefixer: false })
               ]))
               .pipe( gulp.dest( OUTPUT ));
 })));
