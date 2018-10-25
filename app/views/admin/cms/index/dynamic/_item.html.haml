@@ -1,0 +1,4 @@
+= render_column( columns.first, { content: content }, :th, { scope: :row })
+
+- columns[1..-1].each do |col|
+  = render_column( col, { content: content })

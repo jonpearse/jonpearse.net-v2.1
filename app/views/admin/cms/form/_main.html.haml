@@ -5,7 +5,7 @@
     %input{ type: :hidden, name: :back_to, value: params[:back_to] }
 
   -# Output form fields
-  = render partial: partial_for( :fields, :form ), locals: { form: form, fields: @form_manager.fields }
+  = render partial: partial_for( :fields, :form ), locals: { form: form, fields: form_definition[:fields] }
 
   -# And the buttons
   = render partial: partial_for( :buttons, :form ), locals: { form: form }

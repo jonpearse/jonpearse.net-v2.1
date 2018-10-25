@@ -1,11 +1,12 @@
 # Root CMS controller. This provides much of the CRUD-y functionality for the administration interface.
 class Admin::CMSController < Admin::BaseController
+  include Admin::CMS::Definitions
 
   # define some callbacks for content extraction
   define_callbacks :content_extract
 
   # include some namespaced helpers
-  helper Admin::CMS::PartialHelper, Admin::CMS::FormHelper, Admin::CMS::UrlHelper
+  helper Admin::CMS::PartialHelper, Admin::CMS::FormHelper, Admin::CMS::UrlHelper, Admin::CMS::TableHelper
 
   # expose some of ourselves to the view layer
   helper_method :action_allowed?
@@ -88,9 +89,8 @@ class Admin::CMSController < Admin::BaseController
     # check whether we can do this
     not_found and return unless action_allowed?( :create )
 
-    # extract content + form definition
+    # extract content
     extract_content
-    load_form_definition
 
   end
 
@@ -112,7 +112,6 @@ class Admin::CMSController < Admin::BaseController
 
       # it failed: so show a flash + redisplay the form
       flash.now[:error] = status_t( @content, :create_failed )
-      load_form_definition
       render( action: :new )
 
     end
@@ -129,9 +128,8 @@ class Admin::CMSController < Admin::BaseController
     # if we can’t do this
     not_found and return unless action_allowed?( :update )
 
-    # load the content + load the form
+    # load the content
     extract_content
-    load_form_definition
 
   rescue ActiveRecord::RecordNotFound
 
@@ -161,7 +159,6 @@ class Admin::CMSController < Admin::BaseController
 
       # it failed: so show a flash + redisplay the form
       flash.now[:error] = status_t( @content, :updated_failed )
-      load_form_definition
       render( action: :edit )
 
     end
@@ -322,13 +319,6 @@ class Admin::CMSController < Admin::BaseController
         format.json { render( json: @content )}
 
       end
-
-    end
-
-    # Utility function that loads a form manager for the given controller.
-    def load_form_definition
-
-      @form_manager = FormManager.new( params[:controller], @content )
 
     end
 

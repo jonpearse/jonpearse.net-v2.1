@@ -1,0 +1,3 @@
+%th{ scope: :row }= link_to content.to_s, url_for( action: :edit, id: content.id )
+%td.-smol= content.created_at.to_s( :db )
+%td.-smol= content.updated_at.to_s( :db )
