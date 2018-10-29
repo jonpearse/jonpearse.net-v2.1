@@ -1,0 +1,213 @@
+/// ==========================================================================
+/// #
+/// # CMS form styles
+/// #
+/// ==========================================================================
+
+.form {
+  display: block;
+  padding: rem(20);
+
+  background: var(--background);
+}
+
+/// ==========================================================================
+/// # Individual fields
+/// ==========================================================================
+.form__field {
+  --border: var(--keyline);
+  --glow:   transparent;
+
+  & + & { margin-top: rem(30); }
+
+  &.-error {
+    --border: var(--danger);
+    --glow:   var(--danger);
+  }
+
+  @include mq(medium) {
+
+    &:not(.-flush) {
+      padding: 0 0 0 rem(140);
+
+      &::after {
+        display: table;
+        clear: both;
+        content: '';
+      }
+    }
+  }
+}
+
+/// Labels
+/// ==========================================================================
+.form__label {
+  --border:  var(--keyline);
+  --opacity: 0;
+
+  display: block;
+  padding: .5em 0;
+  font-weight: fwt(bold);
+
+  // for use with checkboxen
+  .form__input[type=checkbox] ~ & {
+    position: relative;
+    padding-left: 3em;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 1em;
+      height: 1em;
+
+      transform: translateY(-50%);
+
+      line-height: 1;
+
+      content: '';
+    }
+
+    &::before {
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: border-color .25s;
+    }
+
+    &::after {
+      background: url( 'icons-admin#icon-check' ) center center no-repeat/80%;
+      opacity: var(--opacity);
+      transition: opacity .25s;
+    }
+  }
+
+  .form__input[type=checkbox]:focus ~ & { --border: var(--accent1_lo); }
+  .form__input[type=checkbox]:checked ~ & { --opacity: 1; }
+
+  // on larger viewports
+  @include mq(medium) {
+
+    .form__field:not(.-flush):not(.-reverse) > & {
+      float: left;
+      width: rem(120);
+      margin-left: rem(-140);
+    }
+
+  }
+}
+
+.form__required {
+  border: none;
+  outline: none;
+  text-decoration: none;
+
+  color: var(--accent1_lo);
+}
+
+/// Form groups
+/// ==========================================================================
+.form__group {
+  // force the margin if we’re in a field
+  .form__field:not(:first-child) &:not(.-flush) { margin-top: rem(50); }
+
+  // if we’re the first of type, squash the top header
+  &:first-of-type { margin-top: 0; }
+  &:last-of-type  { margin-bottom: 0; }
+}
+
+.form__title {
+  padding-bottom: .5em;
+  border-bottom: 1px solid var(--border);
+}
+
+/// ==========================================================================
+/// # Inputs
+/// ==========================================================================
+.form__input[type=text],
+.form__input[type=month],
+.form__input[type=url],
+.form__input[type=email],
+.form__input[type=date],
+.form__input[type=number],
+.form__input[type=password],
+select.form__input,
+textarea.form__input,
+.form__readonly {
+  appearance: none;
+  display: block;
+
+  padding: .5em .8em;
+  border: 1px solid var(--border);
+  box-shadow: var(--glow) 0 0 0 1px;
+  outline: none;
+
+  background: transparent none;
+
+  &:focus { --border: var(--accent1_lo); }
+}
+
+// specify widths
+.form__input[type=text]:not([maxlength]),
+.form__input[type=email]:not([maxlength]),
+.form__input[type=url]:not([maxlength]),
+.form__input[type=password]:not([maxlength]),
+textarea.form__input {
+  width: 90%;
+}
+
+// increase textarea height
+textarea.form__input { height: 15em; }
+
+/// Make checkboxen reverse
+/// ==========================================================================
+.form__input[type=checkbox],
+.form__input[type=radio] {
+  position: absolute;
+  transform: scale(0);
+  opacity: 0;
+}
+
+/// Make select boxen pretty
+/// ==========================================================================
+select.form__input {
+  padding-right: 3em;
+  background: url('icons-admin#icon-angle-down') right .8em top 65% no-repeat/.8em;
+}
+
+
+/// ==========================================================================
+/// # Date fields
+/// ==========================================================================
+.form-date {
+  @include mq(medium) {
+    &::after {
+      display: table;
+      clear: both;
+      content: '';
+    }
+  }
+}
+
+.form-date__title {
+  @include mq(medium) {
+    float: left;
+    width: rem(120);
+    margin-right: rem(20);
+  }
+}
+
+.form-date__fields { display: flex; }
+
+.form-date__field {
+  & + & { margin-left: .5em; }
+}
+
+/// ==========================================================================
+/// # Buttons
+/// ==========================================================================
+.form__buttons {
+  position: absolute;
+  top: rem(27.5);
+  right: rem(30);
+}

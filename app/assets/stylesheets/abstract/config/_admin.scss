@@ -40,20 +40,12 @@ $font-weights: (
 );
 
 
-
 // ==========================================================================
 // # DIMENSIONS
 //
 // These are scalar ‘magic’ numbers used throughout the site
 // ==========================================================================
 
-// # Base dimensions: note, these should all be in bare px (will be converted
-//   later)
-// ==========================================================================
-$dimensions: (
-  gutter:     40,
-  keyline:    1
-);
 
 // ==========================================================================
 // # BREAKPOINTS

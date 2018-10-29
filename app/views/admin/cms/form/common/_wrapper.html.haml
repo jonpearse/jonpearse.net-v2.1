@@ -5,15 +5,18 @@
   css = [ css ] unless css.is_a?( Array )
 
   # append an error class if needed
-  css << 'has-error' if form.object.has_error?( field[:field] )
+  css << 'error' if form.object.has_error?( field[:field] )
+
+  # required state
+  css << 'required' if form.object.class.property_required?( field[:field] )
 
 -# Output stuff
 - if wrapped
   %li.form__field{ class: css.map{ |klass| "-#{klass}" }}
-    = yield
+    = capture( &block )
 
     - if form.object.has_error?( field[:field] )
       %label.form_error{ for: "#{form.object_name}_#{field[:field]}" }= form.object.error_messages( field[:field] )
 
 - else
-  = yield
+  = capture( &block )

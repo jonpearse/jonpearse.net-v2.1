@@ -1,11 +1,16 @@
 module Admin::CMS::FormHelper
 
   #
+  def field_wrapper( assigns, &block )
+
+    render( partial: 'admin/cms/form/common/wrapper', locals: assigns.merge( block: block ))
+
+  end
+
+  #
   def label_element( assigns )
 
-    field = assigns[:field]
-
-    assigns[:form].label( field[:field], label_text_for( assigns[:form].object, field[:field] ), class: 'form__label' )
+    render partial: 'admin/cms/form/common/label', locals: assigns
 
   end
 

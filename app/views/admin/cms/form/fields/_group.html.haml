@@ -1,4 +1,4 @@
-= render layout: 'admin/cms/form/fields/wrapper', locals: local_assigns.merge( css: 'flush' ) do
+= field_wrapper( local_assigns.merge( css: 'flush' )) do
   %fieldset.form__group
     %h2.form__title= label_text_for( form.object, field[:field] )
 

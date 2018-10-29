@@ -19,21 +19,21 @@
   # finally our validation messages
   messages = form.object.get_messages_for( field[:field], %i{ blank date_not_after, date_not_in_past invalid }).to_json
 
-= render layout: 'admin/cms/form/fields/wrapper', locals: local_assigns.merge( css: %w{ flush date } ) do
+= field_wrapper( local_assigns.merge( css: %w{ flush date } )) do
   %fieldset.form-date
     %strong.form-date__title.form__label= label_text_for( form.object, field[:field] )
 
     %ul.form-date__fields
       %li.form-date__field
-        %label.form-date__label{ for: "#{base_id}_day" }= prompt_t( form.object, 'dates.date.label' )
+        %label.form-date__label.a11y{ for: "#{base_id}_day" }= prompt_t( form.object, 'dates.date.label' )
         %input.form__input.form-date__input{ id: "#{base_id}_day", name: "#{base_name}[day]", type: :number, min: 1, max: 31, step: 1, value: values[:day], required: field[:required] }
 
       %li.form-date__field
-        %label.form-date__label{ for: "#{base_id}_month" }= prompt_t( form.object, 'dates.month.label' )
+        %label.form-date__label.a11y{ for: "#{base_id}_month" }= prompt_t( form.object, 'dates.month.label' )
         %select.form__input.form-date__input{ id: "#{base_id}_month", name: "#{base_name}[month]", required: field[:required] }
           - months.each_with_index do |m, idx|
             %option{ value: idx, selected: ( idx == values[:month] )}= m
 
       %li.form-date__field
-        %label.form-date__label{ for: "#{base_id}_year" }= prompt_t( form.object, 'dates.year.label' )
+        %label.form-date__label.a11y{ for: "#{base_id}_year" }= prompt_t( form.object, 'dates.year.label' )
         %input.form__input.form-date__input{ id: "#{base_id}_year", name: "#{base_name}[year]", type: :number, min: 1752, max: 9999, step: 1, required: field[:required], value: values[:year]}

@@ -33,7 +33,8 @@ gulp.task( 'sass', () =>
                   minify:     false
                 }),
                 require( 'css-mqpacker' )({ sort: true }),
-                require( 'postcss-short-border-radius' )
+                require( 'postcss-short-border-radius' ),
+                require( 'postcss-svg' )({ dirs: OUTPUT })
               ]))
               .pipe( gulp.dest( OUTPUT ));
 });

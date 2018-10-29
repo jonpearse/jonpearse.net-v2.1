@@ -30,6 +30,9 @@ en:
           label: Year
           hint: YYYY
 
+      # Required field
+      required_field: This field is required
+
     # Status messages
     status:
 

@@ -7,7 +7,7 @@
   # handle WYSIWYG stuff
   options[:wysiwyg] = false unless options[:multiline]
 
-= render layout: 'admin/cms/form/fields/wrapper', locals: local_assigns do
+= field_wrapper( local_assigns ) do
   = label_element( local_assigns )
 
   - if field[:multiline]
