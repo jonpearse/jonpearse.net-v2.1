@@ -16,10 +16,10 @@
   values = @content.send( field[:relationship] )
 
   # get some AJAX endpoints
-  select_endpoint = cms_path_for( klass )
-  create_endpoint = field[:allow_create] ? cms_path_for( klass ) : nil
+  select_endpoint = cms_path_for( klass, :index, format: :json )
+  create_endpoint = field[:allow_create] ? cms_path_for( klass, :create, format: :json ) : nil
 
-= field_wrapper( local_assigns.merge( css: 'flush' )) do
+= field_wrapper( local_assigns ) do
   = label_element( local_assigns )
 
   .taggable{ data: { behaviour: :taggable, endpoint: select_endpoint, create: create_endpoint, id: "#{form.object_name}_#{field[:field]}" }}

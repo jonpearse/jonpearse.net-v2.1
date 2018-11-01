@@ -1,0 +1,61 @@
+/// ==========================================================================
+/// #
+/// # Autocomplete CSS
+/// #
+/// ==========================================================================
+
+.autocomplete {
+  position: relative;
+}
+
+/// Flyout list
+/// ==========================================================================
+.autocomplete__results {
+  position: absolute;
+  display: none;
+
+  left: 0;
+  top: 100%;
+  width: rem(350);
+
+  border: 1px solid var(--keyline);
+  z-index: 1;
+
+  background: var(--background);
+  box-shadow: rgba(0, 0, 0, .5) 0 rem(3) rem(5) 0;
+
+  .-open > & { display: block; }
+}
+
+/// Individual results
+/// ==========================================================================
+.autocomplete__result {
+  position: relative;
+
+  & + & { border-top: 1px solid var(--keyline); }
+}
+
+.autocomplete__option {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: rem(10) rem(20);
+  pointer-events: none;
+}
+
+.autocomplete__select {
+  position: absolute;
+  overflow: hidden;
+
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  outline: 0;
+  text-indent: -5000px;
+  z-index: 0;
+
+  &:hover { background: var(--midground); }
+  &:focus { box-shadow: inset var(--accent1_hi) 0 0 0 2px; }
+}

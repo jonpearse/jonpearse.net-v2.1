@@ -221,6 +221,7 @@ class Admin::CMSController < Admin::BaseController
     # Internal function to allow overriding of the search.
     def custom_search
 
+      puts "Hello, world!"
       @model_class.all
 
     end

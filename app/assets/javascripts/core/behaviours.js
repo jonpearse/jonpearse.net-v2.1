@@ -100,14 +100,14 @@ function bindBehaviours( elBindAt = document )
             console.groupEnd();
 
             // d. fire the behaviour and store it
-            // try
-            // {
+            try
+            {
                 elNode.boundBehaviours[sBehaviour] = oBehaviour.init( elNode, oOptions );
-            // }
-            // catch ( ex )
-            // {
-            //     console.error( ex );
-            // }
+            }
+            catch ( ex )
+            {
+                console.error( ex );
+            }
         });
     });
 }

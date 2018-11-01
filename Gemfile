@@ -16,6 +16,7 @@ gem 'rqrcode', '~> 0.10'
 # Other useful gems
 gem 'will_paginate', '~> 3.1'
 gem 'babosa', '~> 1.0'
+gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
