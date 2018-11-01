@@ -1,0 +1,14 @@
+:ruby
+  pagination_options = {
+    inner_window:   1,
+    outer_window:   -1,
+    renderer:       PaginationLink,
+    list_class:     'container',
+    previous_label: "#{icon( 'left' )} Newer",
+    next_label:     "Older #{icon( 'right' )}",
+    first_label:    nil,
+    last_label:     nil,
+    params:         params.slice( :tech_id )
+  }
+
+%nav.pagination{ 'data-pagination': true }= will_paginate( content, pagination_options )
