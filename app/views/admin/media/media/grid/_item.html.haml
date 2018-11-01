@@ -1,0 +1,9 @@
+%article.media{ id: "media-#{media.id}", 'data-media-id': media.id }
+  %header.media__header
+    %strong.media__title= media.to_s
+
+  .media__content= image_tag polymorphic_url( media.cms_image ), alt: '', class: 'media__media'
+
+  %footer.media__actions
+    = link_to prompt_t( media, :edit ), edit_admin_media_path( media ), class: 'media__action -edit'
+    = link_to prompt_t( media, :destroy ), destroy_admin_media_path( media ), class: 'media__action -destroy'

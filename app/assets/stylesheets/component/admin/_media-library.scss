@@ -1,0 +1,73 @@
+/// ==========================================================================
+/// #
+/// # Media library styles
+/// #
+/// ==========================================================================
+
+.media-library__header {
+  margin: 0 0 rem(50);
+}
+
+/// Grid
+/// ==========================================================================
+.media-library__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax( rem(150), auto ));
+  gap: rem(20);
+}
+
+/// ==========================================================================
+/// # Media stuffs
+/// ==========================================================================
+.media {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  max-width: rem(150);
+  margin: 0 auto;
+
+  @include fsz(small, 1);
+  @include fwt(semi);
+}
+
+.media__header,
+.media__actions {
+  position: absolute;
+
+  left: 0;
+  width: 100%;
+  padding: .5em .8em;
+
+  background: rgba(0, 0, 0, .6);
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, .5) 0 1px 1px;
+
+  transition: transform .25s;
+}
+
+.media__header {
+  top: 0;
+  transform: translateY(-100%);
+
+  .media:hover & { transform: translateY(0); }
+}
+
+.media__actions {
+  bottom: 0;
+
+  text-align: right;
+  transform: translateY(100%);
+
+  .media:hover & { transform: translateY(0); }
+}
+
+.media__action {
+  color: currentColor;
+
+  @include fsz(smallest);
+  text-decoration: none;
+  text-transform: uppercase;
+
+  & + & { margin-left: 1em; }
+}
