@@ -3,7 +3,7 @@ class Article < ApplicationRecord
 
   # relations
   has_and_belongs_to_many :categories
-  # belongs_to :masthead, class_name: 'Media'
+  belongs_to :masthead, class_name: 'Media'
 
   # validation stuff
   validates :title, :summary, :body, presence: true

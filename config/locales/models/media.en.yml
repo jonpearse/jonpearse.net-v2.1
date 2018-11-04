@@ -1,0 +1,15 @@
+en:
+  admin:
+    prompts:
+      models:
+        media:
+          drop_to_upload: Drop files here to start uploading them.
+          select: Select
+          create: Upload a file
+          select_a_file: Or select a file…
+
+    status:
+      models:
+        media:
+          none: You have not uploaded any files
+          uploading_progress: Uploading ({{num}}/{{total}})

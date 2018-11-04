@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     scope module: :media do
 
       resources :media do
+        collection do
+          get 'select', as: :select
+        end
+
         member do
           get 'destroy', as: :destroy
         end
