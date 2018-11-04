@@ -2,7 +2,9 @@ class Media < ApplicationRecord
 
   # relations
   has_one_attached :file
-  add_assignable_attributes :file
+  add_assignable_attributes( :file )
+  add_unserialisable_attrs( :preview )
+  add_serialisable_attrs( :base64_preview )
 
   # validate things
   validates :title, presence: true
@@ -18,7 +20,7 @@ class Media < ApplicationRecord
 
   def base64_preview
 
-    "data:image/png;base64,#{Base64.encode( preview ).gsub( /\n/, '' )}"
+    "data:image/png;base64,#{Base64.encode64( preview ).gsub( /\n/, '' )}"
 
   end
 
@@ -35,11 +37,11 @@ class Media < ApplicationRecord
 
     # update stuff
     write_back = File.open( out.path, 'rb' )
-    write_attribute( :preview, write_back.read )
+    write_attribute( :preview, write_back.read.force_encoding( 'UTF-8' ))
     write_back.close
 
     # if we can get a colour
-    `convert #{tmp.path} -resize 1x1 txt:-`.match( /#([0-9a-f]{6})/i ){ |m| puts m[1]; write_attribute( :colour, m[1] )}
+    `convert #{tmp.path} -resize 1x1 txt:-`.match( /#([0-9a-f]{6})/i ){ |m| write_attribute( :colour, m[1] )}
 
     # tidy up
     tmp.close

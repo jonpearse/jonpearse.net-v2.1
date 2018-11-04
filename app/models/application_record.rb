@@ -1,5 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
-  include Errorable, AssignableProperties
+  include Errorable, AssignableProperties, SerialisableProperties
 
   self.abstract_class = true
 
