@@ -2,7 +2,7 @@
   data = {
     behaviour:        'media-library',
     endpoint:         admin_media_index_path( format: :json ),
-    # prompt:           prompt_t( @model_class, :drop_to_upload ),
+    prompt:           prompt_t( @model_class, :drop_to_upload ),
     # progress:         status_t( @model_class, :uploading_progress ),
     # 'upload-button':  prompt_t( @model_class, :upload )
   }
@@ -10,9 +10,28 @@
 %section.media-library{ data: data }
   = render partial: 'admin/media/media/grid/top'
 
-  %ul.media-library__list{ class: ( @content.empty? ? nil : '-show' ), data: { content: true }}
+  %ul.media-library__list{ data: { content: true }}<
     - @content.each do |media|
       %li.media-library__media= render partial: 'admin/media/media/grid/item', locals: { media: media }
 
-  %p.media-library__empty{ class: ( @content.empty? ? '-show' : nil  ), data: { empty: true }}
+  %p.media-library__empty
+    = status_t( Media, :none )
+
+    - if action_allowed?( :create )
+      = prompt_t( Media, :create_from_none, url: url_for( action: :new )).html_safe
+
+  %footer.media-library__footer
     = render partial: partial_for( :pagination, :index ), locals: { content: @content }
+
+  %script{ type: 'text/plain', 'data-template': true }
+    %li.media-library__media
+      %article.media{ 'data-media-id': "{{id}}" }
+        %header.media__header
+          %strong.media__title {{title}}
+
+        .media__content
+          %img{ src: '{{base64_preview}}', alt: '', class: 'media__media -loading', data: { image: true }}
+
+        %footer.media__actions
+          = link_to prompt_t( Media, :edit_button ), edit_admin_media_path( id: '{{id}}' ).gsub('%7B', '{').gsub('%7D', '}'), class: 'media__action -edit'
+          = link_to prompt_t( Media, :destroy_button ), destroy_admin_media_path( id: '{{id}}' ).gsub('%7B', '{').gsub('%7D', '}'), class: 'media__action -destroy'

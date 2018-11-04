@@ -52,7 +52,7 @@ function AjaxRequest( sUri, oData = null, methodOrOptions = {} )
     function normaliseOptions()
     {
         // 1. if we were provided with a string, convert it to an object
-        if (oData instanceof String)
+        if ( typeof methodOrOptions === 'string' )
         {
             methodOrOptions = { sMethod: methodOrOptions };
         }
@@ -68,7 +68,7 @@ function AjaxRequest( sUri, oData = null, methodOrOptions = {} )
     function preprocessData()
     {
         // if it’s already the right type, we can just bail
-        if ((oData === null) || (oData instanceof String) || (oData instanceof FormData))
+        if (( oData === null ) || ( typeof oData === 'string' ) || ( oData instanceof FormData ))
         {
             return;
         }

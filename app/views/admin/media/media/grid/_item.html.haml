@@ -5,5 +5,5 @@
   .media__content= image_tag polymorphic_url( media.cms_image ), alt: '', class: 'media__media'
 
   %footer.media__actions
-    = link_to prompt_t( media, :edit ), edit_admin_media_path( media ), class: 'media__action -edit'
-    = link_to prompt_t( media, :destroy ), destroy_admin_media_path( media ), class: 'media__action -destroy'
+    = link_to prompt_t( media, :edit_button ), edit_admin_media_path( media ), class: 'media__action -edit'
+    = link_to prompt_t( media, :destroy_button ), destroy_admin_media_path( media ), class: 'media__action -destroy'

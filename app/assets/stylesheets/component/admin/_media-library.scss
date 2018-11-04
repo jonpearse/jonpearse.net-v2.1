@@ -14,6 +14,19 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax( rem(150), auto ));
   gap: rem(20);
+
+  &:empty { display: none; }
+}
+
+.media-library__empty {
+  display: none;
+
+  @include fsz(larger);
+  text-align: center;
+
+  .media-library__list:empty ~ & {
+    display: block;
+  }
 }
 
 /// ==========================================================================
@@ -51,6 +64,21 @@
   transform: translateY(-100%);
 
   .media:hover & { transform: translateY(0); }
+}
+
+.media__content {
+  overflow: hidden;
+  height: rem(150);
+  width:  rem(150);
+}
+
+.media__media {
+  min-height: 100%;
+  min-width:  100%;
+
+  transform: filter .25s;
+
+  &.-loading { filter: blur(5px); }
 }
 
 .media__actions {

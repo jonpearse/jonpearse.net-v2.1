@@ -8,5 +8,6 @@ require( 'core/polyfills' );
 
 require( 'core/behaviours' ).init([
     require( 'behaviour/admin/navigation' ),
-    require( 'behaviour/admin/taggable' )
+    require( 'behaviour/admin/taggable' ),
+    require( 'behaviour/admin/media-library' )
 ]);

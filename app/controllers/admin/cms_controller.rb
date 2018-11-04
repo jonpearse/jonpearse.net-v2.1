@@ -317,7 +317,7 @@ class Admin::CMSController < Admin::BaseController
         end
 
         # JSON just gets JSON
-        format.json { render( json: @content )}
+        format.json { render action: :show }
 
       end
 
