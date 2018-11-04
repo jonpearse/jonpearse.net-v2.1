@@ -6,14 +6,18 @@ module SerialisableProperties
     def add_unserialisable_attrs( additional )
 
       @unserialisable_attrs ||= [ :created_at, :updated_at ]
-      @unserialisable_attrs << additional
+
+      additional = [ additional ] unless additional.is_a?( Array )
+      @unserialisable_attrs += additional
 
     end
 
     def add_serialisable_attrs( additional )
 
       @serialisable_attrs ||= []
-      @serialisable_attrs << additional
+
+      additional = [ additional ] unless additional.is_a?( Array )
+      @serialisable_attrs += additional
 
     end
 

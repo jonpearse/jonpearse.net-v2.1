@@ -5,8 +5,10 @@ module AssignableProperties
 
     def add_assignable_attributes( additional )
 
+      additional = [ additional ] unless additional.is_a?( Array )
+
       @extra_cms_attrs ||= []
-      @extra_cms_attrs << additional
+      @extra_cms_attrs += additional
 
     end
 
