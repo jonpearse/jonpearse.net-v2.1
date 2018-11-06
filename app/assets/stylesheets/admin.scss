@@ -10,6 +10,7 @@
 // 1. abstracts
 @import 'abstract/functions/*';
 @import 'abstract/mixins/*';
+@import 'abstract/animations/admin';
 
 // 2. vendor-provided stuff—probably safe to glob
 @import 'vendor/*';

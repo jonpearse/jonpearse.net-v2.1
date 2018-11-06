@@ -24,12 +24,12 @@
 #       route:  work/techs
 #       split:  true
 #
-# - title:  Media
-#   route:  media/media
-#   icon:   images
-#   children:
-#     - title: Media library
-#       route: media/media
+- title:  Media
+  route:  media/media
+  icon:   images
+  children:
+    - title: Media library
+      route: media/media
 #
 # - title:  Site stuff
 #   route:  settings/snippets

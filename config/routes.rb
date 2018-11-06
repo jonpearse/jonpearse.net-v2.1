@@ -19,6 +19,21 @@ Rails.application.routes.draw do
 
     end
 
+    # Media stuff
+    scope module: :media do
+
+      resources :media do
+        collection do
+          get 'select', as: :select
+        end
+
+        member do
+          get 'destroy', as: :destroy
+        end
+      end
+
+    end
+
   end
 
   # Site namespace

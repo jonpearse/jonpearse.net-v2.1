@@ -5,9 +5,10 @@ module AssignableProperties
 
     def add_assignable_attributes( additional )
 
-      @@extra_cms_attrs ||= []
+      additional = [ additional ] unless additional.is_a?( Array )
 
-      @@extra_cms_attrs << additional
+      @extra_cms_attrs ||= []
+      @extra_cms_attrs += additional
 
     end
 
@@ -23,7 +24,7 @@ module AssignableProperties
       self.reflect_on_all_associations( :has_and_belongs_to_many ).each{|a| assignable << { "#{a.association_foreign_key.pluralize}": [] }}
 
       # dump in anything else + return
-      assignable = assignable.concat( @@extra_cms_attrs ) unless defined?( @@extra_cms_attrs ).nil?
+      assignable = assignable.concat( @extra_cms_attrs ) unless defined?( @extra_cms_attrs ).nil?
 
       assignable
 
