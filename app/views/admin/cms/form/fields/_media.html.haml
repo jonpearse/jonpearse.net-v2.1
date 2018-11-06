@@ -8,7 +8,7 @@
 
   # get an endpoint
   select_endpoint = select_admin_media_index_path( format: :js )
-  meta_endpoint   = admin_media_path( id: '{id}', format: :json )
+  meta_endpoint   = admin_media_path( id: '--ID--', format: :json )
 
   # work out some values + a field name
   value = @content.send( field[:field] )
@@ -22,7 +22,7 @@
     %input{ type: :hidden, name: fieldname }
 
     - unless value.nil?
-      .media-selector__instance.media
+      .media-selector__instance.media{ data: { media: true }}
         %input{ type: :hidden, name: fieldname, value: value.id }
         %header.media__header
           %strong.media__title= value.to_s
@@ -31,10 +31,11 @@
           %button.media__action{ type: :button, data: { remove: true }}= prompt_t( Media, :remove )
 
     %script{ type: 'text/plain', data: { template: true }}
-      .media-selector__instance.media
-        %input{ type: :hidden, name: fieldname }
+      .media-selector__instance.media{ data: { media: true }}
+        %input{ type: :hidden, name: fieldname, value: '{{id}}' }
         %header.media__header
-          %strong.media__title
-        .media__content= image_tag "", alt: '', class: 'media__media'
+          %strong.media__title {{title}}
+        .media__content
+          %img.media__media{ src: "{{cms_image_url}}", alt: '' }
         %footer.media__actions
           %button.media__action{ type: :button, data: { remove: true }}= prompt_t( Media, :remove )

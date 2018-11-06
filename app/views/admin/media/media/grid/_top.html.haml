@@ -1,5 +1,5 @@
 - if action_allowed?( :create ) or action_allowed?( :search )
-  %header.media-library__header
+  %header.media-library__header{ data: { 'lightbox-target': :top }}
     - if action_allowed?( :create )
       = link_to prompt_t( @model_class, :create_button ), { action: :new }, class: 'btn btn--primary', data: { create: true }
     -# - if action_allowed?( :search )

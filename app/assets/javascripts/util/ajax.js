@@ -138,7 +138,7 @@ function AjaxRequest( sUri, oData = null, methodOrOptions = {} )
             headers:    oOptions.oHeaders,
             body:       oData,
             credentials: 'same-origin', // we want to send cookies
-        }).then( response => ( oOptions.bJson ? response.json() : response ));  // auto-convert JSON
+        }).then( response => ( oOptions.bJson ? response.json() : response.text() ));  // auto-convert JSON
 
     }());
 }

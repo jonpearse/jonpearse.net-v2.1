@@ -56,6 +56,20 @@ function create( sElement, oAttr = {}, sContent = null )
 }
 
 /**
+ * Removes all children from an element.
+ *
+ * @param {HTMLElement} el - the element to remove
+ */
+function empty( el )
+{
+    while (el.firstChild !== null)
+    {
+        el.firstChild.remove();
+    }
+}
+
+
+/**
  * Binds multiple event listeners in one go. This is similar to jQuery on(), only in vanilla JS.
  *
  * @param {HTMLElement} el - the element to bind on
@@ -67,4 +81,4 @@ function multibind( el, sEvents, fnListener )
     sEvents.trim().split( /\s+/ ).forEach( sEv => el.addEventListener( sEv, fnListener ));
 }
 
-module.exports = { wrap, create, multibind };
+module.exports = { wrap, create, empty, multibind };

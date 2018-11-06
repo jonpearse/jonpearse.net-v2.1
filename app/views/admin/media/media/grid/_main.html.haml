@@ -1,0 +1,30 @@
+:ruby
+  @select_mode ||= false
+  @multiple    ||= false
+
+  data = {
+    behaviour:        'media-library',
+    endpoint:         admin_media_index_path( format: :json ),
+    prompt:           prompt_t( @model_class, :drop_to_upload ),
+    # progress:         status_t( @model_class, :uploading_progress ),
+    # 'upload-button':  prompt_t( @model_class, :upload )
+  }
+
+%section.media-library{ data: data }
+  = render partial: 'admin/media/media/grid/top'
+
+  %ul.media-library__list{ data: { content: true }}<
+    - @content.each do |media|
+      %li.media-library__media= render partial: 'admin/media/media/grid/item', locals: { media: media }
+
+  %p.media-library__empty
+    = status_t( Media, :none )
+
+    - if action_allowed?( :create )
+      = prompt_t( Media, :create_from_none, url: url_for( action: :new )).html_safe
+
+  %footer.media-library__footer{ data: { footer: true }}
+    = render partial: partial_for( :pagination, :index ), locals: { content: @content }
+
+  %script{ type: 'text/plain', 'data-template': true }
+    %li.media-library__media= render partial: 'admin/media/media/grid/item', locals: { media: nil }
