@@ -1,4 +1,4 @@
-= form_with model: @form_context, class: 'form form--dialog' do |form|
+= form_with model: @form_context, class: 'form form--dialog', method: :delete do |form|
   %p= prompt_t( @content, :confirm_destroy, title: @content.to_s )
 
   .form__buttons
