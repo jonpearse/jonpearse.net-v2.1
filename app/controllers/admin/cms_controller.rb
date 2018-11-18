@@ -42,6 +42,9 @@ class Admin::CMSController < Admin::BaseController
     # Context for our forms
     @form_context = [ :admin ]
 
+    # Auto-search fields
+    @searchable_fields = []
+
   end
 
   # Provdies an item listing and search functionality. This should not be extended.
@@ -131,9 +134,9 @@ class Admin::CMSController < Admin::BaseController
     # load the content
     extract_content
 
-  rescue ActiveRecord::RecordNotFound
-
-    not_found and return
+  # rescue ActiveRecord::RecordNotFound
+  #
+  #   not_found and return
 
   end
 
@@ -163,9 +166,9 @@ class Admin::CMSController < Admin::BaseController
 
     end
 
-  rescue ActiveRecord::RecordNotFound
-
-    not_found and return
+  # rescue ActiveRecord::RecordNotFound
+  #
+  #   not_found and return
 
   end
 
@@ -221,8 +224,22 @@ class Admin::CMSController < Admin::BaseController
     # Internal function to allow overriding of the search.
     def custom_search
 
-      puts "Hello, world!"
-      @model_class.all
+      # if we’ve no searchable fields, then just fail out
+      return [] if @searchable_fields.empty?
+
+      # otherwise, construct our query
+      fields = []
+      values = []
+      @searchable_fields.each do |f|
+
+        fields << "#{f} LIKE ?"
+        values << "%#{params[:search]}%"
+
+      end
+
+      # run the query
+      @model_class.where( fields.join( ' OR '), *values )
+
 
     end
 
