@@ -53,6 +53,48 @@ module Admin::I18nHelper
 
   end
 
+  # Provides a translated page title for the given model.
+  #
+  # === Parameters
+  #
+  # [object]    the model instance or class to translate for
+  # [action]    the action for which to get a title
+  # [defaults]  any defaults to be passed through
+  #
+  # === I18n keys
+  #
+  # This function will try the folliowing I18n keys, in order
+  #
+  # * admin.titles.models.[model_key].[action]
+  # * admin.titles.[action]
+  def title_t( object, action, defaults = {} )
+
+    fallthru_t( object, action, [ 'titles' ], defaults )
+
+  end
+
+  # Provides a translated breadcrumb segment for the given model + action.
+  #
+  # === Parameters
+  #
+  # [object]    the model instance or class to translate Forw
+  # [action]    the action for which to get a breadcrumb segment
+  # [defaults]  any defaults to be passed through
+  #
+  # === I18n keys
+  #
+  # This function will try the folliowing I18n keys, in order
+  #
+  # * admin.breadcrumbs.models.[model_key].[action]
+  # * admin.titles.models.[model_key].[action]
+  # * admin.breadcrumbs.[action]
+  # * admin.titles.[action]
+  def breadcrumb_t( object, action, defaults = {} )
+
+    fallthru_t( object, action, [ 'breadcrumbs', 'titles' ], defaults )
+
+  end
+
   private
 
     # Tries to find the most applicable translation for a particular key, based on model name. This is similar to the
@@ -119,7 +161,7 @@ module Admin::I18nHelper
         id: (base_object.present? and base_object.respond_to?(:id)) ? base_object.id : nil,
         'model_singular': i18n_object.human( count: 1,  capitalize: false ),
         'model_plural':   i18n_object.human( count: 99, capitalize: false ),
-        'model_zero':     i18n_object.human( count: 0,  capitalize: false ),
+        'model_zero':     i18n_object.human( count: 0,  capitalize: false )
       }
 
     end

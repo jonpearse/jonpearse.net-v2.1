@@ -68,6 +68,8 @@ class Admin::CMSController < Admin::BaseController
 
     end
 
+    generate_titles
+
   end
 
   # Returns a single item of content.
@@ -79,6 +81,7 @@ class Admin::CMSController < Admin::BaseController
 
     # extract the content
     extract_content
+    generate_titles
 
   rescue ActiveRecord::RecordNotFound
 
@@ -94,6 +97,7 @@ class Admin::CMSController < Admin::BaseController
 
     # extract content
     extract_content
+    generate_titles
 
   end
 
@@ -105,6 +109,7 @@ class Admin::CMSController < Admin::BaseController
 
     # load the content
     extract_content( true )
+    generate_titles( :new )
 
     # try to save it
     if @content.save
@@ -133,6 +138,7 @@ class Admin::CMSController < Admin::BaseController
 
     # load the content
     extract_content
+    generate_titles( :edit )
 
   rescue ActiveRecord::RecordNotFound
 
@@ -152,6 +158,7 @@ class Admin::CMSController < Admin::BaseController
 
     # load the content + populate it
     extract_content( true )
+    generate_titles( :edit )
 
     # try to save it
     if @content.save
@@ -185,6 +192,7 @@ class Admin::CMSController < Admin::BaseController
 
     # load the content + dump the context
     extract_content
+    generate_titles
 
     # if we are either not HTML, or it’s been confirmed
     if !request.format.html? or params.key?( :confirm )
@@ -240,6 +248,28 @@ class Admin::CMSController < Admin::BaseController
       # run the query
       @model_class.where( fields.join( ' OR '), *values )
 
+
+    end
+
+    # Generates the page title + breadcrumb for the current page + action.
+    def generate_titles( action = nil, content = nil )
+
+      action  = ( action.nil? ? action_name : action.to_s )
+      content ||= @content unless @content.nil? || ( action === 'index' )
+
+      # if we’re in something that has an additional segment, show that
+      unless content.nil? or %w{ show create }.include?( action )
+
+        @breadcrumb << {
+          title: breadcrumb_t( @model_class, :show, { title: content.to_s } ),
+          url:   ( path_for( content, :show ) rescue nil )
+        }
+
+      end
+
+      # put the current location on the breadcrumb, + generate the title
+      @breadcrumb << breadcrumb_t( @model_class, action, { title: content.to_s }) unless ( action == 'index' )
+      @page_title  = title_t( @model_class, action, { title: content.to_s })
 
     end
 

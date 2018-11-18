@@ -50,3 +50,15 @@ en:
       # Destruction
       destroyed: ‘%{title}’ has been deleted.
       destroy_failed: 'Your %{model_singular} ‘%{title}’ could not be deleted: please try again later.'
+
+    # Page titles
+    titles:
+      index: "%{model_plural}"
+      show: "%{title}"
+      new: Create %{model_singular}
+      edit: "%{title}"
+      destroy: "%{title}"
+
+    breadcrumbs:
+      edit: 'Edit'
+      destroy: 'Destroy'

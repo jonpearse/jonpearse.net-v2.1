@@ -14,14 +14,14 @@ def map_items( items, parents = [] )
     item.symbolize_keys!
 
     # if we have a route, ensure it’s good and add it to the map
-    if item.key? :route
+    if item.key?( :route )
 
       Rails.application.config.admin[:map][item[:route]] = parents + [ item.except(:children) ]
 
       item[:route] << "#index" unless item[:route].match(/([a-z\/]+)#([a-z]+)/)
 
     # otherwise, if we don’t have anything, route to # for now
-    elsif !item.key? :route and !item.key? :url
+    elsif !item.key?( :route ) and !item.key?( :url )
 
       item[:url] = '#'
 
