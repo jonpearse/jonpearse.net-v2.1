@@ -133,7 +133,8 @@
 .form__input[type=password],
 select.form__input,
 textarea.form__input,
-.form__readonly {
+.form__readonly,
+%form__input {
   appearance: none;
   display: block;
 

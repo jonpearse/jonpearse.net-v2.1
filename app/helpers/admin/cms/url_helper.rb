@@ -24,7 +24,7 @@ module Admin::CMS::UrlHelper
     load_routes if routes.nil?
 
     # work out the context we’re currently in + append what we think we’re after
-    context_stack = Rails.application.routes.recognize_path( request.path )[:controller].split('/')
+    context_stack = Rails.application.routes.recognize_path( request.path, method: request.env['REQUEST_METHOD'] )[:controller].split( '/' )
     context_stack = context_stack.map.with_index{ |seg, idx| context_stack.slice( 0, idx + 1 ).join( '/' ) + "/#{klass_name}" }
 
     # search for matching routes
