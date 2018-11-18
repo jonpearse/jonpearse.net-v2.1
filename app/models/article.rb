@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  include Routable, SplitDate, Publishable#, Shortcodable
+  include Routable, SplitDate, Publishable, Shortcodable
 
   # relations
   has_and_belongs_to_many :categories
@@ -17,7 +17,7 @@ class Article < ApplicationRecord
   # add a split date
   has_split_date :published_on
 
-  # scope :latest, -> ( count = nil ){ order( 'published_on DESC').limit( count )}
+  scope :latest, -> ( count = nil ){ order( 'published_on DESC').limit( count )}
   scope :in, -> ( category ){ joins( :categories ).where( 'categories.id=?', category.id )}
 
   private
