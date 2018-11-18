@@ -14,7 +14,7 @@
   field[:instance]  = "#{form.object_name}[#{field[:fieldname]}]#{( field[:multiple] ? '[]' : '' )}"
 
   # get a value
-  values = form.object.send( field[:field] )
+  values = form.object.send( field[:field] ) || []
   values = [ values ] unless values.is_a?( Array )
 
   # build some data for the behaviour
@@ -36,11 +36,11 @@
     %input{ type: :hidden, name: field[:instance] }
 
     -# subrender
-    .content-select__instances
+    .content-select__instances{ 'data-instances': true }
       - values.each do |instance|
         = render partial: 'admin/cms/form/fields/content-select/value', locals: { field: field, value: instance }
 
     -# Render an instance template
     - content_for( :templates ) do
-      %template{ id: "tpl__content-select__#{field[:field]}", 'data-template': true }
+      %template{ id: "tpl__content-select__#{field[:field]}" }
         = render partial: 'admin/cms/form/fields/content-select/value', locals: { field: field }

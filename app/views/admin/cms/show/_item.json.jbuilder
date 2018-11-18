@@ -13,7 +13,12 @@ json.partial! partial_for( :meta, action: :'show/json', format: '.json' ), conte
 unless depth > 0
   json._urls do
 
-    json.show     cms_path_for( content, :show )
+    # Note: not all content types will have a show action, so handle that
+    begin
+      json.show   cms_path_for( content, :show )
+    rescue
+    end
+
     json.edit     cms_path_for( content, :edit )
     json.destroy  cms_path_for( content, :destroy )
 

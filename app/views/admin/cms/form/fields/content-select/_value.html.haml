@@ -4,8 +4,8 @@
   value ||= nil
 
   # get an instance ID if appropriate
-  id = value.nil? ? nil : value.id
+  id = value.nil? ? '{{id}}' : value.id
 
 .content-select__instance{ data: { instance: true, id: id }}
   %input{ type: :hidden, name: field[:instance], value: id }
-  %span.content-select__label{ 'data-label': true }= (value.nil? ? '' : value.to_s )
+  %span.content-select__label= (value.nil? ? '{{_meta.label}}' : value.to_s )
