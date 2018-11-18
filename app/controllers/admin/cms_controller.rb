@@ -134,9 +134,9 @@ class Admin::CMSController < Admin::BaseController
     # load the content
     extract_content
 
-  # rescue ActiveRecord::RecordNotFound
-  #
-  #   not_found and return
+  rescue ActiveRecord::RecordNotFound
+
+    not_found and return
 
   end
 
@@ -166,9 +166,9 @@ class Admin::CMSController < Admin::BaseController
 
     end
 
-  # rescue ActiveRecord::RecordNotFound
-  #
-  #   not_found and return
+  rescue ActiveRecord::RecordNotFound
+
+    not_found and return
 
   end
 
