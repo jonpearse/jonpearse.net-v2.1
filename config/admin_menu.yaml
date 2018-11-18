@@ -12,18 +12,18 @@
     - title:  Categories
       route:  blog/categories
 
-# - title:  Work
-#   route:  work/projects
-#   icon:   building
-#   children:
-#     - title:  Projects
-#       route:  work/projects
-#     - title:  Clients
-#       route:  work/clients
-#     - title:  Technologies
-#       route:  work/techs
-#       split:  true
-#
+- title:  Work
+  route:  work/projects
+  icon:   building
+  children:
+    - title:  Projects
+      route:  work/projects
+    - title:  Clients
+      route:  work/clients
+    - title:  Technologies
+      route:  work/techs
+      split:  true
+
 - title:  Media
   route:  media/media
   icon:   images

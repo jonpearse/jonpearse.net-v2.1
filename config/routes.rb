@@ -19,6 +19,17 @@ Rails.application.routes.draw do
 
     end
 
+    # Work stuffs
+    scope module: :work do
+
+      resources :projects, :clients, :techs, except: [ :show ] do
+        member do
+          get 'destroy', as: :destroy
+        end
+      end
+
+    end
+
     # Media stuff
     scope module: :media do
 
