@@ -18,6 +18,7 @@ gem 'will_paginate', '~> 3.1'
 gem 'babosa', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
 gem 'image_processing', '~> 1.2'
+gem 'simple_ar_localizer', '~> 1.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

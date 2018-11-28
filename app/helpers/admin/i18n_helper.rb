@@ -9,7 +9,7 @@ module Admin::I18nHelper
   # [field] _(string)_ the name of the field
   def label_text_for( content, field )
 
-    ( content.is_a?( Class ) ? content : content.class ).human_attribute_name( field ).humanize
+    ( content.is_a?( Class ) ? content : content.class ).human_attribute_name( field )#.humanize
 
   end
 
