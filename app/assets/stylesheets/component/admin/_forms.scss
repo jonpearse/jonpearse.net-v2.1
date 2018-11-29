@@ -11,6 +11,13 @@
   background: var(--background);
 }
 
+.form--dialog {
+  margin: 0 auto;
+  width: 80%;
+  max-width: rem(600);
+  min-width: rem(400);
+}
+
 /// ==========================================================================
 /// # Individual fields
 /// ==========================================================================
@@ -27,6 +34,18 @@
 
   @include mq(medium) {
 
+    form:not(.form--dialog) &:not(.-flush) {
+      padding: 0 0 0 rem(140);
+
+      &::after {
+        display: table;
+        clear: both;
+        content: '';
+      }
+    }
+  }
+
+  @include mq(large) {
     &:not(.-flush) {
       padding: 0 0 0 rem(140);
 
@@ -87,6 +106,16 @@
 
   // on larger viewports
   @include mq(medium) {
+
+    .form:not(.form--dialog) .form__field:not(.-flush):not(.-reverse) > & {
+      float: left;
+      width: rem(120);
+      margin-left: rem(-140);
+    }
+
+  }
+
+  @include mq(large) {
 
     .form__field:not(.-flush):not(.-reverse) > & {
       float: left;
@@ -207,8 +236,16 @@ select.form__input {
 /// ==========================================================================
 /// # Buttons
 /// ==========================================================================
-.form__buttons {
+.form:not(.form--dialog) .form__buttons {
   position: absolute;
   top: rem(27.5);
   right: rem(30);
+}
+
+.form--dialog .form__buttons {
+  margin-top: rem(30);
+
+  @include mq(large) {
+    padding-left: rem(140);
+  }
 }

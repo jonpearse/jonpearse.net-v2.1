@@ -10,5 +10,7 @@ Rails.application.config.ar_localization_rules = {
 
   # Pass statuses + promps to the administration system
   'prompts/:prompt': 'admin.prompts.models.%{model}.%{prompt}',
-  'statuses/:status': 'admin.status.models.%{model}.%{status}'
+  'statuses/:status': 'admin.status.models.%{model}.%{status}',
+  'titles/:title': 'admin.titles.models.%{model}.%{title}',
+  'breadcrumbs/:crumb': 'admin.breadcrumbs.models.%{model}.%{crumb}'
 }

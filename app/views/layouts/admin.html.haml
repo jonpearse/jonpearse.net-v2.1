@@ -2,7 +2,7 @@
 %html.no-js{ lang: 'en-GB' }
   = render partial: 'layouts/admin/head'
 
-  %body.page
+  %body.page{ class: ( user_signed_in? ? '-logged-in' : '-logged-out' )}
     -# Icon spritesheet
     .svg-icon-defs= asset_contents( 'icons-admin.svg' ).html_safe
 

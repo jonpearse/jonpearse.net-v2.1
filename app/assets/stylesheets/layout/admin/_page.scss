@@ -12,6 +12,8 @@
   grid-template-areas:   'nav banner' 'nav main';
   grid-template-rows:    auto 1fr;
   grid-template-columns: rem(240);
+
+  &.-logged-out { grid-template-columns: rem(70); }
 }
 
 /// Banner
@@ -33,3 +35,5 @@
 
   background: var(--midground);
 }
+
+.page__flashes { margin-bottom: rem(50); }

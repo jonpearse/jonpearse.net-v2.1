@@ -293,3 +293,15 @@ Devise.setup do |config|
   config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
 end
 
+# Also, override the layouts for everything
+Rails.application.config.to_prepare do
+
+  Devise::SessionsController.layout  'admin'
+  Devise::PasswordsController.layout 'admin'
+  Devise::TwoFactorAuthenticationController.layout 'admin'
+
+  # Also, include the admin helpers
+  Devise::SessionsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
+  Devise::PasswordsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
+
+end
