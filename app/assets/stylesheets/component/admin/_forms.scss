@@ -7,7 +7,7 @@
 .form {
   display: block;
   padding: rem(30);
-  border: 1px solid var(--grey-8);
+  border: 1px solid var(--outline);
 
   background: var(--background);
 }
@@ -23,7 +23,7 @@
 /// # Individual fields
 /// ==========================================================================
 .form__field {
-  --border: var(--grey-5);
+  --border: var(--keyline);
   --focus:  var(--neutral-3);
   --glow:   transparent;
 
@@ -179,6 +179,7 @@ textarea.form__input,
   outline: none;
 
   background: transparent none;
+  color: currentColor;
 
   &:focus { --border: var(--focus); }
 }

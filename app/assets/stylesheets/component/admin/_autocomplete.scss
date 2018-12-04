@@ -18,7 +18,7 @@
   top: 100%;
   width: rem(350);
 
-  border: 1px solid var(--grey-5);
+  border: 1px solid var(--keyline);
   z-index: 1;
 
   background: var(--background);
@@ -32,7 +32,7 @@
 .autocomplete__result {
   position: relative;
 
-  & + & { border-top: 1px solid var(--grey-5); }
+  & + & { border-top: 1px solid var(--keyline); }
 }
 
 .autocomplete__option {

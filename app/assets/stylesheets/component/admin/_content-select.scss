@@ -32,7 +32,7 @@
   align-items: center;
 
   padding: .5em .8em;
-  border: 1px solid var(--grey-5);
+  border: 1px solid var(--keyline);
 
   & + & { border-top: 0; }
 }

@@ -5,7 +5,7 @@
 /// ==========================================================================
 
 .breadcrumb {
-  border-top: 1px solid var(--keyline);
+  border-top: 1px solid var(--outline);
 }
 
 .breadcrumb__list {
@@ -28,7 +28,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    border-left: 1px solid var(--keyline);
+    border-left: 1px solid var(--outline);
 
     transform: skew(-10deg);
 

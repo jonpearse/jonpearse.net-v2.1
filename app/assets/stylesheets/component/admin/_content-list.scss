@@ -16,7 +16,8 @@
 .content-table {
   width: calc(100% + #{rem(60)});
   margin: 0 rem(-30);
-  border: 1px solid var(--grey-8);
+  border: 1px solid var(--outline);
+  border-width: 1px 0;
 
   background: var(--background);
 
@@ -39,7 +40,7 @@
 
 /// Body
 /// ==========================================================================
-.content-table__body tr:nth-child(odd) { background: var(--grey-9); }
+.content-table__body tr:nth-child(odd) { background: var(--bg-alt); }
 
 .content-table__actions[class] {
   width: rem(150);
