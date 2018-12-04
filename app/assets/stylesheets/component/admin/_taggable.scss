@@ -11,17 +11,18 @@
 
   width: 90%;
   padding: 0 .8em;
-  border: 1px solid var(--keyline);
+  border: 1px solid var(--grey-5);
 
-  &.-focus { border-color: var(--accent1_lo); }
+  &.-focus { border-color: var(--neutral-5); }
+
+  .autocomplete { flex: 1; }
 }
 
 /// The search field
 /// ==========================================================================
 .taggable__field {
   appearance: none;
-  flex: 1;
-
+  width: 100%;
   padding: .5em 0;
   margin: 0;
   border: 0;

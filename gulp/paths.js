@@ -16,7 +16,7 @@ const ASSET_DEST   = `${PROJECT_ROOT}/public/a`;
 module.exports = {
   root:  PROJECT_ROOT,
   build: ASSET_DEST,
-  
+
   // SASS configuration
   sass: {
     watch:  `${ASSET_ROOT}/stylesheets/**/*.scss`,
@@ -25,26 +25,26 @@ module.exports = {
       `!${ASSET_ROOT}/stylesheets/_*.scss`
     ]
   },
-  
+
   // Javascript files
   js: {
     watch:    `${ASSET_ROOT}/javascripts/**/*.js`,
     context:  `${ASSET_ROOT}/javascripts`,
-    compile:  `${ASSET_ROOT}/javascripts/*.js`  
+    compile:  `${ASSET_ROOT}/javascripts/*.js`
   },
-  
+
   // Images
   images: {
     watch:  `${ASSET_ROOT}/images/**/*`,
-    source: `${ASSET_DEST}/images/**/*.*`
+    source: `${ASSET_ROOT}/images/**/*.*`
   },
-  
+
   // icons
   icons: {
     watch:  `${ASSET_ROOT}/icons/**/*.svg`,
     base:   `${ASSET_ROOT}/icons`
   },
-  
+
   // Fonts
   fonts: {
     watch:  `${ASSET_ROOT}/fonts/**/*`,

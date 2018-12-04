@@ -18,7 +18,7 @@
   top: 100%;
   width: rem(350);
 
-  border: 1px solid var(--keyline);
+  border: 1px solid var(--grey-5);
   z-index: 1;
 
   background: var(--background);
@@ -32,7 +32,7 @@
 .autocomplete__result {
   position: relative;
 
-  & + & { border-top: 1px solid var(--keyline); }
+  & + & { border-top: 1px solid var(--grey-5); }
 }
 
 .autocomplete__option {
@@ -56,6 +56,6 @@
   text-indent: -5000px;
   z-index: 0;
 
-  &:hover { background: var(--midground); }
-  &:focus { box-shadow: inset var(--accent1_hi) 0 0 0 2px; }
+  &:hover { background: var(--neutral-9); }
+  &:focus { box-shadow: inset var(--neutral-5) 0 0 0 2px; }
 }

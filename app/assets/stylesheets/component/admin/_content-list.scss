@@ -14,8 +14,8 @@
 /// # Content table
 /// ==========================================================================
 .content-table {
-  width: 100%;
-  margin: 0;
+  width: calc(100% + #{rem(60)});
+  margin: 0 rem(-30);
   border: 1px solid var(--grey-8);
 
   background: var(--background);
