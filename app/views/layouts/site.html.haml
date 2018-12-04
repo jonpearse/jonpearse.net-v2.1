@@ -1,31 +1,26 @@
 !!!
-%html.no-js.no-ix{ lang: 'en-GB', class: ( cookies.key?( :'assume-wf' ) ? 'wf-assumed' : nil )}
+%html.no-js.no-ix{ lang: 'en-GB' }
   %head= render partial: 'layouts/site/head'
-
   %body
-    -# Icon spritesheet
+
+    -# SVG icon definitions
     .svg-icon-defs= asset_contents( 'icons-site.svg' ).html_safe
 
-    = yield
-
-    -# Site banner
-    -# = render partial: 'layouts/site/banner'
+    -# Header
+    = render partial: 'layouts/site/banner'
 
     -# Main content
-    -# %main.ix
+    %main
 
       -# Masthead
-      = yield :Masthead
+      = yield :masthead
 
-      -# Page content
-      .page-content{ 'aria-labelledby': :masthead }= yield
+      -# Main content
+      .content= yield
 
       -# Drivers
-      -# = render partial: 'site/blocks/latest_articles'
-      -# = render partial: 'site/blocks/talk_to_me'
+      = render partial: 'site/blocks/latest_articles'
+      = render partial: 'site/blocks/talk_to_me'
 
     -# Footer
-    -# = render partial: 'layouts/site/footer'
-
-    -# JS, etc
-    = render partial: 'layouts/site/js'
+    = render partial: 'layouts/site/footer'

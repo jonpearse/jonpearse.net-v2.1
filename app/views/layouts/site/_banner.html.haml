@@ -1,12 +1,15 @@
-%header.banner.ix
-  .container.banner__inner
-    %strong.banner__wordmark
-      = link_to_unless_current( 'Jon Pearse', root_path )
+%header.banner
+  .container.-d.banner__inner
+    %strong.banner__wordmark= link_to 'Jon Pearse', root_path
 
-    %nav.banner__navigation.nav.-main{ data: { behaviour: 'nav' }}
+    %nav.banner__nav.nav
       %ul.nav__list
-        -# %li.nav__item= link_to 'Work', projects_path, class: 'nav__link' + ( params[:controller] == 'projects' ? ' -current' : '' )
-        -# %li.nav__item= link_to 'Writing', articles_path, class: 'nav__link' + ( params[:controller] == 'articles' ? ' -current' : '' )
-        -# %li.nav__item= link_to 'About', about_path,  class: 'nav__link' + ((( params[:controller] == 'pages' ) and ( params[:action] == 'about' )) ? ' -current' : '' )
+        %li.nav__item
+          = link_to 'Work', projects_path, class: "nav__link#{( params[:controller] == 'projects' ? ' -current' : '')}"
+        %li.nav__item
+          = link_to 'Writing', projects_path, class: "nav__link#{( params[:controller] == 'articles' ? ' -current' : '')}"
+        %li.nav__item
+          = link_to 'About', projects_path, class: "nav__link#{( params[:controller] == 'pages' and params[:action] == 'about' ? ' -current' : '')}"
         - if user_signed_in?
-          %li.nav__item= link_to( 'Manage', admin_root_path, class: 'nav__link' )
+          %li.nav__item
+            = link_to 'Manage', admin_root_path, class: 'nav__item'

@@ -2,19 +2,32 @@
 = csrf_meta_tags
 %meta{ name: :viewport, content: 'width=device-width,initial-scale=1' }
 
--# Page title
-%title= "#{@page_title} :: jonpearse.net"
+-# Title
+%title= "#{@page_title} :: #{t( 'meta.title' )}"
 
--# Header JS-fu
+-# Favicon + social crap
+-# = render partial: 'layouts/site/head/favicon'
+-# = render partial: 'layouts/site/head/social-tags'
+
+-# Shortcode, if available
+- unless @shortcode.nil?
+  - host = Rails.application.config.shortlink_host || request.host
+  %meta{ rel: :shortlink, value: shortcode_url( code: @shortcode.code, host: host )}
+
+-# RSS feeds
+%link{ rel: :alternate, type: 'application/rss+xml', title: 'RSS - Summary only',  href: articles_feed_url( format: :xml )}
+%link{ rel: :alternate, type: 'application/rss+xml', title: 'RSS - Full articles', href: articles_full_feed_url( format: :xml )}
+
+-# Toggle JS/no-JS
 %script<
   function sIA(){setTimeout(function(){document.documentElement.classList.remove('no-ix')},50)}
   if(document.documentElement.classList){document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");}
 
 -# Stylesheets
-= stylesheet_preload_tag( 'site' )
-%style{ media: :screen }= asset_contents( 'critical.css' )
+= stylesheet_preload_tag 'site'
+= inline_stylesheet 'critical'
 
 -# No-JS styling
 %noscript<
-  = stylesheet_tag( 'site' )
-  %style{ media: :screen }= asset_contents( 'critical.no-js' )
+  = stylesheet_tag 'site'
+  = inline_stylesheet 'critical.no-js'

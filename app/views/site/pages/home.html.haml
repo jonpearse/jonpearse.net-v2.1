@@ -1,1 +1,11 @@
-%h1 Hello world!
+-# Page title + stuff
+- @page_title = 'Jon Pearse — Freelance full-stack web developer in Cardiff, UK'
+
+-# Render a masthead
+- content_for( :masthead ) do
+  = render layout: 'site/common/masthead', locals: { title: 'Home', hide_title: true, add_class: '-tall' } do
+    = render_snippet( 'home.masthead' )
+
+-# Get our title text
+= render_block( classes: %w{ off-white large }, container_classes: 'narrow', text: true ) do
+  = render_snippet( 'home.intro' )

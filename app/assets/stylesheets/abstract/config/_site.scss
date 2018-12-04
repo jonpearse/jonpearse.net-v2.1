@@ -1,0 +1,124 @@
+@import 'common';
+
+// ==========================================================================
+// # COLOURS
+//
+// These can be accessed using the palette() function
+// ==========================================================================
+$foreground: (
+
+  // main text
+  text:       #333,
+  smallText:  #666,
+  wh:         #fff,
+
+  // accent colour
+  accent:     #E44849,
+  accent2:    #FFE066,
+
+  // other stuff
+  keyline:    rgba(0, 0, 0, .1)
+
+);
+
+$background: (
+
+  // normal background
+  wh:         #fff,
+  off-wh:     #eee,
+  dark:       #444,
+  bk:         #000,
+  smoke:      rgba(0, 0, 0, .5),
+  vague:      rgba(0, 0, 0, .05),
+
+  // accent
+  accent:     #D14244
+
+);
+
+// ==========================================================================
+// # TEXT CONFIGURATION
+// ==========================================================================
+
+// # FONT FAMILIES: for use with ffm() mixin
+// ==========================================================================
+$font-families: (
+  base:     'Raleway, Geneva, Tahoma, sans-serif',
+  headers:  'Cabin, Geneva, Verdana, sans-serif',
+  wordmark: 'LatoWM,  Geneva, Tahoma, sans-serif',
+  mono:     'Courier New, Courier, monospace'
+);
+
+// # FONT SIZES: for use with the fsz() mixin
+// ==========================================================================
+$font-sizes: (
+
+  // normal font sizes
+  base:       ( size: 20, leading: 1.4 ),
+  small:      ( size: 16, leading: 1.4 ),
+  smallest:   ( size: 14, leading: 1.4 ),
+
+  // heading
+  primary:    ( size: 36, leading: 1.2 ),
+  secondary:  ( size: 26, leading: 1.2 ),
+  tertiary:   ( size: 22, leading: 1.2 ),
+
+  // specials
+  wordmark:   ( size: 28, leading: 1 ),
+  masthead:   ( size: 36, leading: 1.5 ),
+  intro:      ( size: 24, leading: 1.5 )
+
+);
+
+// # WEIGHTS: for use with fwt() mixin
+// ==========================================================================
+$font-weights: (
+  normal: 300,
+  semi:   700,
+  bold:   700
+);
+
+// ==========================================================================
+// # DIMENSIONS
+//
+// These are scalar ‘magic’ numbers used throughout the site
+// ==========================================================================
+
+// # Base dimensions: note, these should all be in bare px (will be converted
+//   later)
+// ==========================================================================
+$dimensions: (
+  padding:    40,
+  gutter:     20,
+  keyline:    1,
+  max-width:  1200,
+  max-text:   1000
+);
+
+// ==========================================================================
+// # Grid dimensions: specified per breakpoint (see mq-breakpoints below)
+// ==========================================================================
+$grid-cfg: (
+  // gutter:    map-get($dimensions, 'gutter'),
+  // margin:    map-get($dimensions, 'gutter'),
+  // separator: map-get($dimensions, 'keyline'),
+  // breakpoints: (
+  //     medium: (
+  //         columns: 6
+  //     )
+  // )
+);
+
+
+// ==========================================================================
+// # BREAKPOINTS
+//
+// Breakpoints are defined using sass-mq. Note: these must be defined in px
+// ==========================================================================
+$mq-breakpoints: (
+  tiny:   500px,
+  small:  550px,
+  medium: 750px
+);
+
+$mq-debug: true;

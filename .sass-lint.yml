@@ -11,7 +11,6 @@ options:
   merge-default-rules: false
 
 rules:
-
   bem-depth: 1
 
   # Force BEM
@@ -29,7 +28,7 @@ rules:
 
   # indentation should match .editorconfig
   indentation:
-    - size: 4
+    - size: 2
 
   leading-zero: 2
 

@@ -1,0 +1,6 @@
+= render_block( element: :aside, classes: 'off-white driver' ) do
+  %h2 Latest Writing
+
+  %ol.list.list--small
+    - Article.published.latest( 4 ).each do |article|
+      %li= render partial: 'site/articles/article', locals: { article: article, hide_summary: true }

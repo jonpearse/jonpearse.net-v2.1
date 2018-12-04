@@ -32,10 +32,34 @@ module AssetHelper
 
     stylesheet_tag( stylesheet, options.merge({
         rel: :preload,
-        as: :stylesheet,
+        as: :style,
         onload: "this.onload=null;this.rel='stylesheet';sIA();"
     }))
 
+  end
+
+  # Dumps the contents of a CSS file into the DOM. This is useful for critical CSS + the like.
+  #
+  # === Parameters
+  #
+  # [filename] _(string)_ the name of the file to insert
+  # [options] _(options)_ any additional options to put on the STYLE tag
+  def inline_stylesheet( stylesheet, options = {} )
+
+    # add the extension, if not already present
+    stylesheet += ".css" unless stylesheet.match(/\.css$/)
+
+    # look for the file, and bail if it doesn’t exist
+    filename = asset_path_for( stylesheet )
+    return unless File.exists?( filename )
+
+    # read the file in, bail if it’s empty
+    content = File.read( filename ).strip
+    return if content.empty?
+
+    # return a <STYLE> tag
+    options[:media] ||= :screen
+    tag(:style, options, true) + content.html_safe + '</style>'.html_safe
   end
 
   # Generates a SCRIPT tag for the given JS file. By default, this will set both ASYNC and DEFER attributes.

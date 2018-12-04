@@ -1,35 +1,30 @@
-%footer.footer.ix
-  .container.footer__inner
-    %p.footer__copy © Jon Pearse, 2013–#{DateTime.now.year}
+%footer.footer
+  .container.-d.footer__inner
+    %strong.footer__copy © Jon Pearse, 2013–#{Date.today.year}
 
     %ul.footer__contact
       -# Disabling Edge auto-detection, because while the functionality is useful, I can’t find any way of styling the
       -# resulting link… which is super-frustrating :/
       %li{ 'x-ms-format-detection': :none }
-        %strong.a11y  Phone
-        = icon 'phone'
+        = icon( 'phone', title: 'Phone' )
         029 2014 2202
 
       %li
-        %strong.a11y  Email
         = link_to 'mailto:hello@jonpearse.net' do
-          = icon 'envelope'
+          = icon( 'envelope', title: 'Email' )
           %span.a11y  hello@jonpearse.net
 
       %li
-        %strong.a11y  Twitter
         = link_to 'https://twitter.com/jonpearse', rel: 'external nofollow noopener' do
-          = icon 'twitter'
+          = icon( 'twitter', title: 'Twitter' )
           %span.a11y  @jonpearse
 
       %li
-        %strong.a11y  Rubygems
         = link_to 'https://rubygems.org/profiles/jonpearse', rel: 'external nofollower noopener' do
-          = icon 'gem'
-          %span.a11y @jonpearse
+          = icon( 'gem', title: 'RubyGems' )
+          %span.a11y  @jonpearse
 
       %li
-        %strong.a11y
         = link_to 'https://github.com/jonpearse', rel: 'external nofollow noopener' do
-          = icon 'github'
+          = icon( 'github', title: 'Github' )
           %span.a11y  @jonpearse

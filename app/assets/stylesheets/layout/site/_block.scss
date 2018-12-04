@@ -1,0 +1,23 @@
+/// ==========================================================================
+/// #
+/// # Block styles
+/// #
+/// ==========================================================================
+
+.block {
+  display: flex;
+  justify-content: center;
+  padding: dimension(padding) 0;
+
+  /// Size-ways
+  /// ========================================================================
+  &.-large { @include fsz(intro); }
+
+  /// Padding
+  /// ========================================================================
+  &.-moar { padding: #{dimension(padding) * 2} 0; }
+
+  &.-moar-bottom { padding-bottom: #{dimension(padding) * 2}; }
+
+  &.-no-top { padding-top: 0; }
+}
