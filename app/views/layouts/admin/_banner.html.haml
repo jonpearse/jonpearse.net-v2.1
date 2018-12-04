@@ -1,12 +1,13 @@
 :ruby
-  @page_title ||= ''
-  @breadcrumb ||= []
+  @page_title  ||= ''
+  @breadcrumb  ||= []
+  @hide_logout ||= false
 
 %header.page__banner.banner
   %h1.banner__title= @page_title
 
-  - if user_signed_in?
-    = link_to_with_icon "Log out", destroy_user_session_path, 'sign-out', class: 'banner__signout'
+  - if user_signed_in? && !@hide_logout
+    = link_to_with_icon "Log out", destroy_user_session_path, 'sign-out', class: 'btn btn--outline banner__signout', icon_after: true
 
   %nav.banner__breadcrumb.breadcrumb
     %ul.breadcrumb__list

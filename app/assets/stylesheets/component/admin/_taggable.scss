@@ -36,8 +36,8 @@
 
   border-radius: rem(5);
 
-  background: var(--accent1_lo);
-  color: var(--accent1_tx);
+  background: var(--neutral-5);
+  color: var(--grey-0);
 
   @include fsz( small, 1 );
   @include fwt( semi );

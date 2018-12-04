@@ -8,64 +8,63 @@
 /// # Colourways
 /// ==========================================================================
 :root {
-  // backgrounds
-  --background: #fff;
-  --midground:  #f2f2f2;
-  --alt_bg:     rgba(0, 0, 0, .02);
+  // greys
+  --grey-1:     hsl(210, 11%, 15%);
+  --grey-2:     hsl(210, 10%, 23%);
+  --grey-3:     hsl(210,  9%, 31%);
+  --grey-4:     hsl(208,  7%, 46%);
+  --grey-5:     hsl(210, 11%, 71%);
+  --grey-6:     hsl(210, 14%, 83%);
+  --grey-7:     hsl(210, 14%, 89%);
+  --grey-8:     hsl(210, 16%, 93%);
+  --grey-9:     hsl(210,  0%, 98%);
+  --grey-0:     hsl(210,  0%, 100%);  // (AKA: white)
 
-  // foregrounds
-  --text:       #333;
-  --smalltext:  #666;
+  // accent colour
+  --accent-1:   hsl( 12, 60%, 15%);
+  --accent-3:   hsl( 12, 90%, 35%);
+  --accent-5:   hsl( 12, 90%, 55%);
+  --accent-7:   hsl( 12, 95%, 70%);
+  --accent-9:   hsl( 12, 95%, 95%);
 
-  // links
-  --link:       #E44849;
+  // neutral colour
+  --neutral-1:  hsl(220, 30%, 20%);
+  --neutral-3:  hsl(220, 80%, 34%);
+  --neutral-5:  hsl(218, 94%, 44%);
+  --neutral-7:  hsl(215, 80%, 75%);
+  --neutral-9:  hsl(220, 60%, 95%);
 
-  // theme colours
-  --accent1_hi: hsl(12, 79%, 59%);
-  --accent1_lo: hsl(296, 31%, 45%);
-  --accent1_tx: #fff;
-  --accent2_hi: #eee;
-  --accent2_lo: #e6e6e6;
-  --accent2_tx: var(--text);
+  // positive
+  --positive-1: hsl(140, 40%, 20%);
+  --positive-3: hsl(140, 50%, 29%);
+  --positive-5: hsl(140, 95%, 40%);
+  --positive-7: hsl(140, 70%, 75%);
+  --positive-9: hsl(140, 80%, 95%);
 
-  // boxes + stuff
-  --keyline:    rgba(0, 0, 0, .1);
-  --border:     rgba(0, 0, 0, .3);
+  // neutral
+  --caution-1:  hsl( 44, 99%, 20%);
+  --caution-3:  hsl( 44, 99%, 25%);
+  --caution-5:  hsl( 44, 99%, 53%);
+  --caution-7:  hsl( 44, 99%, 85%);
+  --caution-9:  hsl( 44, 99%, 95%);
 
-  // button ways
-  --button-def-bg: hsl(0, 0%, 93%);
-  --button-def-hv: hsl(0, 0%, 88%);
-  --button-def-tx: var(--text);
-  --button-def-ht: var(--text);
+  // negative
+  --negative-1: hsl(357, 99%, 30%);
+  --negative-3: hsl(357, 75%, 35%);
+  --negative-5: hsl(357, 82%, 52%);
+  --negative-7: hsl(357, 82%, 80%);
+  --negative-9: hsl(357, 87%, 96%);
 
-  --button-pri-bg: var(--accent1_hi);
-  --button-pri-hv: hsl(12, 79%, 56%);
-  --button-pri-tx: #fff;
-  --button-pri-ht: #fff;
+  // NAMED STUFF
+  --background: var(--grey-0);
+  --midground:  var(--grey-9);
+  --text:       var(--grey-1);
+  --keyline:    var(--grey-7);
+  --focus:      var(--caution-5);
 
-  --button-sec-bg: var(--accent1_lo);
-  --button-sec-hv: hsl(296, 31%, 43%);
-  --button-sec-tx: #fff;
-  --button-sec-ht: #fff;
-
-  --button-dan-bg: var(--background);
-  --button-dan-hv: var(--background);
-  --button-dan-tx: hsl(0, 100%, 30%);
-  --button-dan-ht: hsl(0, 100%, 40%);
-
-  // semantic
-  --safe:       #090;
-  --caution:    #FC0;
-  --danger:     #F00;
-  --neutral:    #009;
-}
-
-html.dark-mode {
-  --background: #223;
-  --midground:  #444;
-
-  --text:       #ccc;
-  --smalltext:  #aaa;
+  // Additional stuff that doesn’t quite fit in the usual shades
+  --nav-pri:    hsl( 12, 79%, 59%);
+  --nav-sec:    hsl(210,  0%, 95%);
 }
 
 /// ==========================================================================
@@ -87,5 +86,5 @@ body {
 /// Basic link styles
 /// ==========================================================================
 a {
-  color: var(--link);
+  color: var(--accent-5);
 }

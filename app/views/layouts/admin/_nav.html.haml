@@ -12,5 +12,8 @@
     = render partial: 'layouts/admin/nav/item', collection: normalise_navigation, locals: { top: true } if user_signed_in?
     %li.main-navigation__item
       %a.main-navigation__link{ href: root_path }
-        %i.main-navigation__icon= icon( 'sign-out' )
-        Main website
+        - if user_signed_in?
+          %i.main-navigation__icon= icon( 'sign-out' )
+          Main website
+        - else
+          %i.main-navigation__icon= icon( 'sign-out', title: 'Return to main website' )

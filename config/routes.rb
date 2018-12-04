@@ -50,8 +50,46 @@ Rails.application.routes.draw do
   # Site namespace
   scope module: :site do
 
+    # Article paths
+    get   'writing/feed',             to: 'articles#feed',    as: :articles_feed
+    get   'writing/feed-full',        to: 'articles#feed',    as: :articles_full_feed, defaults: { full: true }
+
+    get   'writing/:year(/:month)',   to: redirect( '/writing' ), constraints: { year: /[0-9]{4}/, month: /[0-9]{2}/ }
+    get   'writing/about/:category',  to: 'articles#index',   as: :article_category
+    post  'writing/:id',              to: 'articles#update',  as: :update_article
+    get   'writing/*url',             to: 'articles#show',    as: :_article
+    get   'writing',                  to: 'articles#index',   as: :articles
+
+    # old URLs
+    get   'articles',                 to: redirect( '/writing' )
+    get   'articles/in/:category',    to: redirect( '/writing/about/%{category}' )
+    get   'articles/*url',            to: redirect( '/writing/%{url}' )
+
+    # Project paths
+    get   'work/:year',         to: redirect('/projects'), constraints: { year: /[0-9]{4}/ }
+    get   'work/by-tech/:tech', to: 'projects#index',   as: :project_tech
+    post  'work/:id',           to: 'projects#update',  as: :update_project
+    get   'work/*url',          to: 'projects#show',    as: :_project
+    match 'work',               to: 'projects#index',   as: :projects, via: %i{ get post }
+
+    # Snippet update path
+    post 'snippets/:id', to: 'snippets#update', as: :update_snippet
+
+    # Better media segments
+    get 'a/_/:blob_id(/:size)', to: 'storage#show', as: :_variation, constraints: { size: /[0-9a-z]+/ }
+
+    # Static pages
+    get 'about', to: 'pages#about'
+
+    # redirects
+    get '_/r/:code', to: 'shortcodes#bounce', as: :shortcode
+
+    # root path
     root to: 'pages#home'
 
   end
+
+  # 404
+  match '*unmatched_route', to: 'application#not_found', constraints: -> (req){ req.path.exclude?( 'rails/active_storage' )}, via: :all
 
 end

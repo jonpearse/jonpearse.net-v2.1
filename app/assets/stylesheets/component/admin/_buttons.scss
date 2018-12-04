@@ -7,15 +7,13 @@
 /// Basic buttonness.
 /// ==========================================================================
 .btn {
-  --bg: var(--button-def-bg);
-  --hv: var(--button-def-hv);
-  --fg: var(--button-def-tx);
-  --ht: var(--button-def-ht);
+  --bg: var(--grey-7);
+  --hv: var(--grey-5);
+  --fg: var(--text);
 
   display: inline-block;
-  padding: .7em 1.4em;
-
-  border-radius: rem(2);
+  padding: .5em 1.4em;
+  border-radius: 3px;
 
   background: var(--bg);
   color: var(--fg);
@@ -24,34 +22,47 @@
   @include fwt(semi);
   @include ffm(base);
   text-decoration: none;
-  text-shadow: rgba(0, 0, 0, .3) 0 1px 1px 0;
+  text-shadow: rgba(0, 0, 0, .2) 0 1px 1px;
 
   transform: translateY(0);
-
   transition: background .25s, color .25s, transform .15s;
 
-  &:hover {
-    background: var(--hv);
-    color: var(--ht);
-  }
+  &:hover { background: var(--hv); }
   &:active { transform: translateY(rem(2)); }
+
+  &:focus {
+    outline: 3px solid var(--focus);
+    &:not(:focus-visible) { outline: none; }
+  }
 
   // handle icons
   .svg-icon {
-    margin: -.2em .6em 0 -.1em;
-    font-size: 140%;
+    vertical-align: -.225em;
+    margin: 0 .6em 0 -.5em;
+    font-size: 1em;
     line-height: 1;
   }
 
-  & + & { margin-left: 1em; }
+  &.btn--outline {
+    --hv: var(--grey-8);
+    --fg: var(--grey-3);
+
+    background: transparent;
+    box-shadow: inset currentColor 0 0 0 1px;
+    text-shadow: none;
+
+    &:hover { background: var(--hv); }
+  }
+
+  & + & { margin-left: .5em; }
 }
 
-.btn--smol-icon .svg-icon { font-size: 100%; }
+.btn--icon-after .svg-icon { margin: 0 -.5em 0 .6em; }
 
 /// Icon-only
 /// ==========================================================================
 .btn--icon-only {
-  padding: .7em 1em;
+  padding: .5em .7em;
 
   .svg-icon[class] {
     margin-left: 0;
@@ -62,42 +73,46 @@
 /// Colourways
 /// ==========================================================================
 .btn--primary {
-  --bg: var(--button-pri-bg);
-  --hv: var(--button-pri-hv);
-  --fg: var(--button-pri-tx);
-  --ht: var(--button-pri-ht);
+  --bg: var(--accent-5);
+  --hv: var(--accent-3);
+  --fg: var(--grey-0);
+
+  &.btn--outline {
+    --hv: var(--accent-9);
+    --fg: var(--accent-3);
+  }
 }
 
-.btn--secondary {
-  --bg: var(--button-sec-bg);
-  --hv: var(--button-sec-hv);
-  --fg: var(--button-sec-tx);
-  --ht: var(--button-sec-ht);
+.btn--safe {
+  --bg: var(--positive-5);
+  --hv: var(--positive-3);
+  --fg: var(--positive-9);
+
+  &.btn--outline {
+    --hv: var(--positive-9);
+    --fg: var(--positive-3);
+  }
 }
 
 .btn--dangerous {
-  --bg: var(--button-dan-bg);
-  --hv: var(--button-dan-hv);
-  --fg: var(--button-dan-tx);
-  --ht: var(--button-dan-ht);
+  --bg: var(--negative-5);
+  --hv: var(--negative-3);
+  --fg: var(--grey-0);
 
-  box-shadow: inset currentColor 0 0 0 1px;
+  &.btn--outline {
+    --hv: var(--negative-9);
+    --fg: var(--negative-3);
+  }
 }
 
 /// Sizes
 /// ==========================================================================
-.btn--large {
-  padding: .7em 2em;
+.btn--large {;
   @include fsz(largeButton);
-
-  .svg-icon { margin: -.15em .5em 0 -.1em; }
 }
 
 .btn--smol {
-  padding: .4em 1em .3em;
   @include fsz(smallButton);
 
-  .svg-icon { margin: -.15em .5em 0 -.1em; }
-
-  &.btn--icon-only { padding: .4em .5em .3em; }
+  .svg-icon { vertical-align: -.28em; }
 }

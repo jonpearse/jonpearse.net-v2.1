@@ -16,7 +16,7 @@
     = capture( &block )
 
     - if form.object.has_error?( field[:field] )
-      %label.form_error{ for: "#{form.object_name}_#{field[:field]}" }= form.object.error_messages( field[:field] )
+      %label.form__error{ for: "#{form.object_name}_#{field[:field]}" }= form.object.error_messages( field[:field] ).humanize
 
 - else
   = capture( &block )

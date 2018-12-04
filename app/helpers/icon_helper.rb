@@ -14,7 +14,7 @@ module IconHelper
     html_options[:role] = 'img'
 
     # if we have a title
-    if html_options.key?( :title )
+    if html_options.key?( :title ) && !html_options[:title].nil?
 
       id = "svg-icon__title--#{SecureRandom.hex(4)}"
       html_options[:'aria-labelledby'] = id
@@ -45,10 +45,10 @@ module IconHelper
   def link_to_with_icon( body, url, icon, html_options = {})
 
     html_options[:class] ||= ""
-    html_options[:class].prepend " " unless html_options[:class].empty?
-    html_options[:'aria-hidden'] = "true"
+    html_options[:class].prepend( " " ) unless html_options[:class].empty?
+    html_options[:class] << ' btn--icon-after' if html_options.key?( :icon_after )
 
-    link_text = html_options.key?( :icon_after ) ? "#{body} #{icon( icon )}" : "#{icon( icon )} #{body}"
+    link_text = html_options.key?( :icon_after ) ? "#{body} #{icon( icon, title: nil )}" : "#{icon( icon, title: nil )} #{body}"
     html_options.delete( :icon_after )
 
     link_to( link_text.html_safe, url, html_options )

@@ -7,6 +7,7 @@
 .form {
   display: block;
   padding: rem(30);
+  border: 1px solid var(--grey-8);
 
   background: var(--background);
 }
@@ -22,14 +23,15 @@
 /// # Individual fields
 /// ==========================================================================
 .form__field {
-  --border: var(--keyline);
+  --border: var(--grey-5);
+  --focus:  var(--neutral-3);
   --glow:   transparent;
 
   & + & { margin-top: rem(30); }
 
   &.-error {
-    --border: var(--danger);
-    --glow:   var(--danger);
+    --border: var(--negative-3);
+    --glow:   var(--negative-3);
   }
 
   @include mq(medium) {
@@ -61,8 +63,8 @@
 /// Labels
 /// ==========================================================================
 .form__label {
-  --border:  var(--keyline);
   --opacity: 0;
+  --border: var(--grey-4);
 
   display: block;
   padding: .5em 0;
@@ -73,13 +75,15 @@
     position: relative;
     padding-left: 3em;
 
+    @include fwt(normal);
+
     &::before,
     &::after {
       position: absolute;
       top: 50%;
       left: 0;
-      width: 1em;
-      height: 1em;
+      width: 1.2em;
+      height: 1.2em;
 
       transform: translateY(-50%);
 
@@ -95,13 +99,15 @@
     }
 
     &::after {
-      background: url( 'icons-admin#icon-check' ) center center no-repeat/80%;
+      background: url( 'icons-admin#icon-check-phat' ) center center no-repeat/100%;
       opacity: var(--opacity);
       transition: opacity .25s;
+
+      transform: translateY(-50%) translate(rem(2), rem(-1));
     }
   }
 
-  .form__input[type=checkbox]:focus ~ & { --border: var(--accent1_lo); }
+  .form__input[type=checkbox]:focus ~ & { --border: var(--focus); }
   .form__input[type=checkbox]:checked ~ & { --opacity: 1; }
 
   // on larger viewports
@@ -131,7 +137,7 @@
   outline: none;
   text-decoration: none;
 
-  color: var(--accent1_lo);
+  color: var(--accent-3);
 }
 
 /// Form groups
@@ -169,12 +175,12 @@ textarea.form__input,
 
   padding: .5em .8em;
   border: 1px solid var(--border);
-  box-shadow: var(--glow) 0 0 0 1px;
+  box-shadow: var(--glow) 0 0 0 2px;
   outline: none;
 
   background: transparent none;
 
-  &:focus { --border: var(--accent1_lo); }
+  &:focus { --border: var(--focus); }
 }
 
 // specify widths
@@ -234,11 +240,24 @@ select.form__input {
 }
 
 /// ==========================================================================
+/// # Hinting et al
+/// ==========================================================================
+.form__hint,
+.form__error {
+  display: block;
+  margin-top: .3em;
+}
+
+.form__error {
+  color: var(--glow);
+}
+
+/// ==========================================================================
 /// # Buttons
 /// ==========================================================================
 .form:not(.form--dialog) .form__buttons {
   position: absolute;
-  top: rem(27.5);
+  top: rem(31);
   right: rem(30);
 }
 

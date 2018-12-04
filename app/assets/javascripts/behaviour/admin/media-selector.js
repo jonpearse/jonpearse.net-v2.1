@@ -75,7 +75,7 @@ function MediaSelector( elRoot, options )
     function addButton()
     {
         // add a button for adding things
-        elButton = utils.create( 'button', { type: 'button', class: 'media-selector__add btn btn--smol-icon' });
+        elButton = utils.create( 'button', { type: 'button', class: 'media-selector__add btn btn--outline' });
         elButton.appendChild( icon( 'plus' ));
         elButton.appendChild( document.createTextNode( options.select ));
         elRoot.appendChild( elButton );

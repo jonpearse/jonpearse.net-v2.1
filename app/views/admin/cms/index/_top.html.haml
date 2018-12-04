@@ -1,6 +1,6 @@
 - if action_allowed?( :create ) or action_allowed?( :search )
   %header.content-list__header
     - if action_allowed?( :create )
-      = link_to prompt_t( @model_class, :create_button ), { action: :new }, class: 'btn btn--primary'
+      = link_to prompt_t( @model_class, :create_button ), { action: :new }, class: 'btn btn--primary btn--large'
     -# - if action_allowed?( :search )
     -#   =

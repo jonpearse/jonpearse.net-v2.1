@@ -358,7 +358,7 @@ class Admin::CMSController < Admin::BaseController
         # HTML gets a flash and a bounce
         format.html do
 
-          flash[:notice] = status_t( @content, verb, title: @content.to_s )
+          flash[:success] = status_t( @content, verb, title: @content.to_s )
           redirect_to( new_url )
 
         end
