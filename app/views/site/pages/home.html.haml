@@ -3,7 +3,7 @@
 
 -# Render a masthead
 - content_for( :masthead ) do
-  = render layout: 'site/common/masthead', locals: { title: 'Home', hide_title: true, add_class: 'tall' } do
+  = render layout: 'masthead', locals: { title: 'Home', hide_title: true, add_class: 'tall' } do
     = render_snippet( 'home.masthead' )
 
 -# Intro text
