@@ -19,7 +19,8 @@ module Site::ImageHelper
     options = {
       default: BASE_DEFAULT,
       dimensions: BASE_DIMENSIONS,
-      html: {}
+      html: {},
+      blur: false
     }.deep_merge( options )
 
     # default some HTML attrs
@@ -30,7 +31,7 @@ module Site::ImageHelper
 
     # Handle some lazyloading
     html_attrs[:class] = "#{html_attrs[:class]} lazyload".strip
-    html_attrs[:src] = media.b64_preview
+    html_attrs[:src] = options[:blur] ? media.base64_preview : nil
     html_attrs[:'data-srcset'] = options[:dimensions].map{ |size| variation_path( media, size ) + " #{size}w" }.join(',')
     html_attrs[:sizes] = 'auto'
     html_attrs[:style] = "width: #{options[:dimensions].max}px"

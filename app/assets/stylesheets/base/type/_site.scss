@@ -1,0 +1,129 @@
+/// ==========================================================================
+/// #
+/// # Typography
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Load Fonts
+/// ==========================================================================
+// sass-lint:disable indentation
+@font-face {
+  font-family: 'Raleway';
+  font-weight: fwt(normal);
+  src: local('Raleway Light'), local('Raleway-Light'),
+       url('raleway-light.woff2') format('woff2'),
+       url('raleway-light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-weight: fwt(normal);
+  font-style:  italic;
+  src: local('Raleway Light Italic'), url('Raleway-LightItalic'),
+       url('raleway-lightitalic.woff2') format('woff2')
+       url('raleway-lightitalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-weight: fwt(semi);
+  src: local('Raleway Medium'), url('Raleway-Medium'),
+       url('raleway-medium.woff2') format('woff2')
+       url('raleway-medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Cabin';
+  font-weight: fwt(bold);
+  src: local('Cabin Medium'), url('Cabin-Medium'),
+       url('cabin-medium.woff2') format('woff2'),
+       url('cabin-medium.woff') format('woff');
+}
+// scss-lint:enable indentation
+
+/// ==========================================================================
+/// # Let’s do some scaling
+/// ==========================================================================
+html {
+  font-size: 80%;
+
+  @include mq(small)  { font-size: 90%; }
+  @include mq(medium) { font-size: 100%; }
+}
+
+/// ==========================================================================
+/// # Everything else
+/// ==========================================================================
+body {
+  // separately, so as not to completely destroy IE11
+  font-family: ffm(base);
+  font-weight: fwt(normal);
+  font-size:   fsz(base);
+  line-height: fld(base);
+}
+
+
+strong { font-weight: fwt(semi); }
+em     { font-style: italic; }
+
+small,
+time {
+  color: var(--grey-2);
+  font-size: fsz(small);
+}
+
+/// Headings
+/// ==========================================================================
+h1 {
+  @include ffm(headers);
+  @include fsz(primary);
+  @include fwt(bold);
+}
+
+h2 {
+  margin: 1.5em 0 .5em;
+  @include ffm(headers);
+  @include fsz(secondary);
+  @include fwt(bold);
+
+  &.c {
+    margin-bottom: 2em;
+    text-align: center;
+  }
+}
+
+h3 {
+  margin: 1.5em 0 .5em;
+  @include ffm(headers);
+  @include fsz(tertiary);
+  @include fwt(bold);
+}
+
+/// Other stuff
+/// ==========================================================================
+p { margin: 1em 0; }
+
+blockquote {
+  padding: dimension(gutter);
+  margin: 2em 0;
+  border: 1px solid var(--bq-bd);
+  border-radius: rem(5);
+
+  background: var(--bq-bg);
+  color: var(--bq-tx);
+
+  @include mq(small) { margin: 2em dimension(padding); }
+}
+
+/// Lists: constrain to within type blocks
+/// ==========================================================================
+.t {
+  ul,
+  ol { margin: 1em 0 1em 2em; }
+
+  ul { list-style: disc outside; }
+  ol { list-style: decimal outside; }
+
+  li { margin: .3em 0; }
+}

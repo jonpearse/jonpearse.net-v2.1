@@ -1,15 +1,19 @@
 %header.banner
   .container.-d.banner__inner
-    %strong.banner__wordmark= link_to 'Jon Pearse', root_path
+    %strong.banner__wordmark
+      = link_to root_path, title: 'Go to the homepage' do
+        = asset_contents( 'site/wordmark.svg' ).html_safe
 
     %nav.banner__nav.nav
       %ul.nav__list
+        %li.nav__item.-sm
+          = link_to 'Home', root_path, class: "nav__link#{(( params[:controller] == 'pages' and params[:action] == 'home' ) ? ' -current' : '')}"
         %li.nav__item
           = link_to 'Work', projects_path, class: "nav__link#{( params[:controller] == 'projects' ? ' -current' : '')}"
         %li.nav__item
           = link_to 'Writing', projects_path, class: "nav__link#{( params[:controller] == 'articles' ? ' -current' : '')}"
         %li.nav__item
-          = link_to 'About', projects_path, class: "nav__link#{( params[:controller] == 'pages' and params[:action] == 'about' ? ' -current' : '')}"
+          = link_to 'About', projects_path, class: "nav__link#{(( params[:controller] == 'pages' and params[:action] == 'about' ) ? ' -current' : '')}"
         - if user_signed_in?
           %li.nav__item
-            = link_to 'Manage', admin_root_path, class: 'nav__item'
+            = link_to 'Manage', admin_root_path, class: 'nav__link'

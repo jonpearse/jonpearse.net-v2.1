@@ -1,0 +1,130 @@
+/// ==========================================================================
+/// #
+/// # Site banner + navigation
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Banner
+/// ==========================================================================
+.banner {
+  min-height: rem(58);
+  border-top: rem(10) solid var(--grey-5);
+  border-bottom: rem(1) solid var(--smoke-2);
+
+  a {
+    --shadow: #{rem(4)};
+
+    display: block;
+    border: 0;
+  }
+}
+
+.banner__wordmark {
+  line-height: 1;
+
+  a {
+    display: block;
+    margin:  rem(-2) rem(-10) 0;
+    padding: rem(5) rem(10);
+  }
+
+  svg {
+    display: block;
+    height: rem(21);
+    width:  rem(134);
+    fill: currentColor;
+    transition: fill .15s;
+  }
+}
+
+/// ==========================================================================
+/// # Site navigation
+/// ==========================================================================
+.nav { @include mq($until: small) { padding: rem(15) 0; }}
+
+.nav__list {
+  @include mq($until: small) {
+    position: fixed;
+
+    top: 0;
+    left: 100%;
+    height: 100vh;
+    width: 220px;
+    padding: #{dimension(padding) * 2} #{dimension(padding) / 2};
+
+    border-top: rem(10) solid var(--grey-5);
+    z-index: 100;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 1000px, rgba(0, 0, 0, .1) 0 0 0 0;
+    background: var(--grey-1);
+
+    transition: transform .5s, box-shadow .5s;
+
+    .nav.js-open & {
+      transform: translate(-100%);
+      box-shadow: rgba(0, 0, 0, .5) 0 0 0 1000px, rgba(0, 0, 0, .1) 0 0 10px 5px;
+    }
+  }
+
+  @include mq(small) { display: flex; }
+}
+
+/// Individual LIs
+/// ==========================================================================
+.nav__item {
+
+  @include mq($until: small) {
+    &:not(.-sm) { border-top: 1px solid var(--smoke-2); }
+  }
+
+  @include mq(small) {
+    &.-sm { display: none; }
+
+    &.-sm + & ~ & {
+      position: relative;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: rem(10);
+      border-left: 1px solid var(--smoke-2);
+      content: '';
+    }
+  }
+}
+
+/// The link itself
+/// ==========================================================================
+.nav__link {
+  padding: rem(15);
+  border:  0;
+
+  @include mq($until: small) {
+    &.-current { @include fwt(semi); }
+  }
+
+  @include mq(small) {
+    position: relative;
+
+    &::before {
+      position: absolute;
+
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: rem(5);
+
+      background: var(--grey-5);
+      transition: transform .2s;
+
+      content: '';
+    }
+
+    &:hover,
+    &.-current {
+      &::before { transform: translateY(100%); }
+    }
+  }
+}

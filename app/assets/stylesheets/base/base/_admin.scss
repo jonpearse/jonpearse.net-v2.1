@@ -80,13 +80,6 @@ body {
   color: var(--text);
 }
 
-/// Set running margins
-/// ==========================================================================
-* { // sass-lint:disable-line no-universal-selectors
-  &:first-child { margin-top: 0; }
-  &:last-child  { margin-bottom: 0; }
-}
-
 /// Basic link styles
 /// ==========================================================================
 a {

@@ -1,42 +1,6 @@
 @import 'common';
 
 // ==========================================================================
-// # COLOURS
-//
-// These can be accessed using the palette() function
-// ==========================================================================
-$foreground: (
-
-  // main text
-  text:       #333,
-  smallText:  #666,
-  wh:         #fff,
-
-  // accent colour
-  accent:     #E44849,
-  accent2:    #FFE066,
-
-  // other stuff
-  keyline:    rgba(0, 0, 0, .1)
-
-);
-
-$background: (
-
-  // normal background
-  wh:         #fff,
-  off-wh:     #eee,
-  dark:       #444,
-  bk:         #000,
-  smoke:      rgba(0, 0, 0, .5),
-  vague:      rgba(0, 0, 0, .05),
-
-  // accent
-  accent:     #D14244
-
-);
-
-// ==========================================================================
 // # TEXT CONFIGURATION
 // ==========================================================================
 

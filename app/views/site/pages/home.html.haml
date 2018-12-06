@@ -6,6 +6,15 @@
   = render layout: 'site/common/masthead', locals: { title: 'Home', hide_title: true, add_class: '-tall' } do
     = render_snippet( 'home.masthead' )
 
--# Get our title text
-= render_block( classes: %w{ off-white large }, container_classes: 'narrow', text: true ) do
+-# Intro text
+= render_block( classes: %w{ alt large }, container_classes: 'narrow', text: true ) do
   = render_snippet( 'home.intro' )
+
+-# Latest projects
+- unless @projects.empty?
+  = render_block( classes: %w{ moar-bottom }, element: :section ) do
+    %h2.c Latest Work
+
+    %ul.halves
+      - @projects.each do |project|
+        %li= render project
