@@ -53,10 +53,10 @@ a {
 
   color: var(--link-tx);
   text-decoration: none;
-  box-shadow: var(--hilite) 0 0 0 0;
+  box-shadow: var(--link-ol) 0 0 0 0;
 
   transition: color .15s, box-shadow .15s;
 
   &:hover { color: var(--link-hv); }
-  &:focus { box-shadow: var(--hilite) 0 0 0 var(--shadow); }
+  &:focus { box-shadow: var(--link-ol) 0 0 0 var(--shadow); }
 }

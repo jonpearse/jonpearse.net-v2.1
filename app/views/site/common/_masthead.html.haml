@@ -1,6 +1,6 @@
 -# Set some defaults
 :ruby
-  background  ||= 'cuben.svg'
+  background  ||= 'site/cuben.svg'
   add_class   ||= nil
   title       ||= @page_title
   hide_title  ||= false
@@ -9,7 +9,7 @@
   unless add_class.nil?
 
     add_class = [ add_class ] unless add_class.is_a?( Array )
-    add_class = add_class.map{ |c| "masthead--#{c}" }.join( ' ' )
+    add_class = classnames( add_class, 'masthead--' )
 
   end
 

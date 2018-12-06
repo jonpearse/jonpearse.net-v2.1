@@ -4,7 +4,7 @@
   link_tag  = project.uri.blank? ? :div : :a
   link_attr = project.uri.blank? ? { tabindex: 0 } : { href: project.uri, rel: 'external nofollow noopener', 'data-behaviour': :softtouch }
 
-%article.project{ style: "background-color: #{project.preview.colour}" }
+%article.project{ style: "background-color: ##{project.preview.colour}" }
   = tag.send( link_tag, link_attr.merge( class: 'project__link' )) do
     .project__content
       %strong.project__name{ role: :heading, 'aria-level': 3 }
