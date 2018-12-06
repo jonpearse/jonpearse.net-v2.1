@@ -48,6 +48,6 @@ module.exports = {
   // Fonts
   fonts: {
     watch:  `${ASSET_ROOT}/fonts/**/*`,
-    source: `${ASSET_ROOT}/fonts/**/*.*`
+    source: [ `${ASSET_ROOT}/fonts/**/*.woff`, `${ASSET_ROOT}/fonts/**/*.woff2` ]
   }
 };

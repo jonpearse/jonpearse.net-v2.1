@@ -20,7 +20,7 @@
   font-family: 'Raleway';
   font-weight: fwt(normal);
   font-style:  italic;
-  src: local('Raleway Light Italic'), url('Raleway-LightItalic'),
+  src: local('Raleway Light Italic'), local('Raleway-LightItalic'),
        url('raleway-lightitalic.woff2') format('woff2')
        url('raleway-lightitalic.woff') format('woff');
 }
@@ -28,7 +28,7 @@
 @font-face {
   font-family: 'Raleway';
   font-weight: fwt(semi);
-  src: local('Raleway Medium'), url('Raleway-Medium'),
+  src: local('Raleway Medium'), local('Raleway-Medium'),
        url('raleway-medium.woff2') format('woff2')
        url('raleway-medium.woff') format('woff');
 }
@@ -36,7 +36,7 @@
 @font-face {
   font-family: 'Cabin';
   font-weight: fwt(bold);
-  src: local('Cabin Medium'), url('Cabin-Medium'),
+  src: local('Cabin Medium'), local('Cabin-Medium'),
        url('cabin-medium.woff2') format('woff2'),
        url('cabin-medium.woff') format('woff');
 }
