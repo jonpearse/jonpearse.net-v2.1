@@ -26,15 +26,14 @@ module Site::RenderingHelper
 
     # cast strings
     options[:classes] = "block #{classnames( options[:classes] )}".strip
-    options[:container_classes] = "container #{classnames( options[:container_classes] )}".strip
+    options[:container_classes] = "container #{classnames( options[:container_classes], '' )}".strip
     options[:container_classes] << ' t' if options[:text]
 
     # call down
     content = capture{ yield }
 
     # call out to partial
-    puts "In render_block: " + options.inspect
-    render( layout: 'site/common/block', locals: options ){ content }
+    render( layout: 'block', locals: options ){ content }
 
   end
 
@@ -47,7 +46,7 @@ module Site::RenderingHelper
 
     # load the snippet + render it
     snippet = Snippet::acquire( ident )
-    render( partial: 'site/common/snippet', locals: { snippet: snippet })
+    render( partial: 'snippet', locals: { snippet: snippet })
 
   end
 

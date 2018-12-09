@@ -16,6 +16,7 @@ class Project < ApplicationRecord
   scope :latest, -> ( count = nil ){ order( 'live_date DESC' ).limit( count )}
   scope :live, -> { where( live: true )}
   scope :with_tech, -> ( tech ){ joins( :techs ).where( 'techs.id=?', tech.id )}
+  scope :with_tech_ids, -> ( tech_ids ){ joins( :techs ).where( 'techs.id IN (?)', tech_ids ).group( 'projects.id') }
 
   # hook into slug generation
   after_slug_generated :update_full_url

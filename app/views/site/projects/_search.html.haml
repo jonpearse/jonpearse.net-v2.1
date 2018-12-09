@@ -1,0 +1,13 @@
+= form_with url: projects_path, class: 'block -moar-top', html: { id: :filters, role: :search, 'data-behaviour': :filters } do |f|
+  .container.filters
+    %strong.filters__title Show:
+
+    %ul.filters__list
+      - @techs.each do |t|
+        %li.filters__item
+          %input.filters__input{ id: "filters_tech-#{t.id}", type: :checkbox, name: 'tech_id[]', value: t.id, checked: @tech_ids.include?( t.id )}
+          %label.filters__filter{ for: "filters_tech-#{t.id}" }
+            = t.to_s
+            = icon( 'tick' )
+
+    %button.filters__go{ type: :submit } Update

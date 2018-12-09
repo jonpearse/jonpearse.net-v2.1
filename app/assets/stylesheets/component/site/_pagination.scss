@@ -1,0 +1,61 @@
+/// ==========================================================================
+/// #
+/// # Site pagination module
+/// #
+/// ==========================================================================
+
+.pagination__list {
+  display: flex;
+  justify-content: center;
+}
+
+/// Individual items
+/// ==========================================================================
+.pagination__page {
+  display: block;
+  margin:  0 .25em;
+}
+
+.pagination__gap {
+  padding: 0 .6em;
+  line-height: 2.1;
+}
+
+.pagination__link {
+  display: block;
+
+  min-width: 2.2em;
+  padding: 0 .5em .15em;
+  border: 1px solid transparent;
+  border-radius: rem(5);
+
+  text-align: center;
+  line-height: 1.9;
+
+  transition: border-color .15s;
+
+  &.-placeholder { background: var(--hint-3); }
+
+  &:hover,
+  &:focus { border-color: var(--hint-1); }
+
+  // blah
+  .-meta & {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+    line-height: 2;
+  }
+
+  .-meta:first-child & {
+    padding-left: .2em;
+
+    svg { margin-right: .3em; }
+  }
+
+  .-meta:last-child & {
+    padding-right: .2em;
+
+    svg { margin-left: .3em; }
+  }
+}

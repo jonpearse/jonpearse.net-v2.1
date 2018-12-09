@@ -79,6 +79,8 @@
   }
 
   &:focus { box-shadow: inset var(--link-ol) 0 0 0 var(--shadow); }
+
+  @include mq(medium, large) { font-size: 80%; }
 }
 
 .project__content {
@@ -88,9 +90,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: rem(20);
 
   color: var(--grey-0);
   opacity: 0;
+  text-align: center;
 
   transform: scale(.9);
   transition: opacity .25s, transform .25s;
@@ -105,6 +109,7 @@
 /// Content
 /// ==========================================================================
 .project__name {
+  display: inline;
   border-bottom: 1px solid var(--hint-1);
 
   svg { margin: -.2em 0 0 .5em; }

@@ -7,4 +7,8 @@ class Tech < ApplicationRecord
   # validation
   validates :name, presence: true
 
+  # define a scope
+  default_scope -> { order( :name )}
+  scope :with_projects, -> { joins( :projects ).group( :id ) }
+
 end

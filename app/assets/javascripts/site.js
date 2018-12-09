@@ -12,3 +12,6 @@ new Lazyload({
 });
 
 // init behaviours
+require( 'core/behaviours' ).init([
+    require( 'behaviour/site/filters' )
+]);
