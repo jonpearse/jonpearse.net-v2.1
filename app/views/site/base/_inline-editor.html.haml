@@ -1,4 +1,5 @@
 - if user_signed_in?
-  %div{ data: { behaviour: 'inline-editor', property: property, uri: polymorphic_path( content, action: :update ) }}= yield
+  - uri = polymorphic_path( content, action: :update ) rescue nil
+  %div{ data: { behaviour: 'inline-editor', property: property, uri: uri }}= yield
 - else
   = yield

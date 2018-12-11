@@ -50,6 +50,18 @@ module Site::RenderingHelper
 
   end
 
+  # Renders an inline editor.
+  #
+  # === Parameters
+  #
+  # [object] _(Model, required)_ the object to render
+  # [property] _(Symbol, required)_ the property to render/edit
+  def render_inline_editor( object, property )
+
+    render( layout: 'inline-editor', locals: { content: object, property: property }){ object.send( property ).html_safe }
+
+  end
+
   # Maps an array or string of classes to a common prefixed, space-separated form.
   #
   # === Parameters
