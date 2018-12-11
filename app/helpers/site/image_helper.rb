@@ -55,11 +55,7 @@ module Site::ImageHelper
   # [html] the markup to parse
   def render_responsive_images( html )
 
-    puts "In render_responsive_images"
-
     html.gsub(/<img(?:\s+(?:data-media-id="(\d+)")|(?:data-align="([a-z]+)")|(?:.*?))+>/) do |mat|
-
-      puts mat.inspect
 
       # if we have neither a media ID or anything, bail
       return "" if $1.nil?

@@ -57,6 +57,9 @@ module AssetHelper
     content = File.read( filename ).strip
     return if content.empty?
 
+    # rewrite our content
+    content.gsub!( /url\("(.*?)"\)/ ){ |match| "url(\"#{asset_url_for( $1 )}\")" }
+
     # return a <STYLE> tag
     options[:media] ||= :screen
     tag(:style, options, true) + content.html_safe + '</style>'.html_safe
