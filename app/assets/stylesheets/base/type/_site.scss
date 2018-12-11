@@ -24,7 +24,7 @@
     font-style:  italic;
     font-display: fallback;
     src: local('xRaleway Light Italic'), local('xRaleway-LightItalic'),
-         url('raleway-lightitalic.woff2') format('woff2')
+         url('raleway-lightitalic.woff2') format('woff2'),
          url('raleway-lightitalic.woff') format('woff');
   }
 
@@ -33,7 +33,7 @@
     font-weight: fwt(semi);
     font-display: fallback;
     src: local('xRaleway Medium'), local('xRaleway-Medium'),
-         url('raleway-medium.woff2') format('woff2')
+         url('raleway-medium.woff2') format('woff2'),
          url('raleway-medium.woff') format('woff');
   }
 
