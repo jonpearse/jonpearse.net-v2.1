@@ -22,5 +22,5 @@
                 %li= link_to cat.to_s, article_category_path( category: cat.slug ), class: 'article__tag'
 
 -# Content
-= render_block( classes: 'moar-bottom content', container_classes: %w{ -narrow article__content }) do
+= render_block( classes: 'moar-bottom content t', container_classes: %w{ -narrow article__content }) do
   = render_inline_editor( @article, :body )

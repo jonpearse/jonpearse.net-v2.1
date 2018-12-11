@@ -61,3 +61,24 @@ a {
   &:hover { color: var(--link-hv); }
   &:focus { box-shadow: var(--link-ol) 0 0 0 var(--shadow); }
 }
+
+/// Code stuff
+/// ==========================================================================
+code {
+  display: inline-block;
+  padding: 0 .2em;
+  background: var(--smoke-3);
+
+  @include ffm(mono);
+  font-weight: normal;
+
+  pre & {
+    display: block;
+    padding: dimension(gutter);
+
+    background: var(--grey-3);
+    color: var(--grey-1);
+    font-size: .8em;
+    line-height: 1.5;
+  }
+}

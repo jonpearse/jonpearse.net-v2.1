@@ -8,8 +8,9 @@
   li + li { margin-top: dimension(padding); }
 
   h2,
-  h3,
-  p { margin: 0; }
+  h3 { margin: 0; }
+
+  p:first-child { margin-top: .5em; }
 
   &.-tight li + li { margin-top: #{dimension(padding) / 2}; }
 }
