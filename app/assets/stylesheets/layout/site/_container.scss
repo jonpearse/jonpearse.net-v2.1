@@ -22,9 +22,11 @@
 
   @include mq(medium) {
 
-    &.-narrow {
-      width: 83.333333%;
-      max-width: calc(#{dimension(max-text)} + #{2 * $dim});
+    @critical {
+      &.-narrow {
+        width: 83.333333%;
+        max-width: calc(#{dimension(max-text)} + #{2 * $dim});
+      }
     }
 
     // drivers are weird
