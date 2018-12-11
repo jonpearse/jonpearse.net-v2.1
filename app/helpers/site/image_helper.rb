@@ -34,7 +34,7 @@ module Site::ImageHelper
     html_attrs[:src] = options[:blur] ? media.base64_preview : nil
     html_attrs[:'data-srcset'] = options[:dimensions].map{ |size| variation_path( media, size ) + " #{size}w" }.join(',')
     html_attrs[:sizes] = 'auto'
-    html_attrs[:style] = "width: #{options[:dimensions].max}px"
+    # html_attrs[:style] = "width: #{options[:dimensions].max}px"
 
     retval = tag( :img, html_attrs )
 
@@ -55,9 +55,11 @@ module Site::ImageHelper
   # [html] the markup to parse
   def render_responsive_images( html )
 
+    puts "In render_responsive_images"
+
     html.gsub(/<img(?:\s+(?:data-media-id="(\d+)")|(?:data-align="([a-z]+)")|(?:.*?))+>/) do |mat|
 
-      puts mat
+      puts mat.inspect
 
       # if we have neither a media ID or anything, bail
       return "" if $1.nil?
@@ -66,7 +68,7 @@ module Site::ImageHelper
       begin
 
         media = Media.find( $1 )
-        render( partial: 'site/rendered-image', locals: { image: media, alignment: $2.downcase.to_sym })
+        render( partial: 'rendered-image', locals: { image: media, alignment: $2.downcase.to_sym })
 
       rescue
 

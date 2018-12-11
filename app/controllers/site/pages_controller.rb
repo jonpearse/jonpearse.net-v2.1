@@ -6,4 +6,8 @@ class Site::PagesController < Site::BaseController
 
   end
 
+  def about
+
+  end
+
 end

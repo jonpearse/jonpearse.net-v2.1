@@ -1,0 +1,28 @@
+:ruby
+  # Work out our alignment
+  alignment ||= :center
+  options = {
+    html: { class: 'rimg__image' }
+  }
+
+  # now, work out sizes based on the alignment
+  case alignment
+  when :full
+
+    options[:default] = 768
+    options[:dimensions] = [ 1400, 1200, 1024, 768, 640, 320 ]
+
+  when :center
+
+    options[:default] = 768
+    options[:dimensions] = [ 1200, 1024, 768, 640, 320 ]
+
+  end
+
+  # get the padding (based on aspect ratio)
+  padding = ( 1 / image.aspect_ratio ).to_i * 100
+  width   = [ image.native_width, 585 ].min
+
+%figure.article__image.rimg{ class: "-#{alignment}", style: "max-width: #{width}px;" }
+  .rimg__container{ style: "padding-top: #{padding}%; background: ##{image.colour}" }
+    = lazyloaded_image_tag( image, options )

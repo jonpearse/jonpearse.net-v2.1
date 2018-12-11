@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: stretch;
+
+  background: var(--grey-1);
 }
 
 .masthead__content {
@@ -39,7 +41,7 @@
   width:  100%;
 
   z-index: -1;
-  background: var(--grey-1);
+  background: var(--smoke-2);
 }
 
 .masthead__background-image {

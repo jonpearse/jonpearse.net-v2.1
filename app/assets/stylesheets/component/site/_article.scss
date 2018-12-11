@@ -25,3 +25,30 @@
     &:not(:last-child)::after { content: ', '; }
   }
 }
+
+/// Responsive inline images
+/// ==========================================================================
+.article__image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: dimension(gutter) 0;
+
+  &:first-child { margin-top: 0; }
+  &:last-child  { margin-bottom: 0; }
+
+  // left- and right-aligned images move around on larger viewports
+  @include mq(small) {
+    &.-left {
+      float: left;
+      width: calc(40% - #{dimension(padding) / 2});
+      margin-right: dimension(padding);
+    }
+
+    &.-right {
+      float: right;
+      width: calc(40% - #{dimension(padding) / 2});
+      margin-left: dimension(padding);
+    }
+  }
+}

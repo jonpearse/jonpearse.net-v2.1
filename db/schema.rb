@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_160516) do
+ActiveRecord::Schema.define(version: 2018_12_11_170321) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_160516) do
     t.text "transcript"
     t.binary "preview", limit: 2048
     t.string "colour"
+    t.float "aspect_ratio", default: 1.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

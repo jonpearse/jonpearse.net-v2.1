@@ -10,7 +10,7 @@ class Media < ApplicationRecord
   validates :title, presence: true
 
   # update the preview
-  before_save :schedule_preview_generation
+  before_save :schedule_preview_generation, :update_aspect_ratio
 
   def cms_image
 
@@ -21,6 +21,13 @@ class Media < ApplicationRecord
   def base64_preview
 
     "data:image/png;base64,#{Base64.encode64( preview ).gsub( /\n/, '' )}"
+
+  end
+
+  # Returns the ‘real’ width of this file
+  def native_width
+
+    file.blob.metadata['width']
 
   end
 
@@ -62,6 +69,14 @@ class Media < ApplicationRecord
     def schedule_preview_generation
 
       generate_preview
+
+    end
+
+    def update_aspect_ratio
+
+      ar = ( file.blob.metadata['width'].to_f / file.blob.metadata['height'].to_f ) rescue 1.0
+
+      write_attribute( :aspect_ratio, ar )
 
     end
 

@@ -58,7 +58,9 @@ module Site::RenderingHelper
   # [property] _(Symbol, required)_ the property to render/edit
   def render_inline_editor( object, property )
 
-    render( layout: 'inline-editor', locals: { content: object, property: property }){ object.send( property ).html_safe }
+    content = block_given? ? capture{ yield } : object.send( property ).html_safe
+
+    render( layout: 'inline-editor', locals: { content: object, property: property }){ content }
 
   end
 
