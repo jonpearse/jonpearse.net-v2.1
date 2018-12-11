@@ -1,0 +1,13 @@
+- @page_title = 'Writing'
+
+-# Masthead
+- content_for( :masthead ) do
+  = render partial: 'masthead'
+
+-# content
+= render_block( container: :ol, container_classes: '-narrow list' ) do
+  - @articles.each do |article|
+    %li= render article
+
+-# Pagination
+= render partial: 'pagination', locals: { content: @projects }

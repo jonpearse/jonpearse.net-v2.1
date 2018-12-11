@@ -1,0 +1,27 @@
+/// ==========================================================================
+/// #
+/// # Article/long-form text styles
+/// #
+/// ==========================================================================
+
+/// Header
+/// ==========================================================================
+.article__meta {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: .5em 0 0;
+
+  color: var(--grey-3);
+  @include fsz(inter);
+
+  dd { margin: 0 1em 0 .5em; }
+}
+
+.article__tags {
+  li {
+    display: inline-block;
+
+    &:not(:last-child)::after { content: ', '; }
+  }
+}

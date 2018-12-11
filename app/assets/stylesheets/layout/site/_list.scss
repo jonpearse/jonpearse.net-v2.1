@@ -1,0 +1,15 @@
+/// ==========================================================================
+/// #
+/// # Basic list-as-a-template-component styles
+/// #
+/// ==========================================================================
+
+.list {
+  li + li { margin-top: dimension(padding); }
+
+  h2,
+  h3,
+  p { margin: 0; }
+
+  &.-tight li + li { margin-top: #{dimension(padding) / 2}; }
+}

@@ -1,0 +1,25 @@
+:ruby
+  # set some stuff
+  @page_title = @article.title
+
+-# Masthead
+- content_for( :masthead ) do
+  = render partial: 'masthead', locals: { add_class: 'medium', background: @article.masthead, title: '' }
+
+-# Content
+= render_block( classes: 'moar-bottom', container: :article, container_classes: %w{ -narrow article }) do
+  %header.article__header
+    %h1= @article.title
+
+    %dl.article__meta
+      %dt= icon( :calendar, title: 'Posted on' )
+      %dd= @article.published_on.strftime( "%B #{@article.published_on.day.ordinalize}, %Y" )
+
+      - unless @article.categories.empty?
+        %dt= icon( :tags, title: 'Filed under' )
+        %dd
+          %ul.article__tags
+            - @article.categories.each do |cat|
+              %li= link_to cat.to_s, article_category_path( category: cat.slug ), class: 'article__tag'
+
+  .article__content.t= render_inline_editor( @article, :body )
