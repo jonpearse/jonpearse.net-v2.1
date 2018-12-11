@@ -96,6 +96,6 @@ code {
 /// Other critical stuff
 /// ==========================================================================
 .nc {
-  display: block;
   @critical { display: none; }
+  display: block;
 }

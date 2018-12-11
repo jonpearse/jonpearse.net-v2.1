@@ -13,6 +13,7 @@
 }
 
 .rimg__image {
+  display: block;
   position: absolute;
 
   top: 50%;
@@ -24,4 +25,10 @@
   object-fit: cover;
 
   transform: translate(-50%, -50%);
+  opacity: 0;
+
+  &.-loaded {
+    opacity: 1;
+    transition: opacity .15s;
+  }
 }
