@@ -76,6 +76,7 @@ time {
 /// Headings
 /// ==========================================================================
 h1 {
+  margin: 0;
   @include ffm(headers);
   @include fsz(primary);
   @include fwt(bold);
