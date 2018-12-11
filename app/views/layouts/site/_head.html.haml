@@ -24,10 +24,10 @@
   if(document.documentElement.classList){document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");}
 
 -# Stylesheets
-= stylesheet_preload_tag 'site'
 = inline_stylesheet 'critical'
+= stylesheet_preload_tag 'site'
 
 -# No-JS styling
 %noscript<
-  = stylesheet_tag 'site'
   = inline_stylesheet 'critical.no-js'
+  = stylesheet_tag 'site'

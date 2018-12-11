@@ -28,13 +28,15 @@ gulp.task( 'sass', () =>
               .pipe( sass({ outputStyle: 'expanded' }))
               .pipe( postcss([
                 require( 'autoprefixer' ),
-                require( 'postcss-critical-css' )({
-                  outputPath: OUTPUT,
-                  minify:     false
-                }),
                 require( 'css-mqpacker' )({ sort: true }),
                 require( 'postcss-short-border-radius' ),
                 require( 'postcss-svg' )({ dirs: OUTPUT })
+              ]))
+              .pipe( postcss([
+                  require( 'postcss-critical-css' )({
+                    outputPath: OUTPUT,
+                    minify:     false
+                  }),
               ]))
               .pipe( gulp.dest( OUTPUT ));
 });

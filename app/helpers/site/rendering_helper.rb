@@ -79,7 +79,7 @@ module Site::RenderingHelper
     classes = [ classes ] unless classes.is_a?( Array )
 
     # and return
-    classes.map{ |c| "#{prefix}#{c}" }.join( ' ' )
+    classes.map{ |c| "#{prefix}#{c}" }.join( ' ' ).gsub( "#{prefix}#", '' )
 
   end
 

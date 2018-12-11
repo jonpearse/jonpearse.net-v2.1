@@ -5,6 +5,7 @@
 /// ==========================================================================
 
 .footer {
+  display: block;
   border-top: 1px solid var(--grey-2);
   padding: rem(10) 0;
   @include fsz(small);

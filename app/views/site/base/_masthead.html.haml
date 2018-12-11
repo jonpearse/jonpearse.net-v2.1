@@ -34,4 +34,4 @@
         = lazyloaded_image_tag( background, blur: true, default: 768, dimensions: [ 1400, 1200, 1024, 768, 640, 320 ], html: { alt: '', class: 'masthead__background-image', 'aria-hidden': true })
 
     - if block_position == :content && !content.blank?
-      .masthead__copy= content.html_safe
+      .masthead__copy.nc= content.html_safe

@@ -7,41 +7,50 @@
 /// ==========================================================================
 /// # Banner
 /// ==========================================================================
-.banner {
-  min-height: rem(58);
-  border-top: rem(10) solid var(--grey-5);
-  border-bottom: rem(1) solid var(--smoke-2);
+@critical {
+  .banner {
+    border-top: rem(10) solid var(--grey-5);
+    border-bottom: rem(1) solid var(--smoke-2);
 
-  a {
-    --shadow: #{rem(4)};
+    a {
+      --shadow: #{rem(4)};
 
-    display: block;
-    border: 0;
-  }
-}
-
-.banner__wordmark {
-  line-height: 1;
-
-  a {
-    display: block;
-    margin:  rem(-2) rem(-10) 0;
-    padding: rem(5) rem(10);
+      display: block;
+      border: 0;
+    }
   }
 
-  svg {
-    display: block;
-    height: rem(21);
-    width:  rem(134);
-    fill: currentColor;
-    transition: fill .15s;
+  .banner__inner {
+    min-height: rem(58);
+  }
+
+  .banner__wordmark {
+    line-height: 1;
+
+    a {
+      display: block;
+      margin:  rem(-2) rem(-10) 0;
+      padding: rem(5) rem(10);
+    }
+
+    svg {
+      display: block;
+      height: rem(21);
+      width:  rem(134);
+      fill: currentColor;
+      transition: fill .15s;
+    }
   }
 }
 
 /// ==========================================================================
 /// # Site navigation
 /// ==========================================================================
-.nav { @include mq($until: small) { padding: rem(15) 0; }}
+.nav {
+  display: block;
+
+  @include mq($until: small) { padding: rem(15) 0; }
+}
 
 .nav__list {
   @include mq($until: small) {

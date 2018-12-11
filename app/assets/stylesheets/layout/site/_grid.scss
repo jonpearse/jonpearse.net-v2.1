@@ -7,47 +7,51 @@
 /// Body: make MAIN occupy full-height
 /// ==========================================================================
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  @critical {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 
-  min-height: 100vh;
+    min-height: 100vh;
 
-  @supports (display: grid)
-  {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    @supports (display: grid)
+    {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
   }
 }
 
 /// Main element
 /// ==========================================================================
-@include mq(medium)
-{
-  main {
-    flex-grow: 1;
+@critical {
+  @include mq(medium)
+  {
+    main {
+      flex-grow: 1;
 
-    display: flex;
-    flex-wrap: wrap;
+      display: flex;
+      flex-wrap: wrap;
 
-    @supports (display: grid)
-    {
-      display: grid;
-      grid-template: 'masthead masthead' auto 'content content' 1fr 'driver-left driver-right' auto / 1fr 1fr;
+      @supports (display: grid)
+      {
+        display: grid;
+        grid-template: 'masthead masthead' auto 'content content' 1fr 'driver-left driver-right' auto / 1fr 1fr;
+      }
     }
+
+    .masthead {
+      flex-basis: 100%;
+
+      @supports (display: grid) { grid-area: masthead; }
+    }
+
+    .content {
+      flex-basis: 100%;
+
+      @supports (display: grid) { grid-area: content; }
+    }
+
+    .driver { flex-basis: 50%; }
   }
-
-  .masthead {
-    flex-basis: 100%;
-
-    @supports (display: grid) { grid-area: masthead; }
-  }
-
-  .content {
-    flex-basis: 100%;
-
-    @supports (display: grid) { grid-area: content; }
-  }
-
-  .driver { flex-basis: 50%; }
 }

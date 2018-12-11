@@ -8,61 +8,70 @@
 /// # Load Fonts
 /// ==========================================================================
 // sass-lint:disable indentation
-@font-face {
-  font-family: 'Raleway';
-  font-weight: fwt(normal);
-  src: local('xRaleway Light'), local('xRaleway-Light'),
-       url('raleway-light.woff2') format('woff2'),
-       url('raleway-light.woff') format('woff');
-}
+@critical {
+  @font-face {
+    font-family: 'Raleway';
+    font-weight: fwt(normal);
+    font-display: fallback;
+    src: local('xRaleway Light'), local('xRaleway-Light'),
+         url('raleway-light.woff2') format('woff2'),
+         url('raleway-light.woff') format('woff');
+  }
 
-@font-face {
-  font-family: 'Raleway';
-  font-weight: fwt(normal);
-  font-style:  italic;
-  src: local('xRaleway Light Italic'), local('xRaleway-LightItalic'),
-       url('raleway-lightitalic.woff2') format('woff2')
-       url('raleway-lightitalic.woff') format('woff');
-}
+  @font-face {
+    font-family: 'Raleway';
+    font-weight: fwt(normal);
+    font-style:  italic;
+    font-display: fallback;
+    src: local('xRaleway Light Italic'), local('xRaleway-LightItalic'),
+         url('raleway-lightitalic.woff2') format('woff2')
+         url('raleway-lightitalic.woff') format('woff');
+  }
 
-@font-face {
-  font-family: 'Raleway';
-  font-weight: fwt(semi);
-  src: local('xRaleway Medium'), local('xRaleway-Medium'),
-       url('raleway-medium.woff2') format('woff2')
-       url('raleway-medium.woff') format('woff');
-}
+  @font-face {
+    font-family: 'Raleway';
+    font-weight: fwt(semi);
+    font-display: fallback;
+    src: local('xRaleway Medium'), local('xRaleway-Medium'),
+         url('raleway-medium.woff2') format('woff2')
+         url('raleway-medium.woff') format('woff');
+  }
 
-@font-face {
-  font-family: 'Cabin';
-  font-weight: fwt(bold);
-  src: local('Cabin Medium'), local('Cabin-Medium'),
-       url('cabin-medium.woff2') format('woff2'),
-       url('cabin-medium.woff') format('woff');
+  @font-face {
+    font-family: 'Cabin';
+    font-weight: fwt(bold);
+    font-display: fallback;
+    src: local('Cabin Medium'), local('Cabin-Medium'),
+         url('cabin-medium.woff2') format('woff2'),
+         url('cabin-medium.woff') format('woff');
+  }
 }
 // scss-lint:enable indentation
 
 /// ==========================================================================
 /// # Let’s do some scaling
 /// ==========================================================================
-html {
-  font-size: 80%;
+@critical {
+  html {
+    font-size: 80%;
 
-  @include mq(small)  { font-size: 90%;  }
-  @include mq(medium) { font-size: 100%; }
+    @include mq(small)  { font-size: 90%;  }
+    @include mq(medium) { font-size: 100%; }
+  }
 }
 
 /// ==========================================================================
 /// # Everything else
 /// ==========================================================================
-body {
-  // separately, so as not to completely destroy IE11
-  font-family: ffm(base);
-  font-weight: fwt(normal);
-  font-size:   fsz(base);
-  line-height: fld(base);
+@critical {
+  body {
+    // separately, so as not to completely destroy IE11
+    font-family: ffm(base);
+    font-weight: fwt(normal);
+    font-size:   fsz(base);
+    line-height: fld(base);
+  }
 }
-
 
 strong { font-weight: fwt(semi); }
 em     { font-style: italic; }
@@ -75,46 +84,50 @@ time {
 
 /// Headings
 /// ==========================================================================
-h1 {
-  margin: 0;
-  @include ffm(headers);
-  @include fsz(primary);
-  @include fwt(bold);
-}
-
-h2 {
-  margin: 1.5em 0 .5em;
-  @include ffm(headers);
-  @include fsz(secondary);
-  @include fwt(bold);
-
-  &.c {
-    margin-bottom: 2em;
-    text-align: center;
+@critical {
+  h1 {
+    margin: 0;
+    @include ffm(headers);
+    @include fsz(primary);
+    @include fwt(bold);
   }
-}
 
-h3 {
-  margin: 1.5em 0 .5em;
-  @include ffm(headers);
-  @include fsz(tertiary);
-  @include fwt(bold);
+  h2 {
+    margin: 1.5em 0 .5em;
+    @include ffm(headers);
+    @include fsz(secondary);
+    @include fwt(bold);
+
+    &.c {
+      margin-bottom: 2em;
+      text-align: center;
+    }
+  }
+
+  h3 {
+    margin: 1.5em 0 .5em;
+    @include ffm(headers);
+    @include fsz(tertiary);
+    @include fwt(bold);
+  }
 }
 
 /// Other stuff
 /// ==========================================================================
-p { margin: 1em 0; }
+@critical {
+  p { margin: 1em 0; }
 
-blockquote {
-  padding: dimension(gutter);
-  margin: 2em 0;
-  border: 1px solid var(--bq-bd);
-  border-radius: rem(5);
+  blockquote {
+    padding: dimension(gutter);
+    margin: 2em 0;
+    border: 1px solid var(--bq-bd);
+    border-radius: rem(5);
 
-  background: var(--bq-bg);
-  color: var(--bq-tx);
+    background: var(--bq-bg);
+    color: var(--bq-tx);
 
-  @include mq(small) { margin: 2em dimension(padding); }
+    @include mq(small) { margin: 2em dimension(padding); }
+  }
 }
 
 /// Lists: constrain to within type blocks

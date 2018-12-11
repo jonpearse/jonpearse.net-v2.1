@@ -7,7 +7,7 @@
 // # FONT FAMILIES: for use with ffm() mixin
 // ==========================================================================
 $font-families: (
-  base:     'Raleway, Geneva, Tahoma, sans-serif',
+  base:     'Raleway, Tahoma, sans-serif',
   headers:  'Cabin, Geneva, Verdana, sans-serif',
   wordmark: 'LatoWM,  Geneva, Tahoma, sans-serif',
   mono:     'Courier New, Courier, monospace'
@@ -38,9 +38,9 @@ $font-sizes: (
 // # WEIGHTS: for use with fwt() mixin
 // ==========================================================================
 $font-weights: (
-  normal: 300,
-  semi:   700,
-  bold:   700
+  normal: 100,
+  semi:   400,
+  bold:   400
 );
 
 // ==========================================================================

@@ -5,7 +5,7 @@
   = render partial: 'masthead'
 
 -# content
-= render_block( container: :ol, container_classes: '-narrow list' ) do
+= render_block( container: :ol, container_classes: '-narrow list', classes: '#nc' ) do
   - @articles.each do |article|
     %li= render article
 

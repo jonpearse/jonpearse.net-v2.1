@@ -7,15 +7,17 @@
 .container {
   $dim: 1px * map-get($dimensions, gutter);
 
-  width: 100%;
-  max-width: calc(#{dimension(max-width)} + #{2 * $dim});
-  padding: 0 $dim;
+  @critical {
+    width: 100%;
+    max-width: calc(#{dimension(max-width)} + #{2 * $dim});
+    padding: 0 $dim;
 
-  &.-d {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
+    &.-d {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+    }
   }
 
   @include mq(medium) {

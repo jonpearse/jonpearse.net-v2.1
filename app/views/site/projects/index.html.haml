@@ -8,7 +8,7 @@
 = render partial: 'search'
 
 -# Results
-= render_block( container: :ul, classes: %w{ moar-bottom no-top }, container_classes: 'halves' ) do
+= render_block( container: :ul, classes: %w{ moar-bottom no-top #nc }, container_classes: 'halves' ) do
   - @projects.each do |project|
     %li= render project
 

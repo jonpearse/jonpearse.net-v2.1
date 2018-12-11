@@ -3,35 +3,39 @@
 /// # Block styles
 /// #
 /// ==========================================================================
-
 .block {
   display: flex;
-  justify-content: center;
-  padding: dimension(padding) 0;
 
-  /// Size-ways
-  /// ========================================================================
-  &.-large { @include fsz(intro); }
+  @critical {
+    justify-content: center;
+    padding: dimension(padding) 0;
 
-  /// Colourways
-  /// ========================================================================
-  &.-alt { background: var(--grey-1); }
+    /// Colourways
+    /// ========================================================================
+    &.-alt { background: var(--grey-1); }
 
-  &.-accent {
-    --link-tx: var(--grey-0);
-    --link-ul: var(--grey-5);
-    --link-hv: var(--hilite);
+    &.-accent {
+      --link-tx: var(--grey-0);
+      --link-ul: var(--grey-5);
+      --link-hv: var(--hilite);
 
-    background: var(--hint-2);
-    color: var(--grey-0);
+      background: var(--hint-2);
+      color: var(--grey-0);
+    }
+
+    /// Size-ways
+    /// ========================================================================
+    &.-large { @include fsz(intro); }
+
+    /// Padding
+    /// ========================================================================
+    &.-moar { padding: #{dimension(padding) * 2} 0; }
+
+    &.-moar-top    { padding-top: #{dimension(padding) * 2}; }
+    &.-moar-bottom { padding-bottom: #{dimension(padding) * 2}; }
+
+    &.-no-top { padding-top: 0; }
+
+    &:not(.nc) { display: flex; }
   }
-
-  /// Padding
-  /// ========================================================================
-  &.-moar { padding: #{dimension(padding) * 2} 0; }
-
-  &.-moar-top    { padding-top: #{dimension(padding) * 2}; }
-  &.-moar-bottom { padding-bottom: #{dimension(padding) * 2}; }
-
-  &.-no-top { padding-top: 0; }
 }

@@ -7,61 +7,67 @@
 /// ==========================================================================
 /// # Colours (sorry, IE11!)
 /// ==========================================================================
-:root {
-  // == Basic palette
-  --grey-0:   #fff;
-  --grey-1:   #eee;
-  --grey-2:   #777;
-  --grey-3:   #444;
-  --grey-4:   #333;
-  --grey-5:   #000;
-  --smoke-1:  rgba(0, 0, 0, .5);
-  --smoke-2:  rgba(0, 0, 0, .1);
-  --smoke-3:  rgba(0, 0, 0, .05);
-  --hint-1:   #E44849;
-  --hint-2:   #D14244;
-  --hint-3:   #FFE6E6;
-  --hilite:   #FFE066;
+@critical {
+  :root {
+    // == Basic palette
+    --grey-0:   #fff;
+    --grey-1:   #eee;
+    --grey-2:   #777;
+    --grey-3:   #444;
+    --grey-4:   #333;
+    --grey-5:   #000;
+    --smoke-1:  rgba(0, 0, 0, .5);
+    --smoke-2:  rgba(0, 0, 0, .1);
+    --smoke-3:  rgba(0, 0, 0, .05);
+    --hint-1:   #E44849;
+    --hint-2:   #D14244;
+    --hint-3:   #FFE6E6;
+    --hilite:   #FFE066;
 
-  // == Link styles (to be inherited)
-  --link-tx:  var(--grey-4);  // text colour
-  --link-ul:  var(--hint-1);  // underline
-  --link-hv:  var(--hint-1);  // hover colour
-  --link-ol:  var(--hilite);  // focus outline colour
+    // == Link styles (to be inherited)
+    --link-tx:  var(--grey-4);  // text colour
+    --link-ul:  var(--hint-1);  // underline
+    --link-hv:  var(--hint-1);  // hover colour
+    --link-ol:  var(--hilite);  // focus outline colour
 
-  // == Also, custom stuff for blockquotes
-  --bq-bd:    rgba(228, 72, 73, .95);
-  --bq-bg:    rgba(228, 72, 73, .15);
-  --bq-tx:    var(--grey-4);
+    // == Also, custom stuff for blockquotes
+    --bq-bd:    rgba(228, 72, 73, .95);
+    --bq-bg:    rgba(228, 72, 73, .15);
+    --bq-tx:    var(--grey-4);
+  }
 }
 
 /// ==========================================================================
 /// # Everything else
 /// ==========================================================================
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--grey-0);
-  color: var(--grey-4);
+@critical {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--grey-0);
+    color: var(--grey-4);
+  }
 }
 
 /// Basic link styles
 /// ==========================================================================
-a {
-  --shadow: #{rem(2)}; // make this a variable so we can override it later
+@critical {
+  a {
+    --shadow: #{rem(2)}; // make this a variable so we can override it later
 
-  border-bottom: 1px solid var(--link-ul);
-  outline: 0; // we’re replacing this with something nicer
+    border-bottom: 1px solid var(--link-ul);
+    outline: 0; // we’re replacing this with something nicer
 
-  color: var(--link-tx);
-  text-decoration: none;
-  box-shadow: var(--link-ol) 0 0 0 0;
+    color: var(--link-tx);
+    text-decoration: none;
+    box-shadow: var(--link-ol) 0 0 0 0;
 
-  transition: color .15s, box-shadow .15s;
+    transition: color .15s, box-shadow .15s;
 
-  &:hover { color: var(--link-hv); }
-  &:focus { box-shadow: var(--link-ol) 0 0 0 var(--shadow); }
+    &:hover { color: var(--link-hv); }
+    &:focus { box-shadow: var(--link-ol) 0 0 0 var(--shadow); }
+  }
 }
 
 /// Code stuff
@@ -85,4 +91,11 @@ code {
     font-size: .8em;
     line-height: 1.5;
   }
+}
+
+/// Other critical stuff
+/// ==========================================================================
+.nc {
+  display: block;
+  @critical { display: none; }
 }
