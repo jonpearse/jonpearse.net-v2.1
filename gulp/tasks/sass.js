@@ -28,15 +28,13 @@ gulp.task( 'sass', () =>
               .pipe( sass({ outputStyle: 'expanded' }))
               .pipe( postcss([
                 require( 'autoprefixer' ),
-                require( 'css-mqpacker' )({ sort: true }),
                 require( 'postcss-short-border-radius' ),
-                require( 'postcss-svg' )({ dirs: OUTPUT })
-              ]))
-              .pipe( postcss([
-                  require( 'postcss-critical-css' )({
-                    outputPath: OUTPUT,
-                    minify:     false
-                  }),
+                require( 'postcss-svg' )({ dirs: OUTPUT }),
+                require( 'postcss-critical-css' )({
+                  outputPath: OUTPUT,
+                  minify:     false
+                }),
+                require( 'css-mqpacker' )({ sort: true })
               ]))
               .pipe( gulp.dest( OUTPUT ));
 });
@@ -50,7 +48,8 @@ gulp.task( 'sass-build', gulp.series( 'sass', (function realSassBuild()
               .pipe( plumber({ errorHandler }))
               .pipe( postcss([
                 require( 'postcss-sorting' ),
-                require( 'cssnano' )({ autoprefixer: false })
+                require( 'cssnano' )({ autoprefixer: false }),
+                require( 'css-mqpacker' )({ sort: true })   // because postcss-critical-css avoids this the sass task
               ]))
               .pipe( gulp.dest( OUTPUT ));
 })));
