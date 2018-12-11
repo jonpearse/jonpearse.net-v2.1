@@ -1,9 +1,10 @@
 -# Set some defaults
 :ruby
-  background  ||= 'site/cuben.svg'
-  add_class   ||= nil
-  title       ||= @page_title
-  hide_title  ||= false
+  background      ||= 'site/cuben.svg'
+  add_class       ||= nil
+  title           ||= @page_title
+  hide_title      ||= false
+  block_position  ||= :none
 
   # parse some classes
   unless add_class.nil?
@@ -19,7 +20,9 @@
 %header.masthead{ class: add_class }
 
   -# if we have a title
-  - unless title.blank?
+  - if block_position == :title && !content.blank?
+    .block.-alt= content.html_safe
+  - elsif !title.blank?
     %h1.masthead__title.block.-alt{ class: ( hide_title ? 'a11y' : nil )}= title
 
   -# Content
@@ -30,5 +33,5 @@
       .masthead__background{ style: "background-color: ##{background.colour}" }
         = lazyloaded_image_tag( background, blur: true, default: 768, dimensions: [ 1400, 1200, 1024, 768, 640, 320 ], html: { alt: '', class: 'masthead__background-image', 'aria-hidden': true })
 
-    - unless content.blank?
+    - if block_position == :content && !content.blank?
       .masthead__copy= content.html_safe

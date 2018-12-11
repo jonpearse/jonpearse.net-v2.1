@@ -1,3 +1,4 @@
+- @unwrap_content ||= false
 !!!
 %html.no-js.no-ix{ lang: 'en-GB' }
   %head= render partial: 'layouts/site/head'
@@ -16,7 +17,10 @@
       = yield :masthead
 
       -# Main content
-      .content= yield
+      - if @unwrap_content
+        = yield
+      - else
+        .content= yield
 
       -# Drivers
       = render partial: 'site/blocks/latest_articles'
