@@ -7,10 +7,12 @@
 // # FONT FAMILIES: for use with ffm() mixin
 // ==========================================================================
 $font-families: (
-  base:     'Raleway, Tahoma, sans-serif',
-  headers:  'Cabin, Geneva, Verdana, sans-serif',
-  wordmark: 'LatoWM,  Geneva, Tahoma, sans-serif',
-  mono:     'Courier New, Courier, monospace'
+  base:     'Tahoma, sans-serif',
+  headers:  'Tahoma, sans-serif',
+  mono:     'Courier New, Courier, monospace',
+
+  base-special: 'Raleway',
+  header-special: 'Cabin'
 );
 
 // # FONT SIZES: for use with the fsz() mixin
@@ -59,21 +61,6 @@ $dimensions: (
   max-width:  1200,
   max-text:   1000
 );
-
-// ==========================================================================
-// # Grid dimensions: specified per breakpoint (see mq-breakpoints below)
-// ==========================================================================
-$grid-cfg: (
-  // gutter:    map-get($dimensions, 'gutter'),
-  // margin:    map-get($dimensions, 'gutter'),
-  // separator: map-get($dimensions, 'keyline'),
-  // breakpoints: (
-  //     medium: (
-  //         columns: 6
-  //     )
-  // )
-);
-
 
 // ==========================================================================
 // # BREAKPOINTS

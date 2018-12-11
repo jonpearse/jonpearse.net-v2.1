@@ -1,6 +1,6 @@
 - @unwrap_content ||= false
 !!!
-%html.no-js.no-ix{ lang: 'en-GB' }
+%html.no-js{ lang: 'en-GB', class: ( cookies.key?( :'assume-wf' ) ? 'wf-assumed' : nil )}
   %head= render partial: 'layouts/site/head'
   %body
 

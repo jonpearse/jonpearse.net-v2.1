@@ -31,7 +31,7 @@ module Site::ImageHelper
 
     # Handle some lazyloading
     html_attrs[:class] = "#{html_attrs[:class]} lazyload".strip
-    html_attrs[:src] = options[:blur] ? media.base64_preview : nil
+    html_attrs[:src] = options[:blur] ? media.base64_preview : 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
     html_attrs[:'data-srcset'] = options[:dimensions].map{ |size| variation_path( media, size ) + " #{size}w" }.join(',')
     html_attrs[:sizes] = 'auto'
     # html_attrs[:style] = "width: #{options[:dimensions].max}px"

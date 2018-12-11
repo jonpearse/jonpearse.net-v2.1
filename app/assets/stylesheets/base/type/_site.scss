@@ -10,7 +10,7 @@
 // sass-lint:disable indentation
 @critical {
   @font-face {
-    font-family: 'Raleway';
+    font-family: ffm(base-special);
     font-weight: fwt(normal);
     font-display: fallback;
     src: local('xRaleway Light'), local('xRaleway-Light'),
@@ -19,7 +19,7 @@
   }
 
   @font-face {
-    font-family: 'Raleway';
+    font-family: ffm(base-special);
     font-weight: fwt(normal);
     font-style:  italic;
     font-display: fallback;
@@ -29,7 +29,7 @@
   }
 
   @font-face {
-    font-family: 'Raleway';
+    font-family: ffm(base-special);
     font-weight: fwt(semi);
     font-display: fallback;
     src: local('xRaleway Medium'), local('xRaleway-Medium'),
@@ -38,7 +38,7 @@
   }
 
   @font-face {
-    font-family: 'Cabin';
+    font-family: ffm(header-special);
     font-weight: fwt(bold);
     font-display: fallback;
     src: local('Cabin Medium'), local('Cabin-Medium'),
@@ -63,14 +63,19 @@
 /// ==========================================================================
 /// # Everything else
 /// ==========================================================================
-@critical {
-  body {
-    // separately, so as not to completely destroy IE11
-    font-family: ffm(base);
-    font-weight: fwt(normal);
-    font-size:   fsz(base);
-    line-height: fld(base);
+body {
+  @critical {
+    font: fwt(normal) #{fsz(base)}/#{fld(base)} ffm(base);
+    letter-spacing: .3px;
+    animation: fadeIn .1s both;
+
+    .wf-raleway &,
+    .wf-assumed & {
+      font-family: ffm(base-special), ffm(base);
+      letter-spacing: 0;
+    }
   }
+
 }
 
 strong { font-weight: fwt(semi); }
@@ -84,19 +89,27 @@ time {
 
 /// Headings
 /// ==========================================================================
+h1,
+h2,
+h3 {
+  @critical {
+    font: fwt(bold) 1rem/1em ffm(headers);
+    letter-spacing: -.7px;
+
+    .wf-assumed &,
+    .wf-cabin & { font-family: ffm(header-special), ffm(headers); letter-spacing: 0; }
+  }
+}
+
 @critical {
   h1 {
     margin: 0;
-    @include ffm(headers);
     @include fsz(primary);
-    @include fwt(bold);
   }
 
   h2 {
     margin: 1.5em 0 .5em;
-    @include ffm(headers);
     @include fsz(secondary);
-    @include fwt(bold);
 
     &.c {
       margin-bottom: 2em;
@@ -106,9 +119,7 @@ time {
 
   h3 {
     margin: 1.5em 0 .5em;
-    @include ffm(headers);
     @include fsz(tertiary);
-    @include fwt(bold);
   }
 }
 

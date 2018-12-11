@@ -12,9 +12,11 @@
   animation: fadeIn 1s 1 normal;
 }
 
-@keyframes fadeIn {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+@critical {
+  @keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
 }
 
 /// Fade out

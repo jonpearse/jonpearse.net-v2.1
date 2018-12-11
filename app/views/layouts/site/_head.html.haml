@@ -20,8 +20,9 @@
 
 -# Toggle JS/no-JS
 %script<
-  function sIA(){setTimeout(function(){document.documentElement.classList.remove('no-ix')},50)}
-  if(document.documentElement.classList){document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");}
+  function aHC(c){document.documentElement.classList.add(c);}
+  function rHC(c){document.documentElement.classList.remove(c);}
+  if(document.documentElement.classList){rHC('no-js');aHC('js');}
 
 -# Stylesheets
 = inline_stylesheet 'critical'

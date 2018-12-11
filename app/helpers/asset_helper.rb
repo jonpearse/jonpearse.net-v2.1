@@ -33,7 +33,7 @@ module AssetHelper
     stylesheet_tag( stylesheet, options.merge({
         rel: :preload,
         as: :style,
-        onload: "this.onload=null;this.rel='stylesheet';sIA();"
+        onload: "this.onload=null;this.rel='stylesheet';"
     }))
 
   end
