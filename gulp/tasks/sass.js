@@ -13,9 +13,9 @@ const revUrl  = require( 'gulp-rev-urls' );
 const linter  = require( 'gulp-sass-lint' );
 
 // core stuff
-const PATHS         = global.PATHS.sass;
-const OUTPUT        = global.PATHS.build;
-const errorHandler  = global.errorHandler;
+const PATHS  = global.PATHS.sass;
+const OUTPUT = global.PATHS.build;
+const { errorHandler } = require( '../utils/utils' );
 
 /**
  * Compiles SASS for dev build.

@@ -14,9 +14,9 @@ const { readdirSync, statSync } = require('fs')
 const { join } = require('path')
 
 // core stuff
-const PATHS         = global.PATHS.icons;
-const OUTPUT        = global.PATHS.build;
-const errorHandler  = global.errorHandler;
+const PATHS  = global.PATHS.icons;
+const OUTPUT = global.PATHS.build;
+const { errorHandler, streamToPromise } = require( '../utils/utils' );
 
 /**
  * Actual build task.
@@ -26,7 +26,7 @@ gulp.task( 'icons', () =>
   // 1. get a list of subdirectories
   return Promise.all( readdirSync( PATHS.base ).filter( sF => statSync( `${PATHS.base}/${sF}` ).isDirectory()).map( sDir =>
   {
-    return  gulp.src( `${PATHS.base}/${sDir}/**/*.svg` )
+      return gulp.src( `${PATHS.base}/${sDir}/**/*.svg` )
                 .pipe( plumber({ errorHandler }))
                 .pipe( rename({ prefix: 'icon-' }))
                 .pipe( svgstore() )
@@ -40,16 +40,16 @@ gulp.task( 'icons', () =>
                   ]
                 }))
                 .pipe( rename( `icons-${sDir}.svg` ))
-                .pipe( gulp.dest( OUTPUT ))
-  }));
+                .pipe( gulp.dest( OUTPUT ));
+  }).map( streamToPromise ));
 });
 
 /** Expose things */
 module.exports = {
-  init: [ 'icons' ],
+  init: [ '!icons' ],
   watch: {
     files: PATHS.watch,
     tasks: [ 'icons' ]
   },
-  build: [ 'icons' ]
+  build: [ '!icons' ]
 }

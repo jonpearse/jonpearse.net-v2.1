@@ -15,9 +15,9 @@ const glob     = require( 'glob' ).sync;
 const basename = require( 'path' ).basename;
 
 // core stuff
-const PATHS         = global.PATHS.js;
-const OUTPUT        = global.PATHS.build;
-const errorHandler  = global.errorHandler;
+const PATHS  = global.PATHS.js;
+const OUTPUT = global.PATHS.build;
+const { errorHandler } = require( '../utils/utils' );
 
 /**
  * Define our webpack config for later.

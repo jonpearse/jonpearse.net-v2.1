@@ -13,36 +13,24 @@ global.PATHS = require( './paths' );
 const PATHS  = global.PATHS;
 
 // load utilities
-const utils = require( './utils' );
-require( './build' );
-
-/**
- * Define a global error handler.
- */
-global.errorHandler = function( err )
-{
-  notify.onError({
-    title: 'Error!',
-    message: "<%= err.message %> - <%= err.fileName %>:<% err.lineNumber %>"
-  });
-  
-  this.emit( 'end' );
-}
+const { forModules } = require( './utils/tasks.js' );
+const { streamToPromise } = require( './utils/utils' );
+require( './utils/build' );
 
 /**
  * Init task.
  */
-gulp.task( 'init', () => utils.forModules( 'init', utils.runTasks ));
+gulp.task( 'init', () => forModules( 'init' ));
 
 /**
  * Watches assets for changes + builds things if anything happens
  */
-gulp.task( 'watch', () => utils.forModules( 'watch', oWd => gulp.watch( oWd.files, gulp.parallel( oWd.tasks ))));
+gulp.task( 'watch', () => forModules( 'watch', oWd => streamToPromise( gulp.watch( oWd.files, gulp.parallel( oWd.tasks )))));
 
 /**
  * Runs any linting tasks defined.
  */
-gulp.task( 'lint', () => utils.forModules( 'lint', utils.runTasks ));
+gulp.task( 'lint', () => forModules( 'lint' ));
 
 /**
  * Quickstart task: alias for watch.

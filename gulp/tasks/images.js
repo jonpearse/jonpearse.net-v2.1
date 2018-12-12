@@ -9,9 +9,9 @@ const plumber  = require( 'gulp-plumber' );
 const imagemin = require( 'gulp-imagemin' );
 
 // core stuff
-const PATHS         = global.PATHS.images;
-const OUTPUT        = global.PATHS.build;
-const errorHandler  = global.errorHandler;
+const PATHS  = global.PATHS.images;
+const OUTPUT = global.PATHS.build;
+const { errorHandler } = require( '../utils/utils' );
 
 /**
  * Actual build task.

@@ -9,9 +9,9 @@ const plumber  = require( 'gulp-plumber' );
 const rename   = require( 'gulp-rename' );
 
 // core stuff
-const PATHS         = global.PATHS.fonts;
-const OUTPUT        = global.PATHS.build;
-const errorHandler  = global.errorHandler;
+const PATHS  = global.PATHS.fonts;
+const OUTPUT = global.PATHS.build;
+const { errorHandler } = require( '../utils/utils' );
 
 /**
  * Actual build task.
