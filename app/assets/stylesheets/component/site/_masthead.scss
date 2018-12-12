@@ -58,8 +58,8 @@
     object-fit: cover;
 
     &.lazyload {
-      filter: blur(5px);
-      transition: filter .15s;
+      filter: blur(1vw);
+      transition: filter .25s;
     }
 
     &.-loaded {
