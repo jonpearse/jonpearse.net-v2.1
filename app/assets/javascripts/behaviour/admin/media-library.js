@@ -148,7 +148,7 @@ function MediaLibrary( elRoot, options )
 
         // 3. … or select
         const elLabel = utils.create( 'label', { for: 'media-upload__select-file', class: 'media-upload__label btn' }, options.orSelect );
-        elField = utils.create( 'input', { type: 'file', id: 'media-upload__select-file', class: 'media-upload__input' });
+        elField = utils.create( 'input', { type: 'file', id: 'media-upload__select-file', class: 'media-upload__input a11y' });
         elUpload.appendChild( elLabel );
         elUpload.appendChild( elField );
 

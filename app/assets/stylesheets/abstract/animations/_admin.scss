@@ -1,1 +1,63 @@
-@import './common';
+// scss-lint:disable SelectorFormat
+/// Spin
+/// ==========================================================================
+@keyframes spin {
+  from { transform: rotate(0); }
+  to   { transform: rotate(360deg); }
+}
+
+/// Fade in
+/// ==========================================================================
+.fx--fadeIn {
+  animation: fadeIn 1s 1 normal;
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/// Fade out
+/// ==========================================================================
+.fx--fadeOut {
+  animation: fadeOut 1s 1 both;
+}
+
+@keyframes fadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/// Slide up
+/// ==========================================================================
+.fx--slideUp {
+  overflow: hidden;
+  animation: slideUp 1s 1 both;
+}
+
+@keyframes slideUp {
+  to {
+    max-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/// Slide down
+/// ==========================================================================
+.fx--slideDown {
+  overflow: hidden;
+  animation: slideDown 1s 1 both;
+}
+
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

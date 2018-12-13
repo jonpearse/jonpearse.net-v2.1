@@ -26,12 +26,12 @@
     %h1.masthead__title.block.-alt{ class: ( hide_title ? 'a11y' : nil )}= title
 
   -# Content
-  .masthead__content
+  .masthead__content.rimg
     - if background.is_a?( String )
-      .masthead__background= image_tag( background, alt: '', class: 'masthead__background-image' )
+      .masthead__background.rimg__container= image_tag( background, alt: '', class: 'masthead__background-image rimg__image' )
     - else
-      .masthead__background{ style: "background-color: ##{background.colour}" }
-        = lazyloaded_image_tag( background, blur: true, default: 768, dimensions: [ 1400, 1200, 1024, 768, 640, 320 ], html: { alt: '', class: 'masthead__background-image', 'aria-hidden': true })
+      .masthead__background.rimg__container{ style: "background-color: ##{background.colour}" }
+        = lazyloaded_image_tag( background, blur: true, default: 768, dimensions: [ 1400, 1200, 1024, 768, 640, 320 ], html: { alt: '', class: 'masthead__background-image rimg__image rimg__image--blur', 'aria-hidden': true })
 
     - if block_position == :content && !content.blank?
       .masthead__copy.nc= content.html_safe

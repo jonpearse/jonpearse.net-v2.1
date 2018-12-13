@@ -19,25 +19,6 @@
   }
 
   @font-face {
-    font-family: ffm(base-special);
-    font-weight: fwt(normal);
-    font-style:  italic;
-    font-display: fallback;
-    src: local('Raleway Light Italic'), local('Raleway-LightItalic'),
-         url('raleway-lightitalic.woff2') format('woff2'),
-         url('raleway-lightitalic.woff') format('woff');
-  }
-
-  @font-face {
-    font-family: ffm(base-special);
-    font-weight: fwt(semi);
-    font-display: fallback;
-    src: local('Raleway Medium'), local('Raleway-Medium'),
-         url('raleway-medium.woff2') format('woff2'),
-         url('raleway-medium.woff') format('woff');
-  }
-
-  @font-face {
     font-family: ffm(header-special);
     font-weight: fwt(bold);
     font-display: fallback;
@@ -45,6 +26,25 @@
          url('cabin-medium.woff2') format('woff2'),
          url('cabin-medium.woff') format('woff');
   }
+}
+
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(normal);
+  font-style:  italic;
+  font-display: fallback;
+  src: local('Raleway Light Italic'), local('Raleway-LightItalic'),
+       url('raleway-lightitalic.woff2') format('woff2'),
+       url('raleway-lightitalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(semi);
+  font-display: fallback;
+  src: local('Raleway Medium'), local('Raleway-Medium'),
+       url('raleway-medium.woff2') format('woff2'),
+       url('raleway-medium.woff') format('woff');
 }
 // scss-lint:enable indentation
 

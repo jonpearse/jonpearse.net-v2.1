@@ -5,30 +5,46 @@
 /// #
 /// ==========================================================================
 
-.rimg__container {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
+@critical {
+  .rimg__container {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .rimg__image {
+    display: block;
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width:  100%;
+    min-height: 100%;
+    min-width:  100%;
+    object-fit: cover;
+
+    transform: translate(-50%, -50%);
+  }
 }
 
-.rimg__image {
-  display: block;
-  position: absolute;
+/// Loading strategies
+/// ==========================================================================
+.rimg__image--blur {
+  @critical { filter: blur(1vw); }
 
-  top: 50%;
-  left: 50%;
-  height: 100%;
-  width:  100%;
-  min-height: 100%;
-  min-width:  100%;
-  object-fit: cover;
+  &.-loaded {
+    transition: filter .25s;
+    filter: blur(0);
+  }
+}
 
-  transform: translate(-50%, -50%);
+.rimg__image--fade {
   opacity: 0;
 
   &.-loaded {
-    opacity: 1;
     transition: opacity .15s;
+    opacity: 1;
   }
 }

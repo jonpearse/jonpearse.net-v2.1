@@ -29,13 +29,9 @@
 
     /// Padding
     /// ========================================================================
-    &.-moar { padding: #{dimension(padding) * 2} 0; }
-
     &.-moar-top    { padding-top: #{dimension(padding) * 2}; }
     &.-moar-bottom { padding-bottom: #{dimension(padding) * 2}; }
 
     &.-no-top { padding-top: 0; }
-
-    &:not(.nc) { display: flex; }
   }
 }

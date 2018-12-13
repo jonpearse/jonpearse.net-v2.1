@@ -14,7 +14,7 @@
     margin: .5em 0 0;
 
     color: var(--grey-3);
-    @include fsz(inter);
+    font-size: fsz(inter);
 
     dd { margin: 0 1em 0 .5em; }
   }

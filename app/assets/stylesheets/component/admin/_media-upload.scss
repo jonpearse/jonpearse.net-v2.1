@@ -42,8 +42,6 @@
 
 /// Hide the input + make the label look more like a button
 /// ==========================================================================
-.media-upload__input { @extend .a11y; }
-
 .media-upload__label {
   .-uploading & { display: none; }
 }
