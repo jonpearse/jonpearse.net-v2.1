@@ -3,13 +3,13 @@
  * Build tasks: defining these separately to keep things nicely clean.
  *
  *********************************************************************************************************************/
- 
+
 const gulp   = require( 'gulp' );
 const del    = require( 'del' );
 const rev    = require( 'gulp-rev' );
 const revDel = require( 'gulp-rev-delete-original' );
 
-const utils = require( './utils' );
+const { forModules } = require( './tasks' );
 
 const ASSETS = global.PATHS.build;
 
@@ -25,8 +25,8 @@ gulp.task( 'revision', () =>
 {
     // 1. get a list of things to revise, and exclude anything from modules
     const aRevPaths = [ `${ASSETS}/*` ];
-    utils.forModules( 'noRev', aExclude => aExclude.forEach( sX => aRevPaths.push( `!${ASSETS}/${sX}` )));
-    
+    forModules( 'noRev', aExclude => aExclude.forEach( sX => aRevPaths.push( `!${ASSETS}/${sX}` )));
+
     // 2. start revisioning
     return  gulp.src( aRevPaths )
                 .pipe( rev() )
@@ -44,7 +44,7 @@ gulp.task( 'revision', () =>
  */
 gulp.task( 'build', gulp.series(
   'clean',
-  function realBuild() { return utils.forModules( 'build', utils.runTasks )},
+  function realBuild() { return forModules( 'build' )},
   'revision',
-  function postBuild() { return utils.forModules( 'afterRevision', utils.runTasks )}
+  function postBuild() { return forModules( 'afterRevision' )}
 ));
