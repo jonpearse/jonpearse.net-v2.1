@@ -6,7 +6,6 @@
 
 // initial load
 const gulp  = require( 'gulp' );
-const notify = require( 'gulp-notify' );
 
 // load paths + expose them globally
 global.PATHS = require( './paths' );
