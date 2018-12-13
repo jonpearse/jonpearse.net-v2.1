@@ -17,10 +17,11 @@ const PATHS  = global.PATHS.sass;
 const OUTPUT = global.PATHS.build;
 const { errorHandler } = require( '../utils/utils' );
 
+
 /**
- * Compiles SASS for dev build.
+ * Does the basic SASS compilation stuff.
  */
-gulp.task( 'sass', () =>
+function compileSass()
 {
   return  gulp.src( PATHS.source )
               .pipe( plumber({ errorHandler }))
@@ -32,27 +33,32 @@ gulp.task( 'sass', () =>
                 require( 'postcss-svg' )({ dirs: OUTPUT }),
                 require( 'postcss-critical-css' )({
                   outputPath: OUTPUT,
-                  minify:     false
+                  minify:     false,
+                  preserve:   false
                 }),
                 require( 'css-mqpacker' )({ sort: true })
               ]))
-              .pipe( gulp.dest( OUTPUT ));
-});
+}
+
+/**
+ * Compiles SASS for dev build.
+ */
+gulp.task( 'sass', () => compileSass().pipe( gulp.dest( OUTPUT )));
 
 /**
  * Compiles SASS for production build.
  */
-gulp.task( 'sass-build', gulp.series( 'sass', (function realSassBuild()
+gulp.task( 'sass-build', () =>
 {
-  return  gulp.src( `${OUTPUT}/*.css` )
+  return  gulp.src( `${OUTPUT}/*.css`)
               .pipe( plumber({ errorHandler }))
               .pipe( postcss([
-                require( 'postcss-sorting' ),
                 require( 'cssnano' )({ autoprefixer: false }),
+                require( 'postcss-sorting' ),
                 require( 'css-mqpacker' )({ sort: true })   // because postcss-critical-css avoids this the sass task
               ]))
               .pipe( gulp.dest( OUTPUT ));
-})));
+});
 
 /**
  * Linting task.
@@ -86,7 +92,7 @@ module.exports = {
     files: PATHS.watch,
     tasks: [ 'sass', 'sass-lint' ]
   },
-  build: [ 'sass-build' ],
+  build: [ '!sass', 'sass-build' ],
   noRev: [ 'critical*.css' ],
   afterRevision: [ 'sass-postRev' ]
 }
