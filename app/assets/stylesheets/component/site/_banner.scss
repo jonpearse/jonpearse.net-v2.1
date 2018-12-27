@@ -11,12 +11,21 @@
   .banner {
     border-top: rem(10) solid var(--grey-5);
     border-bottom: rem(1) solid var(--smoke-2);
+    background: var(--grey-0);
 
     a {
       --shadow: #{rem(4)};
 
       display: block;
       border: 0;
+    }
+
+    @include mq($until: small) {
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+
+      + main { margin-top: rem(55 * 1.25); }
     }
   }
 
@@ -59,7 +68,8 @@
     top: 0;
     left: 100%;
     height: 100vh;
-    width: 220px;
+    width: 80vw;
+    min-width: 200px;
     padding: #{dimension(padding) * 2} #{dimension(padding) / 2};
 
     border-top: rem(10) solid var(--grey-5);
@@ -136,4 +146,55 @@
       &::before { transform: translateY(100%); }
     }
   }
+}
+
+/// Toggle
+/// ==========================================================================
+.nav__toggle {
+  position: fixed;
+  display: block;
+
+  top:    rem(27.5);
+  right:  rem(15);
+  height: rem(22);
+  width:  rem(22);
+  padding: rem(2);
+  outline: 0;
+  border:  0;
+
+  background: transparent none;
+
+  cursor: pointer;
+  z-index: 101;
+
+  span {
+    &::before,
+    &::after,
+    & {
+      display: block;
+      height: rem(2);
+      width: rem(18);
+      background: var(--grey-4);
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+    }
+
+    &::before { transform: translateY( rem(-6) ); }
+    &::after  { transform: translateY( rem(6) ); }
+  }
+
+  .nav.js-open & {
+    span {
+      background: transparent;
+
+      &::before { transform: rotate( 45deg ); }
+      &::after  { transform: rotate( -45deg ); }
+    }
+  }
+
+  @include mq(small) { display: none; }
 }

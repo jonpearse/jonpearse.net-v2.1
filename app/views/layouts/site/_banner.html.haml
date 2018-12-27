@@ -4,7 +4,7 @@
       = link_to root_path, title: 'Go to the homepage' do
         = asset_contents( 'site/wordmark.svg' ).html_safe
 
-    %nav.banner__nav.nav.nc
+    %nav.banner__nav.nav.nc{ 'data-behaviour': :nav }
       %ul.nav__list
         %li.nav__item.-sm
           = link_to 'Home', root_path, class: "nav__link#{(( params[:controller] == 'site/pages' and params[:action] == 'home' ) ? ' -current' : '')}"
