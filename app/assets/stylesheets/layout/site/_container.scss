@@ -20,16 +20,17 @@
     }
   }
 
-  @include mq(medium) {
-
-    @critical {
+  @critical {
+    @include mq(medium) {
       &.-narrow {
         width: 83.333333%;
         max-width: calc(#{dimension(max-text)} + #{2 * $dim});
       }
     }
+  }
 
-    // drivers are weird
+  // drivers are weird
+  @include mq(medium) {
     .driver & { max-width: #{(dimension(max-width) / 2) + dimension(gutter)}; }
   }
 }

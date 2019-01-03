@@ -72,7 +72,13 @@
 
 /// Code stuff
 /// ==========================================================================
-pre { margin: 1em 0; }
+pre {
+  margin: 1em 0;
+  padding: dimension(gutter);
+  max-width: calc(100vw - #{3.5 * dimension(gutter)});
+  overflow: auto;
+  background: var(--grey-3);
+}
 
 code {
   display: inline-block;
@@ -83,11 +89,8 @@ code {
   font-weight: normal;
 
   pre & {
-    display: block;
-    padding: dimension(gutter);
-
-    background: var(--grey-3);
     color: var(--grey-1);
+    background: transparent none;
     font-size: .8em;
     line-height: 1.5;
   }

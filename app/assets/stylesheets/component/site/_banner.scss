@@ -130,7 +130,7 @@
     &::before {
       position: absolute;
 
-      bottom: 100%;
+      bottom: 101%; // has to be 101% otherwise FFox leaves a 1px gap at certain VP widths
       left: 0;
       width: 100%;
       height: rem(5);
