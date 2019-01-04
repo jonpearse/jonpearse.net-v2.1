@@ -26,12 +26,16 @@
     min-height: 43vw;
   }
 
-  .masthead--medium & { min-height: 36vw; }
+  .masthead--medium & {
+    min-height: 300px;
+
+    @include mq(medium) { min-height: 36vw; }
+  }
 }
 
 /// Background
 /// ==========================================================================
-.masthead__background[class] { // @TODO: remove +1
+.masthead__background[class] {
   position: absolute;
 
   top: 0;
