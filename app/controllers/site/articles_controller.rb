@@ -18,6 +18,14 @@ class Site::ArticlesController < Site::BaseController
 
   end
 
+  def feed
+
+    return not_found unless request[:format] == 'xml'
+
+    @articles = Article.published.latest.limit( 10 )
+
+  end
+
   def show
 
     @article = Article.published.find_by_url( params[:url] )
