@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   namespace :admin, path: :m do
 
     root to: 'dashboard#show'
-
     # Blog stuff
     scope module: :blog do
 
@@ -60,11 +59,6 @@ Rails.application.routes.draw do
     get   'writing/*url',             to: 'articles#show',    as: :_article
     get   'writing',                  to: 'articles#index',   as: :articles
 
-    # old URLs
-    get   'articles',                 to: redirect( '/writing' )
-    get   'articles/in/:category',    to: redirect( '/writing/about/%{category}' )
-    get   'articles/*url',            to: redirect( '/writing/%{url}' )
-
     # Project paths
     get   'work/:year',         to: redirect('/projects'), constraints: { year: /[0-9]{4}/ }
     get   'work/by-tech/:tech', to: 'projects#index',   as: :project_tech
@@ -82,13 +76,18 @@ Rails.application.routes.draw do
     get 'about', to: 'pages#about'
 
     # redirects
-    get '_/r/:code', to: redirect( '/r/%{code}' )
     get '/r/:code', to: 'shortcodes#bounce', as: :shortcode
 
     # root path
     root to: 'pages#home'
 
   end
+
+  # redirects
+  get '_/r/:code', to: redirect( '/r/%{code}' ) # 2.0 shortcode URLs
+  get 'articles',                 to: redirect( '/writing' )                    # 1.x article URLs
+  get 'articles/in/:category',    to: redirect( '/writing/about/%{category}' )  # 1.x article URLs
+  get 'articles/*url',            to: redirect( '/writing/%{url}' )             # 1.x article URLs
 
   # 404
   match '*unmatched_route', to: 'application#not_found', constraints: -> (req){ req.path.exclude?( 'rails/active_storage' )}, via: :all
