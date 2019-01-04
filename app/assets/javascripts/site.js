@@ -15,5 +15,6 @@ new Lazyload({
 require( 'core/behaviours' ).init([
     require( 'behaviour/site/filters' ),
     require( 'behaviour/site/softtouch' ),
-    require( 'behaviour/site/nav' )
+    require( 'behaviour/site/nav' ),
+    require( 'behaviour/site/inline-editor' )
 ]);

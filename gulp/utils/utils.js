@@ -4,18 +4,14 @@
  *
  *********************************************************************************************************************/
 
-const notify = require( 'gulp-notify' );
+const chalk = require( 'chalk' );
 
 /**
  * General error handler.
  */
 function errorHandler( err )
 {
-  notify.onError({
-    title: 'Error!',
-    message: '<%= err.message %> - <%= err.fileName %>:<% err.lineNumber %>'
-  });
-
+  console.error( chalk.red( err.message ));
   this.emit( 'end' );
 }
 

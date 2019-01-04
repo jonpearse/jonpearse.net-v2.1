@@ -24,7 +24,7 @@ const { errorHandler } = require( '../utils/utils' );
 function compileSass()
 {
   return  gulp.src( PATHS.source )
-              .pipe( plumber({ errorHandler }))
+              .pipe( plumber({ errorHandler: errorHandler }))
               .pipe( glob() )
               .pipe( sass({ outputStyle: 'expanded' }))
               .pipe( postcss([

@@ -10,6 +10,8 @@ abbr, acronym, dl, dt, dd, ol, ul, li {
   border: 0;
 }
 
+b,i { font: inherit; }
+
 ol,
 ul { list-style: none; }
 
@@ -26,4 +28,14 @@ q {
 
   &::before,
   &::after { box-sizing: inherit; }
+}
+
+button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent none;
+  color: currentColor;
+  cursor: pointer;
+  outline: 0;
 }
