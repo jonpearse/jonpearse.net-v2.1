@@ -1,8 +1,11 @@
-- @page_title = 'Writing'
+:ruby
+  # work out some titles
+  @page_title = 'Writing'
+  title = @page_title + ( @category.nil? ? '' : ": #{@category.to_s}" )
 
 -# Masthead
 - content_for( :masthead ) do
-  = render partial: 'masthead'
+  = render partial: 'masthead', locals: { title: title }
 
 -# content
 = render_block( container: :ol, container_classes: '-narrow list', classes: '#nc' ) do
