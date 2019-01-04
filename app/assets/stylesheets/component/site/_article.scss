@@ -6,53 +6,49 @@
 
 /// Header
 /// ==========================================================================
-@critical {
-  .article__meta {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin: .5em 0 0;
+.article__meta {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: .5em 0 0;
 
-    color: var(--grey-3);
-    font-size: fsz(inter);
+  color: var(--grey-3);
+  font-size: fsz(inter);
 
-    dd { margin: 0 1em 0 .5em; }
-  }
+  dd { margin: 0 1em 0 .5em; }
+}
 
-  .article__tags {
-    li {
-      display: inline-block;
+.article__tags {
+  li {
+    display: inline-block;
 
-      &:not(:last-child)::after { content: ', '; }
-    }
+    &:not(:last-child)::after { content: ', '; }
   }
 }
 
 /// Responsive inline images
 /// ==========================================================================
-@critical {
-  .article__image {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    margin: dimension(gutter) 0;
+.article__image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: dimension(gutter) 0;
 
-    &:first-child { margin-top: 0; }
-    &:last-child  { margin-bottom: 0; }
+  &:first-child { margin-top: 0; }
+  &:last-child  { margin-bottom: 0; }
 
-    // left- and right-aligned images move around on larger viewports
-    @include mq(small) {
-      &.-left {
-        float: left;
-        width: calc(40% - #{dimension(padding) / 2});
-        margin-right: dimension(padding);
-      }
+  // left- and right-aligned images move around on larger viewports
+  @include mq(small) {
+    &.-left {
+      float: left;
+      width: calc(40% - #{dimension(padding) / 2});
+      margin-right: dimension(padding);
+    }
 
-      &.-right {
-        float: right;
-        width: calc(40% - #{dimension(padding) / 2});
-        margin-left: dimension(padding);
-      }
+    &.-right {
+      float: right;
+      width: calc(40% - #{dimension(padding) / 2});
+      margin-left: dimension(padding);
     }
   }
 }

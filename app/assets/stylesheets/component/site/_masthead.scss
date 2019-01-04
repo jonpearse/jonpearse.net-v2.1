@@ -3,48 +3,44 @@
 /// # Page masthead
 /// #
 /// ==========================================================================
-@critical {
-  .masthead {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: stretch;
+.masthead {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: stretch;
 
-    background: var(--grey-1);
+  background: var(--grey-1);
+}
+
+.masthead__content {
+  position: relative;
+  z-index: 0;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  padding: dimension(padding);
+  min-height: rem(200);
+
+  // height mods
+  .masthead--tall & {
+    padding: #{dimension(padding) * 2} dimension(padding);
+    min-height: 43vw;
   }
 
-  .masthead__content {
-    position: relative;
-    z-index: 0;
-    display:  flex;
-    align-items: center;
-    justify-content: center;
-    padding: dimension(padding);
-    min-height: rem(200);
-
-    // height mods
-    .masthead--tall & {
-      padding: #{dimension(padding) * 2} dimension(padding);
-      min-height: 43vw;
-    }
-
-    .masthead--medium & { min-height: 36vw; }
-  }
+  .masthead--medium & { min-height: 36vw; }
 }
 
 /// Background
 /// ==========================================================================
-@critical {
-  .masthead__background[class] {
-    position: absolute;
+.masthead__background[class] { // @TODO: remove +1
+  position: absolute;
 
-    top: 0;
-    left: 0;
-    height: 100%;
-    width:  100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width:  100%;
 
-    z-index: -1;
-    background: var(--smoke-2);
-  }
+  z-index: -1;
+  background: var(--smoke-2);
 }
 
 /// Copy

@@ -7,48 +7,46 @@
 /// ==========================================================================
 /// # Banner
 /// ==========================================================================
-@critical {
-  .banner {
-    border-top: rem(10) solid var(--grey-5);
-    border-bottom: rem(1) solid var(--smoke-2);
-    background: var(--grey-0);
+.banner {
+  border-top: rem(10) solid var(--grey-5);
+  border-bottom: rem(1) solid var(--smoke-2);
+  background: var(--grey-0);
 
-    a {
-      --shadow: #{rem(4)};
+  a {
+    --shadow: #{rem(4)};
 
-      display: block;
-      border: 0;
-    }
-
-    @include mq($until: small) {
-      position: fixed;
-      width: 100%;
-      z-index: 100;
-
-      + main { margin-top: rem(55 * 1.25); }
-    }
+    display: block;
+    border: 0;
   }
 
-  .banner__inner {
-    min-height: rem(58);
+  @include mq($until: small) {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+
+    + main { margin-top: rem(55 * 1.25); }
+  }
+}
+
+.banner__inner {
+  min-height: rem(58);
+}
+
+.banner__wordmark {
+  line-height: 1;
+
+  a {
+    display: block;
+    margin:  rem(-2) rem(-10) 0;
+    padding: rem(5) rem(10);
   }
 
-  .banner__wordmark {
-    line-height: 1;
-
-    a {
-      display: block;
-      margin:  rem(-2) rem(-10) 0;
-      padding: rem(5) rem(10);
-    }
-
-    svg {
-      display: block;
-      height: rem(21);
-      width:  rem(134);
-      fill: currentColor;
-      transition: fill .15s;
-    }
+  svg {
+    display: block;
+    height: rem(21);
+    width:  rem(134);
+    fill: currentColor;
+    transition: fill .15s;
   }
 }
 

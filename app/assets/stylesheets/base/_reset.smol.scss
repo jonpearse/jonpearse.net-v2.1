@@ -4,28 +4,26 @@
 /// #
 /// ==========================================================================
 
-@critical {
-  abbr, acronym, dl, dt, dd, ol, ul, li {
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
+abbr, acronym, dl, dt, dd, ol, ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 
-  ol,
-  ul { list-style: none; }
+ol,
+ul { list-style: none; }
 
-  blockquote,
-  q {
-    quotes: none;
+blockquote,
+q {
+  quotes: none;
 
-    &::before,
-    &::after { content: none; }
-  }
+  &::before,
+  &::after { content: none; }
+}
 
-  * { // sass-lint:disable-line no-universal-selectors
-    box-sizing: border-box;
+* { // sass-lint:disable-line no-universal-selectors
+  box-sizing: border-box;
 
-    &::before,
-    &::after { box-sizing: inherit; }
-  }
+  &::before,
+  &::after { box-sizing: inherit; }
 }

@@ -8,24 +8,22 @@
 /// # Load Fonts
 /// ==========================================================================
 // sass-lint:disable indentation
-@critical {
-  @font-face {
-    font-family: ffm(base-special);
-    font-weight: fwt(normal);
-    font-display: fallback;
-    src: local('Raleway Light'), local('Raleway-Light'),
-         url('raleway-light.woff2') format('woff2'),
-         url('raleway-light.woff') format('woff');
-  }
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(normal);
+  font-display: fallback;
+  src: local('Raleway Light'), local('Raleway-Light'),
+       url('raleway-light.woff2') format('woff2'),
+       url('raleway-light.woff') format('woff');
+}
 
-  @font-face {
-    font-family: ffm(header-special);
-    font-weight: fwt(bold);
-    font-display: fallback;
-    src: local('Cabin Medium'), local('Cabin-Medium'),
-         url('cabin-medium.woff2') format('woff2'),
-         url('cabin-medium.woff') format('woff');
-  }
+@font-face {
+  font-family: ffm(header-special);
+  font-weight: fwt(bold);
+  font-display: fallback;
+  src: local('Cabin Medium'), local('Cabin-Medium'),
+       url('cabin-medium.woff2') format('woff2'),
+       url('cabin-medium.woff') format('woff');
 }
 
 @font-face {
@@ -51,31 +49,26 @@
 /// ==========================================================================
 /// # Let’s do some scaling
 /// ==========================================================================
-@critical {
-  html {
-    font-size: 80%;
+html {
+  font-size: 80%;
 
-    @include mq(small)  { font-size: 90%;  }
-    @include mq(medium) { font-size: 100%; }
-  }
+  @include mq(small)  { font-size: 90%;  }
+  @include mq(medium) { font-size: 100%; }
 }
 
 /// ==========================================================================
 /// # Everything else
 /// ==========================================================================
 body {
-  @critical {
-    font: fwt(normal) #{fsz(base)}/#{fld(base)} ffm(base);
-    letter-spacing: .3px;
-    animation: fadeIn .1s both;
+  font: fwt(normal) #{fsz(base)}/#{fld(base)} ffm(base);
+  letter-spacing: .3px;
+  animation: fadeIn .1s both;
 
-    .wf-raleway &,
-    .wf-assumed & {
-      font-family: ffm(base-special), ffm(base);
-      letter-spacing: 0;
-    }
+  .wf-raleway &,
+  .wf-assumed & {
+    font-family: ffm(base-special), ffm(base);
+    letter-spacing: 0;
   }
-
 }
 
 strong { font-weight: fwt(semi); }
@@ -92,53 +85,47 @@ time {
 h1,
 h2,
 h3 {
-  @critical {
-    font: fwt(bold) 1rem/1em ffm(headers);
-    letter-spacing: -.7px;
+  font: fwt(bold) 1rem/1em ffm(headers);
+  letter-spacing: -.7px;
 
-    .wf-assumed &,
-    .wf-cabin & { font-family: ffm(header-special), ffm(headers); letter-spacing: 0; }
+  .wf-assumed &,
+  .wf-cabin & { font-family: ffm(header-special), ffm(headers); letter-spacing: 0; }
+}
+
+h1 {
+  margin: 0;
+  @include fsz(primary);
+}
+
+h2 {
+  margin: 1.5em 0 .5em;
+  @include fsz(secondary);
+
+  &.c {
+    margin-bottom: 2em;
+    text-align: center;
   }
 }
 
-@critical {
-  h1 {
-    margin: 0;
-    @include fsz(primary);
-  }
-
-  h2 {
-    margin: 1.5em 0 .5em;
-    @include fsz(secondary);
-
-    &.c {
-      margin-bottom: 2em;
-      text-align: center;
-    }
-  }
-
-  h3 {
-    margin: 1.5em 0 .5em;
-    @include fsz(tertiary);
-  }
+h3 {
+  margin: 1.5em 0 .5em;
+  @include fsz(tertiary);
 }
 
 /// Other stuff
 /// ==========================================================================
-@critical {
-  p { margin: 1em 0; }
+p { margin: 1em 0; }
 
-  blockquote {
-    padding: dimension(gutter);
-    margin: 2em 0;
-    border: 1px solid var(--bq-bd);
-    border-radius: rem(5);
+blockquote {
+  padding: dimension(gutter);
+  margin: 2em 0;
+  border: 1px solid var(--bq-bd);
+  border-radius: rem(5);
 
-    background: var(--bq-bg);
-    color: var(--bq-tx);
+  background: var(--bq-bg);
+  color: var(--bq-tx);
 
-    @include mq(small) { margin: 2em dimension(padding); }
-  }
+  @include mq(small) { margin: 2em dimension(padding); }
 }
 
 /// Lists: constrain to within type blocks
