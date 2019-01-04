@@ -82,7 +82,8 @@ Rails.application.routes.draw do
     get 'about', to: 'pages#about'
 
     # redirects
-    get '_/r/:code', to: 'shortcodes#bounce', as: :shortcode
+    get '_/r/:code', to: redirect( '/r/%{code}' )
+    get '/r/:code', to: 'shortcodes#bounce', as: :shortcode
 
     # root path
     root to: 'pages#home'
