@@ -30,4 +30,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+
+  # meta tags
+  meta:
+    title: jonpearse.net
+    description: >
+      Hi! I’m a freelance full-stack developer based in Cardiff, UK, and I specialise in the creation of beautiful,
+      functional, and usable websites.

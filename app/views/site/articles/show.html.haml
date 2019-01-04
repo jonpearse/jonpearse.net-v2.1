@@ -1,6 +1,13 @@
 :ruby
-  # set some stuff
+  # set the page title
   @page_title = @article.title
+
+  # set some meta stuff
+  @social_content[:description] = @article.summary
+  @social_content[:image] = @article.masthead
+
+  # short link
+  @shortcode = @article.shortcode
 
   @unwrap_content = true
 
