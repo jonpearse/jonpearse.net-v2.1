@@ -6,7 +6,7 @@
 
 .filters {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   @include fsz(small, 1);
 }
@@ -15,11 +15,14 @@
 /// ==========================================================================
 .filters__list {
   display: flex;
-  margin: 0 1em;
+  flex-wrap: wrap;
+  margin: 0 1em -.8em;
 }
 
 .filters__item {
-  & + & { margin-left: 1.5em; }
+  margin: 0 1.5em .8em 0;
+
+  &:last-child { margin-right: 0; }
 }
 
 /// Individual filters
