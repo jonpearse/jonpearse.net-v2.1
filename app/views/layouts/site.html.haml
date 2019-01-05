@@ -5,6 +5,7 @@
   %body
 
     -# SVG icon definitions
+    = asset_contents( 'site/preloader.svg' ).html_safe
     .svg-icon-defs= asset_contents( 'icons-site.svg' ).html_safe
 
     -# Header
@@ -28,5 +29,4 @@
 
     -# Footer
     = render partial: 'layouts/site/footer'
-    = asset_contents( 'site/preloader.svg' ).html_safe
     = render partial: 'layouts/site/js'

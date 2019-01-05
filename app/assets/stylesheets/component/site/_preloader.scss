@@ -26,8 +26,7 @@
     transform: translate(-50%, -50%);
 
     background: #fff;
-    box-shadow: #fff 0 0 0 10000px;
-    z-index: 100;
+    z-index: 0;
 
     .i {
       opacity: 0;
@@ -45,11 +44,17 @@
       &:nth-child(2n+1) { --o: .1s; }
       &:nth-child(3n+2) { --o: .25s; }
     }
+
+    ~ * { // sass-lint:disable-line no-universal-selectors
+      opacity: 0;
+      transition: opacity .3s .2s;
+    }
   }
 
-  transform: scale(0);
   opacity: 0;
-  transition: opacity .3s .2s, transform 0s .5s;
+  transition: opacity .3s .2s;
 
   g use { animation-play-state: paused; }
+
+  ~ * { opacity: 1; } // sass-lint:disable-line no-universal-selectors
 }
