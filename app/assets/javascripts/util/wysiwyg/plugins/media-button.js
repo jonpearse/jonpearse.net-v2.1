@@ -4,8 +4,8 @@
  *
  *********************************************************************************************************************/
 
-const icon          = require('util/fontIcons').string;
-const MediaSelector = require('util/admin/media-selector');
+const icon     = require('util/icons').string;
+const selector = require('util/admin/media-selector');
 
 /**
  * Custom button that ties into the CMS’ media uploader, so we can select + insert media items.
@@ -15,7 +15,6 @@ const MediaSelector = require('util/admin/media-selector');
 function MediaButton()
 {
     let elButton;
-    let oMediaSelector;
     let elContentEditable;
     let elPlaceholder = null;
     let oApi = null;
@@ -99,7 +98,7 @@ function MediaButton()
         }
 
         // 6. finally, open the media selector
-        oMediaSelector.open();
+        selector({}).then( aoMedia => finaliseSelectionProcess( aoMedia[0] ))
     }
     /* eslint-enable complexity */
 
@@ -114,11 +113,7 @@ function MediaButton()
         // 2. bind an event handler
         elButton.addEventListener('click', startSelectionProcess);
 
-        // 3. create the media selector item
-        oMediaSelector = new MediaSelector();
-        oMediaSelector.onMetaLoad = finaliseSelectionProcess;
-
-        // 4. set the contentEditable locally
+        // 3. get a reference to the contentEditable element
         elContentEditable = oApi.base.elements[0];
     }
 

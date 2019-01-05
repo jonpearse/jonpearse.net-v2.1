@@ -1,0 +1,264 @@
+/// ==========================================================================
+/// #
+/// # Styles for WYSIWYG: much of this is from Medium’s Github repo
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Overall styling
+/// ==========================================================================
+.medium-editor {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/// Toolbar
+/// ==========================================================================
+.medium-editor-toolbar:not(.medium-editor-media-position) {
+  position: relative;
+  order: 1;
+
+  top:  0 !important; // sass-lint:disable-line no-important
+  left: 0 !important; // sass-lint:disable-line no-important
+  padding: 0 .8em;
+  margin-bottom: .5em;
+}
+
+.medium-editor-toolbar-actions {
+  display: flex !important; // sass-lint:disable-line no-important
+
+  li {
+    margin-right: .5em;
+
+    &:empty {
+      border-left: 1px solid var(--keyline);
+
+      + li:empty { display: none; }
+    }
+  }
+}
+
+.medium-editor-action,
+.medium-editor-toolbar-save,
+.medium-editor-toolbar-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: rem(35);
+  width:  rem(35);
+
+  background: var(--grey-7);
+  color: var(--text);
+
+  transition: background 250ms, color 250ms, transform 150ms;
+
+  @include fsz(small);
+
+  &:hover { background: var(--grey-5); }
+}
+
+/// Preview + form flyout
+/// ==========================================================================
+.medium-editor-toolbar-form,
+.medium-editor-anchor-preview {
+  position: absolute;
+  display:  none;
+  align-items: center;
+
+  border-radius: rem(5);
+
+  @include fsz(small);
+  background: linear-gradient(to bottom, rgba(33, 33, 33, .95), rgba(0, 0, 0, .95));
+  color: var(--grey-0);
+
+  box-shadow: rgba(0, 0, 0, .4) 0 rem(3) rem(5) 0;
+
+  &::before {
+    position: absolute;
+    bottom: 100%;
+    left: calc(50% - #{rem(6)});
+    border: rem(6) solid transparent;
+    border-bottom-color: rgba(33, 33, 33, .95);
+    content: '';
+  }
+
+  // active state
+  &-active { display: flex; }
+
+  // make icons a wee bit smaller
+  .svg-icon {
+    height: .9em;
+    width: .8em;
+  }
+}
+
+.medium-editor-anchor-preview {
+  padding: 1em 2em;
+
+  a {
+    color: var(--grey-0);
+    text-decoration: none;
+  }
+}
+
+.medium-editor-toolbar-form {
+  align-items: stretch;
+  top:  rem(50);
+  left: rem(75);
+
+  input {
+    appearance: none;
+    padding:  0 1em;
+
+    border:   0;
+    outline:  0;
+
+    background: transparent;
+    color: var(--grey-0);
+
+    @include ffm(base);
+    @include fsz(small);
+  }
+
+  // buttons are, for some reason, anchors…
+  a {
+    margin-left: 1px;
+    height: rem(50);
+    width:  rem(40);
+    border-left: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .1);
+    color: var(--grey-0);
+    text-decoration: none;
+
+    @include fsz(larger);
+
+    &:hover {
+      background: rgba(255, 255, 255, .05);
+      color: var(--grey-0);
+    }
+  }
+}
+
+/// Irritating, but the media position thingie
+/// ==========================================================================
+.medium-editor-media-position {
+  position: absolute;
+  padding-top: rem(10);
+  transform: scale(0);
+  opacity: 0;
+  z-index: 1000;
+  transition: opacity .25s;
+
+  &::before {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-10px);
+    border: 10px solid transparent;
+    // border-bottom-color: palette(accent2_hi);
+    content: '';
+  }
+
+  &.-show {
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+
+  ul {
+    overflow: hidden;
+    padding: 0 rem(20);
+    border-radius: rem(20);
+    // background: palette(accent2_hi);
+  }
+
+  li { margin: 0; }
+
+  .i {
+    height: 1.6em;
+    width:  1.6em;
+    border: 1px solid var(--text);
+    border-radius: 1px;
+  }
+}
+
+/// Actual editor element
+/// ==========================================================================
+.medium-editor-element {
+  @extend %form__input;
+
+  overflow: auto;
+  order: 2;
+  width: 90%;
+  min-height: 15em;
+  max-height: 30em;
+
+  // styles for use within!
+  strong,
+  b { @include fwt(bold); }
+
+  em,
+  i { font-style: italic; }
+
+  a {
+    border-bottom: 1px solid #E74F0E;
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  li { margin-left: 2em; }
+
+  h2 { font-size: 1.75em; }
+  h3 { font-size: 1.5em; }
+
+  img {
+    display: block;
+    margin: 1em;
+
+    &[data-align=left] { float: left; margin-left: 0; }
+    &[data-align=right] { float: right; margin-right: 0; }
+    &[data-align=center] { margin: 1em auto; }
+  }
+
+  > * {
+    margin: 1em 0;
+
+    &:first-child { margin-top: 0; }
+    &:last-child  { margin-bottom: 0; }
+}
+
+  blockquote {
+    padding: .5em .8em !important; // sass-lint:disable-line no-important
+    background: var(--midground);
+  }
+
+  // when switched
+  &.-switched { display: none; }
+
+  code.block {
+    display: block;
+    padding: rem(20);
+    background: var(--text);
+    color: var(--midground);
+
+    font: .9em / 1.5 ffm(mono);
+    white-space: pre;
+  }
+}
+
+/// Media thingie
+/// ==========================================================================
+.medium-editor-media { border: 1px dotted var(--keyline); }
+
+// hide the editor
+textarea.medium-editor-hidden {
+  display: none;
+  order: 2;
+  width: 90%;
+  height: 30em;
+
+  &.-switched { display: block; }
+}

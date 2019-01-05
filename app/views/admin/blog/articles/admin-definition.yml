@@ -20,6 +20,7 @@ form:
     body:
       type: text
       multiline: true
+      wysiwyg: true
     categories: tags
     publishing:
       type: group

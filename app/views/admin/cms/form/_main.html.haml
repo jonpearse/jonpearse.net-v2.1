@@ -1,6 +1,6 @@
 - @hide_logout = true
 
-= form_with model: @form_context, scope: :content, local: true,  html: { class: 'form', novalidate: true } do |form|
+= form_with model: @form_context, scope: :content, local: true,  html: { class: 'form', 'data-behaviour': 'validatable' } do |form|
 
   -# if we have a back to param, make sure that’s persisted
   - if params.key?( :back_to )
