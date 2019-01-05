@@ -14,13 +14,13 @@
   &.-alt { background: var(--grey-1); }
 
   &.-accent {
-    --link-tx: var(--grey-0);
-    --link-ul: var(--grey-5);
-    --link-hv: var(--hilite);
-    --link-rv: var(--grey-5);
+    --link-tx: var(--block-accent-link-tx);
+    --link-ul: var(--block-accent-link-ul);
+    --link-hv: var(--block-accent-link-hv);
+    --link-rv: var(--block-accent-link-rv);
 
     background: var(--hint-2);
-    color: var(--grey-0);
+    color: var(--block-accent-tx);
   }
 
   /// Size-ways

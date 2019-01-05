@@ -34,6 +34,60 @@
   --bq-bd:    rgba(228, 72, 73, .95);
   --bq-bg:    rgba(228, 72, 73, .15);
   --bq-tx:    var(--grey-4);
+
+  // == Various dark-mode–able things
+  --site-top-bar: #000;
+  --site-top-link-outline: #{rem(4)};
+  --masthead-super-text: var(--grey-0);
+
+  --project-image-filter: none;
+  --project-link-tx: var(--grey-0);
+  --project-link-hv: var(--grey-0);
+  --project-link-bg: var(--grey-3);
+
+  --block-accent-tx: var(--hint-3);
+  --block-accent-link-tx: var(--grey-0);
+  --block-accent-link-ul: var(--grey-5);
+  --block-accent-link-hv: var(--hilite);
+  --block-accent-link-rv: var(--grey-5);
+}
+
+@media (prefers-color-scheme: dark)
+{
+  :root {
+    // == Basic palette
+    --grey-5:   hsl(210, 14%, 89%);
+    --grey-4:   hsl(210, 14%, 83%);
+    --grey-3:   hsl(210, 11%, 71%);
+    --grey-2:   hsl(208,  7%, 46%);
+    --grey-1:   hsl(210, 10%, 23%);
+    --grey-0:   hsl(210, 11%, 15%);
+
+    --hint-1:   hsl(360, 74%, 59%);
+    --hint-2:   hsl(359, 50%, 35%);
+    --hint-3:   hsl(359, 50%, 90%);
+    --hilite:   hsl( 48, 60%, 50%);
+
+    // == Link styles (to be inherited)
+    --link-hv:  var(--hint-3);  // hover colour
+    --link-rv:  var(--grey-0);  // reverse colour (used for some buttons)
+
+    // == Various dark-mode–able things
+    --site-top-bar: #000;
+    --site-top-link-outline: #{rem(2)};
+    --masthead-super-text: var(--grey-5);
+
+    --project-image-filter: brightness(.8) contrast(1.15);
+    --project-link-tx: var(--grey-5);
+    --project-link-hv: var(--grey-5);
+    --project-link-bg: var(--grey-1);
+
+    --block-accent-tx: var(--hint-3);
+    --block-accent-link-tx: var(--grey-5);
+    --block-accent-link-ul: var(--hilite);
+    --block-accent-link-hv: var(--hilite);
+    --block-accent-link-rv: var(--grey-0);
+  }
 }
 
 /// ==========================================================================

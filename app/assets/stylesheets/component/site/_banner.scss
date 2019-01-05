@@ -8,13 +8,14 @@
 /// # Banner
 /// ==========================================================================
 .banner {
-  border-top: rem(10) solid var(--grey-5);
+  --top-line: var(--site-top-bar);
+  --shadow: var(--site-top-link-outline);
+
+  border-top: rem(10) solid var(--top-line);
   border-bottom: rem(1) solid var(--smoke-2);
   background: var(--grey-0);
 
   a {
-    --shadow: #{rem(4)};
-
     display: block;
     border: 0;
   }
@@ -70,7 +71,7 @@
     min-width: 200px;
     padding: #{dimension(padding) * 2} #{dimension(padding) / 2};
 
-    border-top: rem(10) solid var(--grey-5);
+    border-top: rem(10) solid var(--top-line);
     z-index: 100;
     box-shadow: rgba(0, 0, 0, 0) 0 0 0 1000px, rgba(0, 0, 0, .1) 0 0 0 0;
     background: var(--grey-1);
@@ -133,7 +134,7 @@
       width: 100%;
       height: rem(5);
 
-      background: var(--grey-5);
+      background: var(--top-line);
       transition: transform .2s;
 
       content: '';

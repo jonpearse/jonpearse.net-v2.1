@@ -9,21 +9,21 @@
 /// ==========================================================================
 // sass-lint:disable indentation
 @font-face {
-  font-family: ffm(base-special);
-  font-weight: fwt(normal);
-  font-display: fallback;
-  src: local('Raleway Light'), local('Raleway-Light'),
-       url('raleway-light.woff2') format('woff2'),
-       url('raleway-light.woff') format('woff');
-}
-
-@font-face {
   font-family: ffm(header-special);
   font-weight: fwt(bold);
   font-display: fallback;
   src: local('Cabin Medium'), local('Cabin-Medium'),
        url('cabin-medium.woff2') format('woff2'),
        url('cabin-medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(normal);
+  font-display: fallback;
+  src: local('Raleway Light'), local('Raleway-Light'),
+       url('raleway-light.woff2') format('woff2'),
+       url('raleway-light.woff') format('woff');
 }
 
 @font-face {

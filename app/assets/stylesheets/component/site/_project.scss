@@ -28,6 +28,8 @@
 
   z-index: 0;
 
+  filter: var(--project-image-filter);
+
   &.-loaded[class] { transition: transform .25s, filter .25s; }
 
   .project__link:hover + &,
@@ -40,7 +42,9 @@
 /// Link
 /// ==========================================================================
 .project__link {
-  --shadow: #{rem(5)};
+  --shadow:  0;
+  --link-tx: var(--project-link-tx);
+  --link-hv: var(--project-link-hv);
   --link-ol: var(--hint-1);
 
   position: relative;
@@ -67,12 +71,13 @@
     width:  100%;
     z-index: -1;
 
-    background: var(--grey-3);
+    background: var(--project-link-bg);
+    box-shadow: inset var(--link-ol) 0 0 0 var(--shadow);
     opacity: 0;
 
     content: '';
 
-    transition: opacity .25s;
+    transition: opacity .25s, box-shadow .25s;
   }
 
   &:focus,
@@ -80,7 +85,7 @@
     &::after { opacity: .9; }
   }
 
-  &:focus { box-shadow: inset var(--link-ol) 0 0 0 var(--shadow); }
+  &:focus { --shadow: #{rem(5)}; }
 
   @include mq(medium, large) { font-size: 80%; }
 }
@@ -94,7 +99,7 @@
   align-items: center;
   padding: rem(20);
 
-  color: var(--grey-0);
+  color: currentColor;
   opacity: 0;
   text-align: center;
 
