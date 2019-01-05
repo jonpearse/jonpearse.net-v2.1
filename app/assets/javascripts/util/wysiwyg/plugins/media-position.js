@@ -9,16 +9,17 @@ const icon = require('util/icons').icon;
 const BUTTONS = [
     {
         align:  'left',
-        button: 'arrow-left'
-    },
-    {
-        align:  'right',
-        button: 'arrow-right'
+        button: 'align-left'
     },
     {
         align:  'full',
-        button: 'plugh'
+        button: 'align-justify'
     },
+    {
+        align:  'right',
+        button: 'align-right'
+    },
+    '|',
     {
         align:  'breakout',
         button: 'arrows-h'
@@ -99,6 +100,13 @@ function MediaPositionExtension()
         // 3. options!
         BUTTONS.forEach(oButt =>
         {
+            // -a: if it’s a separator, just do that
+            if (oButt === '|')
+            {
+                elList.appendChild( document.createElement( 'li' ));
+                return;
+            }
+
             // a. button
             let elButton = document.createElement('button');
             elButton.className = `medium-editor-action medium-editor-button-media-align--${oButt.align}`;

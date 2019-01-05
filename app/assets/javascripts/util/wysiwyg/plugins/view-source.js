@@ -65,7 +65,7 @@ function ViewSource(elTextbox)
         elButton = document.createElement('button');
         elButton.type = 'button';
         elButton.className = 'medium-editor-action medium-editor-action-source';
-        elButton.innerHTML = (oApi.base.options.buttonLabels === 'fontawesome' ? icon('code') : '”');
+        elButton.innerHTML = icon('code');
         elButton.addEventListener('click', fnHandleClick);
 
         // 2. get a hook on the contentEditable DIV

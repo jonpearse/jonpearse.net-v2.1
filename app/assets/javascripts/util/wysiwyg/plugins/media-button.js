@@ -36,7 +36,7 @@ function MediaButton()
         let elImage = document.createElement('img');
         elImage.className = 'medium-editor-media';
         elImage.setAttribute('data-media-id', oMedia.id);
-        elImage.setAttribute('src', oMedia.sizes.cms);
+        elImage.setAttribute('src', oMedia.cms_image_url);
         elContentEditable.insertBefore(elImage, elPlaceholder);
 
         // 2. nuke the placeholder
@@ -98,7 +98,7 @@ function MediaButton()
         }
 
         // 6. finally, open the media selector
-        selector({}).then( aoMedia => finaliseSelectionProcess( aoMedia[0] ))
+        selector({}).then( aoMedia => aoMedia[0].then( finaliseSelectionProcess ));
     }
     /* eslint-enable complexity */
 
