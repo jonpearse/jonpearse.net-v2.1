@@ -4,11 +4,10 @@
  *
  *********************************************************************************************************************/
 
-const utils = require( 'util/dom-utils' );
-const icon  = require( 'util/icons' ).icon;
-const ajax  = require( 'util/ajax' );
-const lightbox = require( 'util/lightbox' );
-const render   = require( 'util/render-html' );
+const utils  = require( 'util/dom-utils' );
+const icon   = require( 'util/icons' ).icon;
+const core   = require( 'util/admin/media-selector' );
+const render = require( 'util/render-html' );
 
 function MediaSelector( elRoot, options )
 {
@@ -28,9 +27,9 @@ function MediaSelector( elRoot, options )
     /**
      * Adds a new media item to the selector.
      *
-     * @param {Integer} iMediaId - the ID of the new media
+     * @param {object} oSelected - the selected media item
      */
-    function addInstance( iMediaId )
+    function addInstance( oSelected )
     {
         // 0. if we’re not in multiple mode
         if (!options.multiple)
@@ -42,10 +41,9 @@ function MediaSelector( elRoot, options )
         const elTmp = utils.create( 'figure', { class: 'media-selector__preload' });
         elRoot.insertBefore( elTmp, elButton );
 
-        // 2. load the DOM
-        ajax( options.metaEndpoint.replace( '--ID--', iMediaId )).then( oMedia =>
+        // 2. update the DOM once everything’s loaded
+        oSelected.then( oMedia =>
         {
-            // insert and bind some new stuff, remove the temporary element
             elTmp.insertAdjacentHTML( 'beforebegin', render( oMedia, sTemplate ).trim() );
             bindInstance( elTmp.previousSibling );
             elTmp.remove();
@@ -57,16 +55,7 @@ function MediaSelector( elRoot, options )
      */
     function openLightbox()
     {
-        // open the lightbox
-        const lb = lightbox();
-        lb.load( options.selectEndpoint );
-
-        // set some defaults
-        lb.addFooterAction( options.select, { class: 'secondary' }, elContent =>
-        {
-            elContent.querySelectorAll( 'input:checked' ).forEach( el => addInstance( el.value ));
-            lb.close();
-        });
+        core( options ).then( aoSelected => aoSelected.forEach( addInstance ));
     }
 
     /**
@@ -107,8 +96,6 @@ module.exports  = {
     name: 'media-selector',
     init: MediaSelector,
     defaults: {
-        selectEndpoint: '',
-        metaEndpoint: '',
         select: 'Select',
         multiple: false
     }
