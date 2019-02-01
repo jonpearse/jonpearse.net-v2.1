@@ -7,7 +7,7 @@
 const Editor = require('medium-editor');
 const ToolbarSeparator = require('./plugins/toolbar-separator');
 const BQButton    = require('util/wysiwyg/plugins/blockquote');
-const deepAssign  = require('deep-assign');
+const mergeOpts   = require('merge-options');
 const MediaPositionExtension = require('util/wysiwyg/plugins/media-position');
 
 const DEFAULTS = {
@@ -85,7 +85,7 @@ function Wysiwyg( elRoot, options )
     function compileOptions()
     {
         // a. compile against defaults
-        let oCompiled = deepAssign({}, DEFAULTS, options);
+        let oCompiled = mergeOpts(DEFAULTS, options);
 
         // b. if there’re any extensions that’re callable, handle them
         Object.keys(oCompiled.extensions).forEach(k =>
