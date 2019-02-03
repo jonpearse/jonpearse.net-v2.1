@@ -1,7 +1,7 @@
 class Site::BaseController < ApplicationController
 
   # set the default layout
-  layout 'site'
+  layout :set_layout
 
   # Load some helpers
   helper Site::ImageHelper, Site::RoutesHelper, Site::RenderingHelper
@@ -27,6 +27,12 @@ class Site::BaseController < ApplicationController
     def set_wf_assumption
 
       cookies[:'assume-wf'] = true
+
+    end
+
+    def set_layout
+
+      ( !!request.xhr? ? 'site_ajax' : 'site' )
 
     end
 

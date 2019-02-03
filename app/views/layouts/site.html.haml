@@ -2,7 +2,7 @@
 !!!
 %html.no-js{ lang: 'en-GB', class: ( cookies.key?( :'assume-wf' ) ? 'wf-assumed' : nil )}
   %head= render partial: 'layouts/site/head'
-  %body
+  %body{ 'data-behaviour': :page }
 
     -# SVG icon definitions
     = asset_contents( 'site/preloader.svg' ).html_safe
@@ -12,20 +12,7 @@
     = render partial: 'layouts/site/banner'
 
     -# Main content
-    %main
-
-      -# Masthead
-      = yield :masthead
-
-      -# Main content
-      - if @unwrap_content
-        = yield
-      - else
-        .content= yield
-
-      -# Drivers
-      = render partial: 'site/blocks/latest_articles'
-      = render partial: 'site/blocks/talk_to_me'
+    %main{ 'data-page-content': true }= render partial: 'layouts/site/main'
 
     -# Footer
     = render partial: 'layouts/site/footer'
