@@ -49,5 +49,13 @@ module.exports = {
   fonts: {
     watch:  `${ASSET_ROOT}/fonts/**/*`,
     source: [ `${ASSET_ROOT}/fonts/**/*.woff`, `${ASSET_ROOT}/fonts/**/*.woff2` ]
+  },
+
+  // metadata
+  metadata: {
+    straightCopy: [
+      `${ASSET_ROOT}/meta/*.*`,
+      `!${ASSET_ROOT}/meta/*.js`
+    ]
   }
 };
