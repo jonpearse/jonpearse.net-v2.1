@@ -8,6 +8,17 @@ const ajax = require( 'util/ajax' );
 const rebind = require( 'core/behaviours' ).bind;
 const lazyload = require( 'util/lazyload' );
 
+const awaitTransition = el => new Promise( fnResolve =>
+{
+    function _resolve()
+    {
+        el.removeEventListener( 'transitionend', _resolve );
+        fnResolve();
+    }
+
+    el.addEventListener( 'transitionend', _resolve );
+})
+
 function Page( elRoot )
 {
     let elNav = null;
@@ -22,40 +33,55 @@ function Page( elRoot )
      */
     function updateContent( oData )
     {
-        // 1. update the title
-        elTitle.textContent = oData.title;
-
-        // 2. remove all existing content + insert anew
-        while ( elContent.firstChild !== null )
+        // fade all the content out, then…
+        elContent.classList.add( '-out' );
+        awaitTransition( elContent ).then( () =>
         {
-            elContent.firstChild.remove();
-        }
-        elContent.insertAdjacentHTML( 'afterbegin', oData.content );
+            // 1. update the title
+            elTitle.textContent = oData.title;
 
-        // 3. retrigger behaviours within the new content
-        rebind( elContent );
-        bindLinks( elContent ); // eslint-disable-line no-use-before-define
-        lazyload( elContent );
+            // 2. remove all content + insert new
+            while ( elContent.firstChild !== null )
+            {
+                elContent.firstChild.remove();
+            }
+            elContent.insertAdjacentHTML( 'afterbegin', oData.content );
 
-        // 4. update the nav
-        elNav.querySelectorAll( 'a' ).forEach( el =>
+            // 3. retrigger our behaviours, lazyload, and rebind all links
+            rebind( elContent );
+            bindLinks( elContent ); // eslint-disable-line no-use-before-define
+            lazyload( elContent );
+
+            // 4. update the nav state
+            elNav.querySelectorAll( 'a' ).forEach( el =>
+            {
+                if (( el.pathname === oData.path ) ||
+                    ( el.hasAttribute( 'data-wildcard' ) && oData.path.startsWith( el.pathname )))
+                {
+                    el.classList.add( '-current' );
+                }
+                else
+                {
+                    el.classList.remove( '-current' );
+                }
+            });
+
+            // 4. finally, remove any active elements, scroll up, and remove the load state(s)
+            document.activeElement.blur();
+            window.scrollTo( 0, 0 );
+
+        }).then( () =>
         {
-            if (( el.pathname === oData.path ) ||
-                ( el.hasAttribute( 'data-wildcard' ) && oData.path.startsWith( el.pathname )))
-            {
-                el.classList.add( '-current' );
-            }
-            else
-            {
-                el.classList.remove( '-current' );
-            }
+            elContent.classList.remove( '-out' );
+            awaitTransition( elContent ).then(() => elContent.classList.remove( '-loading' ));
         });
 
-        // 5. remove loading class, remove any focussed element, and scroll to the top
-        elRoot.classList.remove( 'js-loading' );
-        document.activeElement.blur();
-        window.scrollTo( 0, 0 );
+        // container classes
+        elRoot.classList.add( '-js-loaded' );
+        elRoot.classList.remove( '-js-loading' );
+        setTimeout( () => elRoot.classList.remove( '-js-loaded' ), 500 );
 
+        // return the inbound data for chaining
         return oData;
     }
 
@@ -79,6 +105,9 @@ function Page( elRoot )
         // 1. if we have some state data, reload the page with that
         if ( ev.state !== null )
         {
+            elContent.classList.add( '-loading' );
+            elRoot.classList.remove( '-js-loaded' );
+            elRoot.classList.add( '-js-loading' );
             updateContent( ev.state );
             return;
         }
@@ -95,8 +124,9 @@ function Page( elRoot )
         // 1. acquire a state
         const oState = {
             title: elTitle.textContent,
-            content: elContent.innerHTML
-        }
+            content: elContent.innerHTML,
+            path: document.location.pathname
+        };
 
         // 2. update the current state
         window.history.replaceState( oState, elTitle.textContent, document.location.pathname );
@@ -113,8 +143,10 @@ function Page( elRoot )
         // 1. request
         ajax( sUrl ).then( updateContent ).then( pushState ).catch( () => document.location.href = sUrl );
 
-        // 2. class±
-        elRoot.classList.add( 'js-loading' );
+        // 2. classes
+        elContent.classList.add( '-loading' );
+        elRoot.classList.remove( '-js-loaded' );
+        elRoot.classList.add( '-js-loading' );
         return true;
     }
 
@@ -146,11 +178,12 @@ function Page( elRoot )
         // 2. store the current state
         storeInitialState();
 
-        // 3. bind links
+        // 3. bind links + popstate
         bindLinks( elRoot );
-
-        // 3. bind popstate
         window.addEventListener( 'popstate', popState );
+
+        // 4. add class
+        elContent.classList.add( 'js-page' );
 
     }());
 }
