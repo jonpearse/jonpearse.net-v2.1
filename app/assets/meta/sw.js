@@ -36,7 +36,7 @@ function bootstrap()
 
     // nuke all old caches on activation
     self.addEventListener( 'activate', ev => ev.waitUntil( caches.keys().then( names => Promise.all(
-        names.filter( n => ( n !== VERSION ) && ( n !== CONTENT )).map( caches.delete )
+        names.filter( n => ( n !== VERSION ) && ( n !== CONTENT )).map( n => caches.delete( n ))
     ))));
 
     // handle inbopund requests with an appropriate strategy
