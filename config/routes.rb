@@ -78,6 +78,9 @@ Rails.application.routes.draw do
     # redirects
     get '/r/:code', to: 'shortcodes#bounce', as: :shortcode
 
+    # partial home
+    get 'home.jhtml', to: 'pages#home', format: 'jhtml', as: :partial_root
+
     # root path
     root to: 'pages#home'
 

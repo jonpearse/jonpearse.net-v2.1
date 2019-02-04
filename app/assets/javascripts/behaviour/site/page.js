@@ -91,9 +91,10 @@ function Page( elRoot )
     function navigateTo( sUrl, bAppend = true )
     {
         // 1. request
-        ajax( sUrl ).then( updateContent )
-                    .then(() => ( bAppend && window.history.pushState( {}, elTitle.textContent, sUrl )))
-                    .catch( () => document.location.href = sUrl );
+        ajax(( sUrl === '/' ? 'home' : sUrl ) + '.jhtml' )
+            .then( updateContent )
+            .then(() => ( bAppend && window.history.pushState( {}, elTitle.textContent, sUrl )))
+            .catch( () => document.location.href = sUrl );
 
         // 2. classes
         elContent.classList.add( '-loading' );

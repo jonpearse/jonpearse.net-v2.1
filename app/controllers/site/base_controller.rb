@@ -7,6 +7,7 @@ class Site::BaseController < ApplicationController
   helper Site::ImageHelper, Site::RoutesHelper, Site::RenderingHelper
 
   # have it set some cookie
+  before_action :check_format_sanity
   after_action :set_wf_assumption
 
   def initialize
@@ -33,6 +34,12 @@ class Site::BaseController < ApplicationController
     def set_layout
 
       ( !!request.xhr? ? 'site_ajax' : 'site' )
+
+    end
+
+    def check_format_sanity
+
+      redirect_to( request.url.gsub( '.jhtml', '' )) if ( !request.xhr? && request[:format] == 'jhtml' )
 
     end
 
