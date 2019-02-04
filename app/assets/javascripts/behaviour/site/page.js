@@ -90,8 +90,13 @@ function Page( elRoot )
      */
     function navigateTo( sUrl, bAppend = true )
     {
+        // 0. work out the request URL
+        let sRequestUrl = ( sUrl === '/' )
+            ? 'home.jhtml'
+            : ( sUrl.indexOf( '?' ) === -1 ? sUrl + '.jhtml' : sUrl.replace( '?', '.jhtml?' ));
+
         // 1. request
-        ajax(( sUrl === '/' ? 'home' : sUrl ) + '.jhtml' )
+        ajax( sRequestUrl )
             .then( updateContent )
             .then(() => ( bAppend && window.history.pushState( {}, elTitle.textContent, sUrl )))
             .catch( () => document.location.href = sUrl );
