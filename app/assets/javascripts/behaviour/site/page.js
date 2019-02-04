@@ -29,7 +29,6 @@ function Page( elRoot )
      * Updates the page with the content returned from an AJAX call.
      *
      * @param {Object} oData - the new page data.
-     * @return {Object} the returned data for chaining purposes
      */
     function updateContent( oData )
     {
@@ -80,68 +79,21 @@ function Page( elRoot )
         elRoot.classList.add( '-js-loaded' );
         elRoot.classList.remove( '-js-loading' );
         setTimeout( () => elRoot.classList.remove( '-js-loaded' ), 500 );
-
-        // return the inbound data for chaining
-        return oData;
-    }
-
-    /**
-     * Pushes the newly-acquired data onto the browser’s history state.
-     *
-     * @param {Object} oData - the data to push
-     */
-    function pushState( oData )
-    {
-        window.history.pushState( oData, oData.title, oData.path );
-    }
-
-    /**
-     * Pops stuff off the history state.
-     *
-     * @param {PopStateEvent} ev - the data we’ve just popped off the stack
-     */
-    function popState( ev )
-    {
-        // 1. if we have some state data, reload the page with that
-        if ( ev.state !== null )
-        {
-            elContent.classList.add( '-loading' );
-            elRoot.classList.remove( '-js-loaded' );
-            elRoot.classList.add( '-js-loading' );
-            updateContent( ev.state );
-            return;
-        }
-
-        // 2. otherwise, just reload the page
-        window.location.reload();
-    }
-
-    /**
-     * Stores the initial state.
-     */
-    function storeInitialState()
-    {
-        // 1. acquire a state
-        const oState = {
-            title: elTitle.textContent,
-            content: elContent.innerHTML,
-            path: document.location.pathname
-        };
-
-        // 2. update the current state
-        window.history.replaceState( oState, elTitle.textContent, document.location.pathname );
     }
 
     /**
      * Loads a given URL.
      *
      * @param {String} sUrl - the URL
+     * @param {Boolean} bAppend - whether or not to append to the history
      * @return {boolean} whether or not the navigation will be successful.
      */
-    function navigateTo( sUrl )
+    function navigateTo( sUrl, bAppend = true )
     {
         // 1. request
-        ajax( sUrl ).then( updateContent ).then( pushState ).catch( () => document.location.href = sUrl );
+        ajax( sUrl ).then( updateContent )
+                    .then(() => ( bAppend && window.history.pushState( {}, elTitle.textContent, sUrl )))
+                    .catch( () => document.location.href = sUrl );
 
         // 2. classes
         elContent.classList.add( '-loading' );
@@ -175,14 +127,11 @@ function Page( elRoot )
             return;
         }
 
-        // 2. store the current state
-        storeInitialState();
-
-        // 3. bind links + popstate
+        // 2. bind links + popstate
         bindLinks( elRoot );
-        window.addEventListener( 'popstate', popState );
+        window.addEventListener( 'popstate', () => navigateTo( document.location.pathname, false ));
 
-        // 4. add class
+        // 3. add class
         elContent.classList.add( 'js-page' );
 
     }());
