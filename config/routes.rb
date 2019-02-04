@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     get   'work/by-tech/:tech', to: 'projects#index',   as: :project_tech
     post  'work/:id',           to: 'projects#update',  as: :update_project
     get   'work/*url',          to: 'projects#show',    as: :_project
-    match 'work',               to: 'projects#index',   as: :projects, via: %i{ get post }
+    get   'work',               to: 'projects#index',   as: :projects
 
     # Snippet update path
     post 'snippets/:id', to: 'snippets#update', as: :update_snippet

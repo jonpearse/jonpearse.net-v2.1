@@ -130,6 +130,7 @@ function Page( elRoot )
         // 2. bind links + popstate
         bindLinks( elRoot );
         window.addEventListener( 'popstate', () => navigateTo( document.location.pathname, false ));
+        elRoot.addEventListener( 'navigateTo', ev => navigateTo( ev.detail.url ));
 
         // 3. add class
         elContent.classList.add( 'js-page' );
