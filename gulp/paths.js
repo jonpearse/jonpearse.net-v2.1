@@ -53,9 +53,9 @@ module.exports = {
 
   // metadata
   metadata: {
-    straightCopy: [
-      `${ASSET_ROOT}/meta/*.*`,
-      `!${ASSET_ROOT}/meta/*.js`
-    ]
+    straightCopy: [ `${ASSET_ROOT}/meta/**/*.*` ],
+    images: [ `${ASSET_ROOT}/meta/**/*.{jpg,png,gif,ico}` ],
+    sw:     [ `${ASSET_ROOT}/meta/**/*.js` ],
+    output: `${PROJECT_ROOT}/public`
   }
 };

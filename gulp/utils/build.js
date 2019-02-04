@@ -16,7 +16,7 @@ const ASSETS = global.PATHS.build;
 /**
  * Cleanup task.
  */
-gulp.task( 'clean', () => del([ `${ASSETS}/*`, `!${ASSETS}/.keep` ]));
+gulp.task( 'clean', () => del([ `${ASSETS}/*`, `!${ASSETS}/.keep`, `${ASSETS}/../*.*` ]));
 
 /**
  * Revisions built assets + spits out a manifest file.

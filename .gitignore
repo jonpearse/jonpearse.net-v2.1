@@ -24,7 +24,7 @@ config/database.yml
 /storage/*
 !/storage/.keep
 
-/public/a
+/public/*
 !/public/a/.keep
 .byebug_history
 
