@@ -22,3 +22,6 @@
 
   // JS loader
   !function(e){var c=document.createElement("script");c.async=!0,c.defer=!0,c.src=e,document.body.appendChild(c)}("#{asset_url_for('site.js')}")
+
+  // serviceworker, while we’re at it
+  if ('serviceWorker' in navigator) { window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js')})}
