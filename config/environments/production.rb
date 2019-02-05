@@ -85,9 +85,8 @@ Rails.application.configure do
   config.action_controller.default_url_options = default_url_options
 
   # asset stuffs
-  config.action_mailer.asset_host = 'https://static.jonpearse.net'
-  config.action_controller.asset_host = 'https://static.jonpearse.net'
-  config.upload_storage_url_prefix = '/2'
+  config.action_mailer.asset_host     = 'https://static.jonpearse.net'
+  config.action_controller.asset_host = 'https://static.jonpearse.net/2'
 
   # shortlink host
   config.shortlink_host = 'jdp.codes'

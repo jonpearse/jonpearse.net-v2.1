@@ -44,7 +44,5 @@ module Jjp21
     # where to stick feeds
     config.feeds_directory = Rails.root.join( 'storage', 'feeds' )
 
-    # the public path to storage stuffs
-    config.upload_storage_url_prefix = '/'
   end
 end

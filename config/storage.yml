@@ -1,15 +1,15 @@
 test:
   service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+  root: <%= Rails.root.join( 'tmp/storage' ) %>
 
 local:
   service: Disk
-  root: <%= Rails.root.join("storage") %>
+  root: <%= Rails.root.join( 'storage' ) %>
 
 faux_cdn:
   service: FauxCDN
-  root: <%= Rails.root.join('storage' ) %>
-  domain: <%= Rails.application.config.action_controller.asset_host %><%= Rails.application.config.upload_storage_url_prefix %>
+  root: <%= Rails.root.join( 'storage' ) %>
+  domain: <%= Rails.application.config.action_controller.asset_host %>/
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
