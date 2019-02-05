@@ -1,0 +1,19 @@
+-# Page title + stuff
+- @page_title = 'Not found'
+
+-# Output the masthead
+- content_for( :masthead ) do
+  = render partial: 'site/base/masthead'
+
+-# Title
+= render_block( classes: %w{ #content }, container_classes: %w{ narrow long-form }) do
+  %p
+    Well, um… this is kinda embarassing: it looks like the page you’re after has gone walkies, or possibly never
+    existed to start with.
+
+  %p
+    Chances are this probably isn’t your fault, and someone else—possibly me—has pressed the wrong button somewhere. In
+    any case, you’re probably best off hitting ‘back’ and returning whence you came… sorry!
+
+  %p
+    %small HTTP error 404: Not found
