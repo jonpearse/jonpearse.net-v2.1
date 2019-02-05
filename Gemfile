@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 # Basic stuff
 gem 'rails',  '~> 5.2.1'
@@ -22,6 +22,9 @@ gem 'simple_ar_localizer', '~> 1.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+
+# Stuff used in rake
+gem 'colorize', '~> 0.8.1'
 
 group :development do
 

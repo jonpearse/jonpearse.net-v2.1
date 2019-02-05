@@ -5,9 +5,9 @@ xml.rss version: '2.0' do
   xml.channel do
 
     # meta
-    xml.title         'jonpearse.net'
+    xml.title         t( 'meta.title' )
     xml.description   t( 'meta.description' )
-    xml.link          'https://jonpearse.net'
+    xml.link          root_url
     xml.language      'en-GB'
     xml.lastBuildDate DateTime.now.rfc822
 
@@ -20,7 +20,7 @@ xml.rss version: '2.0' do
         xml.link        article_url( article )
         xml.guid        shortcode_url( article.shortcode.code )
         xml.pubDate     article.published_on.strftime( "%a, %-d %b %Y #{article.created_at.strftime('%T %z')}" )
-        xml.description ( params.key?( :full ) ? article.body : article.summary )
+        xml.description ( @full ? article.body : article.summary )
 
         article.categories.each do |c|
 

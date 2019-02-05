@@ -15,8 +15,9 @@
   %meta{ rel: :shortlink, value: shortcode_url( code: @shortcode.code, host: host )}
 
 -# RSS feeds
-%link{ rel: :alternate, type: 'application/rss+xml', title: 'RSS - Summary only',  href: articles_feed_url( format: :xml )}
-%link{ rel: :alternate, type: 'application/rss+xml', title: 'RSS - Full articles', href: articles_full_feed_url( format: :xml )}
+- rss_base = Rails.application.config.action_controller.asset_host + '/feeds'
+%link{ rel: :alternate, type: 'application/rss+xml', title: 'RSS - Summary only',  href: "#{rss_base}/summary.xml" }
+%link{ rel: :alternate, type: 'application/rss+xml', title: 'RSS - Full articles', href: "#{rss_base}/full.xml" }
 
 -# Toggle JS/no-JS
 %script<

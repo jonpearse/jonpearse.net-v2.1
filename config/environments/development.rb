@@ -52,9 +52,14 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # ActionMailer config
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.asset_host = 'http://localhost:3000'
+  # Various useful URL configs
+  default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_controller.asset_host = 'http://static.calliope'
+  config.action_mailer.default_url_options = default_url_options
+  config.action_controller.default_url_options = default_url_options
+
+  # asset stuffs
+  config.action_mailer.asset_host = 'http://localhost:3000'
+  config.action_controller.asset_host = 'https://static.calliope'
+
 end

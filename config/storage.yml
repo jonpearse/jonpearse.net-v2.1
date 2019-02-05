@@ -9,7 +9,7 @@ local:
 faux_cdn:
   service: FauxCDN
   root: <%= Rails.root.join('storage' ) %>
-  domain: <%= Rails.application.config.action_controller.asset_host %>/
+  domain: <%= Rails.application.config.action_controller.asset_host %><%= Rails.application.config.upload_storage_url_prefix %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

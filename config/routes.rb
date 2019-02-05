@@ -49,10 +49,12 @@ Rails.application.routes.draw do
   # Site namespace
   scope module: :site do
 
-    # Article paths
-    get   'writing/feed',             to: 'articles#feed',    as: :articles_feed
-    get   'writing/feed-full',        to: 'articles#feed',    as: :articles_full_feed, defaults: { full: true }
+    # feeds are now elsewhere
+    rss_base = Rails.application.config.action_controller.asset_host
+    get 'writing/feed-full',  to: redirect( "#{rss_base}/feeds/full.xml" )
+    get 'writing/feed',       to: redirect( "#{rss_base}/feeds/summary.xml" )
 
+    # Article paths
     get   'writing/:year(/:month)',   to: redirect( '/writing' ), constraints: { year: /[0-9]{4}/, month: /[0-9]{2}/ }
     get   'writing/about/:category',  to: 'articles#index',   as: :article_category
     post  'writing/:id',              to: 'articles#update',  as: :update_article

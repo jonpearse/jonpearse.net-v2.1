@@ -33,7 +33,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -77,4 +77,18 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Various useful URL configs
+  default_url_options = { host: 'jonpearse.net', protocol: :https }
+
+  config.action_mailer.default_url_options = default_url_options
+  config.action_controller.default_url_options = default_url_options
+
+  # asset stuffs
+  config.action_mailer.asset_host = 'https://static.jonpearse.net'
+  config.action_controller.asset_host = 'https://static.jonpearse.net'
+  config.upload_storage_url_prefix = '/2'
+
+  # shortlink host
+  config.shortlink_host = 'jdp.codes'
 end
