@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :admin, path: :m do
 
     root to: 'dashboard#show'
+
     # Blog stuff
     scope module: :blog do
 
@@ -83,6 +84,9 @@ Rails.application.routes.draw do
     # partial home
     get 'home.jhtml', to: 'pages#home', format: 'jhtml', as: :partial_root
 
+    # 404 in this namespace
+    match '*unmatched_route', to: 'base#not_found', constraints: -> (req){ req.path.exclude?( 'rails/active_storage' )}, via: :all
+
     # root path
     root to: 'pages#home'
 
@@ -93,8 +97,5 @@ Rails.application.routes.draw do
   get 'articles',                 to: redirect( '/writing' )                    # 1.x article URLs
   get 'articles/in/:category',    to: redirect( '/writing/about/%{category}' )  # 1.x article URLs
   get 'articles/*url',            to: redirect( '/writing/%{url}' )             # 1.x article URLs
-
-  # 404
-  match '*unmatched_route', to: 'application#not_found', constraints: -> (req){ req.path.exclude?( 'rails/active_storage' )}, via: :all
 
 end

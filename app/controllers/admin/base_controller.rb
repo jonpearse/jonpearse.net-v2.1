@@ -1,6 +1,6 @@
 # Base administration controller.
 class Admin::BaseController < AuthenticatedController
-  include Admin::I18nHelper
+  include Admin::I18nHelper, ErrorMethods
 
   # pull in some helpers
   helper Admin::NavigationHelper, Admin::I18nHelper

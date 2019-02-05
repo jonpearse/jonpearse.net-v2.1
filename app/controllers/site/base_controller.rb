@@ -1,4 +1,5 @@
 class Site::BaseController < ApplicationController
+  include ErrorMethods
 
   # set the default layout
   layout :set_layout
