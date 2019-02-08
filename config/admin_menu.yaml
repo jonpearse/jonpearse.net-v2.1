@@ -30,15 +30,12 @@
   children:
     - title: Media library
       route: media/media
-#
-# - title:  Site stuff
-#   route:  settings/snippets
-#   icon:   cog
-#   children:
-#     - title: Snippets
-#       route: settings/snippets
-#     - title: Change password
-#       route: auth/password#change
-#       split: true
-#     - title: Two-factor auth
-#       route: auth/two_factor#setup
+
+- title:  Account
+  route:  auth/password#change
+  icon:   user
+  children:
+    - title: Change password
+      route: auth/password#change
+    - title: Two-factor auth
+      route: auth/two_factor#setup

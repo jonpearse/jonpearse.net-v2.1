@@ -1,0 +1,18 @@
+= form_for( @user, url: admin_auth_two_factor_path, html: { class: 'twofa-block' }) do |f|
+
+  .twofa-block__top{ role: :group, 'aria-labelledby': 'twofa-label__title' }
+    %h2#twofa-label__title.twofa-block__prompt= t( 'user.2fa.enable.title' )
+
+    %p= t( 'user.2fa.enable.intro' )
+
+    .twofa-block__qr= generate_svg( @qrcode ).html_safe
+
+    .twofa-block__code{ class: ( @failed ? '-error' : '' )}
+      %label.twofa-block__label.a11y{ for: 'confirm_code' }= t( 'user.2fa.enable.confirmation' )
+      %input#confirm.code.twofa-block__input{ name: :code, type: :number, step: 1, min: 0, max: 999999, maxlength: 6, required: true }
+      - if @failed
+        %label.twofa-block__error{ for: 'confirm_code' }= t( 'user.2fa.enable.failed' )
+
+  .twofa-block__buttons
+    %button.btn.btn--primary.btn--large{ type: :submit }= t( 'user.2fa.enable.do_enable' )
+    = link_to t( 'user.2fa.enable.do_cancel' ), admin_root_path, class: 'btn btn--secondary'

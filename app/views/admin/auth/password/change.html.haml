@@ -1,0 +1,17 @@
+= form_for( @user, url: admin_auth_password_path, html: { method: :patch, class: 'form form--dialog' }) do |f|
+
+  %ol.form__fields
+    %li.form__field
+      = f.label :current_password, 'Current', class: 'form__label'
+      = f.password_field :current_password, required: true, class: 'form__input'
+
+    %li.form__field
+      = f.label :password, 'New', class: 'form__label'
+      = f.password_field :password, required: true, class: 'form__input'
+
+    %li.form__field
+      = f.label :password_confirmation, 'Confirmation', class: 'form__label'
+      = f.password_field :password_confirmation, required: true, class: 'form__input'
+
+  .form__buttons
+    %button.btn.btn--large.btn--primary{ type: :submit } Change my password

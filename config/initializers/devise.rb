@@ -303,5 +303,6 @@ Rails.application.config.to_prepare do
   # Also, include the admin helpers
   Devise::SessionsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
   Devise::PasswordsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
+  Devise::TwoFactorAuthenticationController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
 
 end

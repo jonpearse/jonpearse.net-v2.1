@@ -36,9 +36,7 @@ class User < ApplicationRecord
   def confirm_totp_secret!( secret, code )
 
     # if it fails…
-    unless confirm_totp_secret secret, code
-      return false
-    end
+    return false unless confirm_totp_secret( secret, code )
 
     # update some pointers
     self.second_factor_enabled = true

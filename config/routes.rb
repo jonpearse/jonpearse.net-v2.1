@@ -45,6 +45,20 @@ Rails.application.routes.draw do
 
     end
 
+    # Auth stuff
+    namespace :auth do
+
+      get   'password', to: 'password#change'
+      patch 'password', to: 'password#update'
+
+      # 2FA stuff
+      get   'two-factor', to: 'two_factor#setup'
+      patch 'two-factor', to: 'two_factor#enable'
+      get   'disable-two-factor', to: 'two_factor#cancel'
+      patch 'disable-two-factor', to: 'two_factor#disable'
+
+    end
+
   end
 
   # Site namespace
