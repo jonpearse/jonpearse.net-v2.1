@@ -4,6 +4,10 @@
   %ul.main-navigation__list
     - if user_signed_in?
       = render partial: 'layouts/admin/nav/item', collection: normalise_navigation, locals: { top: true } if user_signed_in?
+      %li.main-navigation__item.-stretch
+        = link_to root_path, class: 'main-navigation__link' do
+          %i.main-navigation__icon= icon( 'browser' )
+          Main website
       %li.main-navigation__item
         = link_to destroy_user_session_path, class: 'main-navigation__link' do
           %i.main-navigation__icon= icon( 'sign-out' )
