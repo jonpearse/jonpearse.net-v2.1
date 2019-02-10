@@ -7,7 +7,7 @@
 /// # FONT FAMILIES: for use with ffm() mixin
 /// ==========================================================================
 $font-families: (
-  base: 'Lato, sans-serif',
+  base: 'Roboto, sans-serif',
   mono: monospace
 );
 
@@ -28,7 +28,11 @@ $font-sizes: (
   defaultButton: ( size: 16, leading: 1.4 ),
   largeButton:   ( size: 20, leading: 1.4 ),
   smallButton:   ( size: 14, leading: 1.4 ),
-  tinyButton:    ( size: 12, leading: 1.4 )
+  tinyButton:    ( size: 12, leading: 1.4 ),
+
+  // nav
+  navMain:       ( size: 18, leading: 1 ),
+  navSecondary:  ( size: 16, leading: 1.6 )
 );
 
 /// # WEIGHTS: for use with fwt() mixin
@@ -38,7 +42,6 @@ $font-weights: (
   semi:   400,
   bold:   700
 );
-
 
 /// ==========================================================================
 /// # DIMENSIONS

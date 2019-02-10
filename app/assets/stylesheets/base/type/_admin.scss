@@ -8,21 +8,21 @@
 /// # Load fonts
 /// ==========================================================================
 @font-face {
-  font-family: 'Lato';
+  font-family: 'Roboto';
   font-weight: fwt(normal);
-  src: local('Lato Light'), local('Lato-Light'), url('lato-light.woff2') format('woff2'), url('lato-light.woff') format('woff');
+  src: local('Roboto Light'), local('Roboto-Light'), url('roboto-light.woff2') format('woff2'), url('roboto-light.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Lato';
+  font-family: 'Roboto';
   font-weight: fwt(semi);
-  src: local('Lato Regular'), local('Lato-regular'), url('lato-regular.woff2') format('woff2'), url('lato-regular.woff') format('woff');
+  src: local('Roboto Regular'), local('Roboto-regular'), url('roboto-regular.woff2') format('woff2'), url('roboto-regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Lato';
+  font-family: 'Roboto';
   font-weight: fwt(bold);
-  src: local('Lato Bold'), local('Lato-bold'), url('lato-bold.woff2') format('woff2'), url('lato-bold.woff') format('woff');
+  src: local('Roboto Bold'), local('Roboto-bold'), url('roboto-bold.woff2') format('woff2'), url('roboto-bold.woff') format('woff');
 }
 
 /// ==========================================================================
