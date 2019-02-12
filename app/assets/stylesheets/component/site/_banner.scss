@@ -141,28 +141,40 @@
 /// The link itself
 /// ==========================================================================
 .nav__link {
+  position: relative;
+
   padding: rem(15);
   border:  0;
 
+  &::before {
+    position: absolute;
+
+    background: var(--top-line);
+    transition: transform .2s;
+
+    content: '';
+  }
+
   @include mq($until: small) {
-    &.-current { @include fwt(semi); }
+    overflow: hidden;
+
+    &::before {
+      top: 0;
+      right: 100%;
+      height: 100%;
+      width: rem(5);
+    }
+
+    &.-current::before { transform: translateX(100%); }
   }
 
   @include mq(small) {
-    position: relative;
 
     &::before {
-      position: absolute;
-
       bottom: 101%; // has to be 101% otherwise FFox leaves a 1px gap at certain VP widths
       left: 0;
       width: 100%;
       height: rem(5);
-
-      background: var(--top-line);
-      transition: transform .2s;
-
-      content: '';
     }
 
     &:hover,
