@@ -17,5 +17,8 @@ module.exports = {
 
         // 2. bind to clicking
         elButton.addEventListener( 'click', () => elRoot.classList.toggle( 'js-open' ));
+
+        // 3. bind to navigation
+        document.body.addEventListener( 'navigatedTo', () => elRoot.classList.remove( 'js-open' ));
     }
 }

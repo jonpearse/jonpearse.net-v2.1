@@ -68,6 +68,7 @@ function Page( elRoot )
             // 4. finally, remove any active elements, scroll up, and remove the load state(s)
             document.activeElement.blur();
             window.scrollTo( 0, 0 );
+            elRoot.dispatchEvent( new CustomEvent( 'navigatedTo', { detail: { url: oData.path }}))
 
         }).then( () =>
         {
