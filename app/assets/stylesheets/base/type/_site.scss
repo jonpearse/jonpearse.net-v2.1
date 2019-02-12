@@ -105,6 +105,8 @@ h2 {
     margin-bottom: 2em;
     text-align: center;
   }
+
+  @include mq($until: small) { line-height: 1.5; }
 }
 
 h3 {
