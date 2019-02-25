@@ -17,3 +17,5 @@
         - if user_signed_in?
           %li.nav__item
             = link_to 'Manage', admin_root_path, class: 'nav__link'
+        %li.nav__item.-dmt
+          = link_to icon( 'dark-mode', title: 'Toggle dark mode' ).html_safe, toggle_dark_mode_path, class: "nav__link no-ajax#{(( params[:controller] == 'site/settings' ) ? ' -current' : '')}", 'data-behaviour': 'toggle-dark-mode'

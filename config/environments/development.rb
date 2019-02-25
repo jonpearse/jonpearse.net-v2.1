@@ -60,6 +60,6 @@ Rails.application.configure do
 
   # asset stuffs
   config.action_mailer.asset_host = 'http://localhost:3000'
-  config.action_controller.asset_host = 'https://static.calliope'
+  config.action_controller.asset_host = 'http://static.calliope'
 
 end

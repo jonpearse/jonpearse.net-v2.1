@@ -6,6 +6,17 @@ module Site::RenderingHelper
 
   end
 
+  # Get an appropriate base class.
+  def get_body_class
+
+    classes = []
+    classes << 'wf-assumed' if cookies.key?( :assume_wf )
+    classes << 'dark-mode'  if @dark_mode
+
+    classes.join( ' ' )
+
+  end
+
   # Renders a block template.
   #
   # === Available options

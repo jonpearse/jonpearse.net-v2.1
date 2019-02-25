@@ -116,7 +116,8 @@ function Page( elRoot )
      */
     function bindLinks( elNode )
     {
-        elNode.querySelectorAll( 'a:not([href^="http:"]):not([href^="https:"]):not([href^="mailto:"]):not([href^="/m"])').forEach( elLink =>
+        // eslint-disable-next-line
+        elNode.querySelectorAll( 'a:not([href^="http:"]):not([href^="https:"]):not([href^="mailto:"]):not([href^="/m"]):not(.no-ajax)').forEach( elLink =>
         {
             elLink.addEventListener( 'click', ev => ( navigateTo( elLink.pathname ) && ev.preventDefault()));
         })

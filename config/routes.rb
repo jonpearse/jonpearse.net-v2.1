@@ -98,6 +98,9 @@ Rails.application.routes.draw do
     # partial home
     get 'home.jhtml', to: 'pages#home', format: 'jhtml', as: :partial_root
 
+    # dark mode
+    get 'toggle-dark-mode', to: 'settings#toggle_dark_mode'
+
     # 404 in this namespace
     match '*unmatched_route', to: 'base#not_found', constraints: -> (req){ req.path.exclude?( 'rails/active_storage' )}, via: :all
 

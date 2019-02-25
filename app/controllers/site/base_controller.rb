@@ -8,7 +8,7 @@ class Site::BaseController < ApplicationController
   helper Site::ImageHelper, Site::RoutesHelper, Site::RenderingHelper
 
   # have it set some cookie
-  before_action :check_format_sanity
+  before_action :check_format_sanity, :load_settings
   after_action :set_wf_assumption
 
   def initialize
@@ -26,9 +26,16 @@ class Site::BaseController < ApplicationController
 
   private
 
+    def load_settings
+
+      puts cookies[:dark_mode].inspect
+      @dark_mode = ( cookies.key?( :dark_mode ) and ( cookies[:dark_mode] == 'true' ))
+
+    end
+
     def set_wf_assumption
 
-      cookies[:'assume-wf'] = true
+      cookies[:assume_wf] = true
 
     end
 
