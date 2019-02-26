@@ -8,7 +8,7 @@
     next_label:     "Older #{icon( 'right' )}",
     first_label:    nil,
     last_label:     nil,
-    params:         params.slice( :tech_id )
+    params:         params.slice( :tech_id ).merge( format: nil )
   }
 
 %nav.block.-no-top.-moar-bottom.pagination{ 'data-pagination': true }= will_paginate( content, pagination_options )
