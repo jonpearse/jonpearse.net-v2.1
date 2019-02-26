@@ -34,7 +34,11 @@
 
   transition: border-color .15s;
 
-  &.-placeholder { background: var(--hint-3); }
+  &.-placeholder {
+    background: var(--hint-3);
+
+    .dark-mode & { background: var(--hint-2); }
+  }
 
   &:hover,
   &:focus { border-color: var(--hint-1); }
