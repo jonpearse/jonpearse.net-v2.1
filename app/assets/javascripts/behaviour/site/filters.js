@@ -22,10 +22,14 @@ function filters( elRoot )
 
         // 2. work out where we’re submitting
         let sQuery = aElBoxen.map( el => ( el.checked ? `${el.name}=${el.value}` : null )).filter( Boolean ).join( '&' ).trim();
-        const sUri = sRootUri + ( sQuery === '' ? '' : `?${sQuery}` );
 
         // 3. fire an event to the sideloader
-        elRoot.dispatchEvent( new CustomEvent( 'navigateTo', { bubbles: true, detail: { url: sUri }}));
+        elRoot.dispatchEvent( new CustomEvent( 'navigateTo', { bubbles: true, detail: {
+            url:    sRootUri,
+            query:  sQuery,
+            method: elRoot.method.toUpperCase(),
+            append: false
+        }}));
     }
 
     /**
@@ -48,6 +52,9 @@ function filters( elRoot )
         const aLink = document.createElement( 'a' );
         aLink.href = elRoot.action;
         sRootUri = aLink.pathname;
+
+        // bind to network events
+        document.body.addEventListener( 'connection-change', ev => aElBoxen.forEach( el => el.disabled = !ev.detail.linkState ));
     }());
 }
 

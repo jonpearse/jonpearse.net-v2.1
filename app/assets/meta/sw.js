@@ -44,10 +44,14 @@ function bootstrap()
     {
         // 1. convert the URL to a pathname
         const sPath = ev.request.url.replace( /^https?:\/\/(.*?)\//, '/' );
-        const req = ev.request;
+        const req = ev.request.clone();
 
         // 2. use an appopriate strategy
-        if ( CACHEFIRST_ROOTS.filter( sRoot => sPath.startsWith( sRoot )).length > 0 )
+        if ( req.method === 'POST' )
+        {
+            ev.respondWith( fetch( req ));
+        }
+        else if ( CACHEFIRST_ROOTS.filter( sRoot => sPath.startsWith( sRoot )).length > 0 )
         {
             ev.respondWith( caches.match( req ).then( cached => cached || requestAndCache( req )));
         }

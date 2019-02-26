@@ -81,13 +81,13 @@ Rails.application.routes.draw do
     get   'work/by-tech/:tech', to: 'projects#index',   as: :project_tech
     post  'work/:id',           to: 'projects#update',  as: :update_project
     get   'work/*url',          to: 'projects#show',    as: :_project
-    get   'work',               to: 'projects#index',   as: :projects
+    match 'work',               to: 'projects#index',   as: :projects, via: [ :get, :post ]
 
     # Snippet update path
     post 'snippets/:id', to: 'snippets#update', as: :update_snippet
 
     # Better media segments
-    get 'a/_/:blob_id(/:size)', to: 'storage#show', as: :_variation, constraints: { size: /[0-9a-z]+/ }
+    get '/a/_/:blob_id(/:size)', to: 'storage#show', as: :_variation, constraints: { size: /[0-9a-z]+/ }
 
     # Static pages
     get 'about', to: 'pages#about'

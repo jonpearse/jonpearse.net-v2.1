@@ -95,9 +95,9 @@ function bindBehaviours( elBindAt = document )
             const oOptions   = getOptionsFor( elNode, oBehaviour.namespace, oBehaviour.defaults );
 
             // c. debug
-            console.group( `Binding behaviour ‘${sBehaviour}’` );
-            console.debug( 'Options:', oOptions );
-            console.groupEnd();
+            // console.group( `Binding behaviour ‘${sBehaviour}’` );
+            // console.debug( 'Options:', oOptions );
+            // console.groupEnd();
 
             // d. fire the behaviour and store it
             try
@@ -144,10 +144,10 @@ function registerBehaviours( aoBehaviour, bAutoBind = true )
 
         // d. register it
         oRegisteredBehaviours[oBehaviour.name] = oBehaviour;
-        console.group( `Registered behaviour ‘${oBehaviour.name}’` );
-        console.debug( 'Defaults:',  oBehaviour.defaults );
-        console.debug( 'Namespace:', oBehaviour.namespace );
-        console.groupEnd();
+        // console.group( `Registered behaviour ‘${oBehaviour.name}’` );
+        // console.debug( 'Defaults:',  oBehaviour.defaults );
+        // console.debug( 'Namespace:', oBehaviour.namespace );
+        // console.groupEnd();
     });
 
     // 2. if we’re autobinding, do so

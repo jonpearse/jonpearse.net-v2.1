@@ -9,6 +9,9 @@
   align-items: flex-start;
 
   @include fsz(small, 1);
+
+  // hide when offline
+  .is-offline & { opacity: 0; }
 }
 
 /// List

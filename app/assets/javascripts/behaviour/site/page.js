@@ -1,3 +1,4 @@
+
 /*********************************************************************************************************************
  *
  * Side-loaded page stuff.
@@ -7,17 +8,14 @@
 const ajax = require( 'util/ajax' );
 const rebind = require( 'core/behaviours' ).bind;
 const lazyload = require( 'util/lazyload' );
+const awaitTransition = require( 'util/awaitTransition' );
 
-const awaitTransition = el => new Promise( fnResolve =>
-{
-    function _resolve()
-    {
-        el.removeEventListener( 'transitionend', _resolve );
-        fnResolve();
-    }
-
-    el.addEventListener( 'transitionend', _resolve );
-})
+const DEFAULT_NAVIGATION = {
+    append: true,
+    query:  null,
+    method: 'GET',
+    url:    ''
+};
 
 function Page( elRoot )
 {
@@ -85,22 +83,24 @@ function Page( elRoot )
     /**
      * Loads a given URL.
      *
-     * @param {String} sUrl - the URL
-     * @param {Boolean} bAppend - whether or not to append to the history
+     * @param {Object} oConf - any additional parameters that should be handled.
      * @return {boolean} whether or not the navigation will be successful.
      */
-    function navigateTo( sUrl, bAppend = true )
+    function navigateTo( oConf )
     {
-        // 0. work out the request URL
-        let sRequestUrl = ( sUrl === '/' )
+        // 0. default some stuff
+        const { url, method, query, append } = Object.assign( {}, DEFAULT_NAVIGATION, oConf );
+
+        // 1. work out our request URL + some parameters
+        const sRequestUrl = ( url === '/' )
             ? 'home.jhtml'
-            : ( sUrl.indexOf( '?' ) === -1 ? sUrl + '.jhtml' : sUrl.replace( '?', '.jhtml?' ));
+            : ( url.indexOf( '?' ) === -1 ? url + '.jhtml' : url.replace( '?', '.jhtml?' ));
 
         // 1. request
-        ajax( sRequestUrl )
+        ajax( sRequestUrl, query, method )
             .then( updateContent )
-            .then(() => ( bAppend && window.history.pushState( {}, elTitle.textContent, sUrl )))
-            .catch( () => document.location.href = sUrl );
+            .then(() => ( append && window.history.pushState( {}, elTitle.textContent, url )))
+            .catch( () => document.location.href = url );
 
         // 2. classes
         elContent.classList.add( '-loading' );
@@ -119,8 +119,27 @@ function Page( elRoot )
         // eslint-disable-next-line
         elNode.querySelectorAll( 'a:not([href^="http:"]):not([href^="https:"]):not([href^="mailto:"]):not([href^="/m"]):not(.no-ajax)').forEach( elLink =>
         {
-            elLink.addEventListener( 'click', ev => ( navigateTo( elLink.pathname ) && ev.preventDefault()));
+            elLink.addEventListener( 'click', ev => ( navigateTo({ url: elLink.pathname }) && ev.preventDefault()));
         })
+    }
+
+    /**
+     * Handles online/offline events.
+     */
+    function handleConnectionChange()
+    {
+        if ( navigator.onLine )
+        {
+            document.body.classList.add( 'is-online' );
+            document.body.classList.remove( 'is-offline' );
+        }
+        else
+        {
+            document.body.classList.add( 'is-offline' );
+            document.body.classList.remove( 'is-online' );
+        }
+
+        document.body.dispatchEvent( new CustomEvent( 'connection-change', { detail: { linkState: navigator.onLine }}));
     }
 
     /* Constructor */
@@ -137,11 +156,16 @@ function Page( elRoot )
 
         // 2. bind links + popstate
         bindLinks( elRoot );
-        window.addEventListener( 'popstate', () => navigateTo( document.location.pathname, false ));
-        elRoot.addEventListener( 'navigateTo', ev => navigateTo( ev.detail.url ));
+        window.addEventListener( 'popstate', () => navigateTo({ url: document.location.pathname, append: false }));
+        elRoot.addEventListener( 'navigateTo', ev => navigateTo( ev.detail ));
 
         // 3. add class
         elContent.classList.add( 'js-page' );
+
+        // 4. handle online/offline stuff
+        window.addEventListener( 'online', handleConnectionChange );
+        window.addEventListener( 'offline', handleConnectionChange );
+        handleConnectionChange();
 
     }());
 }
