@@ -119,8 +119,8 @@ function Page( elRoot )
         // eslint-disable-next-line
         elNode.querySelectorAll( 'a:not([href^="http:"]):not([href^="https:"]):not([href^="mailto:"]):not([href^="/m"]):not(.no-ajax)').forEach( elLink =>
         {
-            elLink.addEventListener( 'click', ev => ( navigateTo({ url: elLink.pathname }) && ev.preventDefault()));
-        })
+            elLink.addEventListener( 'click', ev => ( navigateTo({ url: elLink.pathname + elLink.search }) && ev.preventDefault()));
+        });
     }
 
     /**
