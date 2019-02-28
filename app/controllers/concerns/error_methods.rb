@@ -42,6 +42,8 @@ module ErrorMethods
 
       end
 
+      @error_sent = true
+
       true # return something so we can chain things
 
     end

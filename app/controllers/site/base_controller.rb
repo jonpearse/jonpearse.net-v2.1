@@ -55,7 +55,7 @@ class Site::BaseController < ApplicationController
     def record_visit
 
       # bounce out if we’re not interested (either the IP is blacklisted, or a bot, or I’m logged in)
-      return if Rails.application.config.webstats[:ignored_ips].include?( request.ip ) or browser.bot? or user_signed_in?
+      return if Rails.application.config.webstats[:ignored_ips].include?( request.ip ) or browser.bot? or user_signed_in? or !@error_sent.nil?
 
       # get a request and remove any format information
       req_url = ( @requested_path || request.fullpath ).gsub( ".#{params[:format]}", '' )
