@@ -1,19 +1,17 @@
 %nav.page__nav.main-navigation{ data: { behaviour: 'navigation' }}
-  %svg.main-navigation__logo{ xmlns: 'http://www.w3.org/2000/svg', width: 98, height: 120, viewBox: '0 0 98 120' }
-    %path.main-navigation__logo-outline{ d: 'M49,0L98,25V95L49,120L0,95V25Z' }
-    %path.main-navigation__logo-inner{ d: 'M49,0L98,25L49,60Z' }
-    %path.main-navigation__logo-inner{ d: 'M98,25V95L49,60Z' }
-    %path.main-navigation__logo-inner{ d: 'M98,95L49,120L49,60Z' }
-    %path.main-navigation__logo-inner{ d: 'M49,120L0,95L49,60Z' }
-    %path.main-navigation__logo-inner{ d: 'M0,95V25L49,60Z' }
-    %path.main-navigation__logo-inner{ d: 'M0,25L49,0L49,60Z' }
+  .main-navigation__logo= asset_contents( 'site/preloader.svg' ).gsub( /\s?(class|fill|stroke)=".*?"/, '' ).html_safe
 
   %ul.main-navigation__list
-    = render partial: 'layouts/admin/nav/item', collection: normalise_navigation, locals: { top: true } if user_signed_in?
-    %li.main-navigation__item
-      %a.main-navigation__link{ href: root_path }
-        - if user_signed_in?
-          %i.main-navigation__icon= icon( 'sign-out' )
+    - if user_signed_in?
+      = render partial: 'layouts/admin/nav/item', collection: normalise_navigation, locals: { top: true } if user_signed_in?
+      %li.main-navigation__item.-stretch
+        = link_to root_path, class: 'main-navigation__link' do
+          %i.main-navigation__icon= icon( 'browser' )
           Main website
-        - else
-          %i.main-navigation__icon= icon( 'sign-out', title: 'Return to main website' )
+      %li.main-navigation__item
+        = link_to destroy_user_session_path, class: 'main-navigation__link' do
+          %i.main-navigation__icon= icon( 'sign-out' )
+          Log out
+    - else
+      %li.main-navigation__item
+        = link_to_with_icon 'Main website', root_path, 'sign-out'

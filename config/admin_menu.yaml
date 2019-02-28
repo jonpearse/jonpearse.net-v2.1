@@ -3,7 +3,7 @@
   route:  dashboard#show
   icon:   tachometer
 
-- title:  Blog
+- title:  Articles
   route:  blog/articles
   icon:   book
   children:
@@ -27,9 +27,6 @@
 - title:  Media
   route:  media/media
   icon:   images
-  children:
-    - title: Media library
-      route: media/media
 
 - title:  Account
   route:  auth/password#change
