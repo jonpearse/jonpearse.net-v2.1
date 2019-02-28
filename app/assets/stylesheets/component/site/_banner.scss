@@ -116,9 +116,20 @@
 /// ==========================================================================
 .nav__item {
 
-  &.-dmt span {
-    display: inline-block;
-    margin-left: .3em;
+  // specific styles for the dark mode toggle, which is only shown in some circumstances
+  &.-dmt {
+    display: none;
+
+    span {
+      display: inline-block;
+      margin-left: .3em;
+    }
+
+    // only show it if we support CSS variables…
+    @supports (--css: variables) { display: list-item; }
+
+    // … but hide it if the colour scheme is managed by the OS
+    @media (prefers-color-scheme: dark) { display: none; }
   }
 
   @include mq($until: small) {
@@ -127,6 +138,7 @@
 
   @include mq(small) {
     &.-sm { display: none; }
+
     &.-dmt span {
       position: absolute;
       transform: scale(0);
@@ -144,12 +156,6 @@
       border-left: 1px solid var(--smoke-2);
       content: '';
     }
-  }
-
-  // hide the dark mode toggle when it’s controlled by the OS
-  @media (prefers-color-scheme: dark)
-  {
-    &.-dmt { display: none; }
   }
 }
 
