@@ -16,7 +16,6 @@ module.exports = {
 
         // set a cookie
         const sCookieValue = document.documentElement.classList.contains( 'dark-mode' ) ? 'true' : 'false';
-        console.log( sCookieValue );
         document.cookie = `dark_mode=${ sCookieValue };path=/;max-age=31536000`;
     })
 }
