@@ -23,7 +23,14 @@ function filters( elRoot )
         // 2. work out where we’re submitting
         let sQuery = aElBoxen.map( el => ( el.checked ? `${el.name}=${el.value}` : null )).filter( Boolean ).join( '&' ).trim();
 
-        // 3. fire an event to the sideloader
+        // 3. if there’s no fetch, just submit the form
+        if ( window.fetch === undefined )
+        {
+            elRoot.submit();
+            return;
+        }
+
+        // 4. otherwise, kick the sideloader
         elRoot.dispatchEvent( new CustomEvent( 'navigateTo', { bubbles: true, detail: {
             url:    sRootUri,
             query:  sQuery,

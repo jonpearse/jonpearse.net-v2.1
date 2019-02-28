@@ -145,6 +145,12 @@ function Page( elRoot )
     /* Constructor */
     return (function init()
     {
+        // 0. don’t even bother if we can’t fetch
+        if ( window.fetch === undefined )
+        {
+            return;
+        }
+
         // 1. acquire DOM nodes
         elNav = elRoot.querySelector( '[data-page-nav]' );
         elContent = elRoot.querySelector( '[data-page-content]' );

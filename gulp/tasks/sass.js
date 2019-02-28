@@ -31,6 +31,7 @@ function compileSass()
                 require( 'autoprefixer' ),
                 require( 'postcss-short-border-radius' ),
                 require( 'postcss-svg' )({ dirs: OUTPUT }),
+                require( 'postcss-custom-properties' ),
                 require( 'postcss-critical-css' )({
                   outputPath: OUTPUT,
                   minify:     false,
