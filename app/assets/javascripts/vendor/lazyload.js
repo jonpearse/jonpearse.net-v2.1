@@ -1,364 +1,428 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.LazyLoad = factory());
-}(this, (function () { 'use strict';
+const runningOnBrowser = typeof window !== "undefined";
 
-var getDefaultSettings = () => ({
-    elements_selector: "img",
-    container: window,
-    threshold: 300,
-    throttle: 150,
-    data_src: "src",
-    data_srcset: "srcset",
-    class_loading: "loading",
-    class_loaded: "loaded",
-    class_error: "error",
-    class_initial: "initial",
-    skip_invisible: true,
-    callback_load: null,
-    callback_error: null,
-    callback_set: null,
-    callback_processed: null,
-    callback_enter: null
-});
+const isBot =
+	(runningOnBrowser && !("onscroll" in window)) ||
+	(typeof navigator !== "undefined" &&
+		/(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent));
 
-const isBot = !("onscroll" in window) || /glebot/.test(navigator.userAgent);
+const supportsIntersectionObserver =
+	runningOnBrowser && "IntersectionObserver" in window;
 
-const callCallback = function (callback, argument) {
-    if (callback) { callback(argument); }
+const supportsClassList =
+	runningOnBrowser && "classList" in document.createElement("p");
+
+const defaultSettings = {
+	elements_selector: "img",
+	container: isBot || runningOnBrowser ? document : null,
+	threshold: 300,
+	thresholds: null,
+	data_src: "src",
+	data_srcset: "srcset",
+	data_sizes: "sizes",
+	data_bg: "bg",
+	class_loading: "loading",
+	class_loaded: "loaded",
+	class_error: "error",
+	load_delay: 0,
+	auto_unobserve: true,
+	callback_enter: null,
+	callback_exit: null,
+	callback_reveal: null,
+	callback_loaded: null,
+	callback_error: null,
+	callback_finish: null
 };
 
-const getTopOffset = function (element) {
-    return element.getBoundingClientRect().top + window.pageYOffset - element.ownerDocument.documentElement.clientTop;
+var getInstanceSettings = customSettings => {
+	return Object.assign({}, defaultSettings, customSettings);
 };
 
-const isBelowViewport = function (element, container, threshold) {
-    const fold = (container === window) ?
-        window.innerHeight + window.pageYOffset :
-        getTopOffset(container) + container.offsetHeight;
-    return fold <= getTopOffset(element) - threshold;
+const dataPrefix = "data-";
+const processedDataName = "was-processed";
+const timeoutDataName = "ll-timeout";
+const trueString = "true";
+
+const getData = (element, attribute) => {
+	return element.getAttribute(dataPrefix + attribute);
 };
 
-const getLeftOffset = function (element) {
-    return element.getBoundingClientRect().left + window.pageXOffset - element.ownerDocument.documentElement.clientLeft;
+const setData = (element, attribute, value) => {
+	var attrName = dataPrefix + attribute;
+	if (value === null) {
+		element.removeAttribute(attrName);
+		return;
+	}
+	element.setAttribute(attrName, value);
 };
 
-const isAtRightOfViewport = function (element, container, threshold) {
-    const documentWidth = window.innerWidth;
-    const fold = (container === window) ?
-        documentWidth + window.pageXOffset :
-        getLeftOffset(container) + documentWidth;
-    return fold <= getLeftOffset(element) - threshold;
+const setWasProcessedData = element =>
+	setData(element, processedDataName, trueString);
+
+const getWasProcessedData = element =>
+	getData(element, processedDataName) === trueString;
+
+const setTimeoutData = (element, value) =>
+	setData(element, timeoutDataName, value);
+
+const getTimeoutData = element => getData(element, timeoutDataName);
+
+const purgeProcessedElements = elements => {
+	return elements.filter(element => !getWasProcessedData(element));
 };
 
-const isAboveViewport = function (element, container, threshold) {
-    const fold = (container === window) ? window.pageYOffset : getTopOffset(container);
-    return fold >= getTopOffset(element) + threshold + element.offsetHeight;
-};
-
-const isAtLeftOfViewport = function (element, container, threshold) {
-    const fold = (container === window) ? window.pageXOffset : getLeftOffset(container);
-    return fold >= getLeftOffset(element) + threshold + element.offsetWidth;
-};
-
-var isInsideViewport = function (element, container, threshold) {
-    return !isBelowViewport(element, container, threshold) &&
-        !isAboveViewport(element, container, threshold) &&
-        !isAtRightOfViewport(element, container, threshold) &&
-        !isAtLeftOfViewport(element, container, threshold);
+const purgeOneElement = (elements, elementToPurge) => {
+	return elements.filter(element => element !== elementToPurge);
 };
 
 /* Creates instance and notifies it through the window element */
-const createInstance = function (classObj, options) {
-    var event;
-    let eventString = "LazyLoad::Initialized";
-    let instance = new classObj(options);
-    try {
-        // Works in modern browsers
-        event = new CustomEvent(eventString, { detail: { instance } });
-    }
-    catch(err) {
-        // Works in Internet Explorer (all versions)
-        event = document.createEvent("CustomEvent");
-        event.initCustomEvent(eventString, false, false, { instance });
-    }
-    window.dispatchEvent(event);
+const createInstance = function(classObj, options) {
+	var event;
+	let eventString = "LazyLoad::Initialized";
+	let instance = new classObj(options);
+	try {
+		// Works in modern browsers
+		event = new CustomEvent(eventString, { detail: { instance } });
+	} catch (err) {
+		// Works in Internet Explorer (all versions)
+		event = document.createEvent("CustomEvent");
+		event.initCustomEvent(eventString, false, false, { instance });
+	}
+	window.dispatchEvent(event);
 };
 
 /* Auto initialization of one or more instances of lazyload, depending on the
     options passed in (plain object or an array) */
-var autoInitialize = function (classObj, options) {
-    let optsLength = options.length;
-    if (!optsLength) {
-        // Plain object
-        createInstance(classObj, options);
-    }
-    else {
-        // Array of objects
-        for (let i = 0; i < optsLength; i++) {
-            createInstance(classObj, options[i]);
-        }
-    }
+function autoInitialize(classObj, options) {
+	if (!options) {
+		return;
+	}
+	if (!options.length) {
+		// Plain object
+		createInstance(classObj, options);
+	} else {
+		// Array of objects
+		for (let i = 0, optionsItem; (optionsItem = options[i]); i += 1) {
+			createInstance(classObj, optionsItem);
+		}
+	}
+}
+
+const callbackIfSet = (callback, argument) => {
+	if (callback) {
+		callback(argument);
+	}
 };
 
-const dataPrefix = "data-";
-
-const getData = (element, attribute) => {
-    return element.getAttribute(dataPrefix + attribute);
+const updateLoadingCount = (instance, plusMinus) => {
+	instance._loadingCount += plusMinus;
+	if (instance._elements.length === 0 && instance._loadingCount === 0) {
+		callbackIfSet(instance._settings.callback_finish);
+	}
 };
 
-const setData = (element, attribute, value) => {
-    return element.setAttribute(dataPrefix + attribute, value);
+const getSourceTags = parentTag => {
+	let sourceTags = [];
+	for (let i = 0, childTag; (childTag = parentTag.children[i]); i += 1) {
+		if (childTag.tagName === "SOURCE") {
+			sourceTags.push(childTag);
+		}
+	}
+	return sourceTags;
 };
 
-const setSourcesForPicture = function (element, srcsetDataAttribute) {
-    const parent = element.parentNode;
-    if (parent && parent.tagName !== "PICTURE") {
-        return;
-    }
-    for (let i = 0; i < parent.children.length; i++) {
-        let pictureChild = parent.children[i];
-        if (pictureChild.tagName === "SOURCE") {
-            let sourceSrcset = getData(pictureChild, srcsetDataAttribute);
-            if (sourceSrcset) {
-                pictureChild.setAttribute("srcset", sourceSrcset);
-            }
-        }
-    }
+const setAttributeIfValue = (element, attrName, value) => {
+	if (!value) {
+		return;
+	}
+	element.setAttribute(attrName, value);
 };
 
-var setSources = function (element, srcsetDataAttribute, srcDataAttribute) {
-    const tagName = element.tagName;
-    const elementSrc = getData(element, srcDataAttribute);
-    if (tagName === "IMG") {
-        setSourcesForPicture(element, srcsetDataAttribute);
-        const imgSrcset = getData(element, srcsetDataAttribute);
-        if (imgSrcset) {
-            element.setAttribute("srcset", imgSrcset);
-        }
-        if (elementSrc) {
-            element.setAttribute("src", elementSrc);
-        }
-        return;
-    }
-    if (tagName === "IFRAME") {
-        if (elementSrc) {
-            element.setAttribute("src", elementSrc);
-        }
-        return;
-    }
-    if (elementSrc) {
-        element.style.backgroundImage = `url("${elementSrc}")`;
-    }
+const setImageAttributes = (element, settings) => {
+	setAttributeIfValue(
+		element,
+		"sizes",
+		getData(element, settings.data_sizes)
+	);
+	setAttributeIfValue(
+		element,
+		"srcset",
+		getData(element, settings.data_srcset)
+	);
+	setAttributeIfValue(element, "src", getData(element, settings.data_src));
 };
 
-const runningOnBrowser = (typeof window !== "undefined");
+const setSourcesImg = (element, settings) => {
+	const parent = element.parentNode;
 
-const supportsClassList = runningOnBrowser && ("classList" in document.createElement("p"));
+	if (parent && parent.tagName === "PICTURE") {
+		let sourceTags = getSourceTags(parent);
+		sourceTags.forEach(sourceTag => {
+			setImageAttributes(sourceTag, settings);
+		});
+	}
+
+	setImageAttributes(element, settings);
+};
+
+const setSourcesIframe = (element, settings) => {
+	setAttributeIfValue(element, "src", getData(element, settings.data_src));
+};
+
+const setSourcesVideo = (element, settings) => {
+	let sourceTags = getSourceTags(element);
+	sourceTags.forEach(sourceTag => {
+		setAttributeIfValue(
+			sourceTag,
+			"src",
+			getData(sourceTag, settings.data_src)
+		);
+	});
+	setAttributeIfValue(element, "src", getData(element, settings.data_src));
+	element.load();
+};
+
+const setSourcesBgImage = (element, settings) => {
+	const srcDataValue = getData(element, settings.data_src);
+	const bgDataValue = getData(element, settings.data_bg);
+
+	if (srcDataValue) {
+		element.style.backgroundImage = `url("${srcDataValue}")`;
+	}
+
+	if (bgDataValue) {
+		element.style.backgroundImage = bgDataValue;
+	}
+};
+
+const setSourcesFunctions = {
+	IMG: setSourcesImg,
+	IFRAME: setSourcesIframe,
+	VIDEO: setSourcesVideo
+};
+
+const setSources = (element, instance) => {
+	const settings = instance._settings;
+	const tagName = element.tagName;
+	const setSourcesFunction = setSourcesFunctions[tagName];
+	if (setSourcesFunction) {
+		setSourcesFunction(element, settings);
+		updateLoadingCount(instance, 1);
+		instance._elements = purgeOneElement(instance._elements, element);
+		return;
+	}
+	setSourcesBgImage(element, settings);
+};
 
 const addClass = (element, className) => {
-    if (supportsClassList) {
-        element.classList.add(className);
-        return;
-    }
-    element.className += (element.className ? " " : "") + className;
+	if (supportsClassList) {
+		element.classList.add(className);
+		return;
+	}
+	element.className += (element.className ? " " : "") + className;
 };
 
 const removeClass = (element, className) => {
-    if (supportsClassList) {
-        element.classList.remove(className);
-        return;
-    }
-    element.className = element.className.replace(new RegExp("(^|\\s+)" + className + "(\\s+|$)"), " ").replace(/^\s+/, "").replace(/\s+$/, "");
+	if (supportsClassList) {
+		element.classList.remove(className);
+		return;
+	}
+	element.className = element.className.
+		replace(new RegExp("(^|\\s+)" + className + "(\\s+|$)"), " ").
+		replace(/^\s+/, "").
+		replace(/\s+$/, "");
 };
 
-/*
- * Constructor
- */
+const genericLoadEventName = "load";
+const mediaLoadEventName = "loadeddata";
+const errorEventName = "error";
 
-const LazyLoad = function(instanceSettings) {
-    this._settings = Object.assign({}, getDefaultSettings(), instanceSettings);
-    this._queryOriginNode = this._settings.container === window ? document : this._settings.container;
+const addEventListener = (element, eventName, handler) => {
+	element.addEventListener(eventName, handler);
+};
 
-    this._previousLoopTime = 0;
-    this._loopTimeout = null;
-    this._boundHandleScroll = this.handleScroll.bind(this);
+const removeEventListener = (element, eventName, handler) => {
+	element.removeEventListener(eventName, handler);
+};
 
-    this._isFirstLoop = true;
-    window.addEventListener("resize", this._boundHandleScroll);
-    this.update();
+const addEventListeners = (element, loadHandler, errorHandler) => {
+	addEventListener(element, genericLoadEventName, loadHandler);
+	addEventListener(element, mediaLoadEventName, loadHandler);
+	addEventListener(element, errorEventName, errorHandler);
+};
+
+const removeEventListeners = (element, loadHandler, errorHandler) => {
+	removeEventListener(element, genericLoadEventName, loadHandler);
+	removeEventListener(element, mediaLoadEventName, loadHandler);
+	removeEventListener(element, errorEventName, errorHandler);
+};
+
+const eventHandler = function(event, success, instance) {
+	var settings = instance._settings;
+	const className = success ? settings.class_loaded : settings.class_error;
+	const callback = success
+		? settings.callback_loaded
+		: settings.callback_error;
+	const element = event.target;
+
+	removeClass(element, settings.class_loading);
+	addClass(element, className);
+	callbackIfSet(callback, element);
+
+	updateLoadingCount(instance, -1);
+};
+
+const addOneShotEventListeners = (element, instance) => {
+	const loadHandler = event => {
+		eventHandler(event, true, instance);
+		removeEventListeners(element, loadHandler, errorHandler);
+	};
+	const errorHandler = event => {
+		eventHandler(event, false, instance);
+		removeEventListeners(element, loadHandler, errorHandler);
+	};
+	addEventListeners(element, loadHandler, errorHandler);
+};
+
+const managedTags = ["IMG", "IFRAME", "VIDEO"];
+
+const onEnter = (element, instance) => {
+	const settings = instance._settings;
+	callbackIfSet(settings.callback_enter, element);
+	if (!settings.load_delay) {
+		revealAndUnobserve(element, instance);
+		return;
+	}
+	delayLoad(element, instance);
+};
+
+const revealAndUnobserve = (element, instance) => {
+	var observer = instance._observer;
+	revealElement(element, instance);
+	if (observer && instance._settings.auto_unobserve) {
+		observer.unobserve(element);
+	}
+};
+
+const onExit = (element, instance) => {
+	const settings = instance._settings;
+	callbackIfSet(settings.callback_exit, element);
+	if (!settings.load_delay) {
+		return;
+	}
+	cancelDelayLoad(element);
+};
+
+const cancelDelayLoad = element => {
+	var timeoutId = getTimeoutData(element);
+	if (!timeoutId) {
+		return; // do nothing if timeout doesn't exist
+	}
+	clearTimeout(timeoutId);
+	setTimeoutData(element, null);
+};
+
+const delayLoad = (element, instance) => {
+	var loadDelay = instance._settings.load_delay;
+	var timeoutId = getTimeoutData(element);
+	if (timeoutId) {
+		return; // do nothing if timeout already set
+	}
+	timeoutId = setTimeout(function() {
+		revealAndUnobserve(element, instance);
+		cancelDelayLoad(element);
+	}, loadDelay);
+	setTimeoutData(element, timeoutId);
+};
+
+const revealElement = (element, instance, force) => {
+	var settings = instance._settings;
+	if (!force && getWasProcessedData(element)) {
+		return; // element has already been processed and force wasn't true
+	}
+	if (managedTags.indexOf(element.tagName) > -1) {
+		addOneShotEventListeners(element, instance);
+		addClass(element, settings.class_loading);
+	}
+	setSources(element, instance);
+	setWasProcessedData(element);
+	callbackIfSet(settings.callback_reveal, element);
+};
+
+const isIntersecting = entry => entry.intersectionRatio > 0;
+
+const getObserverSettings = settings => ({
+	root: settings.container === document ? null : settings.container,
+	rootMargin: settings.thresholds || settings.threshold + "px"
+});
+
+const setObserver = instance => {
+	if (!supportsIntersectionObserver) {
+		return false;
+	}
+	instance._observer = new IntersectionObserver(entries => {
+		entries.forEach(entry =>
+			isIntersecting(entry)
+				? onEnter(entry.target, instance)
+				: onExit(entry.target, instance)
+		);
+	}, getObserverSettings(instance._settings));
+	return true;
+};
+
+const LazyLoad = function(customSettings, elements) {
+	this._settings = getInstanceSettings(customSettings);
+	this._loadingCount = 0;
+	setObserver(this);
+	this.update(elements);
 };
 
 LazyLoad.prototype = {
+	update: function(elements) {
+		const settings = this._settings;
+		const nodeSet =
+			elements ||
+			settings.container.querySelectorAll(settings.elements_selector);
 
-    /*
-     * Private methods
-     */
+		this._elements = purgeProcessedElements(
+			Array.prototype.slice.call(nodeSet) // NOTE: nodeset to array for IE compatibility
+		);
 
-    _reveal: function (element) {
-        const settings = this._settings;
+		if (isBot || !this._observer) {
+			this.loadAll();
+			return;
+		}
 
-        const errorCallback = function () {
-            /* As this method is asynchronous, it must be protected against external destroy() calls */
-            if (!settings) { return; }
-            element.removeEventListener("load", loadCallback);
-            element.removeEventListener("error", errorCallback);
-            removeClass(element, settings.class_loading);
-            addClass(element, settings.class_error);
-            callCallback(settings.callback_error, element);
-        };
+		this._elements.forEach(element => {
+			this._observer.observe(element);
+		});
+	},
 
-        const loadCallback = function () {
-            /* As this method is asynchronous, it must be protected against external destroy() calls */
-            if (!settings) { return; }
-            removeClass(element, settings.class_loading);
-            addClass(element, settings.class_loaded);
-            element.removeEventListener("load", loadCallback);
-            element.removeEventListener("error", errorCallback);
-            callCallback(settings.callback_load, element);
-        };
+	destroy: function() {
+		if (this._observer) {
+			this._elements.forEach(element => {
+				this._observer.unobserve(element);
+			});
+			this._observer = null;
+		}
+		this._elements = null;
+		this._settings = null;
+	},
 
-        callCallback(settings.callback_enter, element);
-        if (element.tagName === "IMG" || element.tagName === "IFRAME") {
-            element.addEventListener("load", loadCallback);
-            element.addEventListener("error", errorCallback);
-            addClass(element, settings.class_loading);
-        }
-        setSources(element, settings.data_srcset, settings.data_src);
-        callCallback(settings.callback_set, element);
-    },
+	load: function(element, force) {
+		revealElement(element, this, force);
+	},
 
-    _loopThroughElements: function () {
-        const settings = this._settings,
-            elements = this._elements,
-            elementsLength = (!elements) ? 0 : elements.length;
-        let i,
-            processedIndexes = [],
-            firstLoop = this._isFirstLoop;
-
-        for (i = 0; i < elementsLength; i++) {
-            let element = elements[i];
-            /* If must skip_invisible and element is invisible, skip it */
-            if (settings.skip_invisible && (element.offsetParent === null)) {
-                continue;
-            }
-
-            if (isBot || isInsideViewport(element, settings.container, settings.threshold)) {
-                if (firstLoop) {
-                    addClass(element, settings.class_initial);
-                }
-                /* Start loading the image */
-                this._reveal(element);
-                /* Marking the element as processed. */
-                processedIndexes.push(i);
-                setData(element, "was-processed", true);
-            }
-        }
-        /* Removing processed elements from this._elements. */
-        while (processedIndexes.length) {
-            elements.splice(processedIndexes.pop(), 1);
-            callCallback(settings.callback_processed, elements.length);
-        }
-        /* Stop listening to scroll event when 0 elements remains */
-        if (elementsLength === 0) {
-            this._stopScrollHandler();
-        }
-        /* Sets isFirstLoop to false */
-        if (firstLoop) {
-            this._isFirstLoop = false;
-        }
-    },
-
-    _purgeElements: function () {
-        const elements = this._elements,
-            elementsLength = elements.length;
-        let i,
-            elementsToPurge = [];
-
-        for (i = 0; i < elementsLength; i++) {
-            let element = elements[i];
-            /* If the element has already been processed, skip it */
-            if (getData(element, "was-processed")) {
-                elementsToPurge.push(i);
-            }
-        }
-        /* Removing elements to purge from this._elements. */
-        while (elementsToPurge.length > 0) {
-            elements.splice(elementsToPurge.pop(), 1);
-        }
-    },
-
-    _startScrollHandler: function () {
-        if (!this._isHandlingScroll) {
-            this._isHandlingScroll = true;
-            this._settings.container.addEventListener("scroll", this._boundHandleScroll);
-        }
-    },
-
-    _stopScrollHandler: function () {
-        if (this._isHandlingScroll) {
-            this._isHandlingScroll = false;
-            this._settings.container.removeEventListener("scroll", this._boundHandleScroll);
-        }
-    },
-
-    /*
-     * Public methods
-     */
-
-    handleScroll: function () {
-        const throttle = this._settings.throttle;
-
-        if (throttle !== 0) {
-            let now = Date.now();
-            let remainingTime = throttle - (now - this._previousLoopTime);
-            if (remainingTime <= 0 || remainingTime > throttle) {
-                if (this._loopTimeout) {
-                    clearTimeout(this._loopTimeout);
-                    this._loopTimeout = null;
-                }
-                this._previousLoopTime = now;
-                this._loopThroughElements();
-            } else if (!this._loopTimeout) {
-                this._loopTimeout = setTimeout(function () {
-                    this._previousLoopTime = Date.now();
-                    this._loopTimeout = null;
-                    this._loopThroughElements();
-                }.bind(this), remainingTime);
-            }
-        } else {
-            this._loopThroughElements();
-        }
-    },
-
-    update: function () {
-        // Converts to array the nodeset obtained querying the DOM from _queryOriginNode with elements_selector
-        this._elements = Array.prototype.slice.call(this._queryOriginNode.querySelectorAll(this._settings.elements_selector));
-        this._purgeElements();
-        this._loopThroughElements();
-        this._startScrollHandler();
-    },
-
-    destroy: function () {
-        window.removeEventListener("resize", this._boundHandleScroll);
-        if (this._loopTimeout) {
-            clearTimeout(this._loopTimeout);
-            this._loopTimeout = null;
-        }
-        this._stopScrollHandler();
-        this._elements = null;
-        this._queryOriginNode = null;
-        this._settings = null;
-    }
+	loadAll: function() {
+		var elements = this._elements;
+		elements.forEach(element => {
+			revealAndUnobserve(element, this);
+		});
+	}
 };
 
-/* Automatic instances creation if required (useful for async script loading!) */
-let autoInitOptions = window.lazyLoadOptions;
-if (runningOnBrowser && autoInitOptions) {
-    autoInitialize(LazyLoad, autoInitOptions);
+/* Automatic instances creation if required (useful for async script loading) */
+if (runningOnBrowser) {
+	autoInitialize(LazyLoad, window.lazyLoadOptions);
 }
 
-return LazyLoad;
-
-})));
+module.exports = LazyLoad;
