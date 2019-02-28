@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_170321) do
+ActiveRecord::Schema.define(version: 2019_02_28_184152) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -127,11 +127,12 @@ ActiveRecord::Schema.define(version: 2018_12_11_170321) do
 #   Unknown type 'polygon' for column 'ip_range'
 
   create_table "stats_raw", id: false, options: "ENGINE=Aria DEFAULT CHARSET=utf8 PAGE_CHECKSUM=1", force: :cascade do |t|
-    t.string "session_id", limit: 32, null: false
+    t.string "session_id", limit: 32
     t.string "country"
     t.string "browser_name"
     t.float "browser_version"
     t.string "url_path"
+    t.boolean "dark_mode", default: false
     t.datetime "recorded_at"
   end
 

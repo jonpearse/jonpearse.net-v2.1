@@ -19,12 +19,14 @@ gem 'babosa', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
 gem 'image_processing', '~> 1.2'
 gem 'simple_ar_localizer', '~> 1.0'
+gem 'browser', '~> 2.5.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Stuff used in rake
 gem 'colorize', '~> 0.8.1'
+gem 'rake-progressbar', '~> 0.0.5', require: false
 
 group :development do
 

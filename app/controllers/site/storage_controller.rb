@@ -1,6 +1,6 @@
 class Site::StorageController < Site::BaseController
 
-  # skip_after_action :record_visit
+  skip_after_action :record_visit
 
   before_action do
     ActiveStorage::Current.host = request.base_url
