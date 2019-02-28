@@ -116,12 +116,21 @@
 /// ==========================================================================
 .nav__item {
 
+  &.-dmt span {
+    display: inline-block;
+    margin-left: .3em;
+  }
+
   @include mq($until: small) {
     &:not(.-sm) { border-top: 1px solid var(--smoke-2); }
   }
 
   @include mq(small) {
     &.-sm { display: none; }
+    &.-dmt span {
+      position: absolute;
+      transform: scale(0);
+    }
 
     &.-sm + & ~ & {
       position: relative;
@@ -137,7 +146,7 @@
     }
   }
 
-  // hide the dark mode toggle
+  // hide the dark mode toggle when it’s controlled by the OS
   @media (prefers-color-scheme: dark)
   {
     &.-dmt { display: none; }
