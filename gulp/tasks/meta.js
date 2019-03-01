@@ -62,7 +62,6 @@ gulp.task( 'metadata-sw-compile', () => serviceWorkerBase( '_dev' ).pipe( gulp.d
 gulp.task( 'metadata-sw-build', () =>
 {
   const sDateStamp = ( new Date().toISOString()).replace( /[^0-9T]/g, '' ).replace( /T(\d{4}).*$/, 'T$1' );
-  console.log( sDateStamp );
   return serviceWorkerBase( sDateStamp )
           .pipe( uglify() )
           .pipe( gulp.dest( PATHS.output ));
