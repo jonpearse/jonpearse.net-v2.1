@@ -77,3 +77,26 @@ namespace :deploy do
   end
 
 end
+
+namespace :jjp do
+
+  desc "Rebuild RSS feeds"
+  task :build_feeds do
+
+    on primary( :app ) do
+
+      within release_path do
+
+        with rails_env: fetch( :rails_env ) do
+
+          execute :rake, 'jjp2:rss:generatee'
+
+        end
+
+      end
+
+    end
+
+  end
+
+end

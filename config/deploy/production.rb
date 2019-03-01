@@ -14,5 +14,5 @@ server "jonpearse.net", user: :jon, roles: [ :web, :app, :db ]
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :branch, :master
-set :deploy_to, "/home/jon/sites/jjp2.1"
+set :branch, :develop
+set :deploy_to, "/home/jon/sites/jjp21"
