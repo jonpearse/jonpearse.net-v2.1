@@ -1,6 +1,6 @@
 class Site::SettingsController < Site::BaseController
 
-  skip_after_action :toggle_dark_mode
+  skip_after_action :record_visit
 
   def toggle_dark_mode
 
