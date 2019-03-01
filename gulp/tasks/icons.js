@@ -51,5 +51,5 @@ module.exports = {
     files: PATHS.watch,
     tasks: [ 'icons' ]
   },
-  build: [ '!icons' ]
+  build: [ '!!icons' ]
 }
