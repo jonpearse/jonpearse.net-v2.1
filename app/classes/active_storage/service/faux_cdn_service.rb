@@ -13,13 +13,13 @@ module ActiveStorage
 
     end
 
-    def upload( key, io, checksum: nil )
+    def upload( key, io, checksum: nil, ** )
 
       # call up
       super
 
-      # get the MIME type + move the file
-      suffix = Rack::Mime::MIME_TYPES.invert[ Marcel::MimeType.for( io ) ]
+      # get the suffix and path to the file
+      suffix = File.extname( io.path )
       file   = path_for( key, '' )
       File.rename( file, "#{file}#{suffix}" ) if File.exists?( file )
 
