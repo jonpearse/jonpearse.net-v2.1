@@ -89,7 +89,7 @@ namespace :jjp do
 
         with rails_env: fetch( :rails_env ) do
 
-          execute :rake, 'jjp2:rss:generatee'
+          execute :rake, 'jjp2:rss:generate'
 
         end
 
