@@ -72,9 +72,16 @@ class Media < ApplicationRecord
 
     end
 
+    # @TODO: get this working sensibly
     def update_aspect_ratio
 
-      ar = ( file.blob.metadata['width'].to_f / file.blob.metadata['height'].to_f ) rescue 1.0
+      ar = 1.0
+
+      if file.blob.metadata.key?( 'width' ) and file.blob.metadata.key?( 'height' )
+
+        ar = ( file.blob.metadata['width'].to_f / file.blob.metadata['height'].to_f ) rescue 1.0
+
+      end
 
       write_attribute( :aspect_ratio, ar )
 
