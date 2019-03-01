@@ -74,6 +74,7 @@
   .form__input[type=checkbox] ~ & {
     position: relative;
     padding-left: 3em;
+    cursor: pointer;
 
     @include fwt(normal);
 
