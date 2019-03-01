@@ -1,0 +1,121 @@
+/// ==========================================================================
+/// #
+/// # Styles for media uploader
+/// #
+/// ==========================================================================
+
+.media-upload {
+  position: relative;
+  --inlay: transparent;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+
+  padding: rem(30);
+  margin: 0 0 rem(50);
+  border: 2px dashed var(--border);
+  border-radius: rem(10);
+
+  box-shadow: inset var(--inlay) 0 0 20px 5px;
+
+  transition: border .25s, box-shadow .25s;
+
+  background: var(--background);
+
+  @include fsz(larger);
+
+  &.-hover {
+    --inlay: var(--accent1_lo);
+    border: 2px solid var(--accent1_lo);
+  }
+}
+
+.media-upload__prompt .svg-icon {
+  display: block;
+  margin: 1em auto .5em;
+
+  height: 2em;
+  width:  2em;
+}
+
+/// Hide the input + make the label look more like a button
+/// ==========================================================================
+.media-upload__label {
+  .-uploading & { display: none; }
+}
+
+/// Close button
+/// ==========================================================================
+.media-upload__close {
+  position: absolute;
+  top:   rem(15);
+  right: rem(15);
+
+  height: 2em;
+  width:  2em;
+
+  svg { height: 100%; width: 100%; }
+}
+
+/// Progress stuff
+/// ==========================================================================
+.media-upload__status {
+  display: none;
+  text-align: center;
+  width: 50%;
+  max-width: rem(400);
+
+  .-uploading & { display: block; }
+}
+
+.media-upload__status-text { margin-bottom: .7em; }
+
+@keyframes barberpole {
+  from { background-position:   0  0; }
+  to   { background-position: 100% 0; }
+}
+
+.media-upload__progress {
+  position: relative;
+  appearance: none;
+
+  height: rem(20);
+  width: 100%;
+
+  // our own pseudos
+  &::before,
+  &::after {
+    position: absolute;
+
+    top:    0;
+    left:   0;
+    height: 100%;
+    width:  100%;
+
+    content: '';
+  }
+
+  &:not([value])::before {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--accent1_lo),
+      var(--accent1_lo) rem(10),
+      transparent rem(10),
+      transparent rem(20)
+    );
+    background-size: rem(28) rem(28);
+    animation: barberpole 5s linear infinite;
+  }
+
+  &::after { box-shadow: inset rgba(0, 0, 0, .4) 0 0 rem(3) 0; }
+
+  // browser pseudos
+  &::-webkit-progress-bar { background: var(--midground); }
+
+  &::-webkit-progress-value {
+    background: var(--accent1_lo);
+    transition: width 250ms;
+  }
+}

@@ -1,0 +1,143 @@
+/// ==========================================================================
+/// #
+/// # Typography
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Load Fonts
+/// ==========================================================================
+// sass-lint:disable indentation
+@font-face {
+  font-family: ffm(header-special);
+  font-weight: fwt(bold);
+  font-display: fallback;
+  src: local('Cabin Medium'), local('Cabin-Medium'),
+       url('cabin-medium.woff2') format('woff2'),
+       url('cabin-medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(normal);
+  font-display: fallback;
+  src: local('Raleway Light'), local('Raleway-Light'),
+       url('raleway-light.woff2') format('woff2'),
+       url('raleway-light.woff') format('woff');
+}
+
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(normal);
+  font-style:  italic;
+  font-display: fallback;
+  src: local('Raleway Light Italic'), local('Raleway-LightItalic'),
+       url('raleway-lightitalic.woff2') format('woff2'),
+       url('raleway-lightitalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: ffm(base-special);
+  font-weight: fwt(semi);
+  font-display: fallback;
+  src: local('Raleway Medium'), local('Raleway-Medium'),
+       url('raleway-medium.woff2') format('woff2'),
+       url('raleway-medium.woff') format('woff');
+}
+// scss-lint:enable indentation
+
+/// ==========================================================================
+/// # Let’s do some scaling
+/// ==========================================================================
+html {
+  font-size: 80%;
+
+  @include mq(small)  { font-size: 90%;  }
+  @include mq(medium) { font-size: 100%; }
+}
+
+/// ==========================================================================
+/// # Everything else
+/// ==========================================================================
+body {
+  font: fwt(normal) #{fsz(base)}/#{fld(base)} ffm(base);
+  letter-spacing: .3px;
+  animation: fadeIn .1s both;
+
+  .wf-raleway &,
+  .wf-assumed & {
+    font-family: ffm(base-special), ffm(base);
+    letter-spacing: 0;
+  }
+}
+
+strong { font-weight: fwt(semi); }
+em     { font-style: italic; }
+
+small,
+time {
+  color: var(--grey-3);
+  font-size: fsz(small);
+}
+
+/// Headings
+/// ==========================================================================
+h1,
+h2,
+h3 {
+  font: fwt(bold) 1rem/1em ffm(headers);
+  letter-spacing: -.7px;
+
+  .wf-assumed &,
+  .wf-cabin & { font-family: ffm(header-special), ffm(headers); letter-spacing: 0; }
+}
+
+h1 {
+  margin: 0;
+  @include fsz(primary);
+}
+
+h2 {
+  margin: 1.5em 0 .5em;
+  @include fsz(secondary);
+
+  &.c {
+    margin-bottom: 2em;
+    text-align: center;
+  }
+
+  @include mq($until: small) { line-height: 1.5; }
+}
+
+h3 {
+  margin: 1.5em 0 .5em;
+  @include fsz(tertiary);
+}
+
+/// Other stuff
+/// ==========================================================================
+p { margin: 1em 0; }
+
+blockquote {
+  padding: dimension(gutter);
+  margin: 2em 0;
+  border: 1px solid var(--bq-bd);
+  border-radius: rem(5);
+
+  background: var(--bq-bg);
+  color: var(--bq-tx);
+
+  @include mq(small) { margin: 2em dimension(padding); }
+}
+
+/// Lists: constrain to within type blocks
+/// ==========================================================================
+.t {
+  ul,
+  ol { margin: 1em 0 1em 2em; }
+
+  ul { list-style: disc outside; }
+  ol { list-style: decimal outside; }
+
+  li { margin: .3em 0; }
+}

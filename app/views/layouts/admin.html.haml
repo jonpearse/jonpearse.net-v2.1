@@ -1,0 +1,18 @@
+!!!
+%html.no-js{ lang: 'en-GB' }
+  = render partial: 'layouts/admin/head'
+
+  %body.page{ class: ( user_signed_in? ? '-logged-in' : '-logged-out' )}
+    -# Icon spritesheet
+    .svg-icon-defs= asset_contents( 'icons-admin.svg' ).html_safe
+
+    = render partial: 'layouts/admin/banner'
+    = render partial: 'layouts/admin/nav'
+
+    %main.page__main
+      = render partial: 'layouts/admin/flashes'
+
+      .page__content= yield
+
+    = yield :templates
+    = render partial: 'layouts/admin/js'

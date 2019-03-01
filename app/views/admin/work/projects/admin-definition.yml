@@ -1,0 +1,23 @@
+---
+
+form:
+  fields:
+    title:  text
+    preview:  media
+    description:
+      type: text
+      multiline: true
+    client: content-select
+    techs: tags
+
+    online:
+      type: group
+      fields:
+        live: checkbox
+        live_date: date
+        uri: url
+
+    publishing:
+      type: group
+      fields:
+        published: checkbox

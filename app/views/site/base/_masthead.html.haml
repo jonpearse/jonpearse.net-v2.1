@@ -1,0 +1,37 @@
+-# Set some defaults
+:ruby
+  background      ||= 'site/cuben.svg'
+  add_class       ||= nil
+  title           ||= @page_title
+  hide_title      ||= false
+  block_position  ||= :none
+
+  # parse some classes
+  unless add_class.nil?
+
+    add_class = [ add_class ] unless add_class.is_a?( Array )
+    add_class = classnames( add_class, 'masthead--' )
+
+  end
+
+  # get some content
+  content = yield.strip
+
+%header.masthead{ class: add_class }
+
+  -# if we have a title
+  - if block_position == :title && !content.blank?
+    .block.-alt= content.html_safe
+  - elsif !title.blank?
+    %h1.masthead__title.block.-alt{ class: ( hide_title ? 'a11y' : nil )}= title
+
+  -# Content
+  .masthead__content.rimg
+    - if background.is_a?( String )
+      .masthead__background.rimg__container= image_tag( background, alt: '', class: 'masthead__background-image rimg__image' )
+    - else
+      .masthead__background.rimg__container{ style: "background-color: ##{background.colour}" }
+        = lazyloaded_image_tag( background, blur: true, default: 768, dimensions: [ 1400, 1200, 1024, 768, 640, 320 ], html: { alt: '', class: 'masthead__background-image rimg__image rimg__image--blur', 'aria-hidden': true })
+
+    - if block_position == :content && !content.blank?
+      .masthead__copy= content.html_safe

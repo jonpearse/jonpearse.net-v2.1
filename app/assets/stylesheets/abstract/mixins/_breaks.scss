@@ -1,0 +1,21 @@
+/// ==========================================================================
+/// # Generates some ::before pseudos that contain breakpoint information.
+/// ==========================================================================
+@mixin bootstrap-breakpoints($pseudo: 'before')
+{
+  &::#{$pseudo} {
+    position:   absolute;
+    visibility: hidden;
+    overflow:   hidden;
+
+    height: 0;
+    width:  0;
+
+    font-family: '#{$mq-breakpoints}';
+
+    @each $break, $dim in $mq-breakpoints
+    {
+      @include mq($break) { content: quote($break); }
+    }
+  }
+}

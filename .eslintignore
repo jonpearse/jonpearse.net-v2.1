@@ -1,0 +1,4 @@
+gulpfile.js
+gulp/*
+app/assets/javascripts/vendor/*
+app/assets/javascripts/util/wysiwyg/instance/*-loader.js

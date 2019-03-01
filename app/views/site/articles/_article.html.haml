@@ -1,0 +1,12 @@
+- hide_summary ||= false
+%article
+  - if hide_summary
+    %strong= link_to article.title, article
+    %br
+    %time{ datetime: article.published_on }= format_date( article.published_on )
+  - else
+    %header
+      %h2= link_to article.title, article
+      %time{ datetime: article.published_on }= format_date( article.published_on )
+    .content
+      %p= article.summary.html_safe

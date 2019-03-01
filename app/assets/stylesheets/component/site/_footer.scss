@@ -1,0 +1,45 @@
+/// ==========================================================================
+/// #
+/// # Footer styles
+/// #
+/// ==========================================================================
+
+.footer {
+  display: block;
+  border-top: 1px solid var(--grey-2);
+  padding: rem(10) 0;
+  @include fsz(small);
+
+  @supports (display: grid) { border-top-color: var(--smoke-2); }
+
+  @include mq($until: tiny) { padding: rem(20) 0; }
+}
+
+.footer__inner {
+  @include mq($until: tiny) { flex-direction: column; }
+}
+
+.footer__copy {
+  margin: 0 0 1em;
+  font-weight: fwt(normal);
+
+  @include mq(tiny) { margin: 0; }
+}
+
+.footer__contact {
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 1.2em;
+
+    &.svg-icon--phone {
+      margin-right: .3em;
+      width: 1em;
+    }
+  }
+
+  li + li { margin-left: 1.5em; }
+
+  a { border: 0; }
+}

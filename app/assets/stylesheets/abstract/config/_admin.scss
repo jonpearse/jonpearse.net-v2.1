@@ -1,0 +1,65 @@
+@import 'common';
+
+/// ==========================================================================
+/// # TEXT CONFIGURATION
+/// ==========================================================================
+
+/// # FONT FAMILIES: for use with ffm() mixin
+/// ==========================================================================
+$font-families: (
+  base: 'Roboto, sans-serif',
+  mono: monospace
+);
+
+/// # FONT SIZES: for use with the fsz() mixin
+/// ==========================================================================
+$font-sizes: (
+  base:      ( size: 16, leading: 1.5 ),
+  small:     ( size: 14, leading: 1.5 ),
+  larger:    ( size: 22, leading: 1.5 ),
+  smallest:  ( size: 12, leading: 1.5 ),
+
+  bigTitle:  ( size: 30, leading: 1 ),
+  primary:   ( size: 26, leading: 1 ),
+  secondary: ( size: 20, leading: 1 ),
+  tertiary:  ( size: 18, leading: 1.5 ),
+
+  // button sizes
+  defaultButton: ( size: 16, leading: 1.4 ),
+  largeButton:   ( size: 20, leading: 1.4 ),
+  smallButton:   ( size: 14, leading: 1.4 ),
+  tinyButton:    ( size: 12, leading: 1.4 ),
+
+  // nav
+  navMain:       ( size: 18, leading: 1 ),
+  navSecondary:  ( size: 16, leading: 1.6 )
+);
+
+/// # WEIGHTS: for use with fwt() mixin
+/// ==========================================================================
+$font-weights: (
+  normal: 300,
+  semi:   400,
+  bold:   700
+);
+
+/// ==========================================================================
+/// # DIMENSIONS
+///
+/// These are scalar ‘magic numbers used throughout the site’
+/// ==========================================================================
+
+/// ==========================================================================
+/// # BREAKPOINTS
+///
+/// Breakpoints are defined using sass-mq. Note: these must be defined in px
+/// ==========================================================================
+$mq-breakpoints: (
+  small:   640px,
+  medium:  768px,
+  large:   960px,
+  huge:    1200px,
+  vhuge:   1400px
+);
+
+$mq-debug: true;

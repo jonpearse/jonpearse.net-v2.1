@@ -1,0 +1,38 @@
+/// ==========================================================================
+/// #
+/// # Content select styles
+/// #
+/// ==========================================================================
+
+.content-select {
+  width: 90%;
+  max-width: rem(400);
+}
+
+/// Search
+/// ==========================================================================
+.content-select__search {
+  @extend %form__input;
+
+  width: 100%;
+
+  .content-select.-single.-no-search & { display: none; }
+}
+
+/// Instance holder
+/// ==========================================================================
+.content-select__instances {
+
+  &:empty { display: none; }
+}
+
+.content-select__instance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: .5em .8em;
+  border: 1px solid var(--keyline);
+
+  & + & { border-top: 0; }
+}

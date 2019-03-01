@@ -1,0 +1,33 @@
+:ruby
+
+  # default some things
+  field[:allow_create] ||= false
+
+  # get a relationship and check it exists
+  field[:relationship] ||= field[:field]
+  relation = form.object.class.reflect_on_association( field[:relationship] )
+  return if relation.nil?
+
+  # get a class and FK (used for the actual fieldname)
+  klass = relation.klass || relation.options[:class_name]
+  foreign_key = ( relation.options[:association_foreign_key] || relation.options[:foreign_key] || klass.name.foreign_key ).to_s
+
+  # load any existing values
+  values = @content.send( field[:relationship] )
+
+  # get some AJAX endpoints
+  select_endpoint = cms_path_for( klass, :index, format: :json )
+  create_endpoint = field[:allow_create] ? cms_path_for( klass, :create, format: :json ) : nil
+
+= field_wrapper( local_assigns ) do
+  = label_element( local_assigns )
+
+  .taggable{ data: { behaviour: :taggable, endpoint: select_endpoint, create: create_endpoint, id: "#{form.object_name}_#{field[:field]}" }}
+    -# Trigger field
+    %input{ type: :hidden, name: "#{form.object_name}[#{foreign_key.pluralize}][]", data: { trigger: true }}
+
+    -# output any values
+    - values.each do |v|
+      %span.taggable__instance<
+        %input{ type: :hidden, name: "#{form.object_name}[#{foreign_key.pluralize}][]", value: v.id }
+        = v.to_s

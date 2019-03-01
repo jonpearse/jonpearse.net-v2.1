@@ -1,0 +1,21 @@
+- definition = list_definition
+
+%table.content-list__table.content-table{ class: "-#{@model_class.to_s.downcase}" }
+  %thead.content-table__header
+    %tr
+      - if definition.nil?
+        = render partial: partial_for( :list_top )
+      - else
+        = render partial: 'admin/cms/index/dynamic/top', locals: { columns: definition[:columns] }
+      %th.content-table__actions{ scope: :col }
+        %span.a11y  Actions
+
+  %tbody.content-table__body
+    - @content.each do |content|
+      %tr.content-table__row{ id: "#{@model_class.to_s.downcase}.#{content.id}" }
+        - if definition.nil?
+          = render partial: partial_for( :list_row ), locals: { content: content }
+        - else
+          = render partial: 'admin/cms/index/dynamic/item', locals: { content: content, columns: definition[:columns] }
+
+        %td.content-table__actions= render partial: partial_for( :actions ), locals: { content: content }

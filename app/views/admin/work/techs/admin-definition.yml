@@ -1,0 +1,9 @@
+---
+form:
+  fields:
+    name: text
+    icon:
+      type: text
+      multiline: true
+      wysiwyg: false
+      required: false

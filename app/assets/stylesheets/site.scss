@@ -1,0 +1,31 @@
+@charset 'utf-8';
+
+// ==========================================================================
+// # MAIN ADMIN CSS FILE. Include ALL THE THINGS
+// ==========================================================================
+
+// 0. config
+@import 'abstract/config/site';
+
+// 1. abstracts
+@import 'abstract/functions/*';
+@import 'abstract/mixins/*';
+@import 'abstract/animations/site';
+
+// 2. vendor-provided stuff—probably safe to glob
+@import 'vendor/*';
+
+// 3. everything in base
+@import 'base/reset.smol';
+@import 'base/base/common';
+@import 'base/base/site';
+@import 'base/type/common';
+@import 'base/type/site';
+
+// 4. all layout—this should be glob-safe, so we’ll do it that way
+@import 'layout/common/*';
+@import 'layout/site/*';
+
+// 5. all components—again, this should be glob-safe
+@import 'component/common/*';
+@import 'component/site/*';

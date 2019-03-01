@@ -1,0 +1,77 @@
+@import 'common';
+
+// ==========================================================================
+// # TEXT CONFIGURATION
+// ==========================================================================
+
+// # FONT FAMILIES: for use with ffm() mixin
+// ==========================================================================
+$font-families: (
+  base:     'Tahoma, sans-serif',
+  headers:  'Tahoma, sans-serif',
+  mono:     'Courier New, Courier, monospace',
+
+  base-special: 'Raleway',
+  header-special: 'Cabin'
+);
+
+// # FONT SIZES: for use with the fsz() mixin
+// ==========================================================================
+$font-sizes: (
+
+  // normal font sizes
+  base:       ( size: 20, leading: 1.4 ),
+  inter:      ( size: 18, leading: 1.4 ),
+  small:      ( size: 16, leading: 1.4 ),
+  smallest:   ( size: 14, leading: 1.4 ),
+
+  // heading
+  primary:    ( size: 36, leading: 1.2 ),
+  secondary:  ( size: 26, leading: 1.2 ),
+  tertiary:   ( size: 22, leading: 1.2 ),
+
+  // specials
+  wordmark:   ( size: 28, leading: 1 ),
+  masthead:   ( size: 36, leading: 1.5 ),
+  intro:      ( size: 24, leading: 1.5 )
+
+);
+
+// # WEIGHTS: for use with fwt() mixin
+// ==========================================================================
+$font-weights: (
+  normal: 300,
+  semi:   500,
+  bold:   500
+);
+
+// ==========================================================================
+// # DIMENSIONS
+//
+// These are scalar ‘magic’ numbers used throughout the site
+// ==========================================================================
+
+// # Base dimensions: note, these should all be in bare px (will be converted
+//   later)
+// ==========================================================================
+$dimensions: (
+  padding:    40,
+  gutter:     20,
+  keyline:    1,
+  max-width:  1200,
+  max-text:   1000
+);
+
+// ==========================================================================
+// # BREAKPOINTS
+//
+// Breakpoints are defined using sass-mq. Note: these must be defined in px
+// ==========================================================================
+$mq-breakpoints: (
+  tiny:   500px,
+  small:  550px,
+  medium: 750px,
+  large:  960px
+);
+
+$mq-debug: true;

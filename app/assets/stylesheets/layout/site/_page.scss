@@ -1,0 +1,17 @@
+/// ==========================================================================
+/// #
+/// # Page styles: mostly for sideloaded content.
+/// #
+/// ==========================================================================
+
+.js-page {
+  &.-loading {
+    transition: opacity .2s ease-out;
+
+    &.-out {
+      opacity: 0;
+      transition-duration: .1s;
+      transition-timing-function: ease-in;
+    }
+  }
+}

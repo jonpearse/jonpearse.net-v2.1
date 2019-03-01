@@ -1,0 +1,20 @@
+-# Page title + stuff
+- @page_title = 'Jon Pearse — Freelance full-stack web developer in Cardiff, UK'
+
+-# Render a masthead
+- content_for( :masthead ) do
+  = render layout: 'masthead', locals: { title: 'Home', hide_title: true, add_class: 'tall', block_position: :content } do
+    = render_snippet( 'home.masthead' )
+
+-# Intro text
+= render_block( classes: %w{ alt large }, container_classes: '-narrow', text: true ) do
+  = render_snippet( 'home.intro' )
+
+-# Latest projects
+- unless @projects.empty?
+  = render_block( classes: %w{ moar-bottom #nc }, element: :section ) do
+    %h2.c Latest Work
+
+    %ul.halves
+      - @projects.each do |project|
+        %li= render project

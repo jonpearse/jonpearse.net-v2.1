@@ -1,0 +1,63 @@
+/// ==========================================================================
+/// #
+/// # Various typography rules
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Load fonts
+/// ==========================================================================
+@font-face {
+  font-family: 'Roboto';
+  font-weight: fwt(normal);
+  src: local('Roboto Light'), local('Roboto-Light'), url('roboto-light.woff2') format('woff2'), url('roboto-light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: fwt(semi);
+  src: local('Roboto Regular'), local('Roboto-regular'), url('roboto-regular.woff2') format('woff2'), url('roboto-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: fwt(bold);
+  src: local('Roboto Bold'), local('Roboto-bold'), url('roboto-bold.woff2') format('woff2'), url('roboto-bold.woff') format('woff');
+}
+
+/// ==========================================================================
+/// # Style Definitions
+/// ==========================================================================
+body,
+input,
+select,
+textarea {
+  font: fwt(normal) #{fsz(base)}/#{fld(base)} ffm(base);
+}
+
+/// Paras
+/// ==========================================================================
+p { margin: 1em 0; }
+
+/// Headings
+/// ==========================================================================
+h1 {
+  margin: 0 0 2em;
+
+  font-size: fsz(bigTitle);
+  line-height: fld(bigTitle);
+}
+
+h2 {
+  margin: 2em 0 1em;
+
+  font-size: fsz(secondary);
+  line-height: fld(secondary);
+}
+
+h3 {
+  margin: 1em 0;
+
+  font-size: fsz(tertiary);
+  line-height: fld(tertiary);
+}

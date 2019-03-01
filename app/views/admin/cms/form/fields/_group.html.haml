@@ -1,0 +1,6 @@
+= field_wrapper( local_assigns.merge( css: 'flush' )) do
+  %fieldset.form__group
+    %h2.form__title= label_text_for( form.object, field[:field] )
+
+    -# render out our fields
+    = render partial: 'admin/cms/form/fields', locals: local_assigns.merge( fields: field[:fields] )

@@ -1,0 +1,11 @@
+-# Page title + stuff
+- @page_title = 'About me'
+- @unwrap_content = true
+
+-# Output the masthead
+- content_for( :masthead ) do
+  = render partial: 'masthead'
+
+-# Title
+= render_block( classes: %w{ #content }, container_classes: %w{ narrow long-form }) do
+  = render_snippet( 'about' )

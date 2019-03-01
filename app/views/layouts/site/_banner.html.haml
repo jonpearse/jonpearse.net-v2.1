@@ -1,0 +1,23 @@
+%header.banner
+  .container.-d.banner__inner
+    %strong.banner__wordmark
+      = link_to root_path, title: 'Go to the homepage' do
+        = asset_contents( 'site/wordmark.svg' ).html_safe
+
+    %nav.banner__nav.nav{ 'data-behaviour': :nav, 'data-page-nav': true }
+      %ul.nav__list
+        %li.nav__item.-sm
+          = link_to 'Home', root_path, class: "nav__link#{(( params[:controller] == 'site/pages' and params[:action] == 'home' ) ? ' -current' : '')}"
+        %li.nav__item
+          = link_to 'Work', projects_path, class: "nav__link#{( params[:controller] == 'site/projects' ? ' -current' : '')}", 'data-wildcard': true
+        %li.nav__item
+          = link_to 'Writing', articles_path, class: "nav__link#{( params[:controller] == 'site/articles' ? ' -current' : '')}", 'data-wildcard': true
+        %li.nav__item
+          = link_to 'About', about_path, class: "nav__link#{(( params[:controller] == 'site/pages' and params[:action] == 'about' ) ? ' -current' : '')}"
+        - if user_signed_in?
+          %li.nav__item
+            = link_to 'Manage', admin_root_path, class: 'nav__link'
+        %li.nav__item.-dmt
+          = link_to toggle_dark_mode_path, class: "nav__link no-ajax#{(( params[:controller] == 'site/settings' ) ? ' -current' : '')}", 'data-behaviour': 'toggle-dark-mode' do
+            = icon( 'dark-mode' )
+            %span Toggle dark mode

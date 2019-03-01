@@ -1,0 +1,65 @@
+/// ==========================================================================
+/// #
+/// # Two-factor UI: like forms, only slightly different
+/// #
+/// ==========================================================================
+
+.twofa-block {
+  margin: rem(40) auto;
+  padding: rem(20);
+  width: 80%;
+  max-width: rem(400);
+  min-width: rem(200);
+
+  background: var(--grey-0);
+}
+
+.twofa-block__qr {
+  margin: rem(20) auto;
+  width: 50%;
+
+  svg { display: block; }
+}
+
+/// Code input field
+/// ==========================================================================
+.twofa-block__code {
+  margin: rem(20) 0;
+}
+
+.twofa-block__input {
+  display: block;
+  appearance: textfield;
+  padding: .5em;
+  width: 4.8em;
+  margin: 0 auto;
+
+  font: fwt( normal ) fsz( primary ) / 1 ffm( base );
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button { appearance: none; }
+
+  .twofa-block__code.-error & {
+    border: rem(3) solid var(--negative-5);
+  }
+}
+
+.twofa-block__error {
+  display: block;
+  margin: .5em 0;
+
+  color: var(--negative-3);
+
+  @include fsz(secondary);
+  @include fwt(semi);
+  text-align: center;
+}
+
+/// Buttons
+/// ==========================================================================
+.twofa-block__buttons {
+  margin: rem(40) 0 0;
+  text-align: center;
+}

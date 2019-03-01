@@ -1,0 +1,14 @@
+:ruby
+  # I know that setting a tab-index on a non-interactive element is really, really bad, but this is a temporary-ish
+  # bodge until I can get a proper project page sorted + working. Until then, I figure The Internet will forgive me
+  link_tag  = project.uri.blank? ? :div : :a
+  link_attr = project.uri.blank? ? { tabindex: 0 } : { href: project.uri, rel: 'external nofollow noopener', 'data-behaviour': :softtouch }
+
+%article.project{ style: "background-color: ##{project.preview.colour}" }
+  = tag.send( link_tag, link_attr.merge( class: 'project__link' )) do
+    .project__content
+      %strong.project__name{ role: :heading, 'aria-level': 3 }
+        = project.title
+        = icon( 'ext-link' ) unless project.uri.blank?
+      %small.project__info= "#{project.live_date.strftime('%b %Y')} // #{project.techs.map{ |t| t.to_s }.sort.join(' - ')}"
+  = lazyloaded_image_tag( project.preview, html: { class: 'project__image', 'aria-hidden': true })

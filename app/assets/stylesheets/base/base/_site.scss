@@ -1,0 +1,75 @@
+/// ==========================================================================
+/// #
+/// # Basic front-end styles
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Colours (sorry, IE11!)
+/// ==========================================================================
+@import '../palettes/site';
+
+// via cookie toggle
+:root { @include light-mode; }
+html.dark-mode { @include dark-mode; }
+
+// via media query (no choice this time around)
+@media (prefers-color-scheme: dark) {
+  :root { @include dark-mode; }
+}
+
+/// ==========================================================================
+/// # Everything else
+/// ==========================================================================
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--grey-0);
+  color: var(--grey-4);
+  overflow-x: hidden;
+}
+
+/// Basic link styles
+/// ==========================================================================
+a {
+  --shadow: #{rem(2)}; // make this a variable so we can override it later
+
+  border-bottom: 1px solid var(--link-ul);
+  outline: 0; // we’re replacing this with something nicer
+
+  color: var(--link-tx);
+  text-decoration: none;
+  box-shadow: var(--link-ol) 0 0 0 0;
+
+  transition: color .15s, box-shadow .15s;
+
+  &:hover { color: var(--link-hv); }
+  &:focus { box-shadow: var(--link-ol) 0 0 0 var(--shadow); }
+}
+
+/// Code stuff
+/// ==========================================================================
+pre {
+  margin: 1em 0;
+  padding: dimension(gutter);
+  max-width: calc(100vw - #{3.5 * dimension(gutter)});
+  overflow: auto;
+  background: var(--code-background);
+}
+
+code {
+  display: inline-block;
+  padding: 0 .2em;
+  background: var(--smoke-3);
+
+  @include ffm(mono);
+  font-weight: normal;
+
+  pre & {
+    color: var(--code-foreground);
+    background: transparent none;
+    font-size: .8em;
+    line-height: 1.5;
+  }
+}

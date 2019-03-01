@@ -1,0 +1,16 @@
+- @page_title = 'Work'
+
+-# Output the masthead
+= content_for( :masthead ) do
+  = render partial: 'masthead'
+
+-# Search template
+= render partial: 'search'
+
+-# Results
+= render_block( container: :ul, classes: %w{ moar-bottom no-top #nc }, container_classes: 'halves' ) do
+  - @projects.each do |project|
+    %li= render project
+
+-# Pagination
+= render partial: 'pagination', locals: { content: @projects }

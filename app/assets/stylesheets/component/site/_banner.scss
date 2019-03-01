@@ -1,0 +1,297 @@
+/// ==========================================================================
+/// #
+/// # Site banner + navigation
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Banner
+/// ==========================================================================
+.banner {
+  --top-line: var(--site-top-bar);
+  --shadow: var(--site-top-link-outline);
+
+  border-top: rem(10) solid var(--top-line);
+  border-bottom: rem(1) solid var(--smoke-2);
+  background: var(--grey-0);
+
+  a {
+    display: block;
+    border: 0;
+  }
+
+  @include mq($until: small) {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+
+    + main { margin-top: rem(55 * 1.25); }
+  }
+}
+
+.banner__inner {
+  min-height: rem(58);
+}
+
+.banner__wordmark {
+  line-height: 1;
+
+  a {
+    display: block;
+    margin:  rem(-2) rem(-10) 0;
+    padding: rem(5) rem(10);
+  }
+
+  svg {
+    display: block;
+    height: rem(21);
+    width:  rem(134);
+    fill: currentColor;
+    transition: fill .15s;
+  }
+}
+
+/// ==========================================================================
+/// # Site navigation
+/// ==========================================================================
+.nav {
+  display: block;
+
+  @include mq($until: small) {
+    padding: rem(15) 0;
+
+    &::before {
+      position: fixed;
+
+      top: rem(10);
+      left: 100%;
+      width: 100vw;
+      height: calc(100vh - #{rem(10)});
+
+      background: rgba(0, 0, 0, .5);
+      opacity: 0;
+      transform: translateX(0);
+
+      transition: opacity .5s 0s, transform 0s .5s;
+
+      content: '';
+    }
+
+    &.js-open::before {
+      transform: translateX(-100%);
+      opacity: 1;
+
+      transition-delay: 0s, 0s;
+    }
+  }
+}
+
+.nav__list {
+  @include mq($until: small) {
+    position: fixed;
+
+    top: rem(10);
+    left: 100%;
+    height: calc(100vh - #{rem(10)});
+    width: 80vw;
+    min-width: 200px;
+    padding: #{dimension(padding) * 2} #{dimension(padding) / 2};
+
+    z-index: 100;
+    box-shadow: rgba(0, 0, 0, .1) 0 0 0 0;
+    background: var(--grey-1);
+
+    transition: transform .5s, box-shadow .5s;
+
+    .nav.js-open & {
+      transform: translate(-100%);
+      box-shadow: rgba(0, 0, 0, .1) 0 0 10px 5px;
+    }
+  }
+
+  @include mq(small) { display: flex; }
+}
+
+/// Individual LIs
+/// ==========================================================================
+.nav__item {
+
+  // specific styles for the dark mode toggle, which is only shown in some circumstances
+  &.-dmt {
+    display: none;
+
+    span {
+      display: inline-block;
+      margin-left: .3em;
+    }
+
+    // only show it if we support CSS variables…
+    @supports (--css: variables) { display: list-item; }
+
+    // … but hide it if the colour scheme is managed by the OS
+    @media (prefers-color-scheme: dark) { display: none; }
+  }
+
+  @include mq($until: small) {
+    &:not(.-sm) { border-top: 1px solid var(--smoke-2); }
+  }
+
+  @include mq(small) {
+    &.-sm { display: none; }
+
+    &.-dmt span {
+      position: absolute;
+      transform: scale(0);
+    }
+
+    &.-sm + & ~ & {
+      position: relative;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: rem(10);
+      border-left: 1px solid var(--smoke-2);
+      content: '';
+    }
+  }
+}
+
+/// The link itself
+/// ==========================================================================
+.nav__link {
+  position: relative;
+
+  padding: rem(15);
+  border:  0;
+
+  &::before {
+    position: absolute;
+
+    background: var(--top-line);
+    transition: transform .2s;
+
+    content: '';
+  }
+
+  @include mq($until: small) {
+    overflow: hidden;
+
+    &::before {
+      top: 0;
+      right: 100%;
+      height: 100%;
+      width: rem(5);
+    }
+
+    &.-current::before { transform: translateX(100%); }
+  }
+
+  @include mq(small) {
+
+    &::before {
+      bottom: 101%; // has to be 101% otherwise FFox leaves a 1px gap at certain VP widths
+      left: 0;
+      width: 100%;
+      height: rem(5);
+    }
+
+    &:hover,
+    &.-current {
+      &::before { transform: translateY(100%); }
+    }
+  }
+}
+
+/// Toggle
+/// ==========================================================================
+.nav__toggle {
+  position: fixed;
+  display: block;
+
+  top:    rem(27.5);
+  right:  rem(15);
+  height: rem(22);
+  width:  rem(22);
+  padding: rem(2);
+  outline: 0;
+  border:  0;
+
+  background: transparent none;
+
+  cursor: pointer;
+  z-index: 101;
+
+  span {
+    &::before,
+    &::after,
+    & {
+      display: block;
+      height: rem(2);
+      width: rem(18);
+      background: var(--grey-4);
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+    }
+
+    &::before { transform: translateY( rem(-6) ); }
+    &::after  { transform: translateY( rem(6) ); }
+  }
+
+  .nav.js-open & {
+    span {
+      background: transparent;
+
+      &::before { transform: rotate( 45deg ); }
+      &::after  { transform: rotate( -45deg ); }
+    }
+  }
+
+  @include mq(small) { display: none; }
+}
+
+/// ==========================================================================
+/// # Side-loading styles
+/// ==========================================================================
+.banner::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: rem(10);
+  width: 100%;
+  opacity: 0;
+
+  background: var(--loading-bar);
+  z-index: 100;
+
+  transform-origin: left center;
+  transform: scaleX( 0 );
+
+  transition: transform 0s 0s, opacity 0s 0s;
+
+  content: '';
+
+  .-js-loading & {
+    opacity: 1;
+    transform: scaleX( .9 );
+
+    transition-timing-function: ease-out, ease;
+    transition-duration: 1.5s, 0s;
+    transition-delay: 0s, 0s;
+  }
+
+  .-js-loaded & {
+    opacity: 0;
+    transform: scaleX( 1 );
+
+    transition-timing-function: ease-in, ease-out;
+    transition-duration: .1s, .3s;
+    transition-delay: 0s, .2s;
+  }
+}

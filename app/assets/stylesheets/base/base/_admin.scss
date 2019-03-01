@@ -1,0 +1,89 @@
+/// ==========================================================================
+/// #
+/// # Base-level styles for across the site
+/// #
+/// ==========================================================================
+
+/// ==========================================================================
+/// # Colourways
+/// ==========================================================================
+:root {
+  // greys
+  --grey-1:     hsl(210, 11%, 15%);
+  --grey-2:     hsl(210, 10%, 23%);
+  --grey-3:     hsl(210,  9%, 31%);
+  --grey-4:     hsl(208,  7%, 46%);
+  --grey-5:     hsl(210, 11%, 71%);
+  --grey-6:     hsl(210, 14%, 83%);
+  --grey-7:     hsl(210, 14%, 89%);
+  --grey-8:     hsl(210, 16%, 93%);
+  --grey-9:     hsl(210,  0%, 98%);
+  --grey-0:     hsl(210,  0%, 100%);  // (AKA: white)
+
+  // accent colour
+  --accent-1:   hsl( 18, 60%, 15%);
+  --accent-3:   hsl( 18, 90%, 35%);
+  --accent-5:   hsl( 18, 90%, 55%);
+  --accent-7:   hsl( 18, 95%, 70%);
+  --accent-9:   hsl( 18, 95%, 95%);
+
+  // neutral colour
+  --neutral-1:  hsl(220, 30%, 20%);
+  --neutral-3:  hsl(220, 80%, 34%);
+  --neutral-5:  hsl(218, 94%, 44%);
+  --neutral-7:  hsl(215, 80%, 75%);
+  --neutral-9:  hsl(220, 60%, 95%);
+
+  // positive
+  --positive-1: hsl(140, 40%, 20%);
+  --positive-3: hsl(140, 50%, 29%);
+  --positive-5: hsl(140, 95%, 40%);
+  --positive-7: hsl(140, 70%, 75%);
+  --positive-9: hsl(140, 80%, 95%);
+
+  // neutral
+  --caution-1:  hsl( 44, 99%, 20%);
+  --caution-3:  hsl( 44, 99%, 25%);
+  --caution-5:  hsl( 44, 99%, 53%);
+  --caution-7:  hsl( 44, 99%, 85%);
+  --caution-9:  hsl( 44, 99%, 95%);
+
+  // negative
+  --negative-1: hsl(357, 99%, 30%);
+  --negative-3: hsl(357, 75%, 35%);
+  --negative-5: hsl(357, 82%, 52%);
+  --negative-7: hsl(357, 82%, 80%);
+  --negative-9: hsl(357, 87%, 96%);
+
+  // NAMED STUFF
+  --background: var(--grey-0);
+  --bg-alt:     var(--grey-9);
+  --midground:  var(--grey-9);
+  --text:       var(--grey-1);
+  --keyline:    var(--grey-7);
+  --outline:    var(--grey-8);
+  --focus:      var(--caution-5);
+
+  // Additional stuff that doesn’t quite fit in the usual shades
+  --nav-pri:    var(--grey-1);
+  --nav-hl1:    hsla( 30, 90%, 55%, .3);
+  --nav-hl2:    hsla( 12, 90%, 55%, .2);
+  --nav-sec:    hsl(210,  0%, 95%);
+  --nav-pri-l:  var(--grey-0);
+  --nav-sec-l:  var(--grey-1);
+}
+
+/// ==========================================================================
+/// # Everything else
+/// ==========================================================================
+html,
+body {
+  background: var(--background);
+  color: var(--text);
+}
+
+/// Basic link styles
+/// ==========================================================================
+a {
+  color: var(--accent-5);
+}

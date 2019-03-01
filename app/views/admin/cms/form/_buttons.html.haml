@@ -1,0 +1,5 @@
+- cancel_link = params[:back_to] || { action: :index }
+
+.form__buttons
+  = link_to prompt_t( @content, :cancel_button ), cancel_link, class: 'btn btn--outline'
+  %button.btn.btn--primary.btn--large{ type: :submit }= prompt_t( @content, :save_button )

@@ -1,0 +1,32 @@
+:ruby
+  # Default some stuff
+  @social_content[:title]       ||= @page_title
+  @social_content[:description] ||= t( 'meta.description' ).strip
+
+  # also, format a full title
+  full_title = "#{@social_content[:title]} :: #{t( 'meta.title' )}"
+
+-# Basic stuff
+%meta{ name: :description, content: @social_content[:description] }
+
+-# Schema.org stuff (Google+)
+%meta{ itemprop: :name,         content: full_title }
+%meta{ itemprop: :description,  content: @social_content[:description] }
+- unless @social_content[:image].nil?
+  %meta{ itemprop: :image,      content: variation_url( @social_content[:image] )}
+
+-# Twitter tags
+%meta{ name: 'twitter:card',          content: ( @social_content[:image].nil? ? :summary : :summary_large_image )}
+%meta{ name: 'twitter:title',         content: @social_content[:title] }
+%meta{ name: 'twitter:description',   content: @social_content[:description] }
+- unless @social_content[:image].nil?
+  %meta{ name: 'twitter:image:src',   content: variation_url( @social_content[:image] )}
+
+-# OG data
+%meta{ property: 'og:title',        content: @social_content[:title] }
+%meta{ property: 'og:type',         content: :article }
+%meta{ property: 'og:url',          content: request.url }
+%meta{ property: 'og:description',  content: @social_content[:description] }
+%meta{ property: 'og:site_name',    content: t( 'meta.title' ) }
+- unless @social_content[:image].nil?
+  %meta{ property: 'og:image',      content: variation_url( @social_content[:image] )}

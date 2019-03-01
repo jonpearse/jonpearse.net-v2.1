@@ -1,0 +1,12 @@
+---
+list:
+  columns:
+    - property: name
+      template: |
+        = link_to( content.to_s, url_for( action: :edit, id: content.id ))
+
+    - property: article_count
+
+form:
+  fields:
+    name: text

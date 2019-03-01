@@ -1,0 +1,81 @@
+/// ==========================================================================
+/// #
+/// # Search filters
+/// #
+/// ==========================================================================
+
+.filters {
+  display: flex;
+  align-items: flex-start;
+
+  @include fsz(small, 1);
+
+  // hide when offline
+  .is-offline & { opacity: 0; }
+}
+
+/// List
+/// ==========================================================================
+.filters__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1em -.8em;
+}
+
+.filters__item {
+  margin: 0 1.5em .8em 0;
+
+  &:last-child { margin-right: 0; }
+}
+
+/// Individual filters
+/// ==========================================================================
+.filters__input {
+  position: absolute;
+  transform: scale(0);
+}
+
+.filters__filter {
+  position: relative;
+  display: block;
+  padding-left: 1.5em;
+
+  cursor: pointer;
+
+  .svg-icon,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    transform: translateY(-50%);
+  }
+
+  &::after {
+    height: 1em;
+    width:  1em;
+    border: 1px solid var(--grey-2);
+    border-radius: 3px;
+
+    transition: background .25s;
+
+    content: '';
+
+    .filters__input:focus ~ & { box-shadow: var(--hilite) 0 0 0 2px; }
+  }
+
+  .svg-icon {
+    opacity: 0;
+    color: var(--hint-2);
+    transform: translate(15%, -58%) scale(1.2);
+    transition: opacity .25s;
+    z-index: 1;
+
+    .filters__input:checked ~ & { opacity: 1; }
+  }
+}
+
+
+/// Hide the button when JS is present
+/// ==========================================================================
+.js .filters__go { display: none; }

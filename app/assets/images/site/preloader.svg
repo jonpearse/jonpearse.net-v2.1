@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-52 -1 104 122" version="1.1" class="pl">
+  <defs>
+    <path id="h" d="M0 0L52 30V90L0 120L-52 90V30Z"/>
+    <clipPath id="m">
+      <use xlink:href="#h"/>
+    </clipPath>
+  </defs>
+  <g class="i">
+    <use xlink:href="#h" fill="none" stroke="#333"/>
+    <g clip-path="url(#m)">
+      <g transform="matrix(.5 0 0 .5 0 30)" stroke="#ccc">
+        <use xlink:href="#h" y="60"/>
+        <use xlink:href="#h" y="0"/>
+        <use xlink:href="#h" y="-60"/>
+        <use xlink:href="#h" y="90"  x="52"/>
+        <use xlink:href="#h" y="30"  x="52"/>
+        <use xlink:href="#h" y="-30" x="52"/>
+        <use xlink:href="#h" y="-90" x="52"/>
+        <use xlink:href="#h" y="90"  x="-52"/>
+        <use xlink:href="#h" y="30"  x="-52"/>
+        <use xlink:href="#h" y="-30" x="-52"/>
+        <use xlink:href="#h" y="-90" x="-52"/>
+      </g>
+    </g>
+  </g>
+</svg>

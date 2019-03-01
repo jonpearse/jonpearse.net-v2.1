@@ -1,0 +1,29 @@
+---
+list:
+  columns:
+    - property: title
+      template: |
+        = link_to( content.to_s, url_for( action: :edit, id: content.id ))
+      sortable: false
+
+    - property: published_on
+      label: published
+      template: |
+        - if content.published?
+          = content.published_on.strftime( '%b %-d, %Y' )
+
+form:
+  fields:
+    title: text
+    summary: text
+    masthead: media
+    body:
+      type: text
+      multiline: true
+      wysiwyg: true
+    categories: tags
+    publishing:
+      type: group
+      fields:
+        published: checkbox
+        published_on: date

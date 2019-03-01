@@ -1,0 +1,19 @@
+- @unwrap_content ||= false
+!!!
+%html.no-js{ lang: 'en-GB', class: get_body_class }
+  %head= render partial: 'layouts/site/head'
+  %body{ 'data-behaviour': :page }
+
+    -# SVG icon definitions
+    = asset_contents( 'site/preloader.svg' ).html_safe
+    .svg-icon-defs= asset_contents( 'icons-site.svg' ).html_safe
+
+    -# Header
+    = render partial: 'layouts/site/banner'
+
+    -# Main content
+    %main{ 'data-page-content': true }= render partial: 'layouts/site/main'
+
+    -# Footer
+    = render partial: 'layouts/site/footer'
+    = render partial: 'layouts/site/js'

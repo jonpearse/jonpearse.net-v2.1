@@ -1,0 +1,6 @@
+= script_tag( :admin )
+:javascript
+  const MEDIA_PATHS = {
+    select: '#{select_admin_media_index_path( format: :js )}',
+    meta: '#{URI.unescape(admin_media_path(id: '{id}', format: :json))}'
+  };

@@ -1,0 +1,22 @@
+:ruby
+
+  # normalise our CSS classes
+  css ||= []
+  css = [ css ] unless css.is_a?( Array )
+
+  # append an error class if needed
+  css << 'error' if form.object.has_error?( field[:field] )
+
+  # required state
+  css << 'required' if form.object.class.property_required?( field[:field] )
+
+-# Output stuff
+- if wrapped
+  %li.form__field{ class: css.map{ |klass| "-#{klass}" }}
+    = capture( &block )
+
+    - if form.object.has_error?( field[:field] )
+      %label.form__error{ for: "#{form.object_name}_#{field[:field]}" }= form.object.error_messages( field[:field] ).humanize
+
+- else
+  = capture( &block )

@@ -1,0 +1,33 @@
+:ruby
+  # set the page title
+  @page_title = @article.title
+
+  # set some meta stuff
+  @social_content[:description] = @article.summary
+  @social_content[:image] = @article.masthead
+
+  # short link
+  @shortcode = @article.shortcode
+
+  @unwrap_content = true
+
+-# Masthead
+- content_for( :masthead ) do
+  = render layout: 'masthead', locals: { add_class: 'medium', background: @article.masthead, block_position: :title } do
+    .container.-narrow.article__header
+      %h1= @article.title
+
+      %dl.article__meta
+        %dt= icon( :calendar, title: 'Posted on' )
+        %dd= @article.published_on.strftime( "%B #{@article.published_on.day.ordinalize}, %Y" )
+
+        - unless @article.categories.empty?
+          %dt= icon( :tags, title: 'Filed under' )
+          %dd
+            %ul.article__tags
+              - @article.categories.each do |cat|
+                %li= link_to cat.to_s, article_category_path( category: cat.slug ), class: 'article__tag'
+
+-# Content
+= render_block( classes: %w{ moar-bottom #content #t }, container_classes: %w{ -narrow article__content }) do
+  = render_inline_editor( @article, :body )

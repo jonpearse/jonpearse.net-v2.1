@@ -1,0 +1,39 @@
+/// ==========================================================================
+/// #
+/// # Main layout for admin interface.
+/// #
+/// ==========================================================================
+
+.page {
+  height: 100vh;
+  width:  100vw;
+  display: grid;
+
+  grid-template-areas:   'nav banner' 'nav main';
+  grid-template-rows:    auto 1fr;
+  grid-template-columns: rem(240);
+
+  &.-logged-out { grid-template-columns: rem(70); }
+}
+
+/// Banner
+/// ==========================================================================
+.page__banner { grid-area: banner; }
+
+/// Nav
+/// ==========================================================================
+.page__nav { grid-area: nav; }
+
+/// Main content
+/// ==========================================================================
+.page__main {
+  grid-area: main;
+  overflow-x: none;
+  overflow-y: auto;
+
+  padding: rem(50) rem(30);
+
+  background: var(--midground);
+}
+
+.page__flashes { margin-bottom: rem(50); }

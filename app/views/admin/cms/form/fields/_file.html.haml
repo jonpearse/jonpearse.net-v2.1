@@ -1,0 +1,10 @@
+- attachment = form.object.send( field[:field] )
+- messages   = form.object.get_messages_for( field[:field], %i{ blank too_long }).to_json
+
+= field_wrapper( local_assigns.merge( css: 'file-field' )) do
+  = label_element( local_assigns )
+
+  - if attachment.attached?
+    = image_tag polymorphic_url( form.object.cms_image ), alt: '', class: 'file-field__preview'
+
+  = form.file_field field[:field], class: "form__input #{field[:class]} file-field__field", required: field[:required], 'data-messages': messages

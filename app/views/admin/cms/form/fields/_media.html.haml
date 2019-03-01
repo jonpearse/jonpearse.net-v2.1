@@ -1,0 +1,41 @@
+:ruby
+  # default options
+  field = { multiple: false }.merge( field )
+
+  # get a relation
+  relation = @model_class.reflect_on_association( field[:field] )
+  return if relation.nil?
+
+  # get an endpoint
+  select_endpoint = select_admin_media_index_path( format: :js )
+  meta_endpoint   = admin_media_path( id: '--ID--', format: :json )
+
+  # work out some values + a field name
+  value = @content.send( field[:field] )
+  fieldname = "content[#{relation.foreign_key}]"
+
+= field_wrapper( local_assigns ) do
+  = label_element( local_assigns )
+
+  .media-selector{ data: { behaviour: 'media-selector' }}
+    -# Trigger field
+    %input{ type: :hidden, name: fieldname }
+
+    - unless value.nil?
+      .media-selector__instance.media{ data: { media: true }}
+        %input{ type: :hidden, name: fieldname, value: value.id }
+        %header.media__header
+          %strong.media__title= value.to_s
+        .media__content= image_tag polymorphic_url( value.cms_image ), alt: '', class: 'media__media'
+        %footer.media__actions
+          %button.media__action{ type: :button, data: { remove: true }}= prompt_t( Media, :remove )
+
+    %script{ type: 'text/plain', data: { template: true }}
+      .media-selector__instance.media{ data: { media: true }}
+        %input{ type: :hidden, name: fieldname, value: '{{id}}' }
+        %header.media__header
+          %strong.media__title {{title}}
+        .media__content
+          %img.media__media{ src: "{{cms_image_url}}", alt: '' }
+        %footer.media__actions
+          %button.media__action{ type: :button, data: { remove: true }}= prompt_t( Media, :remove )

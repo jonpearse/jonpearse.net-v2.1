@@ -1,0 +1,19 @@
+:ruby
+
+  # default some stuff
+  unlink ||= false
+
+  # if the crumb is a hash, ensure it’s normalised
+  if crumb.is_a?( Hash )
+
+    crumb = normalise_navigation_item( crumb, false )
+
+    # if we’re unlinking, do so
+    crumb = crumb[:title] if unlink or crumb[:url].nil?
+
+  end
+
+- if crumb.is_a?( Hash )
+  = link_to ( crumb[:title] || '' ).to_s, crumb[:url], class: 'breadcrumb__link'
+- else
+  %span.breadcrumb__link= ( crumb || '' ).to_s

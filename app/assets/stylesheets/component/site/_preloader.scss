@@ -1,0 +1,58 @@
+/// ==========================================================================
+/// #
+/// # Preloader sprite
+/// #
+/// ==========================================================================
+
+@critical {
+  @keyframes phi
+  {
+    to { opacity: 1; }
+  }
+  @keyframes phf
+  {
+    to  { fill-opacity: .05; }
+  }
+}
+
+.pl {
+  @critical {
+    position: fixed;
+
+    top:  50%;
+    left: 50%;
+    height: 30vmin;
+    width:  30vmin;
+    transform: translate(-50%, -50%);
+
+    .i {
+      opacity: 0;
+      animation: phi .2s 1 .5s both;
+    }
+
+    use {
+      --d: 1s;
+      --o: 0s;
+      animation: phf var(--d) linear infinite var(--o) alternate both;
+      fill-opacity: 0;
+
+      &:nth-child(2n) { --d: 1.33s; }
+      &:nth-child(3n) { --d: 1.67s; }
+      &:nth-child(2n+1) { --o: .1s; }
+      &:nth-child(3n+2) { --o: .25s; }
+    }
+
+    ~ * { opacity: 0; } // sass-lint:disable-line no-universal-selectors
+  }
+
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity .3s, transform 0s .5s;
+
+  g use { animation-play-state: paused; }
+
+  ~ * { // sass-lint:disable-line no-universal-selectors
+    opacity: 1;
+    transition: opacity .3s .2s;
+  }
+}

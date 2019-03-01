@@ -1,0 +1,22 @@
+/// ==========================================================================
+/// #
+/// # Driver styles
+/// #
+/// ==========================================================================
+
+.driver {
+  @include mq(medium) {
+
+    &:first-of-type {
+      justify-content: flex-end;
+
+      .container { padding-right: dimension(padding); }
+    }
+
+    &:last-of-type {
+      justify-content: flex-start;
+
+      .container { padding-left: dimension(padding); }
+    }
+  }
+}

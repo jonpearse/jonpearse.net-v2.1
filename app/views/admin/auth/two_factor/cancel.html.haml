@@ -1,0 +1,9 @@
+= form_for @user, url: admin_auth_disable_two_factor_path, html: { class: 'twofa-block' } do |f|
+  .twofa-block__top{ role: :group, 'aria-labelledby': 'twofa-label__title' }
+    %h2#twofa-label__title.twofa-block__prompt= t( 'user.2fa.disable.title' )
+
+    %p= t( 'user.2fa.disable.intro' )
+
+  .twofa-block__buttons
+    %button.btn.btn--primary.btn--large{ type: :submit }= t( 'user.2fa.disable.do_disable' )
+    = link_to t( 'user.2fa.disable.do_cancel' ), admin_root_path, class: 'btn btn--secondary'

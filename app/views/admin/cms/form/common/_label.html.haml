@@ -1,0 +1,5 @@
+- fn = field[:field]
+= form.label( fn, class: 'form__label' ) do
+  = label_text_for( form.object, fn )
+  - if form.object.class.property_required?( fn )
+    %abbr{ title: prompt_t( form.object, :required_field ), class: 'form__required' } *

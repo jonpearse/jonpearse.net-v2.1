@@ -1,0 +1,46 @@
+:ruby
+
+  # default the relationship + try to find it
+  field[:relationship] ||= field[:field]
+  relation = form.object.class.reflect_on_association( field[:relationship] )
+  return if relation.nil?
+
+  # work out the class, fieldname, and whether or not we’re multiple
+  field[:class]     = relation.klass || relation.options[:class_name]
+  field[:multiple]  = !( relation.has_one? || relation.belongs_to? )
+  field[:fieldname] = ( relation.options[:association_foreign_key] || relation.options[:foreign_key] || field[:class].name.foreign_key ).to_s
+
+  # get an instance name
+  field[:instance]  = "#{form.object_name}[#{field[:fieldname]}]#{( field[:multiple] ? '[]' : '' )}"
+
+  # get a value
+  values = form.object.send( field[:field] ) || []
+  values = [ values ] unless values.is_a?( Array )
+
+  # build some data for the behaviour
+  data = {
+    behaviour:  'content-select',
+    endpoint:   cms_path_for( field[:class], :index, format: :json ),
+    multiple:   field[:multiple],
+    field:      field[:field]
+  }
+
+  # work out our local template
+  template = "admin/cms/form/fields/content-select/#{(field[:multiple] ? 'multiple' : 'single')}"
+
+= field_wrapper( local_assigns ) do
+  = label_element( local_assigns )
+
+  .content-select{ data: data }
+    -# trigger field
+    %input{ type: :hidden, name: field[:instance] }
+
+    -# subrender
+    .content-select__instances{ 'data-instances': true }
+      - values.each do |instance|
+        = render partial: 'admin/cms/form/fields/content-select/value', locals: { field: field, value: instance }
+
+    -# Render an instance template
+    - content_for( :templates ) do
+      %template{ id: "tpl__content-select__#{field[:field]}" }
+        = render partial: 'admin/cms/form/fields/content-select/value', locals: { field: field }

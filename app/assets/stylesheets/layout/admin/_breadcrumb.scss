@@ -1,0 +1,39 @@
+/// ==========================================================================
+/// #
+/// # Breadcrumb styles
+/// #
+/// ==========================================================================
+
+.breadcrumb {
+  border-top: 1px solid var(--outline);
+}
+
+.breadcrumb__list {
+  display: flex;
+  padding: 0 rem(15);
+}
+
+.breadcrumb__link {
+  display: block;
+  position: relative;
+  padding: rem(7.5) rem(15);
+
+  text-decoration: none;
+
+  &:link:hover{ text-decoration: underline; }
+
+  &::before {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-left: 1px solid var(--outline);
+
+    transform: skew(-10deg);
+
+    content: '';
+
+    .breadcrumb__item:first-child & { display: none; }
+  }
+}

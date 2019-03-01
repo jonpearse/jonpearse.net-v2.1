@@ -1,0 +1,118 @@
+/// ==========================================================================
+/// #
+/// # Button styles
+/// #
+/// ==========================================================================
+
+/// Basic buttonness.
+/// ==========================================================================
+.btn {
+  --bg: var(--grey-7);
+  --hv: var(--grey-5);
+  --fg: var(--text);
+
+  display: inline-block;
+  padding: .5em 1.4em;
+  border-radius: 3px;
+
+  background: var(--bg);
+  color: var(--fg);
+
+  @include fsz(defaultButton);
+  @include fwt(semi);
+  @include ffm(base);
+  text-decoration: none;
+  text-shadow: rgba(0, 0, 0, .2) 0 1px 1px;
+
+  transform: translateY(0);
+  transition: background .25s, color .25s, transform .15s;
+
+  &:hover { background: var(--hv); }
+  &:active { transform: translateY(rem(2)); }
+
+  &:focus {
+    outline: 3px solid var(--focus);
+    &:not(:focus-visible) { outline: none; }
+  }
+
+  // handle icons
+  .svg-icon {
+    vertical-align: -.225em;
+    margin: 0 .6em 0 -.5em;
+    font-size: 1em;
+    line-height: 1;
+  }
+
+  &.btn--outline {
+    --hv: var(--grey-8);
+    --fg: var(--grey-3);
+
+    background: transparent;
+    box-shadow: inset currentColor 0 0 0 1px;
+    text-shadow: none;
+
+    &:hover { background: var(--hv); }
+  }
+
+  & + & { margin-left: .5em; }
+}
+
+.btn--icon-after .svg-icon { margin: 0 -.5em 0 .6em; }
+
+/// Icon-only
+/// ==========================================================================
+.btn--icon-only {
+  padding: .5em .7em;
+
+  .svg-icon[class] {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/// Colourways
+/// ==========================================================================
+.btn--primary {
+  --bg: var(--accent-5);
+  --hv: var(--accent-3);
+  --fg: var(--grey-0);
+
+  &.btn--outline {
+    --hv: var(--accent-9);
+    --fg: var(--accent-3);
+  }
+}
+
+.btn--safe {
+  --bg: var(--positive-5);
+  --hv: var(--positive-3);
+  --fg: var(--positive-9);
+
+  &.btn--outline {
+    --hv: var(--positive-9);
+    --fg: var(--positive-3);
+  }
+}
+
+.btn--dangerous {
+  --bg: var(--negative-5);
+  --hv: var(--negative-3);
+  --fg: var(--grey-0);
+
+  &.btn--outline {
+    --hv: var(--negative-9);
+    --fg: var(--negative-3);
+  }
+}
+
+/// Sizes
+/// ==========================================================================
+.btn--large {;
+  @include fsz(largeButton);
+}
+
+.btn--smol {
+  @include fsz(smallButton);
+
+  .svg-icon { vertical-align: -.28em; }
+}

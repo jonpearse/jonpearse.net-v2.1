@@ -1,0 +1,36 @@
+/// ==========================================================================
+/// #
+/// # Block styles
+/// #
+/// ==========================================================================
+.block {
+  display: flex;
+
+  justify-content: center;
+  padding: dimension(padding) 0;
+
+  /// Colourways
+  /// ========================================================================
+  &.-alt { background: var(--grey-1); }
+
+  &.-accent {
+    --link-tx: var(--block-accent-link-tx);
+    --link-ul: var(--block-accent-link-ul);
+    --link-hv: var(--block-accent-link-hv);
+    --link-rv: var(--block-accent-link-rv);
+
+    background: var(--hint-2);
+    color: var(--block-accent-tx);
+  }
+
+  /// Size-ways
+  /// ========================================================================
+  &.-large { @include fsz(intro); }
+
+  /// Padding
+  /// ========================================================================
+  &.-moar-top    { padding-top: #{dimension(padding) * 2}; }
+  &.-moar-bottom { padding-bottom: #{dimension(padding) * 2}; }
+
+  &.-no-top { padding-top: 0; }
+}

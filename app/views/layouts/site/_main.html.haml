@@ -1,0 +1,12 @@
+-# Masthead
+= yield :masthead
+
+-# Main content
+- if @unwrap_content
+  = yield
+- else
+  .content= yield
+
+-# Drivers
+= render partial: 'site/blocks/latest_articles'
+= render partial: 'site/blocks/talk_to_me'

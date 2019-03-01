@@ -1,0 +1,116 @@
+/// ==========================================================================
+/// #
+/// # Styles for navigation
+/// #
+/// ==========================================================================
+
+.main-navigation {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 0 0 rem(10);
+
+  background: var(--grey-1);
+  color: var(--grey-0);
+}
+
+/// Site logo
+/// ==========================================================================
+.main-navigation__logo {
+  padding: rem(15) rem(10);
+  height: rem(115);
+  margin-bottom: rem(35);
+
+  svg {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1.5;
+  }
+}
+
+/// Actual navigation
+/// ==========================================================================
+.main-navigation__list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  @include fsz(navMain);
+}
+
+.main-navigation__item {
+
+  & + & { margin-top: rem(10); }
+
+  &.-stretch {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+
+    &,
+    & ~ .main-navigation__item { @include fsz(navSecondary, 1); }
+  }
+}
+
+.main-navigation__link {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: rem(10) rem(20) rem(10) rem(18);
+  border-left: 2px solid transparent;
+
+  color: currentColor;
+  opacity: .6;
+  transition: opacity .25s;
+
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  .-current > & {
+    opacity: 1;
+
+    svg { fill: var(--accent-7); }
+  }
+
+  .-current > & {
+    border-left-color: var(--accent-5);
+    background: linear-gradient( to right, var(--nav-hl1), var(--nav-hl2) 10%, transparent 40%);
+  }
+}
+
+.main-navigation__icon {
+  margin: -.1em 1rem -.1em 0;
+  width: rem(25);
+  font-size: 1.2em;
+}
+
+/// Sub-menu items
+/// ==========================================================================
+.main-navigation__sub-list {
+  display: none;
+  margin: 0 0 rem(10);
+  background: rgba( 255, 255, 255, .02 );
+
+  @include fsz(navSecondary);
+
+  .-current & { display: block; }
+
+  .main-navigation__item {
+    margin: 0;
+
+    &.-current .main-navigation__link { border-left-color: var(--accent-5); }
+  }
+
+  .main-navigation__link {
+    padding: rem(10) rem(10) rem(10) rem(58);
+    border-left: 2px solid transparent;
+    background: transparent none;
+
+    font: inherit;
+  }
+}

@@ -1,0 +1,18 @@
+- @page_title = t( 'user.2fa.verify.title' )
+- @breadcrumb = [ 'Log in', 'Two-Factor' ]
+
+= form_for( resource, as: resource_name, url: user_two_factor_authentication_path( resource_name ), html: { class: 'twofa-block' }) do |f|
+  .twofa-block__top{ role: :group, 'aria-labelledby': 'twofa-label__title' }
+    %h2#twofa-label__title.twofa-block__prompt= t( 'user.2fa.verify.title' )
+
+    %p= t( 'user.2fa.verify.intro' )
+
+    .twofa-block__code{ class: ( @failed ? '-error' : '' )}
+      %label.twofa-block__label.a11y{ for: 'confirm_code' }= t( 'user.2fa.enable.code' )
+      %input#confirm.code.twofa-block__input{ name: :code, type: :number, step: 1, min: 0, max: 999999, maxlength: 6, required: true }
+      - if @failed
+        %label.twofa-block__error{ for: 'confirm_code' }= t( 'user.2fa.enable.failed' )
+
+    .twofa-block__buttons
+      %button.btn.btn--primary.btn--large{ type: :submit }= t( 'user.2fa.verify.do_continue' )
+      = link_to t( 'user.2fa.verify.do_cancel' ), destroy_user_session_path, class: 'btn btn--secondary'

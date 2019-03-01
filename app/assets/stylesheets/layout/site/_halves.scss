@@ -1,0 +1,32 @@
+/// ==========================================================================
+/// #
+/// # Two-column layout: the closest this site ever gets to an old-school
+/// # grid =)
+/// #
+/// ==========================================================================
+
+// sass-lint:disable no-universal-selectors
+.halves {
+  $vspace: (2 * dimension(gutter));
+  $hspace: dimension(gutter);
+
+  margin-bottom: #{-1 * $vspace};
+
+  > * { margin-bottom: $vspace; }
+
+  @include mq(medium) {
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:  #{-1 * $hspace};
+    margin-right: #{-1 * $hspace};
+
+    > * {
+      width: 50%;
+      padding: 0 $hspace;
+      margin-bottom: $vspace;
+    }
+
+    &.container { padding: 0; }
+  }
+}

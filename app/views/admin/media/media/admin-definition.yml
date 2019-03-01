@@ -1,0 +1,15 @@
+---
+form:
+  fields:
+    title: text
+    alt_text: text
+    caption: text
+    file: file
+
+    transcript:
+      type: group
+      fields:
+        transcript:
+          type: text
+          multiline: true
+          required: false

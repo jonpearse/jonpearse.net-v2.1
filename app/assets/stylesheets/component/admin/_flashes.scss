@@ -1,0 +1,39 @@
+/// ==========================================================================
+/// #
+/// # Flashes style
+/// #
+/// ==========================================================================
+
+.flashes__flash {
+  --bg: var(--neutral-9);
+  --fg: var(--neutral-3);
+  --bd: var(--neutral-1);
+
+  padding: .8em 1.6em;
+  border: 1px solid var(--bd);
+  border-radius: 3px;
+
+  color: var(--fg);
+  background: var(--bg);
+
+  @include fsz(tertiary);
+
+  &.-success {
+    --bg: var(--positive-9);
+    --fg: var(--positive-3);
+    --bd: var(--positive-1);
+  }
+
+  &.-warn,
+  &.-alert {
+    --bg: var(--caution-9);
+    --fg: var(--caution-3);
+    --bd: var(--caution-1);
+  }
+
+  &.-error {
+    --bg: var(--negative-9);
+    --fg: var(--negative-3);
+    --bd: var(--negative-1);
+  }
+}

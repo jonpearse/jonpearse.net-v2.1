@@ -1,0 +1,16 @@
+:ruby
+  # Do we need to wrap
+  wrap = fields.reduce( false ){ |ret, val| ret or val[:_wrapped] }
+
+  # cast fields, just in case
+  fields ||= []
+
+- haml_tag_if( wrap, 'ol.form__fields' ) do
+  - fields.each do |field|
+    - template = "admin/cms/form/fields/#{field[:type]}"
+    - if partial_exists?( template )
+      = render partial: template, locals: { form: form, field: field, wrapped: wrap }
+    - elsif partial_exists?( "#{template}/field" )
+      = render partial: "#{template}/field", locals: { form: form, field: field, wrapped: wrap }
+    - else
+      / Missing template #{template}

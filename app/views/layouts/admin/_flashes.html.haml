@@ -1,0 +1,5 @@
+- unless flash.empty?
+  %section.page__flashes
+    %ul.flashes
+      - flash.each do |type,message|
+        %li.flashes__flash{ class: "-#{type.to_s}" }= message

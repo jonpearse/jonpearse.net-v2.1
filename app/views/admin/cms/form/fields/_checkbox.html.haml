@@ -1,0 +1,6 @@
+-# Get our messages
+- messages = form.object.get_messages_for( field[:field], %i{ blank }).to_json
+
+= field_wrapper( local_assigns.merge( css: 'reverse' )) do
+  = form.check_box( field[:field], class: "form__input #{field[:class]}", required: field[:required], 'data-messages': messages )
+  = label_element( local_assigns )
