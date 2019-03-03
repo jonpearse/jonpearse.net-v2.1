@@ -18,4 +18,12 @@ class Admin::Media::MediaController < Admin::CMSController
 
   end
 
+  def download
+
+    extract_content
+
+    send_data @content.file.download, disposition: "attachment; filename=#{@content.file.filename.to_s}"
+
+  end
+
 end
