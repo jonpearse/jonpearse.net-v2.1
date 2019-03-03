@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
         member do
           get 'destroy', as: :destroy
+          get 'download', as: :download
         end
       end
 

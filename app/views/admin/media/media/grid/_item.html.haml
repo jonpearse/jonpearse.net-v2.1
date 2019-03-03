@@ -15,5 +15,9 @@
       %input.media__select-input{ type: ( @multiple ? :checkbox : :radio ), id: "media__select--#{id}", name: 'select_media[]', value: id }
       %label.media__select-label{ for: "media__select--#{id}" }= prompt_t( Media, :select_this )
     - else
-      = link_to prompt_t( Media, :edit_button ), edit_admin_media_path( id: id ), class: 'media__action -edit'
-      = link_to prompt_t( Media, :destroy_button ), destroy_admin_media_path( id: id ), class: 'media__action -destroy'
+      = link_to download_admin_media_path( id: id ), class: 'media__action -download' do
+        = icon( 'download', title: prompt_t( Media, :edit_button ))
+      = link_to edit_admin_media_path( id: id ), class: 'media__action -edit' do
+        = icon( 'edit', title: prompt_t( Media, :edit_button ))
+      = link_to destroy_admin_media_path( id: id ), class: 'media__action -destroy' do
+        = icon( 'trash', title: prompt_t( Media, :destroy_button ))
