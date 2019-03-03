@@ -6,7 +6,7 @@ class Admin::CMSController < Admin::BaseController
   define_callbacks :content_extract
 
   # include some namespaced helpers
-  helper Admin::CMS::PartialHelper, Admin::CMS::FormHelper, Admin::CMS::UrlHelper, Admin::CMS::TableHelper
+  helper Admin::CMS::PartialHelper, Admin::CMS::FormHelper, Admin::CMS::UrlHelper, Admin::CMS::TableHelper, Admin::CMS::MarkupHelper
 
   # expose some of ourselves to the view layer
   helper_method :action_allowed?
