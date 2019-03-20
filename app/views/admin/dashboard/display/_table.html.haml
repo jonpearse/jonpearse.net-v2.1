@@ -5,13 +5,15 @@
 
   link_params = params.permit( :ua, :c, :v, :ci, :ct ).merge( axis: axis, format: :json ).merge( add )
 
-%section.stats{ data: { behaviour: :statsTable, endpoint: admin_stats_data_path( link_params ), unlink: unlink }}
+%section.stats.-table{ data: { behaviour: :statsTable, endpoint: admin_stats_data_path( link_params ), unlink: unlink }}
   %header.stats__header
-    %h2= title
-  %table.stats__content
-    %thead
-      %tr
-        %th{ scope: :col }= title
-        %th{ scope: :col } Page views
-    %tbody{ data: { table: true }}
-  = render partial: 'admin/dashboard/display/filters'
+    %h2.stats__title= title
+    = render partial: 'admin/dashboard/display/filters'
+
+  .stats__content
+    %table.stats__table
+      %thead
+        %tr
+          %th{ scope: :col }= title
+          %th{ scope: :col } Page views
+      %tbody{ data: { table: true }}

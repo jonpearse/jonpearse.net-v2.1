@@ -46,8 +46,8 @@
   &.btn--outline {
     --hv: var(--grey-8);
     --fg: var(--grey-3);
+    --bg: transparent;
 
-    background: transparent;
     box-shadow: inset currentColor 0 0 0 1px;
     text-shadow: none;
 

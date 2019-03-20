@@ -5,10 +5,10 @@
   link_params = params.permit( :ua, :c, :v, :ci, :ct ).merge( axis: :views, format: :json ).merge( add )
   link_params.merge!( add ) unless add.nil?
 
-%section.stats{ data: { behaviour: :lineGraph, endpoint: admin_stats_data_path( link_params )}}
+%section.stats.-graph{ data: { behaviour: :lineGraph, endpoint: admin_stats_data_path( link_params )}}
   %header.stats__header
-    %h2= title
+    %h2.stats__title= title
 
-  %figure.stats__line-graph{ data: { graph: true }}
+    = render partial: 'admin/dashboard/display/filters'
 
-  = render partial: 'admin/dashboard/display/filters'
+  %figure.stats__line-graph.stats__content{ data: { graph: true }}

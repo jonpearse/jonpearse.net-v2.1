@@ -4,8 +4,77 @@
 /// #
 /// ==========================================================================
 
-.stats {
+.stats-grid {
+  @include mq( huge )
+  {
+    display: grid;
+    grid-gap: rem(20);
+    grid-template: 'graph graph' auto 'tableL tableR' auto / 1fr 1fr;
+  }
+}
 
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  border: 1px solid var(--keyline);
+
+  &.-graph { grid-area: graph; }
+
+  &.-table {
+    grid-area: tableL;
+
+    & + .-table { grid-area: tableR; }
+  }
+
+  & + & {
+    margin: rem(20) 0 0;
+
+    @include mq(huge) { margin: 0; }
+  }
+}
+
+.stats__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: rem(20);
+}
+
+.stats__title {
+  margin: 0;
+  border-bottom: 1px solid var(--keyline);
+  line-height: rem(20);
+}
+
+.stats__content {
+  flex: 1;
+  order: 2;
+  background: var(--background);
+}
+
+/// Filters
+/// ==========================================================================
+.stats__filters {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin-left: 1em;
+
+  .btn.-current {
+    --bg: var(--accent-5);
+    --hv: var(--accent-3);
+    --fg: var(--grey-0);
+
+    box-shadow: inset var(--bg) 0 0 0 1px;
+  }
+}
+
+.stats__filter {
+  & + & { margin-left: rem(10); }
 }
 
 /// Graph
@@ -27,10 +96,10 @@
 
   svg {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+    top: rem(20);
+    left: rem(20);
+    height: calc( 100% - #{rem(40) });
+    width:  calc( 100% - #{rem(40) });
 
     fill: none;
   }
@@ -43,5 +112,35 @@
   circle {
     r: 7;
     fill: currentColor;
+  }
+}
+
+/// Table
+/// ==========================================================================
+table.stats__table {
+  width: 100%;
+
+  th, td { padding: rem(10) rem(20); }
+
+  th { text-align: left; }
+
+  thead th {
+    border-bottom: 1px solid var(--keyline);
+    padding: rem(20) rem(20) rem(10);
+
+    @include fwt(bold);
+    @include fsz(tertiary, 1);
+
+    &:last-child { text-align: right; }
+  }
+
+  tbody {
+    td { text-align: right; }
+
+    tr:first-child {
+      th, td { padding-top: rem(10); }
+    }
+
+    tr:nth-child(even) { background: var(--accent-a); }
   }
 }

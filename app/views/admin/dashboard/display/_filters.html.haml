@@ -1,5 +1,4 @@
-%footer.stats__footer
-  %ol.stats__filters
-    - t( 'stats.periods' ).each_pair do |short,label|
-      %li.stats__filters
-        %button.btn.btn--smol{ 'data-period': short, title: label }= short
+%ol.stats__filters
+  - t( 'stats.periods' ).each_pair do |short,label|
+    %li.stats__filter
+      %button.btn.btn--smol.btn--outline{ 'data-period': short, title: label }= short

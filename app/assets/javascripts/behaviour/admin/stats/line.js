@@ -25,11 +25,11 @@ function LineGraph( elRoot, options )
   function redraw()
   {
     // 1. get area dimensions
-    const iMaxX = elContainer.clientWidth  - ( 2 * INDENT );
-    const iMaxY = elContainer.clientHeight - ( 2 * INDENT );
+    const iMaxX = elSvg.clientWidth  - ( 2 * INDENT );
+    const iMaxY = elSvg.clientHeight - ( 2 * INDENT );
 
     // 2. update the SVG + clear its contents
-    elSvg.setAttribute( 'viewBox', `0 0 ${iMaxX + ( 2 * INDENT )} ${iMaxY + ( 2 * INDENT )}` );
+    elSvg.setAttribute( 'viewBox', `0 0 ${elSvg.clientWidth} ${elSvg.clientHeight}` );
     while ( elSvg.firstChild !== null )
     {
       elSvg.removeChild( elSvg.firstChild );
