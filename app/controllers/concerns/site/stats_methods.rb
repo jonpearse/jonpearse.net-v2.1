@@ -16,7 +16,7 @@ module Site::StatsMethods
     def record_visit
 
       # bounce out if someone’s logged in, have incurred an error, or should otherwise be ignored
-      return if user_signed_in? or error_sent? or ignored_ip? or ignored_ua?
+      return if should_ignore?
 
       # get a request and remove any format information
       req_url = ( @requested_path || request.fullpath ).gsub( ".#{params[:format]}", '' )
@@ -36,6 +36,13 @@ module Site::StatsMethods
             "(SELECT #{sess_id}, country, #{ua_name}, #{ua_vers}, #{req_url}, #{dark_mode}, NOW() FROM `stats_ip_blocks` " +
             "WHERE MBRCONTAINS( `ip_range`, POINTFROMWKB(POINT(INET_ATON( #{curr_ip} ), 0))))"
       conn.execute( sql )
+
+    end
+
+    # Will this be recorded?
+    def should_ignore?
+
+      ( user_signed_in? or error_sent? or ignored_ip? or ignored_ua? )
 
     end
 
