@@ -51,7 +51,7 @@ module Site::StatsMethods
 
       ua_str = request.headers['User-Agent'] || ''
 
-      browser.bot? or CONFIG[ :ignored_uas ].select{ |ua| ua_str.match( ua )}.any?
+      browser.bot? or CONFIG[ :ignored_uas ].select{ |ua| ua_str.match( ua )}.any? or ( ua_str == '-' )
 
     end
 
