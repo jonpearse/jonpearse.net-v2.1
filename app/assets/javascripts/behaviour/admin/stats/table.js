@@ -42,7 +42,10 @@ function StatsTable( elRoot, options )
       }
 
       // c. TD
-      elRow.appendChild( create( 'td', {}, oRow.visitors ));
+      const elTd = create( 'td' );
+      elRow.appendChild( elTd );
+      elTd.appendChild( create( 'span',  {}, oRow.visitors ));
+      elTd.appendChild( create( 'small', {}, `${oRow.percent}%` ));
 
     });
   }
@@ -50,17 +53,22 @@ function StatsTable( elRoot, options )
   /**
    * Event handler when the user clicks on a filter button: loads data from the server.
    *
-   * @param {HTMLEvent} ev - the event that triggered us.
+   * @param {String} sPeriod - the period to update to
+   * @param {Boolean} bRetrigger - true to update all other stats, false otherwise
    */
-  function loadData( ev )
+  function loadData( sPeriod, bRetrigger = false )
   {
     // update buttons
-    elButtons.forEach( el => el.classList.remove( '-current' ));
-    ev.target.classList.add( '-current' );
+    elButtons.forEach( el => el.classList.toggle( '-current', ( el.dataset.period === sPeriod )));
 
-    // get period + request
-    const sPeriod = ev.target.dataset.period;
-    ajax( options.endpoint + `period=${sPeriod}` ).then( updateTable )
+    // pickle off a request
+    ajax( options.endpoint + `period=${sPeriod}` ).then( updateTable ).then( () =>
+    {
+      if ( bRetrigger )
+      {
+        elRoot.dispatchEvent( new CustomEvent( 'statsRangeChanged', { bubbles: true, detail: { period: sPeriod }}));
+      }
+    });
   }
 
   /** Constructor logic. */
@@ -75,13 +83,16 @@ function StatsTable( elRoot, options )
 
     // 2. hook filters
     elButtons = elRoot.querySelectorAll( '[data-period]' )
-    elButtons.forEach( el => el.addEventListener( 'click', loadData ));
+    elButtons.forEach( el => el.addEventListener( 'click', ev => loadData( el.dataset.period, !ev.altKey )));
 
     // 3. patch endpoint
     options.endpoint += ( options.endpoint.indexOf( '?' ) === -1 ) ? '?' : '&';
 
     // 3. load data
-    elRoot.querySelector( `[data-period='${options.period}']` ).click();
+    loadData( options.period );
+
+    // 4. also bind up
+    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev => loadData( ev.detail.period ));
 
   }());
 }

@@ -87,17 +87,22 @@ function LineGraph( elRoot, options )
   /**
    * Event handler when the user clicks on a filter button: loads data from the server.
    *
-   * @param {HTMLEvent} ev - the event that triggered us.
+   * @param {String} sPeriod - the period to update to
+   * @param {Boolean} bRetrigger - true to update all other stats, false otherwise
    */
-  function loadData( ev )
+  function loadData( sPeriod, bRetrigger = false )
   {
     // update buttons
-    elButtons.forEach( el => el.classList.remove( '-current' ));
-    ev.target.classList.add( '-current' );
+    elButtons.forEach( el => el.classList.toggle( '-current', ( el.dataset.period === sPeriod )));
 
-    // get period + request
-    const sPeriod = ev.target.dataset.period;
-    ajax( options.endpoint + `&period=${sPeriod}` ).then( updateData ).then( redraw )
+    // pickle off a request
+    ajax( options.endpoint + `period=${sPeriod}` ).then( updateData ).then( redraw ).then( () =>
+    {
+      if ( bRetrigger )
+      {
+        elRoot.dispatchEvent( new CustomEvent( 'statsRangeChanged', { bubbles: true, detail: { period: sPeriod }}));
+      }
+    });
   }
 
   /** Constructor logic. */
@@ -112,14 +117,15 @@ function LineGraph( elRoot, options )
 
     // 2. hook filters
     elButtons = elRoot.querySelectorAll( '[data-period]' )
-    elButtons.forEach( el => el.addEventListener( 'click', loadData ));
+    elButtons.forEach( el => el.addEventListener( 'click', ev => loadData( el.dataset.period, !ev.altKey )));
 
     // 3. create the SVG
     elSvg = svgElement( 'svg', { class: 'stats__line-graph', version: '1.0' });
     elContainer.appendChild( elSvg );
 
-    // 4. load data
-    elRoot.querySelector( `[data-period='${options.period}']` ).click();
+    // 4. patch viewport + load data
+    options.endpoint += ( options.endpoint.indexOf( '?' ) === -1 ) ? '?' : '&';
+    loadData( options.period );
 
     // 5. blah!
     onResize( () =>
@@ -133,6 +139,9 @@ function LineGraph( elRoot, options )
 
       redraw();
     });
+
+    // 6. also bind up
+    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev => loadData( ev.detail.period ));
 
   }());
 }
