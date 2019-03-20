@@ -8,6 +8,7 @@ module Site::StatsMethods
     after_action :record_visit
 
     @requested_path = nil
+    @primary_content = nil
 
   end
 
@@ -30,10 +31,20 @@ module Site::StatsMethods
       req_url = conn.quote( req_url )
       curr_ip = conn.quote( request.ip )
       dark_mode = @dark_mode ? 1 : 0
+      con_type = 'NULL'
+      con_id   = 'NULL'
+
+      # if we have some primary content
+      unless @primary_content.nil?
+
+        con_type = conn.quote( @primary_content.class.name )
+        con_id   = @primary_content.id
+
+      end
 
       # insert
-      sql = "INSERT INTO `stats_raw` (`session_id`, `country`, `browser_name`, `browser_version`, `url_path`, `dark_mode`, `recorded_at`) " +
-            "(SELECT #{sess_id}, country, #{ua_name}, #{ua_vers}, #{req_url}, #{dark_mode}, NOW() FROM `stats_ip_blocks` " +
+      sql = "INSERT INTO `stats_raw` (`session_id`, `country`, `browser_name`, `browser_version`, `url_path`, `dark_mode`, `recorded_at`, `content_type`, `content_id`) " +
+            "(SELECT #{sess_id}, country, #{ua_name}, #{ua_vers}, #{req_url}, #{dark_mode}, NOW(), #{con_type}, #{con_id} FROM `stats_ip_blocks` " +
             "WHERE MBRCONTAINS( `ip_range`, POINTFROMWKB(POINT(INET_ATON( #{curr_ip} ), 0))))"
       conn.execute( sql )
 

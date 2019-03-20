@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_184152) do
+ActiveRecord::Schema.define(version: 2019_03_20_125131) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(version: 2019_02_28_184152) do
     t.string "url_path"
     t.boolean "dark_mode", default: false
     t.datetime "recorded_at"
+    t.string "content_type"
+    t.bigint "content_id"
   end
 
   create_table "techs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
