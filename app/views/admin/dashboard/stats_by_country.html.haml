@@ -1,0 +1,5 @@
+- if params.key?( :c )
+  = render partial: 'admin/dashboard/display/graph', locals: { axis: :views }
+
+- else
+  = render partial: 'admin/dashboard/display/table', locals: { axis: :country }

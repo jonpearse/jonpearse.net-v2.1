@@ -1,0 +1,150 @@
+module Admin::StatsMethods
+  extend ActiveSupport::Concern
+
+  FILTERS = {
+    period:   /^\d+[DWMY]$/,
+    date:     /^\d{4}\-\d{2}\-\d{2}$/,
+    any:      /.*?/,
+    float:    /^[\d.]+$/,
+    iso6392:  /^[A-Z]{2}$/,
+    klass:    /^[A-Z][a-z]+$/,
+    id:       /^[\d]+$/,
+  }
+
+  PERIODS = {
+    D: :days,
+    W: :weeks,
+    M: :months,
+    Y: :years
+  }
+
+  BASE_PARAMS = {
+    # Date
+    period: :period,
+    start:  :date,
+    finish: :date,
+
+    # UA
+    ua: :any,
+    v:  :float,
+
+    # Country
+    c: :iso6392,
+
+    # content
+    ct: :klass,
+    ci: :id
+  }
+
+  # Returns a basic stats query with date
+  def get_base_stats
+
+    filtered = filter_params( :period, :start, :finish )
+
+    # basics
+    if filtered.key?( :start ) and filtered.key?( :finish )
+
+      query = Stat.between( Date.parse( filtered[:start] ), Date.parse( filtered[:finish] ))
+
+    elsif filtered.key?( :start )
+
+      query = Stat.since( Date.parse( filtered[:start] ))
+
+    elsif filtered.key?( :finish )
+
+      query = Stat.before( Date.parse( filtered[:start] ))
+
+    elsif filtered.key?( :period )
+
+      m = filtered[:period].match( /(\d+)(\w)/ )
+
+      query = Stat.since( m[1].to_i.send( PERIODS[ m[2].to_sym ]).ago )
+
+    else
+
+      query = Stat
+
+    end
+
+    query
+
+  end
+
+  # Performs additional filtering, based on whatever we’re doing
+  def get_extended_stats
+
+    # get a set of basic statistics stuff
+    query = get_base_stats
+
+    # filter out the params we need for this
+    filtered = filter_params( :ua, :v, :c, :ct, :ci )
+
+    # if we’re filtering by UA
+    if filtered.key?( :ua )
+
+      query = filtered.key?( :v ) ?
+              query.for_version( filtered[:ua], filtered[:v] ) :
+              query.for_ua( filtered[:ua] )
+
+    end
+
+    # filter by country
+    query = query.for_country( filtered[:c] ) if filtered.key?( :c )
+
+    # filter by content type + ID
+    if filtered.key?( :ct )
+
+      query = query.where( content_type: filtered[:ct] )
+      query = query.where( content_id:   filtered[:ci] ) if filtered.key?( :ci )
+
+    end
+
+
+    query
+
+  end
+
+  # Extracts stats by a given axis, depending on parameters passed in.
+  #
+  # === Parameters
+  #
+  # [axis] the axis to extract
+  def extract_stats_by_axis( query, axis = nil )
+
+    case axis.to_sym
+
+    # extract by date
+    when :views
+      query = query.by_date.order( 'axis ASC' )
+
+    # extract by UA
+    when :ua
+      query = ( params.key?( :ua ) ? query.by_version : query.by_ua ).order( 'visitors DESC' )
+
+    when :country
+      query = query.by_country.order( 'visitors DESC' )
+
+    when :content
+      query = query.by_content.order( 'visitors DESC' )
+
+    end
+
+    query
+
+  end
+
+
+  private
+
+    # Returns an array of filtered parameters that match our intended format.
+    #
+    # === Parameters
+    #
+    # [allowed] an array of parameter names to return, if set
+    def filter_params( *allowed )
+
+      params.permit( allowed ).to_h.symbolize_keys.select{ |k,v| allowed.include?( k ) and v.match( FILTERS[ BASE_PARAMS[ k ]]) }
+
+    end
+
+end

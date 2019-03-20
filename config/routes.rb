@@ -6,13 +6,39 @@ Rails.application.routes.draw do
   # Admin namespace
   namespace :admin, path: :m do
 
-    root to: 'dashboard#show'
+    root to: 'dashboard#home'
+
+    # stats stuff
+    scope path: :stats do
+
+      get '/',    to: redirect('/m')
+
+      get 'data', to: 'dashboard#get_stats', as: 'stats_data'
+
+      # by date (only)
+      get 'date', to: 'dashboard#stats_by_date', as: 'date_stats', defaults: { pa: :date }
+
+      # various UA axes
+      get 'ua/:ua/:v',  to: 'dashboard#stats_by_ua', as: 'ua_version_stats', defaults: { pa: :ua }, constraints: { v: /[\d\.]+/ }
+      get 'ua(/:ua)',   to: 'dashboard#stats_by_ua', as: 'ua_stats'
+
+      # Country stats
+      get 'country/:c', to: 'dashboard#stats_by_country', as: 'single_country_stats', constraints: { c: /_?[A-Z]{2}/ }, defaults: { pa: :country }
+      get 'country',    to: 'dashboard#stats_by_country', as: 'country_stats'
+
+      # Article stats
+      get 'article',    to: 'dashboard#stats_by_article', as: 'article_stats'
+
+    end
 
     # Blog stuff
     scope module: :blog do
 
       resources :articles, :categories, except: [ :show ] do
         member do
+
+          get 'stats', as: :stats
+
           get 'destroy', as: :destroy
         end
       end

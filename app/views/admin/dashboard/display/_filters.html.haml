@@ -1,0 +1,5 @@
+%footer.stats__footer
+  %ol.stats__filters
+    - t( 'stats.periods' ).each_pair do |short,label|
+      %li.stats__filters
+        %button.btn.btn--smol{ 'data-period': short, title: label }= short

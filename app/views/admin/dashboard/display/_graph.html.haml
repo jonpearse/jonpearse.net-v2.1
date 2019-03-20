@@ -1,0 +1,14 @@
+:ruby
+  title ||= "Recently"
+  add ||= {}
+
+  link_params = params.permit( :ua, :c, :v, :ci, :ct ).merge( axis: :views, format: :json ).merge( add )
+  link_params.merge!( add ) unless add.nil?
+
+%section.stats{ data: { behaviour: :lineGraph, endpoint: admin_stats_data_path( link_params )}}
+  %header.stats__header
+    %h2= title
+
+  %figure.stats__line-graph{ data: { graph: true }}
+
+  = render partial: 'admin/dashboard/display/filters'

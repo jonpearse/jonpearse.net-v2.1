@@ -13,5 +13,7 @@ require( 'core/behaviours' ).init([
     require( 'behaviour/admin/media-selector' ),
     require( 'behaviour/admin/content-selector' ),
     require( 'behaviour/common/validatable' ),
-    require( 'behaviour/admin/wysiwyg' )
+    require( 'behaviour/admin/wysiwyg' ),
+    require( 'behaviour/admin/stats/line' ),
+    require( 'behaviour/admin/stats/table' )
 ]);

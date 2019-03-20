@@ -1,4 +1,13 @@
 en:
+  stats:
+    periods:
+      1W: 1 week
+      2W: 2 weeks
+      1M: 1 month
+      3M: 3 months
+      6M: 6 months
+      1Y: 1 year
+
   iso639names:
     RW: Rwanda
     SO: Somalia

@@ -5,6 +5,9 @@ class Stat < ApplicationRecord
   # relations
   belongs_to :content, polymorphic: true
 
+  default_scope -> { where( "browser_name != 'Generic Browser'" )}
+  scope :include_generic, -> { unscoped }
+
   # Simple scopes
   scope :since,   -> ( date ){ where( 'recorded_at >= ?', date.at_midnight )}
   scope :before,  -> ( date ){ where( 'recorded_at < ?', date.at_midnight )}
@@ -23,6 +26,7 @@ class Stat < ApplicationRecord
   scope :by_country, -> { aggregate( :country )}
   scope :by_url,     -> { aggregate( :url_path )}
   scope :by_date,    -> { aggregate( 'DATE(recorded_at)' )}
+  scope :by_content, -> { aggregate( 'CONCAT( content_type, content_id )' ).with_content }
 
   # Selection scopes
   scope :for_url,     -> ( url ){ where( url_path: url )}

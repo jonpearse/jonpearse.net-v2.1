@@ -1,0 +1,47 @@
+/// ==========================================================================
+/// #
+/// # Stats stuffs
+/// #
+/// ==========================================================================
+
+.stats {
+
+}
+
+/// Graph
+/// ==========================================================================
+.stats__line-graph {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-height: rem(300);
+
+  color: var(--neutral-3);
+
+  &::before {
+    display: block;
+    width: 100%;
+    padding-top: 56.25%;
+    content: '';
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    fill: none;
+  }
+
+  path {
+    stroke: currentColor;
+    stroke-width: 3;
+  }
+
+  circle {
+    r: 7;
+    fill: currentColor;
+  }
+}

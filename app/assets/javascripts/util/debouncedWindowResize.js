@@ -14,7 +14,7 @@ const DEBOUNCE_TIMEOUT = 100;
  */
 function triggerEvent()
 {
-    document.body.dispatchEvent( new CustomEvent( 'debouncedResize '));
+    document.body.dispatchEvent( new CustomEvent( 'debouncedResize' ));
 }
 
 /**

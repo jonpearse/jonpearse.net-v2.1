@@ -1,6 +1,6 @@
 ---
 - title:  Dashboard
-  route:  dashboard#show
+  route:  dashboard#home
   icon:   tachometer
 
 - title:  Articles
