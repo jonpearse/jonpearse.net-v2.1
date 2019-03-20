@@ -2,11 +2,7 @@ module GeoHelper
 
   def emoji_flag_for( iso_code )
 
-    deunderscore( iso_code ).upcase.chars.map{|c|
-
-      ( c.ord + 127397 ).chr
-
-    }.join
+    deunderscore( iso_code ).upcase.codepoints.map{ |p| p + 127397 }.pack( 'U*' )
 
   end
 
