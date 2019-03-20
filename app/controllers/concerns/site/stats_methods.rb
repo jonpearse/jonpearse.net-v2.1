@@ -69,4 +69,21 @@ module Site::StatsMethods
 
     end
 
+    # Returns a country for the current UA.
+    def current_country( ip = nil )
+
+      # get a connection
+      conn = ActiveRecord::Base.connection
+
+      # lookup
+      curr_ip = conn.quote( ip || request.ip )
+      sql = "SELECT `country` FROM `stats_ip_blocks` " +
+            "WHERE MBRCONTAINS( `ip_range`, POINTFROMWKB(POINT(INET_ATON( #{curr_ip} ), 0)))"
+      res = conn.execute( sql )
+
+      # return
+      ( res.count == 0 ? nil : res.first.first )
+
+    end
+
 end
