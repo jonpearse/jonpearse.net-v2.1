@@ -36,29 +36,42 @@ module Admin::StatsMethods
     ci: :id
   }
 
+  # hard-code this, because it won’t change =)
+  STATS_BEGIN = Date.new( 2018, 9, 1 ).at_midnight
+
   # Returns a basic stats query with date
   def get_base_stats
 
+    # get the appropriate params for this part of the query
     filtered = filter_params( :period, :start, :finish )
 
     # basics
     if filtered.key?( :start ) and filtered.key?( :finish )
 
-      query = Stat.between( Date.parse( filtered[:start] ), Date.parse( filtered[:finish] ))
+      query = Stat.between( filtered[:start], filtered[:finish] )
 
     elsif filtered.key?( :start )
 
-      query = Stat.since( Date.parse( filtered[:start] ))
+      query = Stat.since( filtered[:start] )
+      filtered[:finish] = Date.today.at_midnight
 
     elsif filtered.key?( :finish )
 
       query = Stat.before( Date.parse( filtered[:start] ))
+      filtered[:finish] = STATS_BEGIN
 
     elsif filtered.key?( :period )
 
+      # convert period string to a date
       m = filtered[:period].match( /(\d+)(\w)/ )
+      d = m[1].to_i.send( PERIODS[ m[2].to_sym ]).ago.at_midnight
 
-      query = Stat.since( m[1].to_i.send( PERIODS[ m[2].to_sym ]).ago )
+      # query
+      query = Stat.since( d )
+
+      # also add to the filtered stuff
+      filtered[:start] = Date.today.at_midnight
+      filtered[:finish] = d
 
     else
 
@@ -66,7 +79,14 @@ module Admin::StatsMethods
 
     end
 
-    query
+    # work out the number of days
+    filtered[:days] = ( filtered[:finish] - filtered[:start] ) / 1.day
+
+    # return
+    {
+      query:  query,
+      params: filtered
+    }
 
   end
 
@@ -74,10 +94,12 @@ module Admin::StatsMethods
   def get_extended_stats
 
     # get a set of basic statistics stuff
-    query = get_base_stats
+    retval = get_base_stats
+    query = retval[:query]
 
     # filter out the params we need for this
     filtered = filter_params( :ua, :v, :c, :ct, :ci )
+    retval[:params].merge!( filtered )
 
     # if we’re filtering by UA
     if filtered.key?( :ua )
@@ -99,8 +121,11 @@ module Admin::StatsMethods
 
     end
 
+    # feed back
+    retval[:query] = query
 
-    query
+    # return
+    retval
 
   end
 
@@ -143,7 +168,17 @@ module Admin::StatsMethods
     # [allowed] an array of parameter names to return, if set
     def filter_params( *allowed )
 
-      params.permit( allowed ).to_h.symbolize_keys.select{ |k,v| allowed.include?( k ) and v.match( FILTERS[ BASE_PARAMS[ k ]]) }
+      # grab params
+      filtered = params.permit( allowed ).to_h.symbolize_keys.select{ |k,v| v.match( FILTERS[ BASE_PARAMS[ k ]]) }
+
+      # do any necessary parsing
+      filtered.update( filtered ) do |k,v|
+
+        v = Date.parse( v ).at_midnight if BASE_PARAMS[ k ] == :date
+
+        v
+
+      end
 
     end
 

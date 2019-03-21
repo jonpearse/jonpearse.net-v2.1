@@ -64,7 +64,7 @@ function LineGraph( elRoot, options )
   {
     // 1. map with dates + get maximum Y
     let iMaxVisitors = 0;
-    aoData = aoInbound.map( oI =>
+    aoData = aoInbound.results.map( oI =>
     {
       oI.date = new Date( oI.date );
       iMaxVisitors = Math.max( iMaxVisitors, oI.visitors );

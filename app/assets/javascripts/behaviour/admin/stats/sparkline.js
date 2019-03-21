@@ -58,7 +58,7 @@ function Sparkline( elRoot, options )
 
     // 3. get a max Y height
     let iMaxV = 0;
-    aoData = aoData.map( oP =>
+    aoData = aoData.results.map( oP =>
     {
       oP.day = closestDay( new Date( oP.date )) - iStartX;
       iMaxV = Math.max( iMaxV, oP.visitors );
@@ -85,8 +85,6 @@ function Sparkline( elRoot, options )
         visitors: 0
       })
     }
-
-    console.log( aoData );
 
     // 4. start plotting a path
     const sPath = `M-5,${getYPos( aoData[0].visitors, iMaxV )} H0 L` + aoData.map( oP =>

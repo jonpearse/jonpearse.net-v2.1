@@ -14,7 +14,14 @@ class Admin::DashboardController < Admin::BaseController
   # Performs stat query.
   def get_stats
 
-    @stats = extract_stats_by_axis( get_extended_stats, params[:axis] )
+    # grab stuff
+    query = get_extended_stats
+
+    # expose
+    @stats = extract_stats_by_axis( query[:query], params[:axis] )
+    @query = query[:params]
+
+    # also set a form_context for CMS folk
     @form_context = [ :admin ]
 
     respond_to do |format|

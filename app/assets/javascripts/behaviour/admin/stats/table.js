@@ -23,7 +23,7 @@ function StatsTable( elRoot, options )
     empty( elContainer );
 
     // create the new stuffs
-    aoData.forEach( oRow =>
+    aoData.results.forEach( oRow =>
     {
       // a. row
       const elRow = create( 'tr' );
