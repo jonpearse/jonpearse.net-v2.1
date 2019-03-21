@@ -7,6 +7,7 @@
 
 const ajax       = require( 'util/ajax' );
 const svgElement = require( 'util/svg-utils' ).element;
+const { aggregateData } = require( 'util/admin/stats-functions' );
 
 const HEIGHT = 30;
 const WIDTH  = 105;
@@ -34,7 +35,7 @@ function getYPos( iCount, iMax )
 {
   const iPc = 1 - ( iCount / iMax );
 
-  return Y_PAD + ( iPc * ( HEIGHT - Y_PAD - Y_PAD ));
+  return Math.round( Y_PAD + ( iPc * ( HEIGHT - Y_PAD - Y_PAD )));
 }
 
 
@@ -44,59 +45,29 @@ function Sparkline( elRoot, options )
   /**
    * Builds the SVG with the data returned from the API.
    *
-   * @param {Array} aoData - sparkline data
+   * @param {Object} oResult - sparkline data
    */
-  function buildSvg( aoData )
+  function buildSvg( oResult )
   {
     // 1. create the SVG itself
     const elSvg = svgElement( 'svg', { version: '1.0', viewBox: '0 0 105 30', height: 30, width: 105 });
     elRoot.appendChild( elSvg );
 
-    // 2. work out our min/max
-    const iEndX   = closestDay( new Date() );
-    const iStartX = iEndX - 14;
+    // 2. aggregate our data into buckets
+    const aAggregated = aggregateData( oResult, 14 );
+    const iMaxVisitor = aAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
 
-    // 3. get a max Y height
-    let iMaxV = 0;
-    aoData = aoData.results.map( oP =>
-    {
-      oP.day = closestDay( new Date( oP.date )) - iStartX;
-      iMaxV = Math.max( iMaxV, oP.visitors );
-
-      return oP;
-    });
-
-    // 3. ranging checks…
-    // a. check the beginning
-    if ( aoData[0].day !== 0 )
-    {
-      aoData.unshift({
-        day: aoData[0].day - 1,
-        visitors: 0
-      })
-    }
-
-    // b. … and the end
-    const oLast = aoData[aoData.length - 1]
-    if ( oLast.day !== 14 )
-    {
-      aoData.push({
-        day: oLast.day + 1,
-        visitors: 0
-      })
-    }
-
-    // 4. start plotting a path
-    const sPath = `M-5,${getYPos( aoData[0].visitors, iMaxV )} H0 L` + aoData.map( oP =>
+    // 3. start plotting
+    const sPath = `M-5,${HEIGHT}L` + aAggregated.map( oP =>
     {
       // a. points
-      const xPoint = ( oP.day / 14 ) * WIDTH;
-      const yPoint = getYPos( oP.visitors, iMaxV );
+      const xPoint = Math.round( oP.offsetPc * WIDTH );
+      const yPoint = getYPos( oP.visitors, iMaxVisitor );
 
       // spit out
       return `${xPoint},${yPoint}`;
 
-    }).join( 'L' ) + `H${WIDTH + 5 }V${HEIGHT + 5}H-5Z`;
+    }).join( 'L' ) + `L${WIDTH + 5},${HEIGHT + 5}H-5Z`;
     elSvg.appendChild( svgElement( 'path', { d: sPath }));
 
 

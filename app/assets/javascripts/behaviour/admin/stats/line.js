@@ -4,57 +4,14 @@
  *
  *********************************************************************************************************************/
 
-
 const ajax = require( 'util/ajax' );
 const svgElement = require( 'util/svg-utils' ).element;
 const { empty } = require( 'util/dom-utils' );
+const { aggregateData } = require( 'util/admin/stats-functions' );
 const onResize = require( 'util/debouncedWindowResize' ).bind;
 
 const INDENT = 10;
 const BUCKET_WIDTH = 20;
-
-/**
- * Puts things into buckets (or bins, if you’re that way inclined).
- *
- * @param {Object} oResults - the response from the server
- * @param {Integer} iWidth - the total width available to us
- * @return {Array} an array of integers for each bucket
- */
-function aggregateData( oResults, iWidth )
-{
-  // 1. do some math
-  // a. work out our absolute maximum number of buckets, and their width in days
-  let iBuckets = Math.min( oResults.query.days, Math.floor( iWidth / BUCKET_WIDTH ));
-  const iDaysPerBucket = Math.ceil( oResults.query.days / iBuckets );
-
-  // b. now, adjust the number of buckets based on the above
-  iBuckets = Math.ceil( oResults.query.days / iDaysPerBucket );
-  const iTotalDays = ( iDaysPerBucket * iBuckets );
-
-  // c. finally work out where the first bucket will start respective to our data
-  const iOffset = oResults.query.days - iTotalDays;
-
-  // 2. create our buckets + start filling them
-  const aBucket = new Array( iBuckets ).fill( 0 );
-  oResults.results.forEach( oR =>
-  {
-    const iBucketId = Math.floor(( oR.offset - iOffset ) / iDaysPerBucket );
-    aBucket[iBucketId] += oR.visitors;
-  });
-
-  return aBucket.map(( iTotal, idx ) =>
-  {
-    const iOffsetDays = idx * iDaysPerBucket;
-    const fCentrePoint = iOffsetDays + ( iDaysPerBucket * ( idx / ( iBuckets - 1 )));
-
-    return {
-      visitors:   iTotal,
-      offsetDays: iOffsetDays,
-      widthDays:  iDaysPerBucket,
-      offsetPc:   fCentrePoint / iTotalDays
-    }
-  });
-}
 
 function LineGraph( elRoot, options )
 {
@@ -76,7 +33,7 @@ function LineGraph( elRoot, options )
     const iMaxY = elSvg.clientHeight - ( 2 * INDENT );
 
     // 2. aggregate our data + work out the maximum visitor count
-    const aAggregated = aggregateData( oLastResult, iMaxX );
+    const aAggregated = aggregateData( oLastResult, Math.floor( iMaxX / BUCKET_WIDTH ));
     const iMaxVisitor = aAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
 
     // 3. clear the SVG out + set some new info
