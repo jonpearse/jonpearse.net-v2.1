@@ -24,6 +24,14 @@ function element( sEl, attrs = {} )
     return elSvg;
 }
 
+function text( sContent, attrs = {} )
+{
+  const elText = element( 'text', attrs );
+  elText.appendChild( document.createTextNode( sContent ));
+
+  return elText;
+}
+
 function use( sHref )
 {
     const elUse = document.createElementNS( NAMESPACE, 'use' );
@@ -32,4 +40,4 @@ function use( sHref )
     return elUse;
 }
 
-module.exports = { element, use };
+module.exports = { element, use, text };

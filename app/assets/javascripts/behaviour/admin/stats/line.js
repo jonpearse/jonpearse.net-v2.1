@@ -5,13 +5,20 @@
  *********************************************************************************************************************/
 
 const ajax = require( 'util/ajax' );
-const svgElement = require( 'util/svg-utils' ).element;
+const { element: svgElement, text: svgText } = require( 'util/svg-utils' );
 const { empty } = require( 'util/dom-utils' );
 const { aggregateData } = require( 'util/admin/stats-functions' );
 const onResize = require( 'util/debouncedWindowResize' ).bind;
 
-const INDENT = 10;
 const BUCKET_WIDTH = 40;
+const INDENT = {
+  top:    10,
+  bottom: 30,
+  left:   40,
+  right:   5
+};
+
+const Y_TICKS = 4;
 
 function LineGraph( elRoot, options )
 {
@@ -24,17 +31,90 @@ function LineGraph( elRoot, options )
   let oLastResult;
 
   /**
+   * Plots the Y-axis on the graph.
+   *
+   * @param {Integer} iMaxY - the maximum Y value that we need to hit
+   * @param {Object} oBounds - the bounds of the drawable area
+   * @return {SVGElement} a G node containing the axis + labels
+   */
+  function plotYAxis( iMaxY, oBounds )
+  {
+    // 1. do some maths!
+    // a. work out our rounding factor: this should be half of whatever 2sf is
+    let fLog   = Math.log10( iMaxY );
+    if (( fLog % 1 ) <= 0.1 )
+    {
+      // if we’re only just above a power of 10, go for the previous rounding factor instead.
+      fLog--;
+    }
+    const iRound = Math.pow( 10, Math.floor( fLog )) / 2;
+
+    // b. now round things: this gives our first idea of what the axis maximum might be
+    let iAxisMax = Math.ceil( iMaxY / iRound ) * iRound;
+
+    // c. now: work out a nice round number for our tick interval based off this + use that to recalulate
+    let iTickInterval = Math.ceil(( iAxisMax / ( Y_TICKS - 1 )) / iRound ) * iRound;
+    iAxisMax = iTickInterval * ( Y_TICKS - 1 );
+    const iTickDistance = oBounds.height / ( Y_TICKS - 1 );
+
+    // 2. awesome: start drawing things. First a group
+    const elGroup = svgElement( 'g', { class: 'axis -y' });
+
+    // 3. now start drawing each line + label
+    const sPath = 'M' + ( new Array( Y_TICKS ).fill( 0 )).map(( blah , idx ) =>
+    {
+      // a. work out a Y position
+      const yPos = ( iTickDistance * idx ) + oBounds.top;
+
+      // b. draw some text
+      elGroup.appendChild( svgText( iAxisMax - ( idx * iTickInterval ), { x: oBounds.left, y: yPos }));
+
+      // c. return a point for the line
+      return `${oBounds.left},${yPos}h${oBounds.width}`;
+    }).join( 'M' );
+    elGroup.appendChild( svgElement( 'path', { d: sPath }));
+
+    return { group: elGroup, newMax: iAxisMax };
+  }
+
+  /**
+   * Plots the actual line on the graph.
+   *
+   * @param {Array} aoData - the data to plot
+   * @param {Integer} iMaxY - the maximum of the Y-axis
+   * @param {Object} oBounds - the bounds within which to draw things
+   * @return {SVGElement} a PATH node describing the line
+   */
+  function plotLine( aoData, iMaxY, oBounds )
+  {
+    const sPath = 'M' + aoData.map( oP =>
+    {
+      // a. work out points
+      const xPoint = ( oP.offsetPc * oBounds.width ) + oBounds.left;
+      const yPoint = (( 1 - ( oP.visitors / iMaxY )) * oBounds.height ) + oBounds.top;
+
+      // b. return a coordinate
+      return `${xPoint},${yPoint}`;
+    }).join( 'L' );
+    return svgElement( 'path', { class: 'plot', d: sPath });
+  }
+
+  /**
    * Redraws the graph.
    */
   function redraw()
   {
     // 1. get area dimensions
-    const iMaxX = elSvg.clientWidth  - ( 2 * INDENT );
-    const iMaxY = elSvg.clientHeight - ( 2 * INDENT );
+    const oBounds = {
+      top:    INDENT.top,
+      left:   INDENT.left,
+      width:  elSvg.clientWidth - INDENT.left - INDENT.right,
+      height: elSvg.clientHeight - INDENT.top - INDENT.bottom
+    };
 
     // 2. aggregate our data + work out the maximum visitor count
-    const aAggregated = aggregateData( oLastResult, Math.floor( iMaxX / BUCKET_WIDTH ));
-    const iMaxVisitor = aAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
+    const aoAggregated = aggregateData( oLastResult, Math.floor( oBounds.width / BUCKET_WIDTH ));
+    const iMaxVisitor  = aoAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
 
     // 3. clear the SVG out + set some new info
     empty( elSvg );
@@ -49,17 +129,11 @@ function LineGraph( elRoot, options )
       return;
     }
 
-    // 5. start drawing things out
-    const sPath = 'M' + aAggregated.map( oP =>
-    {
-      // a. work out points
-      const xPoint = ( oP.offsetPc * iMaxX ) + INDENT;
-      const yPoint = (( 1 - ( oP.visitors / iMaxVisitor )) * iMaxY ) + INDENT;
-
-      // b. return a coordinate
-      return `${xPoint},${yPoint}`;
-    }).join( 'L' );
-    elSvg.appendChild( svgElement( 'path', { d: sPath }));
+    // 5. plot things
+    // plotXAxis();
+    const yAxis = plotYAxis( iMaxVisitor, oBounds );
+    elSvg.appendChild( yAxis.group );
+    elSvg.appendChild( plotLine( aoAggregated, yAxis.newMax, oBounds ));
   }
 
   /**
@@ -98,7 +172,7 @@ function LineGraph( elRoot, options )
     elButtons.forEach( el => el.addEventListener( 'click', ev => loadData( el.dataset.period, !ev.altKey )));
 
     // 3. create the SVG
-    elSvg = svgElement( 'svg', { class: 'stats__line-graph', version: '1.0' });
+    elSvg = svgElement( 'svg', { version: '1.0' });
     elContainer.appendChild( elSvg );
 
     // 4. patch viewport + load data

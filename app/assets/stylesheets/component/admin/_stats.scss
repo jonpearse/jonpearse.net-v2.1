@@ -103,14 +103,23 @@
     fill: none;
   }
 
-  path {
+  .plot {
     stroke: currentColor;
     stroke-width: 3;
   }
 
-  circle {
-    r: 7;
-    fill: currentColor;
+  .axis {
+    stroke: var(--grey-7);
+    stroke-width: 1;
+
+    text {
+      fill: var(--grey-4);
+      text-anchor: end;
+
+      @include fsz(small, 1);
+
+      transform: translate(rem(-4), rem(4));
+    }
   }
 
   text {
