@@ -70,8 +70,8 @@ module Admin::StatsMethods
       query = Stat.since( d )
 
       # also add to the filtered stuff
-      filtered[:start] = Date.today.at_midnight
-      filtered[:finish] = d
+      filtered[:start] = d
+      filtered[:finish] = Date.today.at_midnight
 
     else
 
