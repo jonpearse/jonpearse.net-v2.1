@@ -3,6 +3,6 @@
     = render partial: 'admin/dashboard/display/graph'
 
   - unless params[:v]
-    = render partial: 'admin/dashboard/display/table', locals: { axis: :ua }
+    = render partial: 'admin/dashboard/display/table', locals: { axis: :ua, variant: :version }
 
   = render partial: 'admin/dashboard/display/table', locals: { axis: :country, unlink: true }

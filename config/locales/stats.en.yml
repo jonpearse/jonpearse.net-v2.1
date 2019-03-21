@@ -7,6 +7,32 @@ en:
       6M: 6 months
       1Y: 1 year
 
+    page_views: Page views
+
+    axes:
+      ua:
+        title: User agents
+        heading: User agent
+
+      ua-version:
+        title: Versions
+        heading: Version
+
+      country:
+        title: Countries
+        heading: Country
+
+      content:
+        title: Content
+        heading: Content
+
+      content-popular_articles:
+        title: Popular articles
+        heading: Article
+
+      views:
+        title: Page views
+
   iso639names:
     RW: Rwanda
     SO: Somalia

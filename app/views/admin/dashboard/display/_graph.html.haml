@@ -1,5 +1,9 @@
 :ruby
-  title ||= "Recently"
+  variant ||= nil
+
+  i18n_key = 'views'
+  i18n_key << "-#{variant}" unless variant.nil?
+
   add ||= {}
 
   link_params = params.permit( :ua, :c, :v, :ci, :ct ).merge( axis: :views, format: :json ).merge( add )
@@ -7,7 +11,7 @@
 
 %section.stats.-graph{ data: { behaviour: :lineGraph, endpoint: admin_stats_data_path( link_params )}}
   %header.stats__header
-    %h2.stats__title= title
+    %h2.stats__title= t( "stats.axes.#{i18n_key}.title" )
 
     = render partial: 'admin/dashboard/display/filters'
 

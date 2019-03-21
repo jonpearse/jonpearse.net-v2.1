@@ -1,5 +1,9 @@
 :ruby
-  title ||= "Recently"
+  variant ||= nil
+
+  i18n_key = axis.to_s
+  i18n_key << "-#{variant}" unless variant.nil?
+
   add ||= {}
   unlink ||= false
 
@@ -7,13 +11,13 @@
 
 %section.stats.-table{ data: { behaviour: :statsTable, endpoint: admin_stats_data_path( link_params ), unlink: unlink }}
   %header.stats__header
-    %h2.stats__title= title
+    %h2.stats__title= t( "stats.axes.#{i18n_key}.title" )
     = render partial: 'admin/dashboard/display/filters'
 
   .stats__content
     %table.stats__table
       %thead
         %tr
-          %th{ scope: :col }= title
-          %th{ scope: :col } Page views
+          %th{ scope: :col }= t( "stats.axes.#{i18n_key}.heading" )
+          %th{ scope: :col }= t( 'stats.page_views' )
       %tbody{ data: { table: true }}
