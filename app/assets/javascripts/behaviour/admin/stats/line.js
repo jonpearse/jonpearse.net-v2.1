@@ -7,17 +7,64 @@
 
 const ajax = require( 'util/ajax' );
 const svgElement = require( 'util/svg-utils' ).element;
+const { empty } = require( 'util/dom-utils' );
 const onResize = require( 'util/debouncedWindowResize' ).bind;
 
 const INDENT = 10;
+const BUCKET_WIDTH = 20;
+
+/**
+ * Puts things into buckets (or bins, if you’re that way inclined).
+ *
+ * @param {Object} oResults - the response from the server
+ * @param {Integer} iWidth - the total width available to us
+ * @return {Array} an array of integers for each bucket
+ */
+function aggregateData( oResults, iWidth )
+{
+  // 1. do some math
+  // a. work out our absolute maximum number of buckets, and their width in days
+  let iBuckets = Math.min( oResults.query.days, Math.floor( iWidth / BUCKET_WIDTH ));
+  const iDaysPerBucket = Math.ceil( oResults.query.days / iBuckets );
+
+  // b. now, adjust the number of buckets based on the above
+  iBuckets = Math.ceil( oResults.query.days / iDaysPerBucket );
+  const iTotalDays = ( iDaysPerBucket * iBuckets );
+
+  // c. finally work out where the first bucket will start respective to our data
+  const iOffset = oResults.query.days - iTotalDays;
+
+  // 2. create our buckets + start filling them
+  const aBucket = new Array( iBuckets ).fill( 0 );
+  oResults.results.forEach( oR =>
+  {
+    const iBucketId = Math.floor(( oR.offset - iOffset ) / iDaysPerBucket );
+    aBucket[iBucketId] += oR.visitors;
+  });
+
+  return aBucket.map(( iTotal, idx ) =>
+  {
+    const iOffsetDays = idx * iDaysPerBucket;
+    const fCentrePoint = iOffsetDays + ( iDaysPerBucket / 2 );
+
+    return {
+      visitors:   iTotal,
+      offsetDays: iOffsetDays,
+      widthDays:  iDaysPerBucket,
+      offsetPc:   fCentrePoint / iTotalDays
+    }
+  });
+}
 
 function LineGraph( elRoot, options )
 {
   let elContainer;
   let elButtons;
-  let aoData = [];
+
   let elSvg = null;
   let iLastWidth = 0;
+
+  let oLastResult;
 
   /**
    * Redraws the graph.
@@ -28,60 +75,26 @@ function LineGraph( elRoot, options )
     const iMaxX = elSvg.clientWidth  - ( 2 * INDENT );
     const iMaxY = elSvg.clientHeight - ( 2 * INDENT );
 
-    // 2. update the SVG + clear its contents
-    elSvg.setAttribute( 'viewBox', `0 0 ${elSvg.clientWidth} ${elSvg.clientHeight}` );
-    while ( elSvg.firstChild !== null )
-    {
-      elSvg.removeChild( elSvg.firstChild );
-    }
+    // 2. aggregate our data + work out the maximum visitor count
+    const aAggregated = aggregateData( oLastResult, iMaxX );
+    const iMaxVisitor = aAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
+    console.log( iMaxVisitor, aAggregated );
 
-    // 3. start drawing stuff
-    const sPath = 'M' + aoData.map( oP =>
+    // 3. clear the SVG out + set some new info
+    empty( elSvg );
+    elSvg.setAttribute( 'viewBox', `0 0 ${elSvg.clientWidth} ${elSvg.clientHeight}` );
+
+    // 4. start drawing things out
+    const sPath = 'M' + aAggregated.map( oP =>
     {
       // a. work out points
-      const xPoint = ( oP.xOffset * iMaxX ) + INDENT;
-      const yPoint = ( oP.yOffset * iMaxY ) + INDENT;
+      const xPoint = ( oP.offsetPc * iMaxX ) + INDENT;
+      const yPoint = (( 1 - ( oP.visitors / iMaxVisitor )) * iMaxY ) + INDENT;
 
-      // b. draw circles
-      elSvg.appendChild( svgElement( 'circle', {
-        cx: xPoint,
-        cy: yPoint,
-        title: `${oP.label}, ${oP.visitors} hits`
-      }));
-
-      // c. return a coordinate
-      return `${xPoint} ${yPoint}`;
-    });
+      // b. return a coordinate
+      return `${xPoint},${yPoint}`;
+    }).join( 'L' );
     elSvg.appendChild( svgElement( 'path', { d: sPath }));
-  }
-
-  /**
-   * Updates the internal dataset.
-   *
-   * @param {Object} aoInbound - the inbound data.
-   */
-  function updateData( aoInbound )
-  {
-    // 1. map with dates + get maximum Y
-    let iMaxVisitors = 0;
-    aoData = aoInbound.results.map( oI =>
-    {
-      oI.date = new Date( oI.date );
-      iMaxVisitors = Math.max( iMaxVisitors, oI.visitors );
-      return oI;
-    });
-
-    // 2. now find max + min X axis
-    let iStartX = aoData[0].date.getTime();
-    let iEndX   = aoData[ aoData.length - 1 ].date.getTime();
-    let iDeltaX = iEndX - iStartX;
-
-    // 3. map back
-    for ( let i = 0; i < aoData.length; i++ )
-    {
-      aoData[i].xOffset = ( aoData[i].date.getTime() - iStartX ) / iDeltaX;
-      aoData[i].yOffset = 1 - ( aoData[i].visitors / iMaxVisitors );
-    }
   }
 
   /**
@@ -96,7 +109,7 @@ function LineGraph( elRoot, options )
     elButtons.forEach( el => el.classList.toggle( '-current', ( el.dataset.period === sPeriod )));
 
     // pickle off a request
-    ajax( options.endpoint + `period=${sPeriod}` ).then( updateData ).then( redraw ).then( () =>
+    ajax( options.endpoint + `period=${sPeriod}` ).then( oResult => oLastResult = oResult ).then( redraw ).then( () =>
     {
       if ( bRetrigger )
       {
