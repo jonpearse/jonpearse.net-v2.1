@@ -33,16 +33,16 @@ function aggregateData( oResults, iTargetBuckets )
     aBucket[iBucketId] += oR.visitors;
   });
 
+  // 3. flesh things out a wee bit
   return aBucket.map(( iTotal, idx ) =>
   {
     const iOffsetDays = idx * iDaysPerBucket;
-    const fCentrePoint = iOffsetDays + ( iDaysPerBucket * ( idx / ( iBuckets - 1 )));
 
     return {
       visitors:   iTotal,
       offsetDays: iOffsetDays,
       widthDays:  iDaysPerBucket,
-      offsetPc:   fCentrePoint / iTotalDays
+      offsetPc:   iOffsetDays / ( iTotalDays - 1 )
     }
   });
 }
