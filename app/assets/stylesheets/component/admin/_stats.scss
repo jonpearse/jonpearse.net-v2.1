@@ -5,8 +5,7 @@
 /// ==========================================================================
 
 .stats-grid {
-  @include mq( huge )
-  {
+  @include mq( huge ) {
     display: grid;
     grid-gap: rem(20);
     grid-template: 'graph graph' auto 'tableL tableR' auto / 1fr 1fr;

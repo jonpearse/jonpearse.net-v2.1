@@ -15,5 +15,6 @@ require( 'core/behaviours' ).init([
     require( 'behaviour/common/validatable' ),
     require( 'behaviour/admin/wysiwyg' ),
     require( 'behaviour/admin/stats/line' ),
-    require( 'behaviour/admin/stats/table' )
+    require( 'behaviour/admin/stats/table' ),
+    require( 'behaviour/admin/stats/sparkline' )
 ]);
