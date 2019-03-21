@@ -45,7 +45,7 @@ function aggregateData( oResults, iWidth )
   return aBucket.map(( iTotal, idx ) =>
   {
     const iOffsetDays = idx * iDaysPerBucket;
-    const fCentrePoint = iOffsetDays + ( iDaysPerBucket / 2 );
+    const fCentrePoint = iOffsetDays + ( iDaysPerBucket * ( idx / ( iBuckets - 1 )));
 
     return {
       visitors:   iTotal,
