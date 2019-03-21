@@ -92,7 +92,13 @@ function StatsTable( elRoot, options )
     loadData( options.period );
 
     // 4. also bind up
-    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev => loadData( ev.detail.period ));
+    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev =>
+    {
+      if ( ev.target !== elRoot )
+      {
+        loadData( ev.detail.period );
+      }
+    });
 
   }());
 }

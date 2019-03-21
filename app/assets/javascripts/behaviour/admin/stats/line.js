@@ -154,7 +154,13 @@ function LineGraph( elRoot, options )
     });
 
     // 6. also bind up
-    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev => loadData( ev.detail.period ));
+    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev =>
+    {
+      if ( ev.target !== elRoot )
+      {
+        loadData( ev.detail.period );
+      }
+    });
 
   }());
 }
