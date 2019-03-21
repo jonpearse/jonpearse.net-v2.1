@@ -78,7 +78,6 @@ function LineGraph( elRoot, options )
     // 2. aggregate our data + work out the maximum visitor count
     const aAggregated = aggregateData( oLastResult, iMaxX );
     const iMaxVisitor = aAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
-    console.log( iMaxVisitor, aAggregated );
 
     // 3. clear the SVG out + set some new info
     empty( elSvg );
