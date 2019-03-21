@@ -19,10 +19,22 @@ function StatsTable( elRoot, options )
    */
   function updateTable( aoData )
   {
-    // empty things out
+    // 1. empty things out
     empty( elContainer );
 
-    // create the new stuffs
+    // 2. if there were no results
+    if ( aoData.results.length === 0 )
+    {
+      // a. row
+      const elRow = create( 'tr' );
+      elContainer.appendChild( elRow );
+
+      // b. td
+      elRow.appendChild( create( 'td', { colspan: 2, class: '-empty' }, 'There were no visitors in this period' ));
+      return;
+    }
+
+    // 3. otherwise, create the new stuffs
     aoData.results.forEach( oRow =>
     {
       // a. row

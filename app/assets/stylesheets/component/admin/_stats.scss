@@ -112,6 +112,13 @@
     r: 7;
     fill: currentColor;
   }
+
+  text {
+    fill: var(--text);
+    text-anchor: middle;
+
+    @include fsz(tertiary, 1);
+  }
 }
 
 /// Table
@@ -149,6 +156,12 @@ table.stats__table {
       margin-left: 1em;
       width: 3.5em;
       @include fsz(small, 16);
+    }
+
+    td.-empty.-empty {
+      padding: rem(40) rem(20);
+      @include fsz(tertiary, 1);
+      text-align: center;
     }
   }
 }

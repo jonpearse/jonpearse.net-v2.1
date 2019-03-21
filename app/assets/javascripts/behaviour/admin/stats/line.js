@@ -40,7 +40,16 @@ function LineGraph( elRoot, options )
     empty( elSvg );
     elSvg.setAttribute( 'viewBox', `0 0 ${elSvg.clientWidth} ${elSvg.clientHeight}` );
 
-    // 4. start drawing things out
+    // 4. if there’s no data
+    if ( oLastResult.results.length === 0 )
+    {
+      const elText = svgElement( 'text', { x: elSvg.clientWidth / 2, y: elSvg.clientHeight / 2 });
+      elText.appendChild( document.createTextNode( 'There were no visitors in this period' ));
+      elSvg.appendChild( elText );
+      return;
+    }
+
+    // 5. start drawing things out
     const sPath = 'M' + aAggregated.map( oP =>
     {
       // a. work out points
