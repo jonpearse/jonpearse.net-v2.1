@@ -11,7 +11,7 @@ const { aggregateData } = require( 'util/admin/stats-functions' );
 const onResize = require( 'util/debouncedWindowResize' ).bind;
 
 const INDENT = 10;
-const BUCKET_WIDTH = 20;
+const BUCKET_WIDTH = 40;
 
 function LineGraph( elRoot, options )
 {
