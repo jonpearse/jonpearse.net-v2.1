@@ -14,17 +14,6 @@ const WIDTH  = 105;
 const Y_PAD  = 5;
 
 /**
- * Returns the cloest day to the given date.
- *
- * @param {Date} oDate - the date to round.
- * @return {Integer} a rounded day number.
- */
-function closestDay( oDate )
-{
-  return Math.floor( oDate.getTime() / 1000 / 86400 );
-}
-
-/**
  * Returns the Y position of a given point, taking some padding into account.
  *
  * @param {Integer} iCount - the number of visitors
