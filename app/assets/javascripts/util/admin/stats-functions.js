@@ -4,6 +4,8 @@
  *
  *********************************************************************************************************************/
 
+const Chartist = require( 'chartist' );
+
 /**
  * Puts things into buckets (or bins, if you’re that way inclined).
  *
@@ -47,6 +49,70 @@ function aggregateData( oResults, iTargetBuckets )
   });
 }
 
+/**
+ * Generates data for a graph ready to be passed into Chartist.
+ *
+ * @param {Object} oData - the data received from the API.
+ * @param {Integer} iSegments - how many segments to cast data into
+ * @param {Integer} iYTicks - the number of ticks to place on the Y axis.
+ * @return {Object} an object containing data and options members.
+ */
+function generateGraphData( oData, iSegments, iYTicks )
+{
+  let iMaxYAxis = 0;
+
+  /**
+   * Calculates the ticks to place on the Y-axis.
+   *
+   * @return {Array} the ticks to display on the Y-Axis
+   */
+  function calculateYAxis()
+  {
+    // 1. work out what we should be rounding to
+    let fLog = Math.log10( iMaxYAxis );
+    if (( fLog % 1 ) <= 0.1 )
+    {
+      // if we’ve only just crossed a boundary, round down
+      fLog--;
+    }
+    const iRound = Math.pow( 10, Math.floor( fLog )) / 2;
+
+    // 2. round our y-axis up
+    iMaxYAxis = Math.ceil( iMaxYAxis / iRound ) * iRound;
+
+    // 3. tweak things to make our ticks nicely-round numbers.
+    const iTickInterval = Math.ceil(( iMaxYAxis / ( iYTicks - 1)) / iRound ) * iRound;
+    iMaxYAxis = iTickInterval * ( iYTicks - 1 );
+
+    // 2. return our values
+    return new Array( iYTicks ).fill( 0 ).map(( blah, idx ) => idx * iTickInterval );
+  }
+
+  return (function init()
+  {
+    // 1. aggregate data + get a maximum y-height
+    const aoAggregated = aggregateData( oData, iSegments );
+    iMaxYAxis = aoAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
+
+    // 2. return stuffs
+    return {
+      data: {
+        series: [ aoAggregated.map( oP => oP.visitors ) ]
+      },
+      options: {
+        axisY: {
+          type:  Chartist.FixedScaleAxis,
+          ticks: calculateYAxis(),
+          high:  iMaxYAxis,
+          low:   0
+        },
+        showPoint: false
+      },
+    }
+  }());
+}
+
 module.exports = {
-  aggregateData
+  aggregateData,
+  generateGraphData
 };

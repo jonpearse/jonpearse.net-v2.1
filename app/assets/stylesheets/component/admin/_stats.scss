@@ -76,60 +76,6 @@
   & + & { margin-left: rem(10); }
 }
 
-/// Graph
-/// ==========================================================================
-.stats__line-graph {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-height: rem(300);
-
-  color: var(--neutral-3);
-
-  &::before {
-    display: block;
-    width: 100%;
-    padding-top: 56.25%;
-    content: '';
-  }
-
-  svg {
-    position: absolute;
-    top: rem(20);
-    left: rem(20);
-    height: calc( 100% - #{rem(40) });
-    width:  calc( 100% - #{rem(40) });
-
-    fill: none;
-  }
-
-  .plot {
-    stroke: currentColor;
-    stroke-width: 3;
-  }
-
-  .axis {
-    stroke: var(--grey-7);
-    stroke-width: 1;
-
-    text {
-      fill: var(--grey-4);
-      text-anchor: end;
-
-      @include fsz(small, 1);
-
-      transform: translate(rem(-4), rem(4));
-    }
-  }
-
-  text {
-    fill: var(--text);
-    text-anchor: middle;
-
-    @include fsz(tertiary, 1);
-  }
-}
-
 /// Table
 /// ==========================================================================
 table.stats__table {
@@ -173,4 +119,58 @@ table.stats__table {
       text-align: center;
     }
   }
+}
+
+/// ==========================================================================
+/// # Graph stuff
+/// ==========================================================================
+
+/// Container
+/// ==========================================================================
+.stats__line-graph {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-height: rem(300);
+
+  &::before {
+    display: block;
+    width: 100%;
+    padding-top: 56.25%;
+    content: '';
+  }
+}
+
+/// Chartist
+/// ==========================================================================
+.ct-chart-line {
+  position: absolute;
+  top: rem(20);
+  left: rem(20);
+  height: calc( 100% - #{rem(40) }) !important; // sass-lint:disable-line no-important
+  width:  calc( 100% - #{rem(40) }) !important; // sass-lint:disable-line no-important
+}
+
+.ct-series {
+  fill: none;
+  stroke-width: 2;
+  stroke: var(--neutral-3);
+}
+
+.ct-label {
+  display: flex;
+
+  color: var(--text);
+  @include fsz(small, 1);
+
+  &.ct-vertical {
+    align-items: flex-end;
+    justify-content: flex-end;
+    transform: translateY(rem(5));
+  }
+}
+
+.ct-grid {
+  stroke: var(--grey-7);
+  stroke-width: 1;
 }
