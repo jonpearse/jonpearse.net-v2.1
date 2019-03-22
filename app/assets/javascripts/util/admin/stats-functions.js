@@ -10,24 +10,37 @@ const Chartist = require( 'chartist' );
  * Puts things into buckets (or bins, if you’re that way inclined).
  *
  * @param {Object} oResults - the response from the server
- * @param {Integer} iTargetBuckets - the target number of buckets to have.
+ * @param {Integer} iMaxBuckets - the maximum number of buckets to have
  * @return {Array} an array of integers for each bucket
  */
-function aggregateData( oResults, iTargetBuckets )
+function aggregateData( oResults, iMaxBuckets )
 {
-  // 1. do some math
-  // a. work out our absolute maximum number of buckets, and their width in days
-  let iBuckets = Math.min( oResults.query.days, iTargetBuckets );
-  const iDaysPerBucket = Math.ceil( oResults.query.days / iBuckets );
+  // 1. how many buckets do we want?
+  // a. do some division
+  let iBuckets = oResults.query.days;
+  let iDaysPerBucket = 1;
+  if ( iBuckets > iMaxBuckets )
+  {
+    // try weeks
+    iBuckets /= 7;
+    iDaysPerBucket = 7;
 
-  // b. now, adjust the number of buckets based on the above
-  iBuckets = Math.ceil( oResults.query.days / iDaysPerBucket );
+    if ( iBuckets > iMaxBuckets )
+    {
+      // two weeks
+      iBuckets /= 2;
+      iDaysPerBucket = 14;
+    }
+  }
+
+  // b. tidy things up
+  iBuckets = Math.ceil( iBuckets );
+
+  // 2. work out how many days our graph now spans, and whether that’s offset from the start of our data
   const iTotalDays = ( iDaysPerBucket * iBuckets );
-
-  // c. finally work out where the first bucket will start respective to our data
   const iOffset = oResults.query.days - iTotalDays;
 
-  // 2. create our buckets + start filling them
+  // 3. create our buckets + start filling them
   const aBucket = new Array( iBuckets ).fill( 0 );
   oResults.results.forEach( oR =>
   {
@@ -35,14 +48,14 @@ function aggregateData( oResults, iTargetBuckets )
     aBucket[iBucketId] += oR.visitors;
   });
 
-  // 3. flesh things out a wee bit
+  // 4. flesh things out a wee bit
   return aBucket.map(( iTotal, idx ) =>
   {
     const iOffsetDays = idx * iDaysPerBucket;
 
     return {
       visitors:   iTotal,
-      offsetDays: iOffsetDays,
+      offsetDays: iOffsetDays + iOffset,
       widthDays:  iDaysPerBucket,
       offsetPc:   iOffsetDays / ( iTotalDays - 1 )
     }
@@ -53,11 +66,11 @@ function aggregateData( oResults, iTargetBuckets )
  * Generates data for a graph ready to be passed into Chartist.
  *
  * @param {Object} oData - the data received from the API.
- * @param {Integer} iSegments - how many segments to cast data into
+ * @param {Integer} iMaxSegments - the maximum number of segments we can have.
  * @param {Integer} iYTicks - the number of ticks to place on the Y axis.
  * @return {Object} an object containing data and options members.
  */
-function generateGraphData( oData, iSegments, iYTicks )
+function generateGraphData( oData, iMaxSegments, iYTicks )
 {
   let iMaxYAxis = 0;
 
@@ -91,12 +104,13 @@ function generateGraphData( oData, iSegments, iYTicks )
   return (function init()
   {
     // 1. aggregate data + get a maximum y-height
-    const aoAggregated = aggregateData( oData, iSegments );
+    const aoAggregated = aggregateData( oData, iMaxSegments );
     iMaxYAxis = aoAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
 
     // 2. return stuffs
     return {
       data: {
+        labels: aoAggregated.map( oP => oP.offsetDays ),
         series: [ aoAggregated.map( oP => oP.visitors ) ]
       },
       options: {
@@ -108,6 +122,10 @@ function generateGraphData( oData, iSegments, iYTicks )
         },
         showPoint: false
       },
+      meta: {
+        bucketWidth: aoAggregated[0].widthDays || 1,
+        numBuckets:  aoAggregated.length
+      }
     }
   }());
 }

@@ -168,6 +168,17 @@ table.stats__table {
     justify-content: flex-end;
     transform: translateY(rem(5));
   }
+
+  &.ct-horizontal {
+    align-items: flex-start;
+    justify-content: center;
+
+    width: auto !important; // sass-lint:disable-line no-important
+
+    white-space: nowrap;
+
+    transform: translateX(-50%);
+  }
 }
 
 .ct-grid {

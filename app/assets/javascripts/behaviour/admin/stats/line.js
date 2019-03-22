@@ -3,6 +3,7 @@
  *
  *
  *********************************************************************************************************************/
+/* global MONTHS */
 
 const Chartist = require( 'chartist' );
 
@@ -18,6 +19,26 @@ function LineGraph( elRoot, options )
   let elButtons;
   let oChart = null;
 
+  let oLastQuery = null;
+
+  /**
+   * Generates an individual X-Axis label.
+   *
+   * @param {Integer} iOff - the offset from the beginning date of the data.
+   * @param {Object} oBucketConf - the bucket configuration being used.
+   * @return {String} an axis label
+   */
+  function generateXAxisLabel( iOff, oBucketConf )
+  {
+    // 1. work out when the calendar starts + adjust for our bucketing
+    const oDate = new Date( oLastQuery.start );
+    const iOffset = oLastQuery.days - ( oBucketConf.bucketWidth * oBucketConf.numBuckets );
+    oDate.setDate( oDate.getDate() + iOffset + iOff );
+
+    // 2. output!
+    return `${MONTHS[ oDate.getMonth() + 1 ]} ${oDate.getDate()}`;
+  }
+
   /**
    * Redraws the graph.
    *
@@ -25,12 +46,23 @@ function LineGraph( elRoot, options )
    */
   function redraw( oRawData )
   {
+    // 0. store the data
+    oLastQuery = oRawData.query;
+
     // 1. get the data
-    const { data, options } = generateGraphData( oRawData, Math.ceil( elRoot.clientWidth / BUCKET_WIDTH ), Y_TICKS );
+    const { data, options, meta } = generateGraphData( oRawData, Math.ceil( elRoot.clientWidth / BUCKET_WIDTH ), Y_TICKS );
 
-    console.log( data, options );
+    // 2. specify a linear-interpolation function for the x-axis
+    options.axisX = { labelInterpolationFnc: val => generateXAxisLabel( val, meta ) };
+    options.fullWidth = true;
+    options.chartPadding = {
+      top:    10,
+      bottom: 5,
+      left:   10,
+      right:  50
+    };
 
-    // 2. work out what we’re doing
+    // 3. either draw or update the graph
     if ( oChart === null )
     {
       oChart = new Chartist.Line( elContainer, data, options );
