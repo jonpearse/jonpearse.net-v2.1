@@ -26,7 +26,10 @@
     "dot-notation": "error",
     "eol-last": "error",
     "eqeqeq": "error",
-    "indent": ["error", 2, { "MemberExpression": "off" }],
+    "indent": ["error", 2, {
+      "MemberExpression": "off",
+      "SwitchCase": 1
+    }],
     "max-len": ["warn", 140, {
         "ignoreComments": true,
         "ignoreUrls": true
