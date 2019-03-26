@@ -9,7 +9,7 @@ class Stat < ApplicationRecord
   scope :include_generic, -> { unscoped }
 
   # Simple scopes
-  scope :since,   -> ( date ){ where( 'recorded_at >= ?', date.at_midnight )}
+  scope :since,   -> ( date ){ where( 'recorded_at >= ? AND recorded_at < ?', date.at_midnight, Date.today.at_midnight )}
   scope :before,  -> ( date ){ where( 'recorded_at < ?', date.at_midnight )}
   scope :between, -> ( start, finish ){ where( 'recorded_at >= ? AND recorded_at < ?', start.at_midnight, finish.at_midnight )}
   scope :on,      -> ( date ){ where( 'recorded_at >= ? AND recorded_at < ?', date.beginning_of_day, date.end_of_day )}
