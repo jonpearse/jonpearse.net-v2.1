@@ -110,7 +110,6 @@ function generateGraphData( oData, iMaxSegments, iYTicks )
     // 2. return stuffs
     return {
       data: {
-        labels: aoAggregated.map( oP => oP.offsetDays ),
         series: [ aoAggregated.map( oP => oP.visitors ) ]
       },
       options: {

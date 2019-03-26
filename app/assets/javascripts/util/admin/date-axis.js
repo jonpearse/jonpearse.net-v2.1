@@ -100,7 +100,7 @@ function axisBuilder( oChart, oData )
   function plotIndividualDays()
   {
     // 1. work out offset + start point
-    const fOffset = oChart.chartRect.width() / oData.query.days;
+    const fOffset = oChart.chartRect.width() / ( oData.query.days - 1 );
     const oDate   = new Date( oData.query.start );
 
     // 2. now iterate!
@@ -110,8 +110,7 @@ function axisBuilder( oChart, oData )
       addGridLine( fOffset * i );
 
       // b. and a label
-      const elLabel = addLabel( fOffset * i, fOffset );
-      elLabel.appendChild( createEl(
+      addLabel( fOffset * i, fOffset ).appendChild( createEl(
         'span',
         { class: 'ct-label ct-horizontal' },
         `${MONTHS[oDate.getMonth() + 1]} ${oDate.getDate()}`
@@ -119,7 +118,6 @@ function axisBuilder( oChart, oData )
 
       // c. increment!
       addDays( oDate );
-
     }
   }
 
@@ -129,7 +127,7 @@ function axisBuilder( oChart, oData )
   function plotWeeksAndMonths()
   {
     // 0. get some stuff that might come in useful
-    const iNumDays   = oData.meta.bucketWidth * oData.meta.numBuckets;
+    const iNumDays   = ( oData.meta.bucketWidth * oData.meta.numBuckets ) - 1;
     const iSvgWidth  = oChart.chartRect.width();
     const fWeekWidth = ( 7 / iNumDays ) * iSvgWidth;
 
@@ -146,8 +144,7 @@ function axisBuilder( oChart, oData )
       addGridLine( fOff, 'ct-major', true );
 
       // b. add a label
-      const elLabel = addLabel( fOff, fWeekWidth );
-      elLabel.appendChild( createEl(
+      addLabel( fOff, fWeekWidth ).appendChild( createEl(
         'span',
         { class: 'ct-label ct-horizontal ct-month' },
         `${MONTHS[ oCurrMonth.getMonth() + 1 ]} ${oCurrMonth.getFullYear()}`
@@ -195,8 +192,6 @@ function axisBuilder( oChart, oData )
         // a. work out where we are on the viewport + weather we should show anything
         const fPosition = fMonthOff + ( iDayWidth * i );
         const bShow = ( fPosition > 0 ) && ( fPosition < fLastOff ) && ( i > 0 );
-
-        console.log( i, iTickEvery, bShow, fPosition, fLastOff );
 
         // b. if we’re showing…
         if ( bShow )
