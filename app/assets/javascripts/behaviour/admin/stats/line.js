@@ -3,12 +3,13 @@
  *
  *
  *********************************************************************************************************************/
-/* global MONTHS */
 
 const Chartist = require( 'chartist' );
 
 const ajax = require( 'util/ajax' );
 const { generateGraphData } = require( 'util/admin/stats-functions' );
+
+const ctDateAxis = require( 'util/admin/date-axis' )( Chartist );
 
 const BUCKET_WIDTH = 20;
 const Y_TICKS = 4;
@@ -19,24 +20,16 @@ function LineGraph( elRoot, options )
   let elButtons;
   let oChart = null;
 
-  let oLastQuery = null;
+  let oLastMeta;
 
   /**
-   * Generates an individual X-Axis label.
+   * Delegate function that the ctDateAxis plugin can use to get the most recent data, because JS scoping is weird.
    *
-   * @param {Integer} iOff - the offset from the beginning date of the data.
-   * @param {Object} oBucketConf - the bucket configuration being used.
-   * @return {String} an axis label
+   * @return {Object} oLastMeta
    */
-  function generateXAxisLabel( iOff, oBucketConf )
+  function getAxisData()
   {
-    // 1. work out when the calendar starts + adjust for our bucketing
-    const oDate = new Date( oLastQuery.start );
-    const iOffset = oLastQuery.days - ( oBucketConf.bucketWidth * oBucketConf.numBuckets );
-    oDate.setDate( oDate.getDate() + iOffset + iOff );
-
-    // 2. output!
-    return `${MONTHS[ oDate.getMonth() + 1 ]} ${oDate.getDate()}`;
+    return oLastMeta;
   }
 
   /**
@@ -46,14 +39,15 @@ function LineGraph( elRoot, options )
    */
   function redraw( oRawData )
   {
-    // 0. store the data
-    oLastQuery = oRawData.query;
-
     // 1. get the data
     const { data, options, meta } = generateGraphData( oRawData, Math.ceil( elRoot.clientWidth / BUCKET_WIDTH ), Y_TICKS );
+    oLastMeta = {
+      query: oRawData.query,
+      meta
+    };
 
-    // 2. specify a linear-interpolation function for the x-axis
-    options.axisX = { labelInterpolationFnc: val => generateXAxisLabel( val, meta ) };
+    // 2. specify additional options, including disabling the inbuilt X-axis and doing it ourselves 🙄
+    options.axisX = { showGrid: false, showLabel: false };
     options.fullWidth = true;
     options.chartPadding = {
       top:    10,
@@ -61,6 +55,11 @@ function LineGraph( elRoot, options )
       left:   10,
       right:  50
     };
+    options.plugins = [
+      ctDateAxis({
+        fnGetData: getAxisData
+      })
+    ];
 
     // 3. either draw or update the graph
     if ( oChart === null )

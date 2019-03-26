@@ -124,7 +124,8 @@ function generateGraphData( oData, iMaxSegments, iYTicks )
       },
       meta: {
         bucketWidth: aoAggregated[0].widthDays || 1,
-        numBuckets:  aoAggregated.length
+        numBuckets:  aoAggregated.length,
+        offsetDays:  aoAggregated[0].offsetDays
       }
     }
   }());

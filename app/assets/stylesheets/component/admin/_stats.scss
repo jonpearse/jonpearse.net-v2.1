@@ -173,15 +173,27 @@ table.stats__table {
     align-items: flex-start;
     justify-content: center;
 
-    width: auto !important; // sass-lint:disable-line no-important
-
-    white-space: nowrap;
+    padding-top: .5em;
 
     transform: translateX(-50%);
+  }
+
+  &.ct-month {
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: rem(3) 0 0 rem(5);
+    transform: none;
+
+    @include fsz( base );
+    white-space: nowrap;
   }
 }
 
 .ct-grid {
   stroke: var(--grey-7);
   stroke-width: 1;
+
+  &.ct-major,
+  &.ct-minor { stroke: var(--grey-5); }
+  &.ct-minor { stroke-dasharray: 4 6; }
 }
