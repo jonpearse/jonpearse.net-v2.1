@@ -3,4 +3,5 @@
     = render partial: 'admin/dashboard/display/graph', locals: { axis: :views }
 
   - else
+    = render partial: 'admin/dashboard/display/standalone-filters'
     = render partial: 'admin/dashboard/display/table', locals: { axis: :country }

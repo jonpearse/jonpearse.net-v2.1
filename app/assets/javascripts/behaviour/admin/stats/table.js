@@ -10,7 +10,6 @@ const { create, empty } = require( 'util/dom-utils' );
 function StatsTable( elRoot, options )
 {
   let elContainer;
-  let elButtons;
 
   /**
    * Redraws the graph.
@@ -62,27 +61,6 @@ function StatsTable( elRoot, options )
     });
   }
 
-  /**
-   * Event handler when the user clicks on a filter button: loads data from the server.
-   *
-   * @param {String} sPeriod - the period to update to
-   * @param {Boolean} bRetrigger - true to update all other stats, false otherwise
-   */
-  function loadData( sPeriod, bRetrigger = false )
-  {
-    // update buttons
-    elButtons.forEach( el => el.classList.toggle( '-current', ( el.dataset.period === sPeriod )));
-
-    // pickle off a request
-    ajax( options.endpoint + `period=${sPeriod}` ).then( updateTable ).then( () =>
-    {
-      if ( bRetrigger )
-      {
-        elRoot.dispatchEvent( new CustomEvent( 'statsRangeChanged', { bubbles: true, detail: { period: sPeriod }}));
-      }
-    });
-  }
-
   /** Constructor logic. */
   return (function init()
   {
@@ -93,24 +71,8 @@ function StatsTable( elRoot, options )
       return elContainer;
     }
 
-    // 2. hook filters
-    elButtons = elRoot.querySelectorAll( '[data-period]' )
-    elButtons.forEach( el => el.addEventListener( 'click', ev => loadData( el.dataset.period, !ev.altKey )));
-
-    // 3. patch endpoint
-    options.endpoint += ( options.endpoint.indexOf( '?' ) === -1 ) ? '?' : '&';
-
-    // 3. load data
-    loadData( options.period );
-
-    // 4. also bind up
-    elRoot.parentNode.addEventListener( 'statsRangeChanged', ev =>
-    {
-      if ( ev.target !== elRoot )
-      {
-        loadData( ev.detail.period );
-      }
-    });
+    // 2. bind on date range changing
+    elRoot.addEventListener( 'statsRangeChanged', ev => ajax( options.endpoint, ev.detail ).then( updateTable ));
 
   }());
 }
@@ -120,7 +82,6 @@ module.exports = {
   init: StatsTable,
   defaults: {
     endpoint: null,
-    period:   '1W',
     unlink:   false
   }
 };

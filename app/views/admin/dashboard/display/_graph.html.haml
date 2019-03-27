@@ -9,7 +9,7 @@
   link_params = params.permit( :ua, :c, :v, :ci, :ct ).merge( axis: :views, format: :json ).merge( add )
   link_params.merge!( add ) unless add.nil?
 
-%section.stats.-graph{ data: { behaviour: :lineGraph, endpoint: admin_stats_data_path( link_params )}}
+%section.stats.-graph{ data: { behaviour: :lineGraph, endpoint: admin_stats_data_path( link_params ), filterable: true }}
   %header.stats__header
     %h2.stats__title= t( "stats.axes.#{i18n_key}.title" )
 

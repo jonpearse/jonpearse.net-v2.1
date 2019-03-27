@@ -16,5 +16,6 @@ require( 'core/behaviours' ).init([
   require( 'behaviour/admin/wysiwyg' ),
   require( 'behaviour/admin/stats/line' ),
   require( 'behaviour/admin/stats/table' ),
-  require( 'behaviour/admin/stats/sparkline' )
+  require( 'behaviour/admin/stats/sparkline' ),
+  require( 'behaviour/admin/stats/filters' )
 ]);
