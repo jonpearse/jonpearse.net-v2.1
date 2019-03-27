@@ -68,7 +68,7 @@ function getOptionsFor( el, sNamespace, oDefaults )
 *
 * @param   {HTMLElement} elBindAt - the root HTML element at which we should start binding
 */
-function bindBehaviours( elBindAt = document )
+function bindBehaviours( elBindAt = document.body )
 {
   // 1. start binding
   elBindAt.querySelectorAll( '[data-behaviour]' ).forEach( elNode =>
@@ -94,15 +94,14 @@ function bindBehaviours( elBindAt = document )
       const oBehaviour = oRegisteredBehaviours[sBehaviour];
       const oOptions   = getOptionsFor( elNode, oBehaviour.namespace, oBehaviour.defaults );
 
-      // c. debug
-      console.group( `Binding behaviour ‘${sBehaviour}’` );
-      console.debug( 'Options:', oOptions );
-      console.groupEnd();
-
-      // d. fire the behaviour and store it
+      // c. fire the behaviour and store it
       try
       {
         elNode.boundBehaviours[sBehaviour] = oBehaviour.init( elNode, oOptions );
+        elNode.dispatchEvent( new CustomEvent( 'behaviourBound', { bubbles: true, detail: {
+          behaviour: sBehaviour,
+          options: oOptions
+        }}));
       }
       catch ( ex )
       {
@@ -110,6 +109,10 @@ function bindBehaviours( elBindAt = document )
       }
     });
   });
+
+  // 2. fire an event
+  console.log( 'Triggering', elBindAt );
+  elBindAt.dispatchEvent( new CustomEvent( 'allBehavioursBound', { bubbles: true }));
 }
 
 /**
@@ -142,12 +145,14 @@ function registerBehaviours( aoBehaviour, bAutoBind = true )
       throw new TypeError( `Duplicate behaviour ‘${oBehaviour.name}’` );
     }
 
-    // d. register it
+    // d. register it + fire up
     oRegisteredBehaviours[oBehaviour.name] = oBehaviour;
-    console.group( `Registered behaviour ‘${oBehaviour.name}’` );
-    console.debug( 'Defaults:',  oBehaviour.defaults );
-    console.debug( 'Namespace:', oBehaviour.namespace );
-    console.groupEnd();
+
+    document.body.dispatchEvent( new CustomEvent( 'behaviourRegistered', { detail: {
+      behaviour: oBehaviour.name,
+      defaults:  oBehaviour.defaults,
+      namespace: oBehaviour.namespace
+    }}));
   });
 
   // 2. if we’re autobinding, do so
