@@ -3,7 +3,7 @@ class Stats::Raw < ApplicationRecord
   self.table_name = 'stats_raw'
 
   # we always want to select before today
-  default_scope -> { where( 'recorded_at < ?', Date.today.at_midnight ).order( 'recorded_at ASC' )}
+  default_scope -> { where( 'recorded_at < ?', Date.today.at_midnight.utc ).order( 'recorded_at ASC' )}
 
   # aggregation scopes
   scope :not_generic, -> { where( 'browser_name != ?', 'Generic Browser' )}

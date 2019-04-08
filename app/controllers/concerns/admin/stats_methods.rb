@@ -37,7 +37,7 @@ module Admin::StatsMethods
   }
 
   # hard-code this, because it won’t change =)
-  STATS_BEGIN = Date.new( 2018, 9, 1 ).at_midnight
+  STATS_BEGIN = Date.new( 2018, 9, 1 ).at_midnight.utc
 
   # Returns a basic stats query with date
   def get_base_stats
@@ -54,7 +54,7 @@ module Admin::StatsMethods
     elsif filtered.key?( :start )
 
       query = query.since( filtered[:start] )
-      filtered[:finish] = Date.today.at_midnight
+      filtered[:finish] = Date.today.at_midnight.utc
 
     elsif filtered.key?( :finish )
 
@@ -65,14 +65,14 @@ module Admin::StatsMethods
 
       # convert period string to a date
       m = filtered[:period].match( /(\d+)(\w)/ )
-      d = m[1].to_i.send( PERIODS[ m[2].to_sym ]).ago.at_midnight
+      d = Date.today.at_midnight.utc - m[1].to_i.send( PERIODS[ m[2].to_sym ])
 
       # query
       query = query.since( d )
 
       # also add to the filtered stuff
       filtered[:start] = d
-      filtered[:finish] = Date.today.at_midnight
+      filtered[:finish] = Date.today.at_midnight.utc
 
     end
 
@@ -171,7 +171,7 @@ module Admin::StatsMethods
       # do any necessary parsing
       filtered.update( filtered ) do |k,v|
 
-        v = Date.parse( v ).at_midnight if BASE_PARAMS[ k ] == :date
+        v = Date.parse( v ).at_midnight.utc if BASE_PARAMS[ k ] == :date
 
         v
 
