@@ -94,7 +94,7 @@ function generateGraphData( oData, iMaxSegments, iYTicks )
     iMaxYAxis = Math.max( 3, Math.ceil( iMaxYAxis / iRound ) * iRound );
 
     // 3. tweak things to make our ticks nicely-round numbers.
-    const iTickInterval = Math.ceil(( iMaxYAxis / ( iYTicks - 1)) / iRound ) * iRound;
+    const iTickInterval = Math.ceil( Math.ceil(( iMaxYAxis / ( iYTicks - 1)) / iRound ) * iRound );
     iMaxYAxis = iTickInterval * ( iYTicks - 1 );
 
     // 2. return our values
