@@ -13,7 +13,7 @@ class Stats::Report < ApplicationRecord
   scope :on,      -> ( date ){ where( 'recorded_on = ?', date )}
 
   # Magic things
-  scope :with_urls,  -> { joins( "AS s JOIN stats_deduped_pageviews AS v ON ( s.id = v.session_id )" ).select( 'v.content_type, v.content_id' )}
+  scope :with_urls,  -> { joins( "JOIN stats_deduped_pageviews AS v ON ( stats_sessions.id = v.session_id )" ).select( 'v.content_type, v.content_id' )}
   scope :articles,    -> { with_views.where( 'v.content_type': 'Article' )}
   scope :projects,    -> { with_views.where( 'v.content_type': 'Project' )}
   scope :obv,         -> { order( 'visitors DESC' )}
