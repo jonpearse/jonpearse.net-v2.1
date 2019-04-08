@@ -8,6 +8,7 @@ en:
       1Y: 1 year
 
     page_views: Page views
+    uniques: Visitors
 
     axes:
       ua:
@@ -31,7 +32,7 @@ en:
         heading: Article
 
       views:
-        title: Page views
+        title: Visitors
 
   iso639names:
     RW: Rwanda
