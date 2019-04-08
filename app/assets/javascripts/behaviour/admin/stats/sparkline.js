@@ -22,7 +22,7 @@ const Y_PAD  = 5;
  */
 function getYPos( iCount, iMax )
 {
-  const iPc = 1 - ( iCount / iMax );
+  const iPc = ( iCount === 0 ) ? 1 : 1 - ( iCount / iMax );
 
   return Math.round( Y_PAD + ( iPc * ( HEIGHT - Y_PAD - Y_PAD )));
 }
