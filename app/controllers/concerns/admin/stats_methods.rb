@@ -46,18 +46,19 @@ module Admin::StatsMethods
     filtered = filter_params( :period, :start, :finish )
 
     # basics
+    query = Stats::Report
     if filtered.key?( :start ) and filtered.key?( :finish )
 
-      query = Stat.between( filtered[:start], filtered[:finish] )
+      query = query.between( filtered[:start], filtered[:finish] )
 
     elsif filtered.key?( :start )
 
-      query = Stat.since( filtered[:start] )
+      query = query.since( filtered[:start] )
       filtered[:finish] = Date.today.at_midnight
 
     elsif filtered.key?( :finish )
 
-      query = Stat.before( Date.parse( filtered[:start] ))
+      query = query.before( Date.parse( filtered[:start] ))
       filtered[:finish] = STATS_BEGIN
 
     elsif filtered.key?( :period )
@@ -67,15 +68,11 @@ module Admin::StatsMethods
       d = m[1].to_i.send( PERIODS[ m[2].to_sym ]).ago.at_midnight
 
       # query
-      query = Stat.since( d )
+      query = query.since( d )
 
       # also add to the filtered stuff
       filtered[:start] = d
       filtered[:finish] = Date.today.at_midnight
-
-    else
-
-      query = Stat
 
     end
 
@@ -116,8 +113,8 @@ module Admin::StatsMethods
     # filter by content type + ID
     if filtered.key?( :ct )
 
-      query = query.where( content_type: filtered[:ct] )
-      query = query.where( content_id:   filtered[:ci] ) if filtered.key?( :ci )
+      query = query.for_ct( filtered[:ct] )
+      query = query.for_ci( filtered[:ci] ) if filtered.key?( :ci )
 
     end
 
@@ -140,17 +137,17 @@ module Admin::StatsMethods
 
     # extract by date
     when :views
-      query = query.by_date.order( 'axis ASC' )
+      query = query.by_date
 
     # extract by UA
     when :ua
-      query = ( params.key?( :ua ) ? query.by_version : query.by_ua ).order( 'visitors DESC' )
+      query = ( params.key?( :ua ) ? query.by_version : query.by_ua )
 
     when :country
-      query = query.by_country.order( 'visitors DESC' )
+      query = query.by_country
 
     when :content
-      query = query.by_content.order( 'visitors DESC' )
+      query = query.by_content
 
     end
 

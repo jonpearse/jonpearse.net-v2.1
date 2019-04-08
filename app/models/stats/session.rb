@@ -5,7 +5,7 @@ class Stats::Session < ApplicationRecord
   # relations
   has_many :pageviews, class_name: 'Stats::Pageview'
 
-  # scopes
+  ## == Aggregation scopes
   scope :recall_from, -> ( session_id ){ where( '`key`=? AND `recorded_on`=?', session_id, Date.yesterday ) }
 
 end

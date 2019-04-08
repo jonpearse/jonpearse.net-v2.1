@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_143719) do
+ActiveRecord::Schema.define(version: 2019_04_08_230018) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -145,6 +145,8 @@ ActiveRecord::Schema.define(version: 2019_03_27_143719) do
     t.string "url_path"
     t.boolean "dark_mode", default: false
     t.datetime "recorded_at"
+    t.string "content_type"
+    t.bigint "content_id"
   end
 
   create_table "stats_sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -203,4 +205,8 @@ ActiveRecord::Schema.define(version: 2019_03_27_143719) do
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "media", column: "preview_id"
   add_foreign_key "stats_pageviews", "stats_sessions", column: "session_id"
+
+  create_view "stats_deduped_pageviews", sql_definition: <<-SQL
+      select `dev_jjp21`.`stats_pageviews`.`session_id` AS `session_id`,`dev_jjp21`.`stats_pageviews`.`url` AS `url`,`dev_jjp21`.`stats_pageviews`.`content_type` AS `content_type`,`dev_jjp21`.`stats_pageviews`.`content_id` AS `content_id` from `dev_jjp21`.`stats_pageviews` group by concat(`dev_jjp21`.`stats_pageviews`.`session_id`,`dev_jjp21`.`stats_pageviews`.`url`) order by `dev_jjp21`.`stats_pageviews`.`session_id`
+  SQL
 end

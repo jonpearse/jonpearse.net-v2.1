@@ -20,7 +20,9 @@ gem 'jbuilder', '~> 2.7'
 gem 'image_processing', '~> 1.2'
 gem 'simple_ar_localizer', '~> 1.0'
 gem 'browser', '~> 2.5.3'
-# gem 'scenic', '~> 1.5.1'
+
+gem 'scenic', '~> 1.5.1'
+gem 'scenic-mysql', '~> 0.1.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
