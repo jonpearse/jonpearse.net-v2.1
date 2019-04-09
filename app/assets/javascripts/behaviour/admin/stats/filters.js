@@ -17,8 +17,7 @@ function StatFilters( elRoot, options )
   {
     document.querySelectorAll( '[data-filterable]' ).forEach( el =>
     {
-      console.log( el );
-      el.dispatchEvent( new CustomEvent( 'statsRangeChanged', { detail: oData }))
+      el.dispatchEvent( new CustomEvent( 'statsRangeChanged', { detail: oData }));
     });
 
     // toggle classes

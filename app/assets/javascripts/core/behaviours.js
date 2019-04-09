@@ -111,7 +111,6 @@ function bindBehaviours( elBindAt = document.body )
   });
 
   // 2. fire an event
-  console.log( 'Triggering', elBindAt );
   elBindAt.dispatchEvent( new CustomEvent( 'allBehavioursBound', { bubbles: true }));
 }
 
