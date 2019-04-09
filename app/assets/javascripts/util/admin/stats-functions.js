@@ -82,7 +82,7 @@ function generateGraphData( oData, iMaxSegments, iYTicks )
   function calculateYAxis()
   {
     // 1. work out what we should be rounding to
-    let fLog = Math.log10( iMaxYAxis );
+    let fLog = ( iMaxYAxis === 0 ) ? 1 : Math.log10( iMaxYAxis );
     if (( fLog % 1 ) <= 0.1 )
     {
       // if we’ve only just crossed a boundary, round down
