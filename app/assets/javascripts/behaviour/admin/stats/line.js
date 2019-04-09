@@ -67,6 +67,9 @@ function LineGraph( elRoot, options )
     {
       oChart.update( data, options, true );
     }
+
+    // 4. empty state
+    elRoot.classList.toggle( '-empty', ( meta.maxVisitors === 0 ));
   }
 
   /** Constructor logic. */

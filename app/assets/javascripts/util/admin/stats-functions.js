@@ -105,7 +105,8 @@ function generateGraphData( oData, iMaxSegments, iYTicks )
   {
     // 1. aggregate data + get a maximum y-height
     const aoAggregated = aggregateData( oData, iMaxSegments );
-    iMaxYAxis = aoAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
+    const iMaxVisitors = aoAggregated.reduce(( iMax, oP ) => Math.max( iMax, oP.visitors ), 0 );
+    iMaxYAxis = iMaxVisitors;
 
     // 2. return stuffs
     return {
@@ -124,7 +125,8 @@ function generateGraphData( oData, iMaxSegments, iYTicks )
       meta: {
         bucketWidth: aoAggregated[0].widthDays || 1,
         numBuckets:  aoAggregated.length,
-        offsetDays:  aoAggregated[0].offsetDays
+        offsetDays:  aoAggregated[0].offsetDays,
+        maxVisitors: iMaxVisitors
       }
     }
   }());
