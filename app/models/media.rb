@@ -10,7 +10,8 @@ class Media < ApplicationRecord
   validates :title, presence: true
 
   # update the preview
-  before_save :schedule_preview_generation, :update_aspect_ratio
+  before_save :update_aspect_ratio
+  after_commit :schedule_preview_generation, unless: -> { @generating_preview.present? }
 
   def cms_image
 
@@ -19,6 +20,8 @@ class Media < ApplicationRecord
   end
 
   def base64_preview
+
+    preview ||= ''
 
     "data:image/png;base64,#{Base64.encode64( preview ).gsub( /\n/, '' )}"
 
@@ -60,6 +63,8 @@ class Media < ApplicationRecord
 
   def generate_preview!
 
+    @generating_preview = true
+
     generate_preview and save
 
   end
@@ -68,7 +73,7 @@ class Media < ApplicationRecord
 
     def schedule_preview_generation
 
-      generate_preview
+      MediaWorker.perform_async( self.id )
 
     end
 
