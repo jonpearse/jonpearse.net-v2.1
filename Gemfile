@@ -21,8 +21,14 @@ gem 'image_processing', '~> 1.2'
 gem 'simple_ar_localizer', '~> 1.0'
 gem 'browser', '~> 2.5.3'
 
+# Use scenic to make stats easier
 gem 'scenic', '~> 1.5.1'
 gem 'scenic-mysql', '~> 0.1.0'
+
+# And sidekiq for processing
+gem 'sidekiq', '~> 5.2.5'
+gem 'sidekiq-cron', '~> 1.1.0'
+gem 'sidekiq-failures', '~> 1.0.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

@@ -8,6 +8,13 @@ Rails.application.routes.draw do
 
     root to: 'dashboard#home'
 
+    # sidekiq
+    require 'sidekiq/web'
+    require 'sidekiq/cron/web'
+    authenticate :user do
+      mount Sidekiq::Web => 'sidekiq'
+    end
+
     # stats stuff
     scope path: :stats do
 
