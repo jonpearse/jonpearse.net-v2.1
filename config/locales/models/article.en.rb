@@ -9,6 +9,8 @@ SimpleARLocalizer::transform( Article, :en, {
 
     publishing: 'Publishing',
     published: 'published',
-    published_on: 'Publication date'
+    published_on: 'Publication date',
+
+    sparkline: 'Past 2 weeks'
   }
 })

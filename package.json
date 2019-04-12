@@ -14,6 +14,7 @@
     "autoprefixer": "^9.2.1",
     "babel-loader": "^8.0.4",
     "chalk": "^2.4.1",
+    "chartist": "^0.11.0",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.5",
     "del": "^3.0.0",

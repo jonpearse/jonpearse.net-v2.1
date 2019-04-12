@@ -25,6 +25,7 @@ module Jjp21
     # Autoload some stuff
     config.autoload_paths += Dir[Rails.root.join( 'app', 'classes', '*.rb' )]
     config.autoload_paths += Dir[Rails.root.join( 'app', 'renderers', '*.rb' )]
+    config.autoload_paths += Dir[Rails.root.join( 'app', 'workers', 'concerns', '*.rb' )]
 
     # Pull in core extensions
     Dir[Rails.root.join( 'app', 'core_ext', '**', '*.rb' )].each{ |f| require f }

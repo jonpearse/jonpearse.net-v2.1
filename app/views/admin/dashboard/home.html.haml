@@ -1,0 +1,6 @@
+.stats-grid
+  = render partial: 'admin/dashboard/display/graph', locals: { title: 'Global views' }
+
+  = render partial: 'admin/dashboard/display/table', locals: { axis: :content, add: { ct: 'Article' }, variant: :popular_articles }
+
+  = render partial: 'admin/dashboard/display/table', locals: { axis: :ua }

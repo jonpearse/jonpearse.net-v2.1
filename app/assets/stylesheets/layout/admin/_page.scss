@@ -34,6 +34,20 @@
   padding: rem(50) rem(30);
 
   background: var(--midground);
+
+  body.-bleed & { padding: 0; }
 }
 
 .page__flashes { margin-bottom: rem(50); }
+
+.page__content {
+  body.-bleed & {
+    overflow: hidden;
+    height: 100%;
+  }
+}
+
+.page__inner-content {
+  height: 100%;
+  width:  100%;
+}

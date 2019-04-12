@@ -9,19 +9,26 @@ Rails.application.config.webstats = {
     'zgrab/0.x',
 
     # new bots + bot-like UAs, March 15th 2019
-    'Uptimebot/1.0',
-    'Tiny Tiny RSS/19.2',
-    'Nimbostratus-Bot/v1.3.2',
-    'BazQux/2.4',
-    'Go-http-client/2.0',
-    'aiohttp/3.4.4',
+    'Uptimebot/',
+    'Tiny Tiny RSS/',
+    'Nimbostratus-Bot/',
+    'BazQux/',
+    'Go-http-client/',
+    'aiohttp/',
     'Datanyze',
-    'BoardReader Favicon Fetcher /1.0',
+    'BoardReader Favicon Fetcher /',
     'Blackboard Safeassign',
-    'Daum/4.1',
+    'Daum/',
     'FunWebProducts',
     'Wappalyzer',
-    'MetaFeedly/1.0',
-    'Feedbin'
+    'MetaFeedly/',
+    'Feedbin',
+
+    # More new bots, March 20th 2019
+    'Seekport Crawler',
+    'PageFreezer',
+    'reqwest/',
+    'RSSOwl/',
+    'Dataprovider.com'
   ]
 }

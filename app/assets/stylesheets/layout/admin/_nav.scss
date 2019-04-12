@@ -56,6 +56,8 @@
 }
 
 .main-navigation__link {
+  --opc: .6;
+
   display: flex;
   align-items: center;
 
@@ -64,15 +66,12 @@
   border-left: 2px solid transparent;
 
   color: currentColor;
-  opacity: .6;
-  transition: opacity .25s;
-
   text-decoration: none;
 
   &:hover,
   &:focus,
   .-current > & {
-    opacity: 1;
+    --opc: 1;
 
     svg { fill: var(--accent-7); }
   }
@@ -87,7 +86,27 @@
   margin: -.1em 1rem -.1em 0;
   width: rem(25);
   font-size: 1.2em;
+  opacity: var(--opc);
+  transition: opacity .25s;
 }
+
+.main-navigation__text {
+  flex: 1;
+  opacity: var(--opc);
+  transition: opacity .25s;
+}
+
+.main-navigation__badge {
+  padding: .4em;
+  min-width: 1.8em;
+  border-radius: .9em;
+  background: var(--negative-3);
+  color: var(--negative-9);
+
+  @include fsz(small, 1);
+  text-align: center;
+}
+
 
 /// Sub-menu items
 /// ==========================================================================

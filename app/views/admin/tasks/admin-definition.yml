@@ -1,0 +1,11 @@
+---
+list:
+  columns:
+    - property: task_name
+      sortable: false
+
+    - property: started_at
+      template: = content.started.strftime( '%H:%I  %b %-d, %Y' )
+
+    - property: elapsed
+      template: = distance_of_time_in_words( content.started, content.finished )

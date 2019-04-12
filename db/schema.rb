@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_184152) do
+ActiveRecord::Schema.define(version: 2019_04_12_143025) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 2019_02_28_184152) do
     t.string "uri", limit: 128
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cronlogs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "task_name", limit: 32
+    t.datetime "started"
+    t.datetime "finished"
+    t.boolean "viewed", default: false
   end
 
   create_table "media", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -126,6 +133,17 @@ ActiveRecord::Schema.define(version: 2019_02_28_184152) do
 # Could not dump table "stats_ip_blocks" because of following StandardError
 #   Unknown type 'polygon' for column 'ip_range'
 
+  create_table "stats_pageviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "session_id"
+    t.string "url", limit: 128
+    t.string "content_type"
+    t.bigint "content_id"
+    t.datetime "recorded_at"
+    t.index ["content_type", "content_id"], name: "index_stats_pageviews_on_content_type_and_content_id"
+    t.index ["session_id"], name: "index_stats_pageviews_on_session_id"
+    t.index ["url", "session_id"], name: "index_stats_pageviews_on_url_and_session_id"
+  end
+
   create_table "stats_raw", id: false, options: "ENGINE=Aria DEFAULT CHARSET=utf8 PAGE_CHECKSUM=1", force: :cascade do |t|
     t.string "session_id", limit: 32
     t.string "country"
@@ -133,7 +151,20 @@ ActiveRecord::Schema.define(version: 2019_02_28_184152) do
     t.float "browser_version"
     t.string "url_path"
     t.boolean "dark_mode", default: false
+    t.string "content_type", limit: 32
+    t.integer "content_id"
     t.datetime "recorded_at"
+  end
+
+  create_table "stats_sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", limit: 32
+    t.string "country", limit: 4
+    t.string "ua_name", limit: 64
+    t.float "ua_version"
+    t.boolean "dark_mode", default: false
+    t.date "recorded_on"
+    t.index ["country"], name: "index_stats_sessions_on_country"
+    t.index ["ua_name", "ua_version"], name: "index_stats_sessions_on_ua_name_and_ua_version"
   end
 
   create_table "techs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -180,4 +211,9 @@ ActiveRecord::Schema.define(version: 2019_02_28_184152) do
   add_foreign_key "projects", "articles"
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "media", column: "preview_id"
+  add_foreign_key "stats_pageviews", "stats_sessions", column: "session_id"
+
+  create_view "stats_deduped_pageviews", sql_definition: <<-SQL
+      select `dev_jjp21`.`stats_pageviews`.`session_id` AS `session_id`,`dev_jjp21`.`stats_pageviews`.`url` AS `url`,`dev_jjp21`.`stats_pageviews`.`content_type` AS `content_type`,`dev_jjp21`.`stats_pageviews`.`content_id` AS `content_id` from `dev_jjp21`.`stats_pageviews` group by concat(`dev_jjp21`.`stats_pageviews`.`session_id`,`dev_jjp21`.`stats_pageviews`.`url`) order by `dev_jjp21`.`stats_pageviews`.`session_id`
+  SQL
 end

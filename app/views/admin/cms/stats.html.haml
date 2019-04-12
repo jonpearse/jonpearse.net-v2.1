@@ -1,0 +1,3 @@
+.stats-grid
+  = render partial: 'admin/dashboard/display/graph', locals: { title: 'Views',      axis: :views,   add: { ct: @content.class.to_s, ci: @content.id }}
+  = render partial: 'admin/dashboard/display/table', locals: { title: 'By country', axis: :country, add: { ct: @content.class.to_s, ci: @content.id }}

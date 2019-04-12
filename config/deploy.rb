@@ -16,6 +16,9 @@ set :passenger_restart_with_touch, true
 # rebuild assets before linking the release
 before 'deploy:symlink:release', 'deploy:build_assets'
 
+# configure sidekiq
+set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+
 namespace :deploy do
 
   # Uploads a deployable file, switching out the environment name as necessary
@@ -80,8 +83,7 @@ end
 
 namespace :jjp do
 
-  desc "Rebuild RSS feeds"
-  task :build_feeds do
+  def run_rake_task( task )
 
     on primary( :app ) do
 
@@ -89,11 +91,36 @@ namespace :jjp do
 
         with rails_env: fetch( :rails_env ) do
 
-          execute :rake, 'jjp2:rss:generate'
+          execute :rake, task
 
         end
 
       end
+
+    end
+
+  end
+
+  desc "Rebuild RSS feeds"
+  task :build_feeds do
+
+    run_rake_task( 'jjp2:rss:generate' )
+
+  end
+
+  namespace :stats do
+
+    desc "Reloads IP blocks"
+    task :reload_ip_blocks do
+
+      run_rake_task( 'jjp2:stats:reload_ip_blocks' )
+
+    end
+
+    desc "Aggregate stats"
+    task :aggregate do
+
+      run_rake_task( 'jjp2:stats:aggregate' )
 
     end
 

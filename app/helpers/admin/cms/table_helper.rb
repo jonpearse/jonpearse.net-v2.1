@@ -14,4 +14,10 @@ module Admin::CMS::TableHelper
 
   end
 
+  def sparkline_for( content )
+
+    tag( 'figure', { class: 'sparkline', data: { behaviour: :sparkline, ct: content.class.to_s, ci: content.id }}) + '</figure>'.html_safe
+
+  end
+
 end

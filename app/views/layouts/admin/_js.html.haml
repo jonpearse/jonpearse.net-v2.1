@@ -4,3 +4,7 @@
     select: '#{select_admin_media_index_path( format: :js )}',
     meta: '#{URI.unescape(admin_media_path(id: '{id}', format: :json))}'
   };
+
+  const STATS_ROOT = '#{admin_stats_data_path( format: :json )}';
+
+  const MONTHS = #{ t( 'date.abbr_month_names').to_json.html_safe };

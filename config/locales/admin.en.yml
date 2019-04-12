@@ -58,6 +58,7 @@ en:
       new: Create %{model_singular}
       edit: "%{title}"
       destroy: "%{title}"
+      stats: Stats
 
     breadcrumbs:
       edit: 'Edit'

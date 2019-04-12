@@ -1,0 +1,5 @@
+%ol.stats__filters{ 'data-behaviour': 'stats-filters' }
+  - t( 'stats.periods' ).each_pair do |short,labels|
+    - labels = { long: labels, short: short } if labels.is_a?( String )
+    %li.stats__filter
+      %button.btn.btn--smol.btn--outline{ 'data-period': short, title: labels[:long] }= labels[:short]

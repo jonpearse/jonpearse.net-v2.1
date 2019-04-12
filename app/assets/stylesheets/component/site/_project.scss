@@ -52,6 +52,7 @@
   border: 0;
   z-index: 1;
   background: transparent;
+  color: var(--project-link-tx);
 
   // use a pseudo to fix the aspect ratio
   &::before {

@@ -47,7 +47,7 @@ class Admin::CMSController < Admin::BaseController
 
   end
 
-  # Provdies an item listing and search functionality. This should not be extended.
+  # Provides an item listing and search functionality. This should not be extended.
   #
   # === Expected Parameters
   #
@@ -69,6 +69,23 @@ class Admin::CMSController < Admin::BaseController
     end
 
     generate_titles
+
+  end
+
+  # Shows stats for a given item of content.
+  #
+  # === Expected Parameters
+  #
+  # [id]  the ID of the content to display.
+  def stats
+
+    # extract the content
+    extract_content
+    generate_titles
+
+  rescue ActiveRecord::RecordNotFound
+
+    not_found and return
 
   end
 

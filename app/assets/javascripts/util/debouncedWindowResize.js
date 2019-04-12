@@ -14,7 +14,7 @@ const DEBOUNCE_TIMEOUT = 100;
  */
 function triggerEvent()
 {
-    document.body.dispatchEvent( new CustomEvent( 'debouncedResize '));
+  document.body.dispatchEvent( new CustomEvent( 'debouncedResize' ));
 }
 
 /**
@@ -22,32 +22,32 @@ function triggerEvent()
  */
 function bindMainEvent()
 {
-    window.addEventListener( 'resize', () =>
-    {
-        clearTimeout( oTo );
-        oTo = setTimeout( triggerEvent, DEBOUNCE_TIMEOUT );
-    });
+  window.addEventListener( 'resize', () =>
+  {
+    clearTimeout( oTo );
+    oTo = setTimeout( triggerEvent, DEBOUNCE_TIMEOUT );
+  });
 
-    bMainEventBound = true;
+  bMainEventBound = true;
 }
 
 module.exports = {
-    bind: fn =>
+  bind: fn =>
+  {
+    if ( !bMainEventBound )
     {
-        if ( !bMainEventBound )
-        {
-            bindMainEvent();
-        }
-
-        document.body.addEventListener( 'debouncedResize', fn );
-    },
-    unbind: fn =>
-    {
-        if ( !bMainEventBound )
-        {
-            return;
-        }
-
-        document.body.removeEventListener( 'debouncedResize', fn );
+      bindMainEvent();
     }
+
+    document.body.addEventListener( 'debouncedResize', fn );
+  },
+  unbind: fn =>
+  {
+    if ( !bMainEventBound )
+    {
+      return;
+    }
+
+    document.body.removeEventListener( 'debouncedResize', fn );
+  }
 }

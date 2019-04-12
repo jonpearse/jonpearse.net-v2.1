@@ -1,6 +1,6 @@
 ---
 - title:  Dashboard
-  route:  dashboard#show
+  route:  dashboard#home
   icon:   tachometer
 
 - title:  Articles
@@ -36,3 +36,13 @@
       route: auth/password#change
     - title: Two-factor auth
       route: auth/two_factor#setup
+
+- title:  Tasks
+  route:  tasks
+  icon:   clock
+  badge:  get_cronlog_badge
+  children:
+    - title: Status
+      route: tasks#index
+    - title: Sidekiq UI
+      route: tasks#sidekiq

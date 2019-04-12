@@ -22,6 +22,9 @@ class Site::ArticlesController < Site::BaseController
 
     @article = Article.published.find_by_url( params[:url] )
 
+    # for stats module
+    @primary_content = @article
+
   rescue
 
     not_found and return

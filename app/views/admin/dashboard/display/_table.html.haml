@@ -1,0 +1,22 @@
+:ruby
+  variant ||= nil
+
+  i18n_key = axis.to_s
+  i18n_key << "-#{variant}" unless variant.nil?
+
+  add ||= {}
+  unlink ||= false
+
+  link_params = params.permit( :ua, :c, :v, :ci, :ct ).merge( axis: axis, format: :json ).merge( add )
+
+%section.stats.-table{ data: { behaviour: :statsTable, endpoint: admin_stats_data_path( link_params ), unlink: unlink, filterable: true }}
+  %header.stats__header
+    %h2.stats__title= t( "stats.axes.#{i18n_key}.title" )
+
+  .stats__content
+    %table.stats__table
+      %thead
+        %tr
+          %th{ scope: :col }= t( "stats.axes.#{i18n_key}.heading" )
+          %th{ scope: :col }= t( 'stats.uniques' )
+      %tbody{ data: { table: true }}
