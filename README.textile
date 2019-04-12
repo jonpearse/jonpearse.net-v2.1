@@ -6,6 +6,12 @@ Source code for the previous version of the site (2013–2018) can be found in "
 
 h2. Version History
 
+h3. April 12th, 2019
+
+- [NEW] built out webstats reporting
+- [NEW] added Sidekiq for image processing and webstats crunching
+- [FIX] fixed project page bug when using light mode
+
 h3. March 1st, 2019
 
 Completed rebuild of codebase, initial 2.1 release.
