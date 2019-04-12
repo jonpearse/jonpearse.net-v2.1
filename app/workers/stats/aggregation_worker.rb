@@ -1,7 +1,9 @@
 class Stats::AggregationWorker
-  include Sidekiq::Worker
+  include Sidekiq::Worker, Cronloggable
 
   def perform
+
+    open_log
 
     if defined?( Rake ).nil?
 
@@ -14,6 +16,8 @@ class Stats::AggregationWorker
     end
 
     Rake::Task[ 'jjp2:stats:aggregate' ].invoke
+
+    write_log
 
   end
 

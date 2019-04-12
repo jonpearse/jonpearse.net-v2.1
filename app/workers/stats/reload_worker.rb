@@ -1,7 +1,9 @@
 class Stats::ReloadWorker
-  include Sidekiq::Worker
+  include Sidekiq::Worker, Cronloggable
 
   def perform
+
+    open_log
 
     if defined?( Rake ).nil?
 
@@ -14,6 +16,8 @@ class Stats::ReloadWorker
     end
 
     Rake::Task[ 'jjp2:stats:reload_ip_blocks' ].invoke
+
+    write_log
 
   end
 

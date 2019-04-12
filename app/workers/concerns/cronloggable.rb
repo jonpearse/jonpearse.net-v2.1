@@ -1,12 +1,12 @@
 module Cronloggable
 
-  def start
+  def open_log
 
     @start_time = DateTime.now
 
   end
 
-  def finish
+  def write_log
 
     Cronlog.record( self, @start_time )
 
