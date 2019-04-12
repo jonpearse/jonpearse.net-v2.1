@@ -11,7 +11,12 @@
   %a.main-navigation__link{ href: item[:url] }
     - if item.key?( :icon )
       %i.main-navigation__icon= icon( item[:icon] )
-    = item[:title]
+    .main-navigation__text= item[:title]
+
+    - if item.key?( :badge )
+      - count = send( item[:badge] )
+      - if count > 0
+        %span.main-navigation__badge= send( item[:badge] )
 
   -# render sub-items as well
   - if item.key?( :children )

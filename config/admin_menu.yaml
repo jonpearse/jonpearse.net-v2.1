@@ -40,6 +40,7 @@
 - title:  Tasks
   route:  tasks
   icon:   clock
+  badge:  get_cronlog_badge
   children:
     - title: Status
       route: tasks

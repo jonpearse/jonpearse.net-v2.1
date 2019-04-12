@@ -1,5 +1,7 @@
 class Cronlog < ApplicationRecord
 
+  scope :unread, -> { where( viewed: false )}
+
   def self.record( worker, start )
 
     create(

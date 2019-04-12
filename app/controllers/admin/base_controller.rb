@@ -3,7 +3,7 @@ class Admin::BaseController < AuthenticatedController
   include Admin::I18nHelper, ErrorMethods
 
   # pull in some helpers
-  helper Admin::NavigationHelper, Admin::I18nHelper
+  helper Admin::NavigationHelper, Admin::I18nHelper, Admin::AdminHelper
 
   # set the layout
   layout 'admin'
