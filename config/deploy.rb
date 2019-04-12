@@ -16,6 +16,9 @@ set :passenger_restart_with_touch, true
 # rebuild assets before linking the release
 before 'deploy:symlink:release', 'deploy:build_assets'
 
+# configure sidekiq
+set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+
 namespace :deploy do
 
   # Uploads a deployable file, switching out the environment name as necessary

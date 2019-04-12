@@ -39,7 +39,8 @@ Rails.application.routes.draw do
     end
 
     # task-fu
-    get '/tasks', to: 'tasks#index'
+    get '/tasks',     to: 'tasks#index'
+    get '/tasks/sq',  to: 'tasks#sidekiq'
 
     # Blog stuff
     scope module: :blog do
