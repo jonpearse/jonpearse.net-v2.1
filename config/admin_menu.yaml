@@ -36,3 +36,12 @@
       route: auth/password#change
     - title: Two-factor auth
       route: auth/two_factor#setup
+
+- title:  Tasks
+  route:  tasks
+  icon:   clock
+  children:
+    - title: Status
+      route: tasks
+    - title: Sidekiq UI
+      url:   /m/sidekiq

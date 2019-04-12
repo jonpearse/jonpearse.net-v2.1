@@ -1,0 +1,14 @@
+%table.content-list__table.content-table{ class: "-#{@model_class.to_s.downcase}" }
+  %thead.content-table__header
+    %tr
+      %th{ scope: :col }= label_text_for( Cronlog, :task_name )
+      %th{ scope: :col }= label_text_for( Cronlog, :started )
+      %th{ scope: :col }= label_text_for( Cronlog, :elapsed )
+
+  %tbody.content-table__body
+    - @content.each do |content|
+      %tr.content-table__row{ id: "#{@model_class.to_s.downcase}.#{content.id}", class: ( content.unread? ? '-hl' : nil )}
+        %th{ scope: :row }= content.task_name
+        %td= content.started.strftime( '%H:%I  %b %-d, %Y' )
+        %td= distance_of_time_in_words( content.started, content.finished )
+      - content.mark_read!

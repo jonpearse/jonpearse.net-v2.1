@@ -1,3 +1,7 @@
-%th{ scope: :row }= link_to content.to_s, url_for( action: :edit, id: content.id )
+%th{ scope: :row }
+  - if @allow[:update]
+    = link_to content.to_s, url_for( action: :edit, id: content.id )
+  - else
+    = content.to_s
 %td.-smol= content.created_at.to_s( :db )
 %td.-smol= content.updated_at.to_s( :db )

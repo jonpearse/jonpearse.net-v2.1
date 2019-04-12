@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_230018) do
+ActiveRecord::Schema.define(version: 2019_04_12_143025) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 2019_04_08_230018) do
     t.string "uri", limit: 128
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cronlogs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "task_name", limit: 32
+    t.datetime "started"
+    t.datetime "finished"
+    t.boolean "viewed", default: false
   end
 
   create_table "media", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -144,9 +151,9 @@ ActiveRecord::Schema.define(version: 2019_04_08_230018) do
     t.float "browser_version"
     t.string "url_path"
     t.boolean "dark_mode", default: false
+    t.string "content_type", limit: 32
+    t.integer "content_id"
     t.datetime "recorded_at"
-    t.string "content_type"
-    t.bigint "content_id"
   end
 
   create_table "stats_sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

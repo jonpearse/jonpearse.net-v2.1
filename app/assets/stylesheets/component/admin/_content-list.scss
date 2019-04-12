@@ -42,6 +42,12 @@
 /// ==========================================================================
 .content-table__body tr:nth-child(odd) { background: var(--bg-alt); }
 
+.content-table__body tr.-hl {
+  background: var(--accent-9);
+
+  &:nth-child(odd) { background: var(--accent-a); }
+}
+
 .content-table__actions[class] {
   width: rem(150);
   text-align: right;
