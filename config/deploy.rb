@@ -17,7 +17,7 @@ set :passenger_restart_with_touch, true
 before 'deploy:symlink:release', 'deploy:build_assets'
 
 # configure sidekiq
-set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+# set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
 
 namespace :deploy do
 
