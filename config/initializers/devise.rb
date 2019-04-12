@@ -301,8 +301,8 @@ Rails.application.config.to_prepare do
   Devise::TwoFactorAuthenticationController.layout 'admin'
 
   # Also, include the admin helpers
-  Devise::SessionsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
-  Devise::PasswordsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
-  Devise::TwoFactorAuthenticationController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper )
+  Devise::SessionsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper, Admin::AdminHelper )
+  Devise::PasswordsController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper, Admin::AdminHelper )
+  Devise::TwoFactorAuthenticationController.send( :helper, IconHelper, Admin::NavigationHelper, Admin::I18nHelper, Admin::AdminHelper )
 
 end
