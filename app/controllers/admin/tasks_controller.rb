@@ -16,4 +16,13 @@ class Admin::TasksController < Admin::CMSController
 
   end
 
+  def sidekiq
+
+    @body_class = '-bleed'
+    @page_title = title_t( @model_class, :sidekiq )
+
+    @breadcrumb << breadcrumb_t( @model_class, :sidekiq )
+
+  end
+
 end

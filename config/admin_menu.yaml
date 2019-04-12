@@ -43,6 +43,6 @@
   badge:  get_cronlog_badge
   children:
     - title: Status
-      route: tasks
+      route: tasks#index
     - title: Sidekiq UI
-      url:   /m/sidekiq
+      route: tasks#sidekiq
