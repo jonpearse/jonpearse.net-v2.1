@@ -68,7 +68,7 @@ function getOptionsFor( el, sNamespace, oDefaults )
 *
 * @param   {HTMLElement} elBindAt - the root HTML element at which we should start binding
 */
-function bindBehaviours( elBindAt = document.body )
+function bindBehaviours( elBindAt = document )
 {
   // 1. start binding
   elBindAt.querySelectorAll( '[data-behaviour]' ).forEach( elNode =>
