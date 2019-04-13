@@ -4,10 +4,11 @@
 *
 *********************************************************************************************************************/
 
-const icon         = require('util/icons').string;
-const Editor       = require('util/wysiwyg/wysiwyg');
-const mediaButton  = require('util/wysiwyg/plugins/media-button');
-const sourceButton = require('util/wysiwyg/plugins/view-source');
+const icon          = require( 'util/icons').string;
+const Editor        = require( 'util/wysiwyg/wysiwyg' );
+const mediaButton   = require( 'util/wysiwyg/plugins/media-button' );
+const sourceButton  = require( 'util/wysiwyg/plugins/view-source' );
+const textileButton = require( 'util/wysiwyg/plugins/textile' );
 
 // define our toolbar buttons: doing this this way so we can provide our own icons
 const EDITOR_BUTTONS = [
@@ -75,7 +76,8 @@ const EDITOR_BUTTONS = [
     contentDefault:  icon('eraser')
   },
   '|',
-  'source'
+  'source',
+  'textile'
 ];
 
 /**
@@ -115,8 +117,9 @@ function Wysiwyg( elInput, options )
 
       // load some extensions
       extensions: {
-        'media': () => mediaButton( options ),
-        'source': sourceButton
+        'media':    () => mediaButton( options ),
+        'source':   sourceButton,
+        'textile':  textileButton
       }
     });
   }

@@ -7527,6 +7527,11 @@ textextensions@2:
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-2.4.0.tgz#6a143a985464384cc2cff11aea448cd5b018e72b"
   integrity sha512-qftQXnX1DzpSV8EddtHIT0eDDEiBF8ywhFYR2lI9xrGtxqKN+CvLXhACeCIGbCpQfxxERbrkZEFb8cZcDKbVZA==
 
+textile-js@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/textile-js/-/textile-js-2.0.4.tgz#4869cf7b4310d9b915912a62f56e9ad8323c9e84"
+  integrity sha512-x/cwuDQxItNGvKK0oiDWEyOdMrzIqsKJff/hvXwYsR5Sr9vqJ26IvyAZn/VuxLXHc57j1YA9oZgE8/QhSkERHA==
+
 through2-concurrent@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/through2-concurrent/-/through2-concurrent-2.0.0.tgz#c9dd2c146504ec9962dbc86a5168b63d662669fa"
