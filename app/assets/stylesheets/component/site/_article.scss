@@ -70,6 +70,8 @@
     transform: rotate( 90deg );
   }
 
+  blockquote p:last-child::after { content: ''; } // don’t display tombstones in a blockquote
+
   hr {
     position: relative;
     overflow: visible;
