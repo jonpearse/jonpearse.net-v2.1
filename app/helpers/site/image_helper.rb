@@ -64,7 +64,7 @@ module Site::ImageHelper
       begin
 
         media = Media.find( $1 )
-        render( partial: 'rendered-image', locals: { image: media, alignment: $2.downcase.to_sym })
+        render( partial: 'rendered-image.html', locals: { image: media, alignment: $2.downcase.to_sym })
 
       rescue
 
