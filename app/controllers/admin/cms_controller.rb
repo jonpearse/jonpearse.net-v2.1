@@ -275,7 +275,7 @@ class Admin::CMSController < Admin::BaseController
       content ||= @content unless @content.nil? || ( action === 'index' )
 
       # if we’re in something that has an additional segment, show that
-      unless content.nil? or %w{ show create }.include?( action )
+      unless content.nil? or action == 'new'
 
         @breadcrumb << {
           title: breadcrumb_t( @model_class, :show, { title: content.to_s } ),
