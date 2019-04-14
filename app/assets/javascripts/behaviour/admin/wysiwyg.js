@@ -9,6 +9,7 @@ const Editor        = require( 'util/wysiwyg/wysiwyg' );
 const mediaButton   = require( 'util/wysiwyg/plugins/media-button' );
 const sourceButton  = require( 'util/wysiwyg/plugins/view-source' );
 const textileButton = require( 'util/wysiwyg/plugins/textile' );
+const hrButton      = require( 'util/wysiwyg/plugins/hr' );
 
 // define our toolbar buttons: doing this this way so we can provide our own icons
 const EDITOR_BUTTONS = [
@@ -66,6 +67,7 @@ const EDITOR_BUTTONS = [
     contentDefault:  icon('list-ol')
   },
   'blockquote',
+  'hr',
   '|',
   'media',
   '|',
@@ -119,7 +121,8 @@ function Wysiwyg( elInput, options )
       extensions: {
         'media':    () => mediaButton( options ),
         'source':   sourceButton,
-        'textile':  textileButton
+        'textile':  textileButton,
+        'hr':       hrButton
       }
     });
   }
