@@ -37,7 +37,7 @@ function compileSass()
                   minify:     false,
                   preserve:   false
                 }),
-                require( 'css-mqpacker' )({ sort: true })
+                require( '@lipemat/css-mqpacker' )({ sort: true })
               ]))
 }
 
@@ -56,7 +56,7 @@ gulp.task( 'sass-build', () =>
               .pipe( postcss([
                 require( 'cssnano' )({ autoprefixer: false }),
                 require( 'postcss-sorting' ),
-                require( 'css-mqpacker' )({ sort: true })   // because postcss-critical-css avoids this the sass task
+                require( '@lipemat/css-mqpacker' )({ sort: true })   // because postcss-critical-css avoids this the sass task
               ]))
               .pipe( gulp.dest( OUTPUT ));
 });

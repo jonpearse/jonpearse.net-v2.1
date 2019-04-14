@@ -111,6 +111,7 @@ Rails.application.routes.draw do
     get   'writing/:year(/:month)',   to: redirect( '/writing' ), constraints: { year: /[0-9]{4}/, month: /[0-9]{2}/ }
     get   'writing/about/:category',  to: 'articles#index',   as: :article_category
     post  'writing/:id',              to: 'articles#update',  as: :update_article
+    get   'writing/:id',              to: 'articles#show'
     get   'writing/*url',             to: 'articles#show',    as: :_article
     get   'writing',                  to: 'articles#index',   as: :articles
 
@@ -123,6 +124,7 @@ Rails.application.routes.draw do
 
     # Snippet update path
     post 'snippets/:id', to: 'snippets#update', as: :update_snippet
+    get  'snippets/:id', to: 'snippets#show', as: :snippet
 
     # Better media segments
     get '/a/_/:blob_id(/:size)', to: 'storage#show', as: :_variation, constraints: { size: /[0-9a-z]+/ }

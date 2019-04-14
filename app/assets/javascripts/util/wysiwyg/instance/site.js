@@ -8,6 +8,9 @@ const icon = require('util/icons').icon;
 const Editor = require('../wysiwyg');
 const ajaxRequest = require('util/ajax');
 
+const rebindBehaviours = require( 'core/behaviours' ).bind;
+const lazyload = require( 'util/lazyload' );
+
 // define our toolbar buttons: doing this this way so we can provide our own icons
 const EDITOR_BUTTONS = [
   {
@@ -85,14 +88,24 @@ function InlineEditor(elRoot, options)
   let elClose = null;
 
   let oEditor = null;
+  let sOldMarkup = '';
 
   /**
-  * Dismisses the editor.
-  */
-  function fnDismissEditor()
+   * Dismisses the editor.
+   *
+   * @param {boolean} bRestore - whether or not we should restore the old markup
+   */
+  function fnDismissEditor( bRestore = true )
   {
+    // 1. tear everything down
     oEditor.destroy();
     elRoot.parentNode.classList.remove('-active');
+
+    // 2. replace the content
+    if ( bRestore )
+    {
+      elRoot.innerHTML = sOldMarkup;
+    }
   }
 
   /**
@@ -102,7 +115,19 @@ function InlineEditor(elRoot, options)
   {
     let oData = [];
     oData[options.property] = oEditor.getContent();
-    ajaxRequest( options.uri, oData, 'POST' ).then(() => fnDismissEditor()).catch(oJson => console.warn(oJson));
+    ajaxRequest( options.uri, oData, 'POST' )
+      .then(() => fnDismissEditor( false ))
+      .catch(oJson => console.warn(oJson))
+      .then(() =>
+      {
+        ajaxRequest( `${options.uri}.json?field=${options.property}&rendered` )
+          .then( oJson => elRoot.innerHTML = oJson.content )
+          .then( () =>
+          {
+            rebindBehaviours( elRoot );
+            lazyload();
+          });
+      });
   }
 
   /**
@@ -119,8 +144,16 @@ function InlineEditor(elRoot, options)
       return;
     }
 
-    // load MediumEditor + init it (async, because webpack)
-    oEditor = new Editor( elRoot, { toolbar: { buttons: EDITOR_BUTTONS }});
+    // load raw markup from the server, then use it to init the editor
+    ajaxRequest( `${options.uri}.json?field=${options.property}` ).then( oJson =>
+    {
+      // a. swap things out
+      sOldMarkup = elRoot.innerHTML;
+      elRoot.innerHTML = oJson.content;
+
+      // b initiate the editor
+      oEditor = new Editor( elRoot, { toolbar: { buttons: EDITOR_BUTTONS }});
+    });
   }
 
   function createDOM()

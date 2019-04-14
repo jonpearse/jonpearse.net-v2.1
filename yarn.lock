@@ -608,6 +608,14 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@lipemat/css-mqpacker@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@lipemat/css-mqpacker/-/css-mqpacker-8.0.1.tgz#64f2111150885cd90b6301541bb3acd5a796ce4e"
+  integrity sha512-Ijf1r+WiJHHeHvjZ1J3W3M+S3a0p5JNP7rxjqpRvbxq9MgwGW4QiFK3KGpIeBVfYVltV3t/YsAklFApVYlwkEA==
+  dependencies:
+    minimist "^1.2.0"
+    postcss "^7.0.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2056,14 +2064,6 @@ css-declaration-sorter@^4.0.1:
   dependencies:
     postcss "^7.0.1"
     timsort "^0.3.0"
-
-css-mqpacker@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/css-mqpacker/-/css-mqpacker-7.0.0.tgz#48f4a0ff45b81ec661c4a33ed80b9db8a026333b"
-  integrity sha512-temVrWS+sB4uocE2quhW8ru/KguDmGhCU7zN213KxtDvWOH3WS/ZUStfpF4fdCT7W8fPpFrQdWRFqtFtPPfBLA==
-  dependencies:
-    minimist "^1.2.0"
-    postcss "^7.0.0"
 
 css-select-base-adapter@^0.1.1:
   version "0.1.1"
@@ -7526,6 +7526,11 @@ textextensions@2:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-2.4.0.tgz#6a143a985464384cc2cff11aea448cd5b018e72b"
   integrity sha512-qftQXnX1DzpSV8EddtHIT0eDDEiBF8ywhFYR2lI9xrGtxqKN+CvLXhACeCIGbCpQfxxERbrkZEFb8cZcDKbVZA==
+
+textile-js@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/textile-js/-/textile-js-2.0.4.tgz#4869cf7b4310d9b915912a62f56e9ad8323c9e84"
+  integrity sha512-x/cwuDQxItNGvKK0oiDWEyOdMrzIqsKJff/hvXwYsR5Sr9vqJ26IvyAZn/VuxLXHc57j1YA9oZgE8/QhSkERHA==
 
 through2-concurrent@^2.0.0:
   version "2.0.0"

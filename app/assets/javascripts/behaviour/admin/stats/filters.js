@@ -35,7 +35,7 @@ function StatFilters( elRoot, options )
     elButtons.forEach( el => el.addEventListener( 'click', () => triggerLoad({ period: el.dataset.period })));
 
     // fire a default once everything is bound
-    document.body.addEventListener( 'allBehavioursBound', () => triggerLoad({ period: options.period }));
+    document.addEventListener( 'allBehavioursBound', () => triggerLoad({ period: options.period }));
   }());
 }
 

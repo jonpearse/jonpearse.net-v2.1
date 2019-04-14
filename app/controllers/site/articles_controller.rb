@@ -20,7 +20,7 @@ class Site::ArticlesController < Site::BaseController
 
   def show
 
-    @article = Article.published.find_by_url( params[:url] )
+    @article = params.key?( :url ) ? Article.published.find_by_url( params[:url] ) : Article.find( params[:id] )
 
     # for stats module
     @primary_content = @article
