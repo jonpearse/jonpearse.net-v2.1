@@ -52,6 +52,10 @@
   --code-foreground: var(--grey-1);
 
   --loading-bar: var(--hint-1);
+
+  --hr: var(--grey-3);
+  --tombstone-char: '\2756';
+  --tombstone-colour: var(--hint-1);
 }
 
 @mixin dark-mode {
@@ -94,4 +98,7 @@
   --code-foreground: var(--grey-4);
 
   --loading-bar: hsl(360, 60%, 30%);
+
+  // --hr: rgba(255, 255, 255, .3);
+  --tombstone-colour: var(--hint-1);
 }

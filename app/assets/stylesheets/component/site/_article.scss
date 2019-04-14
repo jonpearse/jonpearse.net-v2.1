@@ -52,3 +52,48 @@
     }
   }
 }
+
+/// blah
+/// ==========================================================================
+.article__content {
+  p:last-child::after {
+    display: inline-block;
+    break-before: avoid;
+    vertical-align: middle;
+    margin-left: .6em;
+
+    color: var(--tombstone-colour);
+
+    line-height: 1;
+    content: var(--tombstone-char);
+
+    transform: rotate( 90deg );
+  }
+
+  hr {
+    position: relative;
+    overflow: visible;
+    margin: dimension(padding) 0;
+    border: 0;
+
+    color: var(--hr);
+    text-align: center;
+
+    &::before {
+      content: '\2666';
+    }
+
+    &::after {
+      position: absolute;
+      top:  50%;
+      left: 50%;
+
+      white-space: pre;
+      font-size: .6em;
+      line-height: 2;
+      content: '\2662\A\A\2662';
+
+      transform: translate(-55%, -50%) rotate(90deg) scaleY(1.5);
+    }
+  }
+}
