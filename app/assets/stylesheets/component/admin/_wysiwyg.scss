@@ -242,14 +242,28 @@
   // when switched
   &.-switched { display: none; }
 
-  code.block {
-    display: block;
-    padding: rem(20);
-    background: var(--text);
-    color: var(--midground);
+  pre {
+    margin: 1em 0;
+    padding: 1em;
+    max-width: calc(100vw - 3.5em);
+    overflow: auto;
+    background: var(--accent-a);
 
-    font: .9em / 1.5 ffm(mono);
-    white-space: pre;
+    code {
+      color: var(--accent-1);
+      background: transparent none;
+      line-height: 1.5;
+    }
+  }
+
+  code {
+    display: inline-block;
+    padding: 0 .2em;
+
+    background: var(--accent-a);
+
+    @include ffm(mono);
+    font-weight: normal;
   }
 }
 
