@@ -7,10 +7,6 @@
 .banner {
   position: relative;
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-
   border-bottom: 1px solid var(--outline);
 
   box-shadow: rgba(0, 0, 0, .05) 0 0 5px 0;
@@ -19,17 +15,15 @@
 /// Page title
 /// ==========================================================================
 .banner__title {
-  flex: 1;
   padding: rem(40) rem(30);
   margin:  0;
-}
+  width: calc( 100% - #{rem(240)} );
 
-/// Sign out link
-/// ==========================================================================
-.banner__signout {
-  margin-right: rem(30);
+  span {
+    display: block;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
-
-/// Breadcrumb context
-/// ==========================================================================
-.banner__breadcrumb { width: 100%; }
