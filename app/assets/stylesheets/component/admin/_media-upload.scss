@@ -7,6 +7,7 @@
 .media-upload {
   position: relative;
   --inlay: transparent;
+  --border: var(--keyline);
 
   display: flex;
   flex-direction: column;
@@ -27,8 +28,8 @@
   @include fsz(larger);
 
   &.-hover {
-    --inlay: var(--accent1_lo);
-    border: 2px solid var(--accent1_lo);
+    --inlay: var(--accent-7);
+    --border: var(--accent-7);
   }
 }
 
@@ -73,8 +74,8 @@
 .media-upload__status-text { margin-bottom: .7em; }
 
 @keyframes barberpole {
-  from { background-position:   0  0; }
-  to   { background-position: 100% 0; }
+  from { background-position: 0 0; }
+  to   { background-position: rem(42) 0; }
 }
 
 .media-upload__progress {
@@ -100,22 +101,25 @@
   &:not([value])::before {
     background-image: repeating-linear-gradient(
       -45deg,
-      var(--accent1_lo),
-      var(--accent1_lo) rem(10),
-      transparent rem(10),
-      transparent rem(20)
+      var(--accent-7),
+      var(--accent-7) rem(15),
+      transparent rem(15),
+      transparent rem(30)
     );
-    background-size: rem(28) rem(28);
-    animation: barberpole 5s linear infinite;
+    background-size: rem(42) rem(42);
+    animation: barberpole .8s linear infinite;
   }
 
-  &::after { box-shadow: inset rgba(0, 0, 0, .4) 0 0 rem(3) 0; }
+  &::after {
+    border: 1px solid var(--accent-5);
+    box-shadow: inset rgba(0, 0, 0, .4) 0 0 rem(3) 0;
+  }
 
   // browser pseudos
   &::-webkit-progress-bar { background: var(--midground); }
 
   &::-webkit-progress-value {
-    background: var(--accent1_lo);
+    background: var(--accent-7);
     transition: width 250ms;
   }
 }

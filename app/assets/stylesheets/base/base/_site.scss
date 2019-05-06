@@ -62,6 +62,7 @@ code {
   display: inline-block;
   padding: 0 .2em;
   background: var(--smoke-3);
+  text-size-adjust: 100%; // disable random iOS font resizing
 
   @include ffm(mono);
   font-weight: normal;

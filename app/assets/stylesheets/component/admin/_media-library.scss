@@ -117,7 +117,7 @@
   height: 100%;
 
   background: transparent none;
-  box-shadow: inset var(--accent1_lo) 0 0 0 var(--shadow);
+  box-shadow: inset var(--accent-7) 0 0 0 var(--shadow);
 
   text-indent: rem(-5000);
 
@@ -132,7 +132,7 @@
     width:  2em;
     opacity: var(--opacity);
 
-    background: var(--accent1_lo) url( 'icons-admin#icon-check' ) 40% 40% no-repeat/.9em;
+    background: var(--accent-7) url( 'icons-admin#icon-check' ) 40% 40% no-repeat/.9em;
 
     transition: opacity .15s;
 

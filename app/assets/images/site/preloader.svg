@@ -6,9 +6,9 @@
     </clipPath>
   </defs>
   <g class="i">
-    <use xlink:href="#h" fill="none" stroke="#333"/>
+    <use class="bh" xlink:href="#h" fill="none"/>
     <g clip-path="url(#m)">
-      <g transform="matrix(.5 0 0 .5 0 30)" stroke="#ccc">
+      <g class="ih" transform="matrix(.5 0 0 .5 0 30)">
         <use xlink:href="#h" y="60"/>
         <use xlink:href="#h" y="0"/>
         <use xlink:href="#h" y="-60"/>

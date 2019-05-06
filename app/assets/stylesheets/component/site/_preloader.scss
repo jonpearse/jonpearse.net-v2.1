@@ -30,6 +30,22 @@
       animation: phi .2s 1 .5s both;
     }
 
+    .bh {
+      stroke: #333;
+
+      .dark-mode & { stroke: #aaa; }
+    }
+
+    .ih {
+      fill: #000;
+      stroke: #ccc;
+
+      .dark-mode & {
+        stroke: #666;
+        fill: #fff;
+      }
+    }
+
     use {
       --d: 1s;
       --o: 0s;
@@ -42,17 +58,24 @@
       &:nth-child(3n+2) { --o: .25s; }
     }
 
-    ~ * { opacity: 0; } // sass-lint:disable-line no-universal-selectors
+    ~ header,
+    ~ main,
+    ~ footer { opacity: 0; } // sass-lint:disable-line no-universal-selectors
   }
 
-  opacity: 0;
-  transform: scale(0);
-  transition: opacity .3s, transform 0s .5s;
+  &[class] {
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity .3s, transform 0s .5s;
 
-  g use { animation-play-state: paused; }
+    .i,
+    use { animation: none; }
 
-  ~ * { // sass-lint:disable-line no-universal-selectors
-    opacity: 1;
-    transition: opacity .3s .2s;
+    ~ header,
+    ~ main,
+    ~ footer { // sass-lint:disable-line no-universal-selectors
+      opacity: 1;
+      transition: opacity .3s .2s;
+    }
   }
 }
