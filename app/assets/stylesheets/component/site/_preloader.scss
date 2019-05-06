@@ -30,6 +30,22 @@
       animation: phi .2s 1 .5s both;
     }
 
+    .bh {
+      stroke: #333;
+
+      .dark-mode & { stroke: #aaa; }
+    }
+
+    .ih {
+      fill: #000;
+      stroke: #ccc;
+
+      .dark-mode & {
+        stroke: #666;
+        fill: #fff;
+      }
+    }
+
     use {
       --d: 1s;
       --o: 0s;
