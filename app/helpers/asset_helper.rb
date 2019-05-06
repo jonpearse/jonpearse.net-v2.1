@@ -120,8 +120,11 @@ module AssetHelper
     # get a host
     hostname = config.asset_host || root_url.gsub( /^\//, '' )
 
+    # blah
+    suff = ( Rails.env.development? ? "?#{Time.now.to_i}" : '' )
+
     # return
-    "#{hostname}/#{Rails.application.config.assets[:url]}/#{versioned_filename_for( filename )}".gsub( /(?<!:)\/\/+/, '/' )
+    "#{hostname}/#{Rails.application.config.assets[:url]}/#{versioned_filename_for( filename )}".gsub( /(?<!:)\/\/+/, '/' ) + suff
 
   end
 
