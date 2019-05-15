@@ -3,6 +3,10 @@ class Stats::ReloadWorker
 
   def perform
 
+    # This is scheduled to run every wednesday, but we only want it to run on the first of the month, so…
+    return unless (1..7).cover?( Date.today.day )
+
+    # otherwise…
     open_log
 
     if defined?( Rake ).nil?
