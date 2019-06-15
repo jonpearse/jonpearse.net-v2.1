@@ -6,6 +6,10 @@ Source code for the previous version of the site (2013–2018) can be found in "
 
 h2. Version History
 
+h3. June 15th, 2019
+
+- [FIX] article tags are no longer squished together (this took shamefully long to notice + fix!)
+
 h3. May 6th, 2019
 
 - [FIX] fixed issue whereby Safari would constantly invalidate/repaint the entire document (see "commit 0870e4ca3":https://github.com/jonpearse/jonpearse.net/commit/0870e4ca3ac1c14674946ca0ff5a3fbeff1611ec )

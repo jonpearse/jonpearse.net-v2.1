@@ -8,9 +8,9 @@ Sidekiq::Cron::Job.create(
   class:  'Stats::AggregationWorker'
 )
 
-# Reimport GeoIP database (first wednesday of every month)
+# Reimport GeoIP database (every Weds)
 Sidekiq::Cron::Job.create(
   name:   'Updating GeoIP database',
-  cron:   '0 0 1-7 * 3',
+  cron:   '0 0 * * 3',
   class:  'Stats::ReloadWorker'
 )

@@ -26,7 +26,8 @@
           %dd
             %ul.article__tags
               - @article.categories.each do |cat|
-                %li= link_to cat.to_s, article_category_path( category: cat.slug ), class: 'article__tag'
+                %li><
+                  = link_to cat.to_s, article_category_path( category: cat.slug ), class: 'article__tag'
 
 -# Content
 = render_block( classes: %w{ moar-bottom #content #t }, container_classes: %w{ -narrow article__content }) do
