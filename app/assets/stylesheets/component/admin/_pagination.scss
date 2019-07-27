@@ -1,0 +1,43 @@
+/// ==========================================================================
+/// #
+/// # Admin pagination
+/// #
+/// ==========================================================================
+
+.pagination { margin-top: rem(30); }
+
+.pagination__list {
+  display: flex;
+  @include fsz(small);
+}
+
+.pagination__page + .pagination__page {
+  margin-left: .8em;
+}
+
+.pagination__link {
+  display: block;
+  padding: .2em .4em;
+}
+
+.pagination__link {
+  display: block;
+
+  min-width: 2.5em;
+  padding: .5em;
+  border: 1px solid var(--grey-5);
+
+  background: var(--bg-alt);
+  color: var(--text);
+
+  @include fwt(semi);
+  text-align: center;
+  text-decoration: none;
+
+  &.-link { color: var(--accent-5); }
+
+  .-current & {
+    border-color: var(--accent-7);
+    background: var(--accent-9);
+  }
+}
