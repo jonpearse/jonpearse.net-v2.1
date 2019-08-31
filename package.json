@@ -40,7 +40,7 @@
     "medium-editor": "^5.23.3",
     "merge-options": "^1.0.1",
     "postcss-critical-css": "^3.0.3",
-    "postcss-custom-properties": "^8.0.9",
+    "postcss-custom-properties": "^9.0.2",
     "postcss-short-border-radius": "^3.0.0",
     "postcss-sorting": "^4.0.0",
     "postcss-svg": "^3.0.0",
