@@ -59,6 +59,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.4.0'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-passenger', '~> 0.2.0'
-  gem 'capistrano-sidekiq', '~> 1.0.2'
+  gem 'capistrano-sidekiq', '~> 1.0.3'
 
 end
