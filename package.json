@@ -38,7 +38,7 @@
     "gulp-svgstore": "^7.0.0",
     "gulp-uglify": "^3.0.1",
     "medium-editor": "^5.23.3",
-    "merge-options": "^1.0.1",
+    "merge-options": "^2.0.0",
     "postcss-critical-css": "^3.0.3",
     "postcss-custom-properties": "^9.0.2",
     "postcss-short-border-radius": "^3.0.0",
