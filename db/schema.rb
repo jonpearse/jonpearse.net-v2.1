@@ -151,9 +151,9 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.float "browser_version"
     t.string "url_path"
     t.boolean "dark_mode", default: false
-    t.string "content_type", limit: 32
-    t.integer "content_id"
     t.datetime "recorded_at"
+    t.string "content_type"
+    t.bigint "content_id"
   end
 
   create_table "stats_sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
