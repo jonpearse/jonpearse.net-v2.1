@@ -54,7 +54,7 @@ group :development do
   gem 'awesome_print', '~> 1.8'
 
   # Capistrano is awesome
-  gem 'capistrano', '~> 3.11.0'
+  gem 'capistrano', '~> 3.11.2'
   gem 'capistrano-bundler', '~> 1.5.0'
   gem 'capistrano-rails', '~> 1.4.0'
   gem 'capistrano-rvm', '~> 0.1.2'
