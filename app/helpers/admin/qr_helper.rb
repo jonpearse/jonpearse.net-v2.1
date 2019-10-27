@@ -14,7 +14,7 @@ module Admin::QRHelper
 
     end
 
-    dim = rqr_code.module_count
+    dim = rqr_code.modules.length
     "<svg version=\"1.0\" viewBox=\"0 0 #{dim} #{dim}\"><path d=\"#{path}\"/></svg>"
 
   end
