@@ -98,7 +98,10 @@ class Admin::Auth::TwoFactorController < Admin::BaseController
         expires: 5.minutes.from_now
       }
 
-      RQRCode::QRCode.new uri
+      RQRCode::QRCode.new(
+        uri,
+        level: :l
+      )
     end
 
 end

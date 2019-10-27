@@ -5,38 +5,35 @@
  *********************************************************************************************************************/
 
 // initial load
-const gulp  = require( 'gulp' );
+const { series }  = require( 'gulp' );
+const { forModules, watchModules } = require( './utils/modules' );
+const { revision, clean } = require( './utils/files' );
 
-// load paths + expose them globally
-global.PATHS = require( './paths' );
-const PATHS  = global.PATHS;
+/** -RUNNABLE TASKS- */
+clean.description = 'Cleans built files';
 
-// load utilities
-const { forModules } = require( './utils/tasks.js' );
-const { streamToPromise } = require( './utils/utils' );
-require( './utils/build' );
+const devBuild = series( clean, forModules( 'init' ), forModules( 'devInit' ));
+devBuild.description = 'Creates a development-ready build of the assets, but without watching for changes.';
 
-/**
- * Init task.
- */
-gulp.task( 'init', () => forModules( 'init' ));
+const dev = series( devBuild, watchModules );
+dev.description = 'Spins up a development environment that watches + rebuilds assets (default task)';
 
-/**
- * Watches assets for changes + builds things if anything happens
- */
-gulp.task( 'watch', () => forModules( 'watch', oWd => streamToPromise( gulp.watch( oWd.files, gulp.parallel( oWd.tasks )))));
+const qs = series( forModules( 'devInit' ), watchModules );
+qs.description = 'Quickstart version of dev: just starts watch tasks without cleaning + rebuilding.';
 
-/**
- * Runs any linting tasks defined.
- */
-gulp.task( 'lint', () => forModules( 'lint' ));
+const lint = forModules( 'lint' );
+lint.description = 'Lints all modules';
 
-/**
- * Quickstart task: alias for watch.
- */
-gulp.task( 'qs', gulp.series( 'watch' ));
+const build = series( clean, forModules( 'build' ), revision, forModules( 'afterRevision' ));
+build.description = 'Builds assets to a production target';
 
-/**
- * Default task: cleans things out, builds everything, and runs the watch task.
- */
-gulp.task( 'default', gulp.series( 'clean', 'init', 'watch' ));
+
+module.exports = {
+  clean,
+  dev,
+  qs,
+  lint,
+  devBuild,
+  build,
+  default: series( dev )
+};

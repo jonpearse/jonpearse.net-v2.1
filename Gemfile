@@ -6,12 +6,12 @@ ruby '2.6.3'
 # Basic stuff
 gem 'rails',  '~> 5.2.1'
 gem 'mysql2', '~> 0.5.2'
-gem 'haml-rails', '~> 1.0'
+gem 'haml-rails', '~> 2.0'
 
 # Use devise for user management
 gem 'devise', '~> 4.5'
 gem 'two_factor_authentication', '~> 2.1'
-gem 'rqrcode', '~> 0.10'
+gem 'rqrcode', '~> 1.1'
 
 # Other useful gems
 gem 'will_paginate', '~> 3.1'
@@ -19,7 +19,7 @@ gem 'babosa', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
 gem 'image_processing', '~> 1.2'
 gem 'simple_ar_localizer', '~> 1.0'
-gem 'browser', '~> 2.5.3'
+gem 'browser', '~> 2.6.1'
 
 # Use scenic to make stats easier
 gem 'scenic', '~> 1.5.1'
@@ -44,7 +44,7 @@ group :development do
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.0.5', '< 3.3'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -55,10 +55,13 @@ group :development do
 
   # Capistrano is awesome
   gem 'capistrano', '~> 3.11.2'
-  gem 'capistrano-bundler', '~> 1.5.0'
+  gem 'capistrano-bundler', '~> 1.6.0'
   gem 'capistrano-rails', '~> 1.4.0'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-passenger', '~> 0.2.0'
   gem 'capistrano-sidekiq', '~> 1.0.3'
+
+  # Also let’s use pry
+  gem 'pry', '~> 0.12.2'
 
 end
