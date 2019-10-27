@@ -4,16 +4,19 @@
  *
  *********************************************************************************************************************/
 
-const chalk = require( 'chalk' );
+const chalk   = require( 'chalk' );
+const plumber = require( 'gulp-plumber' );
 
 /**
  * General error handler.
+ *
+ * @return {Stream} a gulp stream
  */
-function errorHandler( err )
+const errorHandler = () => plumber({ errorHandler: function( err )
 {
-  console.error( chalk.red( err.message ));
+  console.error( chalk.yellow.bold( err.plugin ) + ': ' + chalk.red( err.message ));
   this.emit( 'end' );
-}
+}});
 
 /**
  * Wraps a gulp stream in a Promise.
