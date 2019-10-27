@@ -61,4 +61,7 @@ group :development do
   gem 'capistrano-passenger', '~> 0.2.0'
   gem 'capistrano-sidekiq', '~> 1.0.3'
 
+  # Also let’s use pry
+  gem 'pry', '~> 0.12.2'
+
 end
