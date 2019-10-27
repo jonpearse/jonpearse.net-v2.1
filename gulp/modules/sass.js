@@ -4,7 +4,7 @@
  *
  *********************************************************************************************************************/
 
-const { src, dest } = require( 'gulp' );
+const { src, dest, series } = require( 'gulp' );
 const sass          = require( 'gulp-dart-sass' );
 const postcss       = require( 'gulp-postcss' );
 const revUrl        = require( 'gulp-rev-urls' );
@@ -84,7 +84,7 @@ module.exports = {
     files: PATHS.watch,
     tasks: [ sassDev, sassLint ]
   },
-  build: [{ fn: sassDev, priority: 5 }, sassBuild ],
+  build: series( sassDev, sassBuild ),
   noRev: [ 'critical*.css' ],
   afterRevision: [ sassPostRev ],
   lint: [ sassLint ]
