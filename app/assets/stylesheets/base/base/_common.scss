@@ -38,7 +38,8 @@
 
 /// Set running margins
 /// ==========================================================================
-* { // sass-lint:disable-line no-universal-selectors
+// stylelint-disable selector-max-universal
+* {
   &:first-child { margin-top: 0; }
   &:last-child  { margin-bottom: 0; }
 }

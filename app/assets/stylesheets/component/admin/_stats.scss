@@ -81,7 +81,8 @@
 table.stats__table {
   width: 100%;
 
-  th, td { padding: rem(10) rem(20); }
+  th,
+  td { padding: rem(10) rem(20); }
 
   th { text-align: left; }
 
@@ -99,7 +100,8 @@ table.stats__table {
     td { text-align: right; }
 
     tr:first-child {
-      th, td { padding-top: rem(10); }
+      th,
+      td { padding-top: rem(10); }
     }
 
     tr:nth-child(even) { background: var(--accent-a); }
@@ -158,8 +160,8 @@ table.stats__table {
   position: absolute;
   top: rem(20);
   left: rem(20);
-  height: calc( 100% - #{rem(40) }) !important; // sass-lint:disable-line no-important
-  width:  calc( 100% - #{rem(40) }) !important; // sass-lint:disable-line no-important
+  height: calc( 100% - #{rem(40) }) !important; // stylelint-disable-line declaration-no-important
+  width:  calc( 100% - #{rem(40) }) !important; // stylelint-disable-line declaration-no-important
 
   .-empty & { visibility: hidden; }
 }

@@ -7,7 +7,6 @@
 /// ==========================================================================
 /// # Load Fonts
 /// ==========================================================================
-// sass-lint:disable indentation
 @font-face {
   font-family: ffm(header-special);
   font-weight: fwt(bold);
@@ -44,7 +43,6 @@
        url('raleway-medium.woff2') format('woff2'),
        url('raleway-medium.woff') format('woff');
 }
-// scss-lint:enable indentation
 
 /// ==========================================================================
 /// # Let’s do some scaling

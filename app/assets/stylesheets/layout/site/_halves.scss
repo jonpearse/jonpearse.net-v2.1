@@ -5,7 +5,7 @@
 /// #
 /// ==========================================================================
 
-// sass-lint:disable no-universal-selectors
+/* stylelint-disable selector-max-universal */
 .halves {
   $vspace: (2 * dimension(gutter));
   $hspace: dimension(gutter);

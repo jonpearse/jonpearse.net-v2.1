@@ -149,7 +149,7 @@
   @extend %medium-editor-blob;
   display: none;
 
-  &[style*=block] { display: flex !important; } // sass-lint:disable-line no-important
+  &[style*=block] { display: flex !important; } // stylelint-disable-line declaration-no-important
 
   li:empty { border-left: 1px solid rgba(255, 255, 255, .3); }
 }

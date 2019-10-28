@@ -1,0 +1,50 @@
+{
+  "plugins": [
+    "stylelint-selector-bem-pattern"
+  ],
+  "extends": "stylelint-config-recommended-scss",
+  "rules": {
+    "block-closing-brace-newline-before": "always-multi-line",
+    "block-closing-brace-newline-after": "always",
+    "block-opening-brace-newline-after": "always-multi-line",
+    "no-descending-specificity": null,
+    "no-empty-source": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "rule-empty-line-before": [
+      "always-multi-line",
+      { "ignore": [ "first-nested", "after-comment" ]}
+    ],
+    "selector-max-universal": 0,
+    "number-leading-zero": "never",
+    "selector-max-id": 0,
+    "declaration-no-important": true,
+    "selector-pseudo-element-colon-notation": "double",
+    "string-quotes": "single",
+    "shorthand-property-no-redundant-values": true,
+    "declaration-block-trailing-semicolon": "always",
+    "color-named": "never",
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "no-missing-end-of-source-newline": true,
+    "selector-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "max-empty-lines": 2,
+    "selector-list-comma-newline-after": "always",
+    "indentation": [
+      2,
+      { "ignore": [ "value" ]}
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      { "ignore": [ "first-nested", "inside-block", "after-comment", "blockless-after-blockless" ]}
+    ],
+    "declaration-bang-space-before": "always",
+    "scss/at-rule-no-unknown": [
+      true,
+      { "ignoreAtRules": [ "critical", "keyframes" ]}
+    ],
+    "plugin/selector-bem-pattern": [
+      { "preset": "bem" }
+    ]
+  }
+}

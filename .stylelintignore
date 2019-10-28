@@ -1,0 +1,5 @@
+node_modules
+app/assets/stylesheets/abstract/functions/_cast.scss
+app/assets/stylesheets/vendor/**/*.scss
+app/assets/stylesheets/base/_reset.scss
+app/assets/stylesheets/base/_reset.smol.scss

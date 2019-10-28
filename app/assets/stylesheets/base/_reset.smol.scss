@@ -23,7 +23,8 @@ q {
   &::after { content: none; }
 }
 
-* { // sass-lint:disable-line no-universal-selectors
+// stylelint-disable selector-max-universal
+* {
   box-sizing: border-box;
 
   &::before,

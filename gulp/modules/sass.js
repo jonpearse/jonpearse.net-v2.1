@@ -8,7 +8,7 @@ const { src, dest, series } = require( 'gulp' );
 const sass          = require( 'gulp-dart-sass' );
 const postcss       = require( 'gulp-postcss' );
 const revUrl        = require( 'gulp-rev-urls' );
-const linter        = require( 'gulp-sass-lint' );
+const linter        = require( 'gulp-stylelint' );
 
 // core stuff
 const { sass: PATHS, build: OUTPUT, manifest: MANIFEST } = require( '../paths' );
@@ -59,11 +59,12 @@ const sassBuild = () =>
  * @return {Stream} a gulp stream
  */
 const sassLint = () =>
-  src( PATHS.source )
+  src( PATHS.watch )
     .pipe( errorHandler() )
-    .pipe( linter() )
-    .pipe( linter.format() )
-    .pipe( linter.failOnError() );
+    .pipe( linter({
+      failAfterError: true,
+      reporters: [{ formatter: 'string', console: true }]
+    }));
 
 /**
  * Post-revision hook.
