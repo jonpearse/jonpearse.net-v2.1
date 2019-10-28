@@ -11,7 +11,7 @@ const revUrl        = require( 'gulp-rev-urls' );
 const linter        = require( 'gulp-sass-lint' );
 
 // core stuff
-const { sass: PATHS, build: OUTPUT } = require( '../paths' );
+const { sass: PATHS, build: OUTPUT, manifest: MANIFEST } = require( '../paths' );
 const { errorHandler } = require( '../utils/utils' );
 
 /**
@@ -71,11 +71,12 @@ const sassLint = () =>
  * @return {Stream} a gulp stream
  */
 const sassPostRev = () =>
-  src( `${OUTPUT}/*.css` )
+  src( `${OUTPUT}/**/*.css` )
     .pipe( revUrl({
-      manifest:   `${OUTPUT}/assets.json`,
-      transform:  ( obj, key, val ) => obj[`/${key}`] = val
-    }));
+      manifest: `${OUTPUT}/${MANIFEST}`,
+      transform: ( obj, key, val ) => obj[`/${key}`] = val
+    }))
+    .pipe( dest( OUTPUT ));
 
 /* Export things. */
 module.exports = {

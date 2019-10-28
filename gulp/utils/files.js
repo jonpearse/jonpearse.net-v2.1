@@ -22,7 +22,8 @@ const { errorHandler } = require( './utils' );
 const revision = () =>
 {
   // get a list of files to revision
-  const aToRevision = Array.prototype.concat.apply([ `${OUTPUT}/**/*` ], getProperty( 'noRev' ));
+  const aToRevision = Array.prototype.concat.apply([], getProperty( 'noRev' )).map( sP => `!/${OUTPUT}/${sP}` );
+  aToRevision.unshift( `${OUTPUT}/**/*` );
 
   // pass to gulp
   return src( aToRevision )
