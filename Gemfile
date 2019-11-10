@@ -40,7 +40,7 @@ gem 'rake-progressbar', '~> 0.0.5', require: false
 group :development do
 
   # Use Puma as the app server
-  gem 'puma', '~> 4.2'
+  gem 'puma', '~> 4.3'
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
