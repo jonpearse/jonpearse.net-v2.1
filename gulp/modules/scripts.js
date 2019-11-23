@@ -15,7 +15,10 @@ const { basename }   = require( 'path' );
 
 // core stuff
 const { js: PATHS, build: OUTPUT } = require( '../paths' );
-const { errorHandler } = require( '../utils/utils' );
+const { errorHandler, getModuleArgs } = require( '../utils/utils' );
+
+// get some arguments
+const ARGS = getModuleArgs( 'scripts', { exclude: [] });
 
 /**
  * Define our webpack config for later.
@@ -71,6 +74,9 @@ const getEntries = () =>
 
     oEntries[sBase] = sF;
   });
+
+  // exclude things
+  ARGS.exclude.forEach( sX => delete oEntries[sX] );
 
   return oEntries;
 }
