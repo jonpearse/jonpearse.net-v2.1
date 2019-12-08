@@ -4,8 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Basic stuff
-gem 'rails',  '~> 5.2.1'
-gem 'mysql2', '~> 0.5.2'
+gem 'rails',  '~> 5.2.4'
+gem 'mysql2', '~> 0.5.3'
 gem 'haml-rails', '~> 2.0'
 
 # Use devise for user management
@@ -19,7 +19,7 @@ gem 'babosa', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
 gem 'image_processing', '~> 1.2'
 gem 'simple_ar_localizer', '~> 1.0'
-gem 'browser', '~> 2.6.1'
+gem 'browser', '~> 2.7.1'
 
 # Use scenic to make stats easier
 gem 'scenic', '~> 1.5.1'
@@ -40,7 +40,7 @@ gem 'rake-progressbar', '~> 0.0.5', require: false
 group :development do
 
   # Use Puma as the app server
-  gem 'puma', '~> 4.2'
+  gem 'puma', '~> 4.3'
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

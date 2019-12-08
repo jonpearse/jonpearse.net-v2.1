@@ -7,7 +7,23 @@
 const { series, parallel, watch } = require( 'gulp' );
 const { yellow } = require( 'chalk' );
 
-const modules = require( 'require-dir' )( '../modules' );
+// get + filter args
+const ARGS = require( './utils' ).getGlobalArgs({ only: [], except: [] });
+
+// get + filter modules
+const modules = (() =>
+{
+  // a. load from the filesystem
+  const loaded = require( 'require-dir' )( '../modules' );
+
+  // b. filter, either via inclusion or exclusion
+  const oReturn = [];
+  (( ARGS.only.length === 0 ) ? Object.keys( loaded ) : ARGS.only )
+    .filter( sM => !ARGS.except.includes( sM ))
+    .forEach( sM => oReturn[sM] = loaded[sM] )
+
+  return oReturn;
+})();
 
 /**
  * Returns the specified property from each module.

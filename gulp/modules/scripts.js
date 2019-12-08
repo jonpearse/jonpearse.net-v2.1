@@ -15,7 +15,10 @@ const { basename }   = require( 'path' );
 
 // core stuff
 const { js: PATHS, build: OUTPUT } = require( '../paths' );
-const { errorHandler } = require( '../utils/utils' );
+const { errorHandler, getModuleArgs } = require( '../utils/utils' );
+
+// get some arguments
+const ARGS = getModuleArgs( 'scripts', { exclude: [] });
 
 /**
  * Define our webpack config for later.
@@ -72,6 +75,9 @@ const getEntries = () =>
     oEntries[sBase] = sF;
   });
 
+  // exclude things
+  ARGS.exclude.forEach( sX => delete oEntries[sX] );
+
   return oEntries;
 }
 
@@ -116,6 +122,12 @@ const jsBuild = () =>
       compress: {
         drop_console: true
       }
+    }))
+    .pipe( require( 'gulp-size' )({
+      title: 'JS:',
+      showFiles: true,
+      pretty: true,
+      showTotal: false
     }))
     .pipe( dest( OUTPUT ));
 }
