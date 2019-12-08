@@ -51,6 +51,12 @@ const sassBuild = () =>
       require( 'postcss-sorting' ),
       require( '@lipemat/css-mqpacker' )({ sort: true })
     ]))
+    .pipe( require( 'gulp-size' )({
+      title: 'SASS:',
+      showFiles: true,
+      pretty: true,
+      showTotal: false
+    }))
     .pipe( dest( OUTPUT ));
 
 /**

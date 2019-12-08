@@ -123,6 +123,12 @@ const jsBuild = () =>
         drop_console: true
       }
     }))
+    .pipe( require( 'gulp-size' )({
+      title: 'JS:',
+      showFiles: true,
+      pretty: true,
+      showTotal: false
+    }))
     .pipe( dest( OUTPUT ));
 }
 
