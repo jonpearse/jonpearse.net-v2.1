@@ -17,7 +17,7 @@ gem 'rqrcode', '~> 1.1'
 gem 'will_paginate', '~> 3.1'
 gem 'babosa', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.10'
 gem 'simple_ar_localizer', '~> 1.0'
 gem 'browser', '~> 2.7.1'
 
