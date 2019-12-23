@@ -64,4 +64,7 @@ group :development do
   # Also let’s use pry
   gem 'pry', '~> 0.12.2'
 
+  # shush!
+  gem 'active_storage_silent_logs', '~> 0.1.1'
+
 end

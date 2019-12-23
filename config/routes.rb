@@ -102,11 +102,6 @@ Rails.application.routes.draw do
   # Site namespace
   scope module: :site do
 
-    # feeds are now elsewhere
-    rss_base = Rails.application.config.action_controller.asset_host
-    get 'writing/feed-full',  to: redirect( "#{rss_base}/feeds/full.xml" )
-    get 'writing/feed',       to: redirect( "#{rss_base}/feeds/summary.xml" )
-
     # Article paths
     get   'writing/:year(/:month)',   to: redirect( '/writing' ), constraints: { year: /[0-9]{4}/, month: /[0-9]{2}/ }
     get   'writing/about/:category',  to: 'articles#index',   as: :article_category
@@ -116,11 +111,8 @@ Rails.application.routes.draw do
     get   'writing',                  to: 'articles#index',   as: :articles
 
     # Project paths
-    get   'work/:year',         to: redirect('/projects'), constraints: { year: /[0-9]{4}/ }
-    get   'work/by-tech/:tech', to: 'projects#index',   as: :project_tech
-    post  'work/:id',           to: 'projects#update',  as: :update_project
-    get   'work/*url',          to: 'projects#show',    as: :_project
-    match 'work',               to: 'projects#index',   as: :projects, via: [ :get, :post ]
+    get   'work/:year',               to: redirect('/projects'), constraints: { year: /[0-9]{4}/ }
+    match 'work(/page/:page)',        to: 'projects#index',   as: :projects, via: [ :get, :post ]
 
     # Snippet update path
     post 'snippets/:id', to: 'snippets#update', as: :update_snippet
@@ -154,5 +146,10 @@ Rails.application.routes.draw do
   get 'articles',                 to: redirect( '/writing' )                    # 1.x article URLs
   get 'articles/in/:category',    to: redirect( '/writing/about/%{category}' )  # 1.x article URLs
   get 'articles/*url',            to: redirect( '/writing/%{url}' )             # 1.x article URLs
+
+  # feeds are now elsewhere
+  rss_base = Rails.application.config.action_controller.asset_host
+  get 'writing/feed-full',  to: redirect( "#{rss_base}/feeds/full.xml" )
+  get 'writing/feed',       to: redirect( "#{rss_base}/feeds/summary.xml" )
 
 end

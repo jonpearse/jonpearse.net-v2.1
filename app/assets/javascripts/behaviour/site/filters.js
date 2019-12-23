@@ -1,8 +1,8 @@
 /*********************************************************************************************************************
-*
-* Search filter JS: autosubmits some time after the last user interaction
-*
-*********************************************************************************************************************/
+ *
+ * Search filter JS: autosubmits some time after the last user interaction
+ *
+ *********************************************************************************************************************/
 
 const TIMEOUT = 500;
 
@@ -13,8 +13,8 @@ function filters( elRoot )
   let sRootUri;
 
   /**
-  * Submit the form.
-  */
+   * Submit the form.
+   */
   function doSubmit()
   {
     // 1. clear any existing timeout
@@ -31,17 +31,17 @@ function filters( elRoot )
     }
 
     // 4. otherwise, kick the sideloader
+    const sUri = sRootUri + (( sQuery === '' ) ? '' : `?${sQuery}` );
     elRoot.dispatchEvent( new CustomEvent( 'navigateTo', { bubbles: true, detail: {
-      url:    sRootUri,
-      query:  sQuery,
-      method: elRoot.method.toUpperCase(),
-      append: false
+      url:    sUri,
+      method: 'GET',
+      append: true
     }}));
   }
 
   /**
-  * Callback: called when the filters are updated, resets the timer.
-  */
+   * Callback: called when the filters are updated, resets the timer.
+   */
   function handleFilterUpdate()
   {
     clearTimeout(oTo);
@@ -53,7 +53,7 @@ function filters( elRoot )
   {
     // get the checkboxes + bind them
     aElBoxen = [].slice.call( elRoot.querySelectorAll( 'input' ));
-    aElBoxen.forEach(el => el.addEventListener('change', handleFilterUpdate));
+    aElBoxen.forEach( el => el.addEventListener( 'change', handleFilterUpdate ));
 
     // grab a root URL
     const aLink = document.createElement( 'a' );
