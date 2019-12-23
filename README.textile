@@ -6,6 +6,12 @@ Source code for the previous version of the site (2013–2018) can be found in "
 
 h2. Version History
 
+h3. Dec 23rd, 2019 🎄
+
+- [FIX] project pagination is no longer completely broken in dark mode ( :/ )
+- [FIX] project page URLs are now more sane
+- [NEW] JS rewritten to use MutationObserver-based behaviours (write-up ahoy!)
+
 h3. June 15th, 2019
 
 - [FIX] article tags are no longer squished together (this took shamefully long to notice + fix!)

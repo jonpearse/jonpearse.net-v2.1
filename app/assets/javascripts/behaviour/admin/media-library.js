@@ -219,6 +219,7 @@ function MediaLibrary( elRoot, options )
     // 3. bind a load of the events
     bindEvents();
 
+    return {};
   }());
 }
 

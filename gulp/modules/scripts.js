@@ -18,7 +18,7 @@ const { js: PATHS, build: OUTPUT } = require( '../paths' );
 const { errorHandler, getModuleArgs } = require( '../utils/utils' );
 
 // get some arguments
-const ARGS = getModuleArgs( 'scripts', { exclude: [] });
+const ARGS = getModuleArgs( 'scripts', { only: [], except: [] });
 
 /**
  * Define our webpack config for later.
@@ -66,18 +66,20 @@ const WEBPACK_CONF = {
  */
 const getEntries = () =>
 {
+  const matchOnly = ( ARGS.only.length > 0 ) ? sBase => ARGS.only.includes( sBase ) : () => true;
   const oEntries = {};
 
   glob( PATHS.compile ).forEach( sF =>
   {
     const sBase = basename( sF, '.js' );
 
-    oEntries[sBase] = sF;
+    if ( matchOnly( sBase ) && !ARGS.except.includes( sBase ))
+    {
+      oEntries[sBase] = sF;
+    }
   });
 
-  // exclude things
-  ARGS.exclude.forEach( sX => delete oEntries[sX] );
-
+  // return
   return oEntries;
 }
 

@@ -1,37 +1,42 @@
 /*********************************************************************************************************************
-*
-* Handles the registration and triggering of behaviours.
-*
-*********************************************************************************************************************/
+ *
+ * Handles registration and triggering of behaviours.
+ *
+ *********************************************************************************************************************/
 
-// internal register of behaviours
-const oRegisteredBehaviours = {};
+const observer = require( 'util/filtered-mutation-observer' );
+
+// Internal register of behaviours
+const oRegisteredBehaviours = [];
 
 /**
-* Returns options for a behaviour in a given namespace.
-*
-* @param   {HTMLElement} el - the element to read from
-* @param   {String} sNamespace - the namespace from which to read options
-* @param   {Object} oDefaults - an object containing defaults for the behaviour
-* @return  {Object} the options for this behaviour
-*/
-/* eslint-disable complexity */
+ * Wrapper that fires the specified event on the given node.
+ *
+ * @param {HTMLElement} el - the element to fire on
+ * @param {String} sEvt - the event to fire
+ * @param {Object} oData - the detail to attach to the event.
+ * @return {Boolean} true if the event is cancelable, false otherwise
+ */
+const fireEvent = ( el, sEvt, oData = {} ) => el.dispatchEvent( new CustomEvent( sEvt, { bubbles: true, detail: oData }));
+
+/**
+ * Returns options for a behaviour in the given namespace.
+ *
+ * @param {HTMLElement} el - the element to read from
+ * @param {String} sNamespace - the namespace to read options from
+ * @param {Object} oDefaults - an array containing default options.
+ * @return {Object} an objet containing options read from the DOM.
+ */
 function getOptionsFor( el, sNamespace, oDefaults )
 {
-  // 1. return variable and regex object
+  // 1. copy the defaults so we can manipulate it without causing issues, also construct a regex to match behaviours
   const oReturn = Object.assign( {}, oDefaults );
   const oRegex  = new RegExp( `^${sNamespace}(.*)$` );
 
-  // 2. useful callback function
-  let fnAssign = ( key, value ) =>
+  // 2. handy callback function
+  const fnAssign = ( key, value ) =>
   {
-    // a. if it’s the behaviour hook…
-    if (( key === 'behaviour' ) || ( key === 'boundBehaviours' ))
-    {
-      return false;
-    }
-
-    // b. if it’s truthy/falsey
+    // a. cast truth-falsey–ness
     if (( value === 'true' ) || ( value === '' ))
     {
       value = true;
@@ -41,125 +46,182 @@ function getOptionsFor( el, sNamespace, oDefaults )
       value = false;
     }
 
-    // c. convert the key
-    key = ( '' + key ).replace( sNamespace, '' );
+    // b. convert the key + assign
     key = key.substr( 0, 1 ).toLowerCase() + key.substr( 1 );
+    oReturn[ key ] = value;
+  }
 
-    // d. assign
-    oReturn[key] = value;
-  };
-
-  // 3. iterate through dataset looking for matching attributes
+  // 3. iterate
   Object.keys( el.dataset ).forEach( sKey =>
   {
-    if (( sNamespace === '' ) || oRegex.test( sKey ))
+    let aMatch;
+    if (( sKey !== 'behaviour') && (( aMatch = oRegex.exec( sKey )) !== null ))
     {
-      fnAssign( sKey, el.dataset[sKey] );
+      fnAssign( aMatch[1], el.dataset[ sKey ]);
     }
   });
 
-  // 2. return
+  // 4. return
   return oReturn;
 }
-/* eslint-enable complexity */
 
 /**
-* Binds behaviours on a specific element.
-*
-* @param   {HTMLElement} elBindAt - the root HTML element at which we should start binding
-*/
-function bindBehaviours( elBindAt = document )
+ * Bind all behaviours on a given element. This will attempt to rebind if possible.
+ *
+ * @param {HTMLElement} elNode - the element to attempt to bind on.
+ */
+function bindNode( elNode )
 {
-  // 1. start binding
-  elBindAt.querySelectorAll( '[data-behaviour]' ).forEach( elNode =>
+  const bind = sBh =>
   {
-    elNode.dataset.behaviour.trim().split( /\s+/ ).forEach( sBehaviour =>
+    const oBh = oRegisteredBehaviours[ sBh ];
+    const oBound = oBh.init( elNode, getOptionsFor( elNode, oBh.namespace, oBh.defaults ));
+    if ( oBound !== null )
     {
-      // a. if we don’t know about that behaviour
-      if ( oRegisteredBehaviours[sBehaviour] === undefined )
-      {
-        console.warn( `Attempting to bind unknown behaviour ‘${sBehaviour}’` );
-        return false;
-      }
+      console.log( `Bound component ${sBh}`, elNode );
+      elNode.boundBehaviours[ sBh ] = oBound;
+      fireEvent( elNode, 'behaviourBound', { behaviour: sBh, firstTime: true });
+    }
+  }
 
-      // b. if we’ve already bound that behaviour
-      elNode.boundBehaviours = elNode.boundBehaviours || {};
-      if ( elNode.boundBehaviours[sBehaviour] !== undefined )
-      {
-        console.warn( `Attempting to rebind behaviour ’${sBehaviour}‘: ignoring` );
-        return false;
-      }
+  const rebind = sBh =>
+  {
+    // a. can we actually do this?
+    if ( elNode.boundBehaviours[ sBh ] === undefined )
+    {
+      return false;
+    }
 
-      // b. get some options
-      const oBehaviour = oRegisteredBehaviours[sBehaviour];
-      const oOptions   = getOptionsFor( elNode, oBehaviour.namespace, oBehaviour.defaults );
+    // b. call a rebind, if possible
+    if ( elNode.boundBehaviours[ sBh ].teardown !== undefined )
+    {
+      console.log( `Rebinding component ${sBh}`, elNode );
+      elNode.boundBehaviours[ sBh ].rebind();
+      fireEvent( elNode, 'behaviourBound', { behaviour: sBh, firstTime: false });
+    }
 
-      // c. fire the behaviour and store it
-      try
-      {
-        elNode.boundBehaviours[sBehaviour] = oBehaviour.init( elNode, oOptions );
-        elNode.dispatchEvent( new CustomEvent( 'behaviourBound', { bubbles: true, detail: {
-          behaviour: sBehaviour,
-          options: oOptions
-        }}));
-      }
-      catch ( ex )
-      {
-        console.error( ex );
-      }
-    });
+    return true;
+  }
+
+  // bind all behaviours
+  elNode.dataset.behaviour.trim().split( /\s+/ ).forEach( sBh =>
+  {
+    // 1. check we know about the behaviour
+    if ( oRegisteredBehaviours[ sBh ] === undefined )
+    {
+      console.warn( `Attempting to bind unknown behaviour ${sBh}` );
+      return;
+    }
+
+    // 2. if we’re already bound?
+    elNode.boundBehaviours = elNode.boundBehaviours || {};
+    if ( rebind( sBh ) )
+    {
+      return;
+    }
+
+    // 4. bind!
+    bind( sBh );
   });
 
-  // 2. fire an event
-  elBindAt.dispatchEvent( new CustomEvent( 'allBehavioursBound', { bubbles: true }));
+  // call
+  fireEvent( elNode, 'allBehavioursBound' );
 }
 
 /**
-* Registers an array of behaviours, optionally with autobinding.
-*
-* @param {Array} aoBehaviour - an array of behaviour objects
-* @param {boolean} bAutoBind - whether or not to immediately autobind to the document (default: true)
-* @return {boolean} true on success, false otherwise
-*/
+ * Unbinds all behaviours on a given element.
+ *
+ * @param {HTMLElement} elNode - the element to unbind.
+ */
+function unbindNode( elNode )
+{
+  // if there were never any behaviours bound…
+  if ( elNode.boundBehaviours === undefined )
+  {
+    return;
+  }
+
+  // iterate through…
+  Object.keys( elNode.boundBehaviours ).forEach( sBh =>
+  {
+    // if we can’t do anything…
+    if ( elNode.boundBehaviours[ sBh ].teardown === undefined )
+    {
+      return;
+    }
+
+    // teardown
+    console.log( `Tearing down ${sBh}`, elNode );
+    elNode.boundBehaviours[ sBh ].teardown();
+    fireEvent( elNode, 'behaviourUnbound', { behaviour: sBh });
+  });
+
+  // delete things
+  delete elNode.boundBehaviours;
+}
+
+/**
+ * Bind all behaviours from a point (usuall the DOM root). This will bind any existing behaviours, and watch for new
+ * mutations.
+ *
+ * @param {HTMLElement} elRoot - the root node to watch
+ */
+function bindAndWatch( elRoot = document )
+{
+  // bind existing nodes
+  elRoot.querySelectorAll( '[data-behaviour]' ).forEach( bindNode );
+
+  // watch things
+  observer( elRoot, '[data-behaviour]', bindNode, unbindNode );
+}
+
+/**
+ * Register behaviours, optionally with autobinding.
+ *
+ * @param {Array} aoBehaviour - an array of behaviour objects.
+ * @param {Boolean} bAutoBind - true to autobind, false otherwise (Default: true)
+ */
 function registerBehaviours( aoBehaviour, bAutoBind = true )
 {
-  // 1. iterate through behaviours
-  aoBehaviour.forEach( oBehaviour =>
+  /**
+   * Internal handling function.
+   *
+   * @param {Object} oBehaviour - the behaviour to register.
+   */
+  const register = oBehaviour =>
   {
-    // a. default things out
+    // 1. default things out
     oBehaviour = Object.assign({
-      defaults: {},
-      namespace: '',
+      defaults: [],
+      namespace: ''
     }, oBehaviour );
 
-    // b. if we don’t have a name or init
+    // 2. check things
     if (( oBehaviour.name === undefined ) || ( oBehaviour.init === undefined ))
     {
-      throw new TypeError( 'No name or initialiser found for behaviour' );
+      throw new TypeError( 'Trying to register poorly-formed behaviour: failing' );
     }
 
-    // c. if we already know about that behaviour
-    if ( oRegisteredBehaviours[oBehaviour.name] !== undefined )
+    // 3. do we already know about this?
+    if ( oRegisteredBehaviours[ oBehaviour.name ] !== undefined )
     {
-      throw new TypeError( `Duplicate behaviour ‘${oBehaviour.name}’` );
+      throw new TypeError( `Trying to register duplicate behaviour ${oBehaviour.name}` );
     }
 
-    // d. register it + fire up
-    oRegisteredBehaviours[oBehaviour.name] = oBehaviour;
+    // 4. register it + let the world know
+    oRegisteredBehaviours[ oBehaviour.name ] = oBehaviour;
+    fireEvent( document.body, 'behaviourRegistered', { behaviour: oBehaviour.name });
+  }
 
-    document.body.dispatchEvent( new CustomEvent( 'behaviourRegistered', { detail: {
-      behaviour: oBehaviour.name,
-      defaults:  oBehaviour.defaults,
-      namespace: oBehaviour.namespace
-    }}));
-  });
-
-  // 2. if we’re autobinding, do so
-  ( bAutoBind && bindBehaviours() );
-  return true;
+  // map behaviours
+  aoBehaviour.forEach( register );
+  ( bAutoBind && bindAndWatch() );
 }
 
+// expose stuff
 module.exports = {
   init: registerBehaviours,
-  bind: bindBehaviours,
+  bind: bindAndWatch,
+  bindNode,
+  unbindNode
 };

@@ -191,6 +191,8 @@ function Validatable( elForm )
 
     // set novalidate
     elForm.setAttribute('novalidate', true);
+
+    return {};
   }());
 }
 

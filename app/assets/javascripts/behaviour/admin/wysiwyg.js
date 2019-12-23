@@ -141,6 +141,8 @@ function Wysiwyg( elInput, options )
 
     // 2. construct the editor
     createEditor();
+
+    return {};
   }());
 }
 

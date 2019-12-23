@@ -25,8 +25,9 @@ const sassDev = () =>
     .pipe( require( 'gulp-sass-glob' )() )
     .pipe( sass({ outputStyle: 'expanded' }))
     .pipe( postcss([
+      require( 'postcss-logical' )({ dir: 'ltr' }),
+      require( 'postcss-size' ),
       require( 'autoprefixer' ),
-      require( 'postcss-short-border-radius' ),
       require( 'postcss-svg' )({ dirs: OUTPUT }),
       require( 'postcss-custom-properties' ),
       require( 'postcss-critical-css' )({
@@ -34,7 +35,7 @@ const sassDev = () =>
         minify:     false,
         preserve:   false
       }),
-      require( '@lipemat/css-mqpacker' )({ sort: true })
+      require( 'postcss-sort-media-queries' )()
     ]))
     .pipe( dest( OUTPUT ));
 
@@ -49,7 +50,7 @@ const sassBuild = () =>
     .pipe( postcss([
       require( 'cssnano' )({ autoprefixer: false }),
       require( 'postcss-sorting' ),
-      require( '@lipemat/css-mqpacker' )({ sort: true })
+      require( 'postcss-sort-media-queries' )()
     ]))
     .pipe( require( 'gulp-size' )({
       title: 'SASS:',

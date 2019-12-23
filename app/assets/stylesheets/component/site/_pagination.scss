@@ -38,6 +38,8 @@
     background: var(--hint-3);
 
     .dark-mode & { background: var(--hint-2); }
+
+    @media (prefers-color-scheme: dark) { background: var(--hint-2); }
   }
 
   &:hover,

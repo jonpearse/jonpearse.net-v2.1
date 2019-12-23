@@ -204,6 +204,7 @@ function Taggable( elRoot, options )
 
     buildDOM();
 
+    return {};
   }());
 }
 

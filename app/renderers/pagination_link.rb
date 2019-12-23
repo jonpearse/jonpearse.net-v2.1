@@ -82,4 +82,8 @@ protected
 
   end
 
+  def url( page )
+    super( page ).gsub( '%5B', '[' ).gsub( '%5D', ']' )
+  end
+
 end

@@ -89,6 +89,7 @@ function MediaSelector( elRoot, options )
     // 3. bind all instances
     elRoot.querySelectorAll( '[data-media]' ).forEach( bindInstance );
 
+    return {};
   }());
 }
 
