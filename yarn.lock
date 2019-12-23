@@ -669,14 +669,6 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@lipemat/css-mqpacker@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@lipemat/css-mqpacker/-/css-mqpacker-8.0.1.tgz#64f2111150885cd90b6301541bb3acd5a796ce4e"
-  integrity sha512-Ijf1r+WiJHHeHvjZ1J3W3M+S3a0p5JNP7rxjqpRvbxq9MgwGW4QiFK3KGpIeBVfYVltV3t/YsAklFApVYlwkEA==
-  dependencies:
-    minimist "^1.2.0"
-    postcss "^7.0.0"
-
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"
@@ -6437,6 +6429,13 @@ postcss-load-config@^2.0.0:
     cosmiconfig "^5.0.0"
     import-cwd "^2.0.0"
 
+postcss-logical@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-logical/-/postcss-logical-4.0.2.tgz#63f5207bae63f1f646462c26509185c2eae22c72"
+  integrity sha512-tlX1n19np6/JznvyymZM6SIe0FymD5Ngwcg2j825vNKhADu0p1PTgEmsCjakCbvn78kaIFzYTI32NpgOEwgifQ==
+  dependencies:
+    postcss "^7.0.17"
+
 postcss-merge-longhand@^4.0.11:
   version "4.0.11"
   resolved "https://registry.yarnpkg.com/postcss-merge-longhand/-/postcss-merge-longhand-4.0.11.tgz#62f49a13e4a0ee04e7b98f42bb16062ca2549e24"
@@ -6633,6 +6632,21 @@ postcss-short-border-radius@^3.0.0:
   integrity sha512-s4g/NSUFA71+s4fJMUFo/IqcJL1ZdmWSz90GctW/f3msdhetgaU2OuORYQtUB2HGX5BdsvBFai8FBv/D3/lrVQ==
   dependencies:
     postcss "^7.0.5"
+
+postcss-size@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-size/-/postcss-size-3.0.0.tgz#88405e16d5360fc6f94ad9a07666c6a898d48a6d"
+  integrity sha512-keP+C7WOTGJohKzbWrgE2pkkfUOnDTqS72po6iRlFZtkx42OeNb/V71pHWu+Xw5bxhBPbEw9BuH7f0450Qw26g==
+  dependencies:
+    postcss "^7.0.2"
+
+postcss-sort-media-queries@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/postcss-sort-media-queries/-/postcss-sort-media-queries-1.0.15.tgz#67e134fec59a7db3e1a15ce6318e428d68b07f68"
+  integrity sha512-ZgIcWXeZ5VcfiZM2m4RGdAx/T/YABanGsD88SXUmFYYlNODT8W8OqhmcrGL2oiI5yFWpot0CqyZL0hdJ4ht6Hw==
+  dependencies:
+    postcss "^7.0.23"
+    sort-css-media-queries "1.5.0"
 
 postcss-sorting@^5.0.1:
   version "5.0.1"
@@ -7499,6 +7513,11 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
+
+sort-css-media-queries@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/sort-css-media-queries/-/sort-css-media-queries-1.5.0.tgz#8f605ad372caad0b81be010311882c046e738093"
+  integrity sha512-QofNE7CEVH1AKdhS7L9IPbV9UtyQYNXyw++8lC+xG6iOLlpzsmncZRiKbihTAESvZ8wOhwnPoesHbMrehrQyyw==
 
 sort-keys-length@^1.0.0:
   version "1.0.1"
