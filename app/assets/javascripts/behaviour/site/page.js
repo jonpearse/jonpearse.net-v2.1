@@ -6,7 +6,6 @@
 *********************************************************************************************************************/
 
 const ajax = require( 'util/ajax' );
-const rebind = require( 'core/behaviours' ).bind;
 const lazyload = require( 'util/lazyload' );
 const awaitTransition = require( 'util/awaitTransition' );
 
@@ -45,7 +44,6 @@ function Page( elRoot )
       elContent.insertAdjacentHTML( 'afterbegin', oData.content );
 
       // 3. retrigger our behaviours, lazyload, and rebind all links
-      rebind( elContent );
       bindLinks( elContent ); // eslint-disable-line no-use-before-define
       lazyload( elContent );
 
@@ -98,9 +96,9 @@ function Page( elRoot )
 
     // 1. request
     ajax( sRequestUrl, query, method )
-    .then( updateContent )
-    .then(() => ( append && window.history.pushState( {}, elTitle.textContent, url )))
-    .catch( () => document.location.href = url );
+      .then( updateContent )
+      .then(() => ( append && window.history.pushState( {}, elTitle.textContent, url )))
+      .catch( () => document.location.href = url );
 
     // 2. classes
     elContent.classList.add( '-loading' );
@@ -173,6 +171,7 @@ function Page( elRoot )
     window.addEventListener( 'offline', handleConnectionChange );
     handleConnectionChange();
 
+    return {};
   }());
 }
 

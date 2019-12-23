@@ -128,6 +128,7 @@ function ContentSelector( elRoot, options )
     elRoot.classList.add( 'js-bound' )
     elRoot.classList.add( options.multiple ? '-multiple' : '-single' );
 
+    return {};
   }());
 }
 

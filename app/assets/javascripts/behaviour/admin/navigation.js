@@ -50,6 +50,7 @@ function Navigation( elRoot )
     // 3. add some transition flags
     elRoot.classList.add( '-transitions' );
 
+    return {};
   }())
 }
 

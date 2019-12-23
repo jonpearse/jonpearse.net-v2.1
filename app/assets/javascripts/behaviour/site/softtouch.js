@@ -55,5 +55,7 @@ module.exports = {
 
     // dump the item on our list of elements
     aElRoot.push( elRoot );
+
+    return {};
   }
 }

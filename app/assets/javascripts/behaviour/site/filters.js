@@ -62,6 +62,8 @@ function filters( elRoot )
 
     // bind to network events
     document.body.addEventListener( 'connection-change', ev => aElBoxen.forEach( el => el.disabled = !ev.detail.linkState ));
+
+    return {};
   }());
 }
 

@@ -5,11 +5,11 @@
 *********************************************************************************************************************/
 
 /**
-* Wraps one element in another.
-*
-* @param {HTMLElement} el - the element to be wrapped
-* @param {HTMLElement} elWrap - the element with which to wrap it.
-*/
+ * Wraps one element in another.
+ *
+ * @param {HTMLElement} el - the element to be wrapped
+ * @param {HTMLElement} elWrap - the element with which to wrap it.
+ */
 function wrap( el, elWrap )
 {
   // 1. insert the wrapper
@@ -21,13 +21,13 @@ function wrap( el, elWrap )
 }
 
 /**
-* Creates a new element based on the given name and attributes.
-*
-* @param   {string} sElement - the name of the element to create.
-* @param   {object} oAttr    - an object containing attributes to add (optional)
-* @param   {string} sContent - any content to insert (optional)
-* @return  {HTMLElement} the newly-created element.
-*/
+ * Creates a new element based on the given name and attributes.
+ *
+ * @param   {string} sElement - the name of the element to create.
+ * @param   {object} oAttr    - an object containing attributes to add (optional)
+ * @param   {string} sContent - any content to insert (optional)
+ * @return  {HTMLElement} the newly-created element.
+ */
 function create( sElement, oAttr = {}, sContent = null )
 {
   // 1. create the element
@@ -56,10 +56,10 @@ function create( sElement, oAttr = {}, sContent = null )
 }
 
 /**
-* Removes all children from an element.
-*
-* @param {HTMLElement} el - the element to remove
-*/
+ * Removes all children from an element.
+ *
+ * @param {HTMLElement} el - the element to remove
+ */
 function empty( el )
 {
   while (el.firstChild !== null)
@@ -70,15 +70,48 @@ function empty( el )
 
 
 /**
-* Binds multiple event listeners in one go. This is similar to jQuery on(), only in vanilla JS.
-*
-* @param {HTMLElement} el - the element to bind on
-* @param {String} sEvents - a space-separated list of events to bind.
-* @param {callable} fnListener - the listener to bind.
-*/
+ * Binds multiple event listeners in one go. This is similar to jQuery on(), only in vanilla JS.
+ *
+ * @param {HTMLElement} el - the element to bind on
+ * @param {String} sEvents - a space-separated list of events to bind.
+ * @param {callable} fnListener - the listener to bind.
+ */
 function multibind( el, sEvents, fnListener )
 {
   sEvents.trim().split( /\s+/ ).forEach( sEv => el.addEventListener( sEv, fnListener ));
 }
 
-module.exports = { wrap, create, empty, multibind };
+/**
+ * Like querySelectorAll, but also includes the top-level node if it matches the selector.
+ *
+ * @param {HTMLElement} elNode - the element to search from.
+ * @param {String} sSelector - the selector to search for.
+ * @return {Array} an array (not nodelist) of matching elements.
+ */
+function querySelectorAllWithSelf( elNode, sSelector )
+{
+  // 0. sanity check
+  if ( elNode.querySelectorAll === undefined )
+  {
+    return [];
+  }
+
+  // 1. normal query
+  const aElMatches = [].slice.call( elNode.querySelectorAll( sSelector ));
+
+  // 2. push, if we also match
+  if ( elNode.matches( sSelector ))
+  {
+    aElMatches.unshift( elNode );
+  }
+
+  return aElMatches;
+}
+
+module.exports = {
+  wrap,
+  create,
+  empty,
+  multibind ,
+  querySelectorAllWithSelf
+};

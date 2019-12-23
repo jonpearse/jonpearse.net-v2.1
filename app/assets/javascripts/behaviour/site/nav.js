@@ -20,5 +20,7 @@ module.exports = {
 
     // 3. bind to navigation
     document.body.addEventListener( 'navigatedTo', () => elRoot.classList.remove( 'js-open' ));
+
+    return {};
   }
 }

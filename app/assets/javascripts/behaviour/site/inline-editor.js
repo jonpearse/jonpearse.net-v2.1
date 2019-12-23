@@ -16,5 +16,7 @@ module.exports = {
     }
 
     loader().then( module => module.default( elRoot, options ));
+
+    return {};
   }
 };
