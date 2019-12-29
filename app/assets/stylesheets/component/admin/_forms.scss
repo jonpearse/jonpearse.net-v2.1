@@ -100,7 +100,8 @@
     }
 
     &::after {
-      background: url( 'icons-admin#icon-check-phat' ) center center no-repeat/100%;
+      background: transparent none center center no-repeat/100%;
+      background-image: url( 'icons-admin#icon-check-phat' );
       opacity: var(--opacity);
       transition: opacity .25s;
 
