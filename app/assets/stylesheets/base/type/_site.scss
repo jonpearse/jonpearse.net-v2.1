@@ -141,3 +141,12 @@ blockquote {
 
   li { margin: .3em 0; }
 }
+
+/// Expanded DL type
+/// ==========================================================================
+.expanded-dl {
+  dt {
+    margin: 1.5em 0 .5em;
+    font-weight: bold;
+  }
+}

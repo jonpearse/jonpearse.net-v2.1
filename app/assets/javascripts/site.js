@@ -9,7 +9,7 @@ require( 'core/behaviours' ).init([
   require( 'behaviour/site/filters' ),
   require( 'behaviour/site/softtouch' ),
   require( 'behaviour/site/nav' ),
-  require( 'behaviour/site/inline-editor' ),
+  // require( 'behaviour/site/inline-editor' ),
   require( 'behaviour/site/page' ),
   require( 'behaviour/site/dark-mode' )
 ]);
