@@ -27,7 +27,7 @@ module Site::StatsMethods
 
       ua_name = conn.quote( browser.name )
       ua_vers = conn.quote( browser.version )
-      sess_id = request.headers.include?( 'DNT' ) ? 'NULL' : conn.quote( request.session.id.public_id )
+      sess_id = request.headers.include?( 'DNT' ) ? 'NULL' : ( conn.quote( request.session.id.public_id ) rescue 'NULL' )
       req_url = conn.quote( req_url )
       curr_ip = conn.quote( request.ip )
       dark_mode = @dark_mode ? 1 : 0
