@@ -6693,12 +6693,12 @@ postcss-size@^3.0.0:
   dependencies:
     postcss "^7.0.2"
 
-postcss-sort-media-queries@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/postcss-sort-media-queries/-/postcss-sort-media-queries-1.0.15.tgz#67e134fec59a7db3e1a15ce6318e428d68b07f68"
-  integrity sha512-ZgIcWXeZ5VcfiZM2m4RGdAx/T/YABanGsD88SXUmFYYlNODT8W8OqhmcrGL2oiI5yFWpot0CqyZL0hdJ4ht6Hw==
+postcss-sort-media-queries@^1.1.16:
+  version "1.1.16"
+  resolved "https://registry.yarnpkg.com/postcss-sort-media-queries/-/postcss-sort-media-queries-1.1.16.tgz#c98856afc7c4967a2389d925c5928c594c75f4d5"
+  integrity sha512-7ohdjkIBp+NN7hfm63iChvKVBClaMdwSF0lSRJJ5yDSzf//462ybG8fSecYaPum1vW/m/77Yq1j0qeZwLpYrPg==
   dependencies:
-    postcss "^7.0.23"
+    postcss "^7.0.26"
     sort-css-media-queries "1.5.0"
 
 postcss-sorting@^5.0.1:
@@ -6768,7 +6768,7 @@ postcss-values-parser@^3.0.5:
     postcss "^7.0.5"
     url-regex "^5.0.0"
 
-postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.23, postcss@^7.0.25, postcss@^7.0.26, postcss@^7.0.5, postcss@^7.0.6:
+postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.25, postcss@^7.0.26, postcss@^7.0.5, postcss@^7.0.6:
   version "7.0.26"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.26.tgz#5ed615cfcab35ba9bbb82414a4fa88ea10429587"
   integrity sha512-IY4oRjpXWYshuTDFxMVkJDtWIk2LhsTlu8bZnbEJA4+bYT16Lvpo8Qv6EvDumhYRgzjZl489pmsY3qVgJQ08nA==
