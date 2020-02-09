@@ -6698,10 +6698,10 @@ postcss-size@^3.0.0:
   dependencies:
     postcss "^7.0.2"
 
-postcss-sort-media-queries@^1.1.16:
-  version "1.1.16"
-  resolved "https://registry.yarnpkg.com/postcss-sort-media-queries/-/postcss-sort-media-queries-1.1.16.tgz#c98856afc7c4967a2389d925c5928c594c75f4d5"
-  integrity sha512-7ohdjkIBp+NN7hfm63iChvKVBClaMdwSF0lSRJJ5yDSzf//462ybG8fSecYaPum1vW/m/77Yq1j0qeZwLpYrPg==
+postcss-sort-media-queries@^1.1.20:
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/postcss-sort-media-queries/-/postcss-sort-media-queries-1.1.20.tgz#2b51f78956947b093779334f0b861e2915e7c061"
+  integrity sha512-t/zoQm7Nr2xSUATC1aG/bzLFUwnLc5fE8Zd9Yv3flFJX/CnLLYP+K+OhanbfDcfQ6GS9SIPO4/D/Gd509Ba3pw==
   dependencies:
     postcss "^7.0.26"
     sort-css-media-queries "1.5.0"
