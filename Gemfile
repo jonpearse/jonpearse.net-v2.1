@@ -22,7 +22,7 @@ gem 'simple_ar_localizer', '~> 1.0'
 gem 'browser', '~> 3.0.3'
 
 # Use scenic to make stats easier
-gem 'scenic', '~> 1.5.1'
+gem 'scenic', '~> 1.5.2'
 gem 'scenic-mysql', '~> 0.1.0'
 
 # And sidekiq for processing
