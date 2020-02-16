@@ -16,7 +16,7 @@ gem 'rqrcode', '~> 1.1'
 # Other useful gems
 gem 'will_paginate', '~> 3.1'
 gem 'babosa', '~> 1.0'
-gem 'jbuilder', '~> 2.7'
+gem 'jbuilder', '~> 2.10'
 gem 'image_processing', '~> 1.10'
 gem 'simple_ar_localizer', '~> 1.0'
 gem 'browser', '~> 3.0.3'
