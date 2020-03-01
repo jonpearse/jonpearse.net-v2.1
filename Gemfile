@@ -14,7 +14,7 @@ gem 'two_factor_authentication', '~> 2.1'
 gem 'rqrcode', '~> 1.1'
 
 # Other useful gems
-gem 'will_paginate', '~> 3.1'
+gem 'will_paginate', '~> 3.3'
 gem 'babosa', '~> 1.0'
 gem 'jbuilder', '~> 2.10'
 gem 'image_processing', '~> 1.10'
