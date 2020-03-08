@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock "~> 3.12.0"
 
 set :application, "jjp2"
 set :repo_url, "git@github.com:jonpearse/jonpearse.net.git"
@@ -15,6 +15,7 @@ set :passenger_restart_with_touch, true
 
 # rebuild assets before linking the release
 before 'deploy:symlink:release', 'deploy:build_assets'
+before 'deploy:symlink:release', 'deploy:set_release_version'
 
 # configure sidekiq
 # set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
@@ -74,6 +75,19 @@ namespace :deploy do
 
       # and a yarn.lock file (which is tedious, but never mind…)
       execute :touch, "#{shared_path}/yarn.lock"
+
+    end
+
+  end
+
+  desc 'Drops the current release of the codebase into a configuration file'
+  task :set_release_version do
+
+    content = "Rails.application.config.git_release_version = '#{fetch(:branch)}@#{fetch(:current_revision)[0..7]}'"
+
+    on primary( :app ) do
+
+      execute "echo \"#{content}\" > #{release_path}/config/initializers/git_release_version.rb"
 
     end
 

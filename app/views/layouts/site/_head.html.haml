@@ -1,6 +1,8 @@
 %meta{ charset: 'utf-8' }
 = csrf_meta_tags
 %meta{ name: :viewport, content: 'width=device-width,initial-scale=1' }
+- if Rails.application.config.respond_to?( :git_release_version )
+  %meta{ name: :generator, content: "#{Rails.application.class.parent_name.downcase}::#{Rails.application.config.git_release_version}"}
 
 -# Title
 %title= "#{@page_title} :: #{t( 'meta.title' )}"
