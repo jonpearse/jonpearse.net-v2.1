@@ -14,19 +14,19 @@ gem 'two_factor_authentication', '~> 2.1'
 gem 'rqrcode', '~> 1.1'
 
 # Other useful gems
-gem 'will_paginate', '~> 3.1'
+gem 'will_paginate', '~> 3.3'
 gem 'babosa', '~> 1.0'
-gem 'jbuilder', '~> 2.7'
+gem 'jbuilder', '~> 2.10'
 gem 'image_processing', '~> 1.10'
 gem 'simple_ar_localizer', '~> 1.0'
-gem 'browser', '~> 3.0.3'
+gem 'browser', '~> 4.0.0'
 
 # Use scenic to make stats easier
-gem 'scenic', '~> 1.5.1'
+gem 'scenic', '~> 1.5.2'
 gem 'scenic-mysql', '~> 0.1.0'
 
 # And sidekiq for processing
-gem 'sidekiq', '~> 5.2.7'
+gem 'sidekiq', '~> 5.2.8'
 gem 'sidekiq-cron', '~> 1.1.0'
 gem 'sidekiq-failures', '~> 1.0.0'
 
@@ -54,7 +54,7 @@ group :development do
   gem 'awesome_print', '~> 1.8'
 
   # Capistrano is awesome
-  gem 'capistrano', '~> 3.11.2'
+  gem 'capistrano', '~> 3.12.0'
   gem 'capistrano-bundler', '~> 1.6.0'
   gem 'capistrano-rails', '~> 1.4.0'
   gem 'capistrano-rvm', '~> 0.1.2'
