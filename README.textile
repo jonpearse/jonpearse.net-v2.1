@@ -6,6 +6,10 @@ Source code for the previous version of the site (2013–2018) can be found in "
 
 h2. Version History
 
+h3. Apr 5th, 2020
+
+- [FIX] AJAX JS now correctly highlights the right nav item
+
 h3. Dec 23rd, 2019 🎄
 
 - [FIX] project pagination is no longer completely broken in dark mode ( :/ )
