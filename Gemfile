@@ -27,7 +27,7 @@ gem 'scenic-mysql', '~> 0.1.0'
 
 # And sidekiq for processing
 gem 'sidekiq', '~> 5.2.8'
-gem 'sidekiq-cron', '~> 1.1.0'
+gem 'sidekiq-cron', '~> 1.2.0'
 gem 'sidekiq-failures', '~> 1.0.0'
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -54,7 +54,7 @@ group :development do
   gem 'awesome_print', '~> 1.8'
 
   # Capistrano is awesome
-  gem 'capistrano', '~> 3.12.0'
+  gem 'capistrano', '~> 3.12.1'
   gem 'capistrano-bundler', '~> 1.6.0'
   gem 'capistrano-rails', '~> 1.4.0'
   gem 'capistrano-rvm', '~> 0.1.2'
@@ -62,7 +62,7 @@ group :development do
   gem 'capistrano-sidekiq', '~> 1.0.3'
 
   # Also let’s use pry
-  gem 'pry', '~> 0.12.2'
+  gem 'pry', '~> 0.13.0'
 
   # shush!
   gem 'active_storage_silent_logs', '~> 0.1.1'

@@ -50,7 +50,7 @@ function Page( elRoot )
       // 4. update the nav state
       elNav.querySelectorAll( 'a' ).forEach( el =>
       {
-        if (( el.pathname === oData.path ) ||
+        if (( el.pathname === oData.path.replace( /\.jhtml$/, '' ) ) ||
         ( el.hasAttribute( 'data-wildcard' ) && oData.path.startsWith( el.pathname )))
         {
           el.classList.add( '-current' );
