@@ -94,5 +94,41 @@ module Site::RenderingHelper
 
   end
 
+  # Discovers and highlights any code blocks using the Rouge gem
+  #
+  # === Parameters
+  #
+  # [html] _(String, required)_ the HTML to process
+  def highlight_code_blocks( html )
+
+    # load into nokogiri
+    doc = Nokogiri::HTML.fragment( html )
+
+    # process all blocks
+    doc.css( 'pre code' ).each do |block|
+
+      next unless block.attributes.key?( 'data-language' )
+
+      # get information
+      content = block.inner_text
+      language = block.attributes['data-language'].value
+
+      # render it out
+      rendered = render( partial: 'site/base/code-block', locals: {
+        language: language,
+        content: Rouge.highlight( content, language, 'html' ).lines
+      }).strip
+
+      # update the DOM + remove the old PRE tag
+      Nokogiri::HTML.fragment( rendered ).children.each{ |c| block.parent.previous = c }
+      block.parent.remove
+
+    end
+
+    # return
+    # Note: gsub is here otherwise Nokogiri seems want to add newlines where it shouldn’t 🙄
+    doc.to_html.gsub( /(<div class=\"code-block__line\">)\n/, '\1' ).html_safe
+
+  end
 
 end

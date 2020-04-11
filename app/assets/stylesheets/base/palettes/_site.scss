@@ -48,8 +48,10 @@
   --block-accent-link-hv: var(--hilite);
   --block-accent-link-rv: var(--grey-5);
 
-  --code-background: var(--grey-3);
+  --code-background: #222;
   --code-foreground: var(--grey-1);
+  --code-title-bg:   rgba(255, 255, 255, .05);
+  --code-title-bd:   rgba(255, 255, 255, .1);
 
   --loading-bar: var(--hint-1);
 
@@ -68,6 +70,7 @@
   --grey-0:   hsl(210, 11%, 15%);
 
   --smoke-2:  rgba(255, 255, 255, .1);
+  --smoke-3:  rgba(0, 0, 0, .5);
 
   --hint-1:   hsl(360, 74%, 59%);
   --hint-2:   hsl(359, 50%, 35%);
