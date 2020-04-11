@@ -50,14 +50,6 @@ a {
 
 /// Code stuff
 /// ==========================================================================
-pre {
-  margin: 1em 0;
-  padding: dimension(gutter);
-  max-width: calc(100vw - #{3.5 * dimension(gutter)});
-  overflow: auto;
-  background: var(--code-background);
-}
-
 code {
   display: inline-block;
   padding: 0 .2em;
@@ -66,11 +58,4 @@ code {
 
   @include ffm(mono);
   font-weight: normal;
-
-  pre & {
-    color: var(--code-foreground);
-    background: transparent none;
-    font-size: .8em;
-    line-height: 1.5;
-  }
 }
