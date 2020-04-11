@@ -127,9 +127,6 @@
 
     // only show it if we support CSS variables…
     @supports (--css: variables) { display: list-item; }
-
-    // … but hide it if the colour scheme is managed by the OS
-    @media (prefers-color-scheme: dark) { display: none; }
   }
 
   @include mq($until: small) {
