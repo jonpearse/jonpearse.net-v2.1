@@ -6,6 +6,11 @@ Source code for the previous version of the site (2013–2018) can be found in "
 
 h2. Version History
 
+h3. Apr 11th, 2020
+
+- [NEW] added code syntax highlighting via the "Rouge gem":https://github.com/rouge-ruby/rouge
+- [FIX] you can now toggle dark mode when your OS is set to dark mode, as should always have been the case 😳
+
 h3. Apr 5th, 2020
 
 - [FIX] AJAX JS now correctly highlights the right nav item
