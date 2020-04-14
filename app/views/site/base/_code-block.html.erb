@@ -1,0 +1,29 @@
+<%-
+  expansion = nil
+
+  label = case language.downcase
+    when 'js', 'javascript'
+      expansion = 'Javascript'
+      'JS'
+
+    when 'elm'
+      'Elm'
+
+    when 'scss'
+      'SCSS (Sass)'
+
+    else
+      language.upcase
+  end
+%>
+
+<aside class="code-block">
+  <header class="code-block__header">
+    <strong class="code-block__title" title="<%=expansion%>"><%=label%></strong>
+  </header>
+  <code class="code-block__code" data-language="<%=language%>">
+    <%- for line in content -%>
+      <div class="code-block__line"><%= line.gsub( /[\r\n]+/, '' ).html_safe %></div>
+    <%- end %>
+  </code>
+</aside>
