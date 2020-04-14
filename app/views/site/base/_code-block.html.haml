@@ -21,4 +21,4 @@
     %strong.code-block__title{ title: expansion }= label
   %code.code-block__code
     - content.each do |line|
-      .code-block__line= line.gsub( /[\r\n]+/, '' ).html_safe
+      .code-block__line~ line.gsub( /[\r\n]+/, '' ).html_safe
