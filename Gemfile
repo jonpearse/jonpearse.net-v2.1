@@ -63,7 +63,7 @@ group :development do
   gem "capistrano-sidekiq", "~> 1.0.3"
 
   # Also let’s use pry
-  gem "pry", "~> 0.13.0"
+  gem "pry", "~> 0.13.1"
 
   # shush!
   gem "active_storage_silent_logs", "~> 0.1.1"
