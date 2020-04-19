@@ -3949,10 +3949,10 @@ gulp-cli@^2.2.0:
     v8flags "^3.0.1"
     yargs "^7.1.0"
 
-gulp-dart-sass@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gulp-dart-sass/-/gulp-dart-sass-1.0.0.tgz#8408e6cf2863ba3dbbdcda19b4554c8904c9f9ad"
-  integrity sha512-wNufwTCnP26VYQxGRli5p16YSlNtr93kVh0Rwz2xHbsL5MH1T1WhRjne4hh58nJwN+fNAdaKz4vXEM8yU2Suzw==
+gulp-dart-sass@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gulp-dart-sass/-/gulp-dart-sass-1.0.1.tgz#fef34b2373d13609b61a6d52013d2abffde57f8a"
+  integrity sha512-Hsa6cy4N9L3QZGfSabtRl60czLOqm7VngAjS+BNdWpRwCRbc+x8kWT+xEKLq5M2Pq+Or1d4Onr8qGrWJR0CQMA==
   dependencies:
     chalk "^2.3.0"
     lodash.clonedeep "^4.3.2"
