@@ -61,6 +61,8 @@ group :development do
   gem "capistrano-rvm", "~> 0.1.2"
   gem "capistrano-passenger", "~> 0.2.0"
   gem "capistrano-sidekiq", "~> 1.0.3"
+  gem "ed25519", "~> 1.2.4"
+  gem "bcrypt_pbkdf", "~> 1.0.1"
 
   # Also let’s use pry
   gem "pry", "~> 0.13.1"

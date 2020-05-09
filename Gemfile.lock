@@ -52,6 +52,7 @@ GEM
     awesome_print (1.8.0)
     babosa (1.0.3)
     bcrypt (3.1.13)
+    bcrypt_pbkdf (1.0.1)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
@@ -87,6 +88,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    ed25519 (1.2.4)
     encryptor (3.0.0)
     erubi (1.9.0)
     erubis (2.7.0)
@@ -264,6 +266,7 @@ DEPENDENCIES
   active_storage_silent_logs (~> 0.1.1)
   awesome_print (~> 1.8)
   babosa (~> 1.0)
+  bcrypt_pbkdf (~> 1.0.1)
   bootsnap (>= 1.1.0)
   browser (~> 4.0.0)
   capistrano (~> 3.13.0)
@@ -274,6 +277,7 @@ DEPENDENCIES
   capistrano-sidekiq (~> 1.0.3)
   colorize (~> 0.8.1)
   devise (~> 4.5)
+  ed25519 (~> 1.2.4)
   haml-rails (~> 2.0)
   image_processing (~> 1.10)
   jbuilder (~> 2.10)
@@ -301,4 +305,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
