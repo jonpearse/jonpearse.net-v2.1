@@ -4,7 +4,7 @@ namespace :jjp2 do
 
     task load: :environment do
 
-      source = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country-CSV.zip'
+      source = "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=#{Rails.application.credentials.geoip_api_key}&suffix=zip"
 
       # parser
       parser = OptionParser.new do |opts|
