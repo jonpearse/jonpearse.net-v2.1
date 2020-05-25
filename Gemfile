@@ -17,10 +17,10 @@ gem "rqrcode", "~> 1.1"
 gem "will_paginate", "~> 3.3"
 gem "babosa", "~> 1.0"
 gem "jbuilder", "~> 2.10"
-gem "image_processing", "~> 1.10"
+gem "image_processing", "~> 1.11"
 gem "simple_ar_localizer", "~> 1.0"
-gem "browser", "~> 4.0.0"
-gem "rouge", "~> 3.18.0"
+gem "browser", "~> 4.1.0"
+gem "rouge", "~> 3.19.0"
 
 # Use scenic to make stats easier
 gem "scenic", "~> 1.5.2"
@@ -55,12 +55,14 @@ group :development do
   gem "awesome_print", "~> 1.8"
 
   # Capistrano is awesome
-  gem "capistrano", "~> 3.13.0"
+  gem "capistrano", "~> 3.14.0"
   gem "capistrano-bundler", "~> 1.6.0"
-  gem "capistrano-rails", "~> 1.4.0"
+  gem "capistrano-rails", "~> 1.5.0"
   gem "capistrano-rvm", "~> 0.1.2"
   gem "capistrano-passenger", "~> 0.2.0"
   gem "capistrano-sidekiq", "~> 1.0.3"
+  gem "ed25519", "~> 1.2.4"
+  gem "bcrypt_pbkdf", "~> 1.0.1"
 
   # Also let’s use pry
   gem "pry", "~> 0.13.1"
