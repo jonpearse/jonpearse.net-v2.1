@@ -4,13 +4,11 @@ update_configs:
   - package_manager:  javascript
     directory:        /
     update_schedule:  weekly
-    target_branch:    develop
     default_assignees:
       - jonpearse
 
   - package_manager:  ruby:bundler
     directory:        /
     update_schedule:  weekly
-    target_branch:    develop
     default_assignees:
       - jonpearse
