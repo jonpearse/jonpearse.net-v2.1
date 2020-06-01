@@ -260,11 +260,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: rem(10);
+  height: rem(12);
   width: 100%;
   opacity: 0;
 
   background: var(--loading-bar);
+  background: linear-gradient(to bottom, #e40303 16.6666666667%, #ff8c00 16.6666666667%, #ff8c00 33.3333333333%, #ffed00 33.3333333333%, #ffed00 50%, #008026 50%, #008026 66.6666666667%, #004dff 66.6666666667%, #004dff 83.3333333333%, #750787 83.3333333333%);
   z-index: 100;
 
   transform-origin: left center;
