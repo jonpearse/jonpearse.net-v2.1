@@ -17,4 +17,4 @@ server "jonpearse.net", user: :jon, roles: [ :web, :app, :db ]
 set :branch, :main
 set :deploy_to, "/home/jon/sites/jjp21"
 
-set :rvm_ruby_version, '2.6.3'
+set :rvm_ruby_version, '2.7.1'
