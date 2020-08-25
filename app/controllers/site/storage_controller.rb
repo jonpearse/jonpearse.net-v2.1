@@ -12,12 +12,12 @@ class Site::StorageController < Site::BaseController
     @blob = ActiveStorage::Blob::find_by_key( params[:blob_id] )
 
     # boing!
-    expires_in  ActiveStorage::Blob.service.url_expires_in
+    expires_in 1.day.from_now
 
     # if we have a size
     if params.key?( :size )
 
-      redirect_to @blob.representation( combine_options: { resize: "#{params[:size].to_i( 36 )}>", quality: 60, interlace: :Plane }).processed.service_url( disposition: params[:disposition] )
+      redirect_to @blob.variant( resize: "#{params[:size].to_i( 36 )}>", quality: 60, interlace: :Plane ).processed.service_url( disposition: params[:disposition] )
 
     else
 
