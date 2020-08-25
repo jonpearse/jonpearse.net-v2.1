@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.6.3"
 
 # Basic stuff
-gem "rails", "~> 5.2.4"
+gem "rails", "~> 6.0.3"
 gem "mysql2", "~> 0.5.3"
 gem "haml-rails", "~> 2.0"
 
@@ -32,7 +32,7 @@ gem "sidekiq-cron", "~> 1.2.0"
 gem "sidekiq-failures", "~> 1.0.0"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", ">= 1.1.0", require: false
+gem "bootsnap", ">= 1.4.2", require: false
 
 # Stuff used in rake
 gem "colorize", "~> 0.8.1"
