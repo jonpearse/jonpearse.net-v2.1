@@ -1,4 +1,4 @@
-module Admin::CMS::PartialHelper
+module Admin::Cms::PartialHelper
 
   # Finds the CMS partial for the appropriate content type. This allows template inheritence between individual CMS-based
   # controller and CMSController itself.

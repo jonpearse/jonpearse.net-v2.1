@@ -1,4 +1,4 @@
-class Admin::Media::MediaController < Admin::CMSController
+class Admin::Media::MediaController < Admin::CmsController
 
   def initialize
     super

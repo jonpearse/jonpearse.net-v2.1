@@ -1,4 +1,4 @@
-class Admin::Blog::CategoriesController < Admin::CMSController
+class Admin::Blog::CategoriesController < Admin::CmsController
 
   def initialize
     super

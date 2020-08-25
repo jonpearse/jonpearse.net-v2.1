@@ -1,4 +1,4 @@
-class Admin::TasksController < Admin::CMSController
+class Admin::TasksController < Admin::CmsController
 
   def initialize
     super

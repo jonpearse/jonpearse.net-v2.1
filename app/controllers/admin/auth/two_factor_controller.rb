@@ -1,6 +1,6 @@
 class Admin::Auth::TwoFactorController < Admin::BaseController
 
-  helper Admin::QRHelper
+  helper Admin::QrHelper
 
   before_action :check_if_disabled, only: [ :setup,  :enable ]
   before_action :check_if_enabled,  only: [ :cancel, :disable ]

@@ -1,5 +1,5 @@
 # Provides URL functions for use within the CMS controller.
-module Admin::CMS::UrlHelper
+module Admin::Cms::UrlHelper
 
   attr_accessor :routes
 

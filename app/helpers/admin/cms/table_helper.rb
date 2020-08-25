@@ -1,4 +1,4 @@
-module Admin::CMS::TableHelper
+module Admin::Cms::TableHelper
 
   def sortable_header( column, args )
 

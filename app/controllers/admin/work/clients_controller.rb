@@ -1,4 +1,4 @@
-class Admin::Work::ClientsController < Admin::CMSController
+class Admin::Work::ClientsController < Admin::CmsController
 
   def initialize
     super

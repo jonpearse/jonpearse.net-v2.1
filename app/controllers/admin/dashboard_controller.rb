@@ -2,7 +2,7 @@
 class Admin::DashboardController < Admin::BaseController
   include Admin::StatsMethods
 
-  helper Admin::CMS::UrlHelper
+  helper Admin::Cms::UrlHelper
 
   def home
 

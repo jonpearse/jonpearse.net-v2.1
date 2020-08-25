@@ -2,7 +2,7 @@ require 'active_storage/service/disk_service'
 
 module ActiveStorage
 
-  class Service::FauxCDNService < Service::DiskService
+  class Service::FauxCdnService < Service::DiskService
 
     attr_reader :domain
 
