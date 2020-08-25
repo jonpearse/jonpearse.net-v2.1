@@ -20,12 +20,11 @@ Bundler.require(*Rails.groups)
 module Jjp21
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     # Autoload some stuff
     config.autoload_paths += Dir[Rails.root.join( 'app', 'classes', '*.rb' )]
     config.autoload_paths += Dir[Rails.root.join( 'app', 'renderers', '*.rb' )]
-    config.autoload_paths += Dir[Rails.root.join( 'app', 'workers', 'concerns', '*.rb' )]
 
     # Pull in core extensions
     Dir[Rails.root.join( 'app', 'core_ext', '**', '*.rb' )].each{ |f| require f }

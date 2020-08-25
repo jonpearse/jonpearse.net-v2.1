@@ -1,4 +1,4 @@
-module Admin::QRHelper
+module Admin::QrHelper
 
   def generate_svg( rqr_code )
 

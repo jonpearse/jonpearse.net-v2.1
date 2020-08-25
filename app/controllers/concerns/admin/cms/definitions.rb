@@ -1,4 +1,4 @@
-module Admin::CMS::Definitions
+module Admin::Cms::Definitions
   extend ActiveSupport::Concern
 
   # Define some basic field properties

@@ -1,4 +1,4 @@
-module Admin::CMS::FormHelper
+module Admin::Cms::FormHelper
 
   #
   def field_wrapper( assigns, &block )

@@ -1,4 +1,4 @@
-module Admin::CMS::MarkupHelper
+module Admin::Cms::MarkupHelper
 
   def unescape_entities( sUrl )
 

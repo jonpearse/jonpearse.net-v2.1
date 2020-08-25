@@ -1,12 +1,12 @@
 # Root CMS controller. This provides much of the CRUD-y functionality for the administration interface.
-class Admin::CMSController < Admin::BaseController
-  include Admin::CMS::Definitions
+class Admin::CmsController < Admin::BaseController
+  include Admin::Cms::Definitions
 
   # define some callbacks for content extraction
   define_callbacks :content_extract
 
   # include some namespaced helpers
-  helper Admin::CMS::PartialHelper, Admin::CMS::FormHelper, Admin::CMS::UrlHelper, Admin::CMS::TableHelper, Admin::CMS::MarkupHelper
+  helper Admin::Cms::PartialHelper, Admin::Cms::FormHelper, Admin::Cms::UrlHelper, Admin::Cms::TableHelper, Admin::Cms::MarkupHelper
 
   # expose some of ourselves to the view layer
   helper_method :action_allowed?

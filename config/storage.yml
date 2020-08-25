@@ -7,7 +7,7 @@ local:
   root: <%= Rails.root.join( 'storage' ) %>
 
 faux_cdn:
-  service: FauxCDN
+  service: FauxCdn
   root: <%= Rails.root.join( 'storage' ) %>
   domain: <%= Rails.application.config.action_controller.asset_host %>/
 
