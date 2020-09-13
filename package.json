@@ -49,6 +49,6 @@
     "textile-js": "^2.0.5",
     "webpack": "^4.44.1",
     "webpack-stream": "^6.1.0",
-    "yargs": "^15.4.1"
+    "yargs": "^16.0.3"
   }
 }
