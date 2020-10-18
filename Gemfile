@@ -23,7 +23,7 @@ gem "browser", "~> 5.1.0"
 gem "rouge", "~> 3.24.0"
 
 # Use scenic to make stats easier
-gem "scenic", "~> 1.5.2"
+gem "scenic", "~> 1.5.4"
 gem "scenic-mysql", "~> 0.1.0"
 
 # And sidekiq for processing
