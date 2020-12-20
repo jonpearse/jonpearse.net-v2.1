@@ -19,7 +19,7 @@ gem "babosa", "~> 1.0"
 gem "jbuilder", "~> 2.10"
 gem "image_processing", "~> 1.12"
 gem "simple_ar_localizer", "~> 1.0"
-gem "browser", "~> 5.1.0"
+gem "browser", "~> 5.2.0"
 gem "rouge", "~> 3.26.0"
 
 # Use scenic to make stats easier
