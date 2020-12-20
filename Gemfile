@@ -27,7 +27,7 @@ gem "scenic", "~> 1.5.4"
 gem "scenic-mysql", "~> 0.1.0"
 
 # And sidekiq for processing
-gem "sidekiq", "~> 5.2.9"
+gem "sidekiq", "~> 6.1.2"
 gem "sidekiq-cron", "~> 1.2.0"
 gem "sidekiq-failures", "~> 1.0.0"
 
@@ -60,7 +60,7 @@ group :development do
   gem "capistrano-rails", "~> 1.6.1"
   gem "capistrano-rvm", "~> 0.1.2"
   gem "capistrano-passenger", "~> 0.2.0"
-  gem "capistrano-sidekiq", "~> 1.0.3"
+  gem "capistrano-sidekiq", "~> 2.0.0"
   gem "ed25519", "~> 1.2.4"
   gem "bcrypt_pbkdf", "~> 1.0.1"
 
