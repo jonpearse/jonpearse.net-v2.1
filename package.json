@@ -37,7 +37,7 @@
     "gulp-uglify": "^3.0.2",
     "medium-editor": "^5.23.3",
     "merge-options": "^3.0.4",
-    "postcss-critical-css": "^3.0.6",
+    "postcss-critical-css": "^3.0.7",
     "postcss-custom-properties": "^10.0.0",
     "postcss-logical": "^4.0.2",
     "postcss-short-border-radius": "^3.0.0",
