@@ -55,7 +55,6 @@ const WEBPACK_CONF = {
     entrypoints: false,
     chunks: true,
     chunkModules: true,
-    maxModules: 100
   }
 };
 
