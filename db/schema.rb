@@ -2,17 +2,17 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2019_04_12_143025) do
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "articles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "articles", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "masthead_id"
     t.string "title", limit: 64
     t.string "summary", limit: 1024
@@ -47,14 +47,14 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.index ["masthead_id"], name: "index_articles_on_masthead_id"
   end
 
-  create_table "articles_categories", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "articles_categories", id: false, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "article_id"
     t.bigint "category_id"
     t.index ["article_id"], name: "index_articles_categories_on_article_id"
     t.index ["category_id"], name: "index_articles_categories_on_category_id"
   end
 
-  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 64
     t.string "slug", limit: 64
     t.integer "article_count", null: false
@@ -62,21 +62,21 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "clients", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 64
     t.string "uri", limit: 128
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "cronlogs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "cronlogs", charset: "utf8mb4", force: :cascade do |t|
     t.string "task_name", limit: 32
     t.datetime "started"
     t.datetime "finished"
     t.boolean "viewed", default: false
   end
 
-  create_table "media", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "media", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.string "alt_text"
     t.string "caption"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "preview_id"
     t.bigint "client_id"
     t.bigint "article_id"
@@ -107,23 +107,23 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.index ["preview_id"], name: "index_projects_on_preview_id"
   end
 
-  create_table "projects_techs", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.bigint "tech_id", null: false
-    t.index ["project_id"], name: "index_projects_techs_on_project_id"
-    t.index ["tech_id"], name: "index_projects_techs_on_tech_id"
+  create_table "projects_techs", id: false, charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "projects_id"
+    t.bigint "techs_id"
+    t.index ["projects_id"], name: "index_projects_techs_on_projects_id"
+    t.index ["techs_id"], name: "index_projects_techs_on_techs_id"
   end
 
-  create_table "shortcodes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "shortcodes", charset: "utf8mb4", force: :cascade do |t|
     t.string "code", limit: 8, null: false
     t.string "content_type"
     t.bigint "content_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["content_type", "content_id"], name: "index_shortcodes_on_content_type_and_content_id"
+    t.index ["content_type", "content_id"], name: "index_shortcodes_on_content"
   end
 
-  create_table "snippets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "snippets", charset: "utf8mb4", force: :cascade do |t|
     t.string "ident", limit: 32
     t.text "content"
     t.datetime "created_at", null: false
@@ -133,18 +133,18 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
 # Could not dump table "stats_ip_blocks" because of following StandardError
 #   Unknown type 'polygon' for column 'ip_range'
 
-  create_table "stats_pageviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "stats_pageviews", charset: "utf8", force: :cascade do |t|
     t.bigint "session_id"
     t.string "url", limit: 128
     t.string "content_type"
     t.bigint "content_id"
     t.datetime "recorded_at"
-    t.index ["content_type", "content_id"], name: "index_stats_pageviews_on_content_type_and_content_id"
+    t.index ["content_type", "content_id"], name: "index_stats_pageviews_on_content"
     t.index ["session_id"], name: "index_stats_pageviews_on_session_id"
     t.index ["url", "session_id"], name: "index_stats_pageviews_on_url_and_session_id"
   end
 
-  create_table "stats_raw", id: false, options: "ENGINE=Aria DEFAULT CHARSET=utf8 PAGE_CHECKSUM=1", force: :cascade do |t|
+  create_table "stats_raw", id: false, charset: "utf8", options: "ENGINE=Aria PAGE_CHECKSUM=1", force: :cascade do |t|
     t.string "session_id", limit: 32
     t.string "country"
     t.string "browser_name"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.bigint "content_id"
   end
 
-  create_table "stats_sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "stats_sessions", charset: "utf8", force: :cascade do |t|
     t.string "key", limit: 32
     t.string "country", limit: 4
     t.string "ua_name", limit: 64
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.index ["ua_name", "ua_version"], name: "index_stats_sessions_on_ua_name_and_ua_version"
   end
 
-  create_table "techs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "techs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 32
     t.text "icon"
     t.string "slug", limit: 32
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -211,9 +211,11 @@ ActiveRecord::Schema.define(version: 2019_04_12_143025) do
   add_foreign_key "projects", "articles"
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "media", column: "preview_id"
+  add_foreign_key "projects_techs", "projects", column: "projects_id"
+  add_foreign_key "projects_techs", "techs", column: "techs_id"
   add_foreign_key "stats_pageviews", "stats_sessions", column: "session_id"
 
   create_view "stats_deduped_pageviews", sql_definition: <<-SQL
-      select `dev_jjp21`.`stats_pageviews`.`session_id` AS `session_id`,`dev_jjp21`.`stats_pageviews`.`url` AS `url`,`dev_jjp21`.`stats_pageviews`.`content_type` AS `content_type`,`dev_jjp21`.`stats_pageviews`.`content_id` AS `content_id` from `dev_jjp21`.`stats_pageviews` group by concat(`dev_jjp21`.`stats_pageviews`.`session_id`,`dev_jjp21`.`stats_pageviews`.`url`) order by `dev_jjp21`.`stats_pageviews`.`session_id`
+      select `dev_jjp2`.`stats_pageviews`.`session_id` AS `session_id`,`dev_jjp2`.`stats_pageviews`.`url` AS `url`,`dev_jjp2`.`stats_pageviews`.`content_type` AS `content_type`,`dev_jjp2`.`stats_pageviews`.`content_id` AS `content_id` from `dev_jjp2`.`stats_pageviews` group by concat(`dev_jjp2`.`stats_pageviews`.`session_id`,`dev_jjp2`.`stats_pageviews`.`url`) order by `dev_jjp2`.`stats_pageviews`.`session_id`
   SQL
 end

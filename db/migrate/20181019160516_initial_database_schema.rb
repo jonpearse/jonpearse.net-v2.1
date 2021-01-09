@@ -1,6 +1,6 @@
 class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
   def change
-    
+
     #######################
     # Media functionality #
     #######################
@@ -17,7 +17,7 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
     end
 
     create_table :active_storage_attachments do |t|
-      
+
       t.string     :name,     null: false
       t.references :record,   null: false, polymorphic: true, index: false
       t.references :blob,     null: false
@@ -25,9 +25,9 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.datetime :created_at, null: false
 
       t.index [ :record_type, :record_id, :name, :blob_id ], name: "index_active_storage_attachments_uniqueness", unique: true
-      
+
     end
-    
+
     # create the media table
     create_table :media do |t|
 
@@ -41,11 +41,11 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.timestamps
 
     end
-    
+
     ######################
     # Blog functionality #
     ######################
-    
+
     # Articles
     create_table :articles do |t|
 
@@ -72,13 +72,13 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
     end
 
     # Link table
-    create_join_table :articles, :categories do |t|
+    create_table :articles_categories, id: false do |t|
 
       t.belongs_to :article, foreign_key: true
       t.belongs_to :category, foreign_key: true
 
     end
-    
+
     # Clients
     create_table :clients do |t|
 
@@ -88,16 +88,16 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.timestamps
 
     end
-    
+
     ######################
     # Work functionality #
     ######################
 
     # Projects
     create_table :projects do |t|
-      
+
       t.belongs_to  :preview,       foreign_key: { to_table: :media }
-      
+
       t.belongs_to  :client,        foreign_key: true
       t.belongs_to  :article,       foreign_key: true
       t.string      :title,         limit: 64
@@ -127,19 +127,19 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.timestamps
 
     end
-    
+
     # join table
-    create_join_table :projects, :techs do |t|
-      
-      t.index :project_id
-      t.index :tech_id
-      
+    create_table :projects_techs, id: false do |t|
+
+      t.belongs_to :projects, foreign_key: true
+      t.belongs_to :techs, foreign_key: true
+
     end
-    
+
     ############
     # Webstats #
     ############
-    
+
     # Add geoip stuff
     create_table :stats_ip_blocks, id: false, options: 'ENGINE=Aria DEFAULT CHARSET=ascii' do |t|
 
@@ -160,7 +160,7 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.datetime  :recorded_at
 
     end
-    
+
     #######################
     # Miscellaneous other #
     #######################
@@ -171,7 +171,7 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.timestamps
 
     end
-    
+
     create_table :shortcodes do |t|
 
       t.string      :code, limit: 8, null: false, unique: true
@@ -179,7 +179,7 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.timestamps
 
     end
-    
+
     ######################
     # Users              #
     ######################
@@ -207,7 +207,7 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.integer   :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       t.string    :unlock_token # Only if unlock strategy is :email or :both
       t.datetime  :locked_at
-      
+
       # 2FA columns
       t.boolean   :second_factor_enabled,         null: false,  default: false
       t.integer   :second_factor_attempts_count,  null: false,  default: 0
@@ -219,14 +219,14 @@ class InitialDatabaseSchema < ActiveRecord::Migration[5.2]
       t.timestamp :totp_timestamp
 
       t.timestamps null: false
-      
+
     end
 
     add_index :users, :email,                     unique: true
     add_index :users, :reset_password_token,      unique: true
     add_index :users, :unlock_token,              unique: true
     add_index :users, :encrypted_otp_secret_key,  unique: true
-    
+
   end
-  
+
 end
