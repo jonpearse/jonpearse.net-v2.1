@@ -150,3 +150,60 @@ blockquote {
     font-weight: bold;
   }
 }
+
+
+/// Tables, but only within type blocks
+/// ==========================================================================
+.t {
+  table {
+    margin: 1.5em 0;
+    border-collapse: collapse;
+
+    &.-fw { width: 100%; }
+
+    &.-lined {
+      th,
+      td {
+        border: 1px solid var(--grey-2);
+
+        &:first-child { border-left: 0; }
+        &:last-child  { border-right: 0; }
+      }
+
+      // sass-lint:disable no-universal-selectors
+      thead tr:first-child > *,
+      tbody:first-child tr:first-child > * { border-top: 0; }
+
+      tbody:last-child tr:last-child > * { border-bottom: 0; }
+
+      thead + tbody tr:first-child > * { border-top-width: 2px; }
+    }
+
+    &.-striped tbody tr:nth-child(odd) { background: var(--grey-1); }
+
+    &:not(.-lined):not(.-striped) {
+      th,
+      td { padding: .2em .5em; }
+
+      th,
+      td {
+        &:first-child { padding-left: 0; }
+        &:last-child  { padding-right: 0; }
+      }
+
+      thead tr:first-child > *,
+      tbody:first-child tr:first-child > * { padding-top: 0; }
+
+      tbody:last-child tr:last-child > * { padding-bottom: 0; }
+    }
+  }
+
+  td,
+  th {
+    padding: .3em .7em;
+    text-align: left;
+
+    &.-c { text-align: center; }
+    &.-r { text-align: right; }
+  }
+}
