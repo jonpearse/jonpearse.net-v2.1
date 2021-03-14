@@ -52,7 +52,7 @@ group :development do
   gem "spring-watcher-listen", "~> 2.0.0"
 
   # Let’s pull in some prettyprint
-  gem "awesome_print", "~> 1.8"
+  gem "awesome_print", "~> 1.9"
 
   # Capistrano is awesome
   gem "capistrano", "~> 3.15.0"
