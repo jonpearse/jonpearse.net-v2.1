@@ -47,7 +47,7 @@
     "postcss-svg": "^3.0.0",
     "require-dir": "^1.2.0",
     "textile-js": "^2.1.1",
-    "webpack": "^5.19.0",
+    "webpack": "^5.25.0",
     "webpack-stream": "^6.1.2",
     "yargs": "^16.2.0"
   }
