@@ -27,9 +27,9 @@ gem "scenic", "~> 1.5.4"
 gem "scenic-mysql", "~> 0.1.0"
 
 # And sidekiq for processing
-gem "sidekiq", "~> 6.1.3"
-gem "sidekiq-cron", "~> 1.2.0"
-gem "sidekiq-failures", "~> 1.0.0"
+gem "sidekiq", "~> 6.1"
+gem "sidekiq-cron", "~> 1.2"
+gem "sidekiq-failures", "~> 1.0"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
