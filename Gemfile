@@ -65,7 +65,7 @@ group :development do
   gem "bcrypt_pbkdf", "~> 1.1.0"
 
   # Also let’s use pry
-  gem "pry", "~> 0.13.1"
+  gem "pry", "~> 0.14.0"
 
   # shush!
   gem "active_storage_silent_logs", "~> 0.1.1"
