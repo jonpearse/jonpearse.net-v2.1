@@ -27,7 +27,7 @@ gem "scenic", "~> 1.5.4"
 gem "scenic-mysql", "~> 0.1.0"
 
 # And sidekiq for processing
-gem "sidekiq", "~> 6.1"
+gem "sidekiq", "~> 6.2"
 gem "sidekiq-cron", "~> 1.2"
 gem "sidekiq-failures", "~> 1.0"
 
