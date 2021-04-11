@@ -59,7 +59,7 @@ group :development do
   gem "capistrano-bundler", "~> 2.0.1"
   gem "capistrano-rails", "~> 1.6.1"
   gem "capistrano-rvm", "~> 0.1.2"
-  gem "capistrano-passenger", "~> 0.2.0"
+  gem "capistrano-passenger", "~> 0.2.1"
   gem "capistrano-sidekiq", "~> 2.0.0"
   gem "ed25519", "~> 1.2.4"
   gem "bcrypt_pbkdf", "~> 1.1.0"
