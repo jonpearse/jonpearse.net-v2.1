@@ -11,7 +11,7 @@ gem "haml-rails", "~> 2.0"
 # Use devise for user management
 gem "devise", "~> 4.7"
 gem "two_factor_authentication", "~> 2.1"
-gem "rqrcode", "~> 1.2"
+gem "rqrcode", "~> 2.0"
 
 # Other useful gems
 gem "will_paginate", "~> 3.3"
