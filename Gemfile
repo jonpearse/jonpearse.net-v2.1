@@ -9,7 +9,7 @@ gem "mysql2", "~> 0.5.3"
 gem "haml-rails", "~> 2.0"
 
 # Use devise for user management
-gem "devise", "~> 4.7"
+gem "devise", "~> 4.8"
 gem "two_factor_authentication", "~> 2.1"
 gem "rqrcode", "~> 2.0"
 
