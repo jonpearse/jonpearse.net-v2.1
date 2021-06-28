@@ -33,7 +33,7 @@
     "gulp-sass-lint": "^1.4.0",
     "gulp-size": "^4.0.1",
     "gulp-svgmin": "^4.0.0",
-    "gulp-svgstore": "^7.0.1",
+    "gulp-svgstore": "^8.0.0",
     "gulp-uglify": "^3.0.2",
     "medium-editor": "^5.23.3",
     "merge-options": "^3.0.4",
